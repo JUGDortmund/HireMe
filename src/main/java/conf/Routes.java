@@ -16,17 +16,28 @@
 
 package conf;
 
-
+import javax.inject.Inject;
 import ninja.AssetsController;
 import ninja.Router;
 import ninja.application.ApplicationRoutes;
+import ninja.jaxy.JaxyRoutes;
+import ninja.utils.NinjaProperties;
 import controllers.ApplicationController;
 
 public class Routes implements ApplicationRoutes {
 
+	private NinjaProperties ninjaProperties;
+
+	@Inject
+	public Routes(NinjaProperties ninjaProperties) {
+		this.ninjaProperties = ninjaProperties;
+	}
+
     @Override
-    public void init(Router router) {  
-        
+    public void init(Router router) {
+	    JaxyRoutes routes = new JaxyRoutes(ninjaProperties);
+	    routes.init(router);
+
         router.GET().route("/").with(ApplicationController.class, "index");
         router.GET().route("/hello_world.json").with(ApplicationController.class, "helloWorldJson");
         

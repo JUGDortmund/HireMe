@@ -16,6 +16,7 @@
 
 package conf;
 
+import org.mongodb.morphia.Datastore;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 
@@ -24,9 +25,7 @@ public class Module extends AbstractModule {
     
 
     protected void configure() {
-        
-        // bind your injections here!
-        
+	    bind(Datastore.class).toProvider(DatastoreProvider.class);
     }
 
 }
