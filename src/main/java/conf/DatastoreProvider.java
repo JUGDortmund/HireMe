@@ -7,26 +7,28 @@ import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import com.github.fakemongo.Fongo;
 import com.google.inject.Provider;
+import com.google.inject.Singleton;
 import mongodb.MongoDB;
 
+@Singleton
 public class DatastoreProvider implements Provider<Datastore> {
 
 	private static final String MORPHIA_PACKAGE = "ninja.morphia.package";
 	private NinjaProperties properties;
-	private MongoDB mongoDB;
+	private Datastore datastore;
 
 	@Inject
 	public DatastoreProvider(NinjaProperties properties, MongoDB mongoDB) {
 		this.properties = properties;
-		this.mongoDB = mongoDB;
+		if (properties.isProd()) {
+			datastore = mongoDB.getDatastore();
+		} else {
+			datastore = initiateDatestore();
+		}
 	}
 
 	public Datastore get() {
-		if (properties.isProd()) {
-			return mongoDB.getDatastore();
-		} else {
-			return initiateDatestore();
-		}
+		return datastore;
 	}
 
 	private Datastore initiateDatestore() {

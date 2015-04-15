@@ -13,4 +13,11 @@ public class DatastoreProviderTest extends NinjaTest {
 	public void testModeHasUUIDDatabase() throws Exception {
 		assertThat(UUID.fromString(getInjector().getInstance(Datastore.class).getDB().getName())).isNotNull();
 	}
+
+	@Test
+	public void multipleDatastoreResolvingsReturnSameDatastore() throws Exception {
+		final Datastore datastore = getInjector().getInstance(Datastore.class);
+
+		assertThat(datastore).isSameAs(getInjector().getInstance(Datastore.class));
+	}
 }
