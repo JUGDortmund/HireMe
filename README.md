@@ -1,10 +1,10 @@
-# Welcome to **h**ire**M**e
+# Welcome to **h**ire **M**e
 
-## Requirements
+### Requirements
 1. Java8
 2. Maven 3.1.0
 
-## Run
+### Run
 1. Checkout
 2. mvn clean install
 3. mvn ninja:run
