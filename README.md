@@ -20,4 +20,4 @@ we defined the google-styleguide as default code style.
 3. Restart IntelliJ
 4. Enable the google-styleguide by Preferences >  Editor CodeStyle > Scheme : GoogleStyle
 5. Enable auto-code-style by commit by checking Before Commit > Reformat Code in screen 'Commit Changes (cmd+K)'
-![IntelliJ Screen Reformat Code by Commit](/hireme/readme-sources/intellij-reformatcode-commit.png)
+![IntelliJ Screen Reformat Code by Commit](http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/intellij-reformatcode-commit.png?at=dc6ad29c64b5c19e2627c9faa954ae44f4743655&raw)
