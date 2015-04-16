@@ -14,7 +14,7 @@
 To enable a default styleguide for both ide's: Intellij and eclipse,
 we defined the google-styleguide as default code style.
 
-## Installation Guide for IntelliJ
+#### Installation Guide for **IntelliJ**
 1. Download google-styleguide for intellij: https://code.google.com/p/google-styleguide/source/browse/trunk/intellij-java-google-style.xml
 2. Move the intellij-java-google-style.xml to ${User}/Library/Preferences/IntelliJIdea${Version}/
 3. Restart IntelliJ
