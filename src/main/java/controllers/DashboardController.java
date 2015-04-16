@@ -12,6 +12,7 @@ import ninja.jaxy.Path;
 public class DashboardController {
 
   @GET
+  @Path("")
   public Result index() {
     return Results.html();
   }
