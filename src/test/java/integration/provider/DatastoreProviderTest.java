@@ -1,9 +1,10 @@
-package provider;
+package integration.provider;
 
-import java.util.UUID;
 import ninja.NinjaTest;
 import org.junit.Test;
 import org.mongodb.morphia.Datastore;
+
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
