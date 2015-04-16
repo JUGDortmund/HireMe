@@ -21,6 +21,7 @@ import ninja.Router;
 import ninja.application.ApplicationRoutes;
 import ninja.jaxy.JaxyRoutes;
 import ninja.utils.NinjaProperties;
+import controllers.DashboardController;
 
 public class Routes implements ApplicationRoutes {
 
@@ -36,11 +37,13 @@ public class Routes implements ApplicationRoutes {
     JaxyRoutes routes = new JaxyRoutes(ninjaProperties);
     routes.init(router);
 
-    ///////////////////////////////////////////////////////////////////////
+
+    router.GET().route("/").with(DashboardController.class, "index");
+
+    // /////////////////////////////////////////////////////////////////////
     // Assets (pictures / javascript)
-    ///////////////////////////////////////////////////////////////////////
-    router.GET().route("/assets/webjars/{fileName: .*}")
-        .with(AssetsController.class, "serveWebJars");
+    // /////////////////////////////////////////////////////////////////////
+    router.GET().route("/webjars/{fileName: .*}").with(AssetsController.class, "serveWebJars");
     router.GET().route("/assets/{fileName: .*}").with(AssetsController.class, "serveStatic");
   }
 
