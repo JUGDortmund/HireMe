@@ -14,17 +14,17 @@
 
 package conf;
 
-import org.mongodb.morphia.Datastore;
-
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
+
+import org.mongodb.morphia.Datastore;
 
 @Singleton
 public class Module extends AbstractModule {
 
 
-    protected void configure() {
-        bind(Datastore.class).toProvider(DatastoreProvider.class);
-    }
+  protected void configure() {
+    bind(Datastore.class).toProvider(DatastoreProvider.class);
+  }
 
 }

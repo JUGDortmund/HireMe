@@ -11,9 +11,9 @@ import ninja.jaxy.Path;
 @Path("/.*")
 public class DashboardController {
 
-    @GET
-    public Result index() {
-        return Results.html();
-    }
+  @GET
+  public Result index() {
+    return Results.html();
+  }
 
 }

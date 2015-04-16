@@ -24,23 +24,24 @@ import ninja.utils.NinjaProperties;
 
 public class Routes implements ApplicationRoutes {
 
-    private NinjaProperties ninjaProperties;
+  private NinjaProperties ninjaProperties;
 
-    @Inject
-    public Routes(NinjaProperties ninjaProperties) {
-        this.ninjaProperties = ninjaProperties;
-    }
+  @Inject
+  public Routes(NinjaProperties ninjaProperties) {
+    this.ninjaProperties = ninjaProperties;
+  }
 
-    @Override
-    public void init(Router router) {
-        JaxyRoutes routes = new JaxyRoutes(ninjaProperties);
-        routes.init(router);
+  @Override
+  public void init(Router router) {
+    JaxyRoutes routes = new JaxyRoutes(ninjaProperties);
+    routes.init(router);
 
-        ///////////////////////////////////////////////////////////////////////
-        // Assets (pictures / javascript)
-        ///////////////////////////////////////////////////////////////////////    
-        router.GET().route("/assets/webjars/{fileName: .*}").with(AssetsController.class, "serveWebJars");
-        router.GET().route("/assets/{fileName: .*}").with(AssetsController.class, "serveStatic");
-    }
+    ///////////////////////////////////////////////////////////////////////
+    // Assets (pictures / javascript)
+    ///////////////////////////////////////////////////////////////////////
+    router.GET().route("/assets/webjars/{fileName: .*}")
+        .with(AssetsController.class, "serveWebJars");
+    router.GET().route("/assets/{fileName: .*}").with(AssetsController.class, "serveStatic");
+  }
 
 }
