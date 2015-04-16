@@ -16,13 +16,12 @@
 
 package conf;
 
-import controllers.DashboardController;
+import javax.inject.Inject;
+import ninja.AssetsController;
 import ninja.Router;
 import ninja.application.ApplicationRoutes;
 import ninja.jaxy.JaxyRoutes;
 import ninja.utils.NinjaProperties;
-
-import javax.inject.Inject;
 
 public class Routes implements ApplicationRoutes {
 
@@ -41,13 +40,8 @@ public class Routes implements ApplicationRoutes {
         ///////////////////////////////////////////////////////////////////////
         // Assets (pictures / javascript)
         ///////////////////////////////////////////////////////////////////////    
-        /*router.GET().route("/assets/webjars/{fileName: .*}").with(AssetsController.class, "serveWebJars");
-        router.GET().route("/assets/{fileName: .*}").with(AssetsController.class, "serveStatic");*/
-        
-        ///////////////////////////////////////////////////////////////////////
-        // Index / Catchall shows index page
-        ///////////////////////////////////////////////////////////////////////
-        router.GET().route("/.*").with(DashboardController.class, "index");
+        router.GET().route("/assets/webjars/{fileName: .*}").with(AssetsController.class, "serveWebJars");
+        router.GET().route("/assets/{fileName: .*}").with(AssetsController.class, "serveStatic");
     }
 
 }

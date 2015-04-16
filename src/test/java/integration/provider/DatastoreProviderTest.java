@@ -1,4 +1,4 @@
-package test.provider;
+package integration.provider;
 
 import ninja.NinjaTest;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package test.controller;
+package integration.controller;
 
 import ninja.NinjaTest;
 import org.junit.Test;
