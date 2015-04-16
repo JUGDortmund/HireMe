@@ -1,5 +1,7 @@
 # Welcome to **hireMe**
 
+## Quick start
+
 ### Requirements
 1. Java8
 2. Maven 3.3.1
@@ -9,6 +11,13 @@
 2. mvn clean install
 3. mvn ninja:run
 4. visit http://localhost:8080/
+
+## Development-Environment
+
+### Installation of Development environment
+
+#### Installation guide for Eclipse
+1. Download and install *Eclipse IDE for Java EE Developers* from https://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/lunasr2
 
 ### Google-styleguide
 To enable a default styleguide for both ide's: Intellij and eclipse,
