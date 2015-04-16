@@ -1,4 +1,4 @@
-# Welcome to **h**ire **M**e
+# Welcome to **hireMe**
 
 ### Requirements
 1. Java8
