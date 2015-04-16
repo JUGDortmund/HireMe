@@ -15,7 +15,7 @@ public class DashboardControllerTest extends NinjaTest {
     @Test
     public void testDashboardContainsHalloWelt()throws Exception{
         String result = ninjaTestBrowser.makeRequest(getServerAddress() + "/");
-        assertThat(result.contains("Hallo yxyx"));
+        assertThat(result.contains("Hallo Welt"));
     }
 
 }
