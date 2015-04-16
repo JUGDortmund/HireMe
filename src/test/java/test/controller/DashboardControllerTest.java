@@ -1,7 +1,7 @@
 package test.controller;
 
 import ninja.NinjaTest;
-import ninja.jaxy.Test;
+import org.junit.Test;
 import org.junit.Before;
 import static org.assertj.core.api.Assertions.assertThat;
 
