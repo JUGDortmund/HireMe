@@ -16,7 +16,6 @@ package conf;
 
 import javax.inject.Inject;
 
-import controllers.ApplicationController;
 import ninja.AssetsController;
 import ninja.Router;
 import ninja.application.ApplicationRoutes;
@@ -25,32 +24,23 @@ import ninja.utils.NinjaProperties;
 
 public class Routes implements ApplicationRoutes {
 
-  private NinjaProperties ninjaProperties;
+    private NinjaProperties ninjaProperties;
 
-  @Inject
-  public Routes(NinjaProperties ninjaProperties) {
-    this.ninjaProperties = ninjaProperties;
-  }
+    @Inject
+    public Routes(NinjaProperties ninjaProperties) {
+        this.ninjaProperties = ninjaProperties;
+    }
 
-  @Override
-  public void init(Router router) {
-    JaxyRoutes routes = new JaxyRoutes(ninjaProperties);
-    routes.init(router);
+    @Override
+    public void init(Router router) {
+        JaxyRoutes routes = new JaxyRoutes(ninjaProperties);
+        routes.init(router);
 
-    router.GET().route("/").with(ApplicationController.class, "index");
-    router.GET().route("/hello_world.json").with(ApplicationController.class, "helloWorldJson");
-
-    ///////////////////////////////////////////////////////////////////////
-    // Assets (pictures / javascript)
-    ///////////////////////////////////////////////////////////////////////
-    router.GET().route("/assets/webjars/{fileName: .*}")
-        .with(AssetsController.class, "serveWebJars");
-    router.GET().route("/assets/{fileName: .*}").with(AssetsController.class, "serveStatic");
-
-    ///////////////////////////////////////////////////////////////////////
-    // Index / Catchall shows index page
-    ///////////////////////////////////////////////////////////////////////
-    router.GET().route("/.*").with(ApplicationController.class, "index");
-  }
+        ///////////////////////////////////////////////////////////////////////
+        // Assets (pictures / javascript)
+        ///////////////////////////////////////////////////////////////////////    
+        router.GET().route("/assets/webjars/{fileName: .*}").with(AssetsController.class, "serveWebJars");
+        router.GET().route("/assets/{fileName: .*}").with(AssetsController.class, "serveStatic");
+    }
 
 }
