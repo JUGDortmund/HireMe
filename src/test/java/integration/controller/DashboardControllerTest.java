@@ -1,11 +1,10 @@
 package integration.controller;
 
-import org.junit.Before;
-import org.junit.Test;
-
+import static org.assertj.core.api.Assertions.assertThat;
 import ninja.NinjaTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.Before;
+import org.junit.Test;
 
 public class DashboardControllerTest extends NinjaTest {
 
@@ -15,9 +14,9 @@ public class DashboardControllerTest extends NinjaTest {
   }
 
   @Test
-  public void testDashboardContainsHalloWelt() throws Exception {
+  public void testDashboardContainsApplicationName() throws Exception {
     String result = ninjaTestBrowser.makeRequest(getServerAddress() + "/");
-    assertThat(result.contains("Hallo Welt"));
+    assertThat(result.contains("Hire Me"));
   }
 
 }
