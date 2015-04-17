@@ -1,11 +1,10 @@
 package integration.controller;
 
-import org.junit.Before;
-import org.junit.Test;
-
+import static org.assertj.core.api.Assertions.assertThat;
 import ninja.NinjaTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.Before;
+import org.junit.Test;
 
 public class DashboardControllerTest extends NinjaTest {
 
