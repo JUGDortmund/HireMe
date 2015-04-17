@@ -34,7 +34,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <div class="wrapper">
     	  <#include "header.ftl.html"/>
     	  <#include "navigation.ftl.html"/>
-		  <#nested/>
+    	    <!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+		  		<#nested/>
+			</div><!-- /.content-wrapper -->
 		  <#include "footer.ftl.html"/>
     </div><!-- ./wrapper -->
 
