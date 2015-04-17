@@ -8,7 +8,7 @@ import ninja.jaxy.GET;
 import ninja.jaxy.Path;
 
 @Singleton
-@Path("/.*")
+@Path("/")
 public class DashboardController {
 
   @GET

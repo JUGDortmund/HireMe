@@ -39,7 +39,7 @@ public class Routes implements ApplicationRoutes {
     ///////////////////////////////////////////////////////////////////////
     // Assets (pictures / javascript)
     ///////////////////////////////////////////////////////////////////////
-    router.GET().route("/assets/webjars/{fileName: .*}")
+    router.GET().route("webjars/{fileName: .*}")
         .with(AssetsController.class, "serveWebJars");
     router.GET().route("/assets/{fileName: .*}").with(AssetsController.class, "serveStatic");
   }
