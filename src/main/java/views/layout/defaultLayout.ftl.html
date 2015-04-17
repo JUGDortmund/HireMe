@@ -1,11 +1,18 @@
 <#macro hireMeLayout title="hireMe">
 <!DOCTYPE html>
-<html ng-app="" lang="en">
+<html ng-app lang="en">
 <head>
     <meta charset="utf-8">
     <title>${title}</title>
 </head>
 <body>
+
+<#--
+<form>
+    <input type="text" ng-model="search">
+    <p>Du suchst gerade nach: {{search.toUpperCase() + "!"}}</p>
+</form>
+-->
 
 <div class="container">
   <#nested/>
