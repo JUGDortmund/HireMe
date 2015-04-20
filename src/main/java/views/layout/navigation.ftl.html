@@ -1,16 +1,20 @@
-<!-- Left side column. contains the logo and sidebar -->
 <aside class="main-sidebar">
 
-  <!-- sidebar: style can be found in sidebar.less -->
   <section class="sidebar">
+	<form class="sidebar-form" method="get" action="#">
+	    <div class="input-group">
+	      <input type="text" placeholder="Search..." class="form-control" name="q">
+	      <span class="input-group-btn">
+	        <button class="btn btn-flat" id="search-btn" name="search" type="submit"><i class="fa fa-search"></i></button>
+	      </span>
+	    </div>
+    </form>
 
-    <!-- Sidebar Menu -->
     <ul class="sidebar-menu">
-      <!-- Optionally, you can add icons to the links -->
       <li class="active"><a href="#"><span>Dashboard</span></a></li>
       <li><a href="#"><span>eigenes Profil</span></a></li>
       <li><a href="#"><span>alle Profile</span></a></li>
-    </ul><!-- /.sidebar-menu -->
+    </ul>
+
   </section>
-  <!-- /.sidebar -->
 </aside>
