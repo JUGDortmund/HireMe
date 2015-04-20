@@ -3,6 +3,7 @@
     "bower": "latest",
     "grunt": "latest",
     "karma": "latest",
+    "karma-cli": "latest",
     "karma-jasmine": "latest",
     "karma-phantomjs-launcher": "latest",
     "karma-chrome-launcher": "latest",
