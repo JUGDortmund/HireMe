@@ -3,7 +3,7 @@
   <section class="sidebar">
 	<form class="sidebar-form" method="get" action="#">
 	    <div class="input-group">
-	      <input type="text" placeholder="Search..." class="form-control" name="q">
+	      <input type="text" placeholder="${i18n("sidebar.search.placeholder")}" class="form-control" name="q">
 	      <span class="input-group-btn">
 	        <button class="btn btn-flat" id="search-btn" name="search" type="submit"><i class="fa fa-search"></i></button>
 	      </span>
@@ -11,9 +11,9 @@
     </form>
 
     <ul class="sidebar-menu">
-      <li class="active"><a href="#"><span>Dashboard</span></a></li>
-      <li><a href="#"><span>eigenes Profil</span></a></li>
-      <li><a href="#"><span>alle Profile</span></a></li>
+      <li class="active"><a href="#"><span>${i18n("sidebar.navigation.dashboard")}</span></a></li>
+      <li><a href="#"><span>${i18n("sidebar.navigation.profile")}</span></a></li>
+      <li><a href="#"><span>${i18n("sidebar.navigation.searchprofiles")}</span></a></li>
     </ul>
 
   </section>
