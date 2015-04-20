@@ -33,14 +33,15 @@ public class Routes implements ApplicationRoutes {
 
   @Override
   public void init(Router router) {
-    JaxyRoutes routes = new JaxyRoutes(ninjaProperties);
-    routes.init(router);
 
     // /////////////////////////////////////////////////////////////////////
     // Assets (pictures / javascript)
     // /////////////////////////////////////////////////////////////////////
     router.GET().route("/webjars/{fileName: .*}").with(AssetsController.class, "serveWebJars");
     router.GET().route("/assets/{fileName: .*}").with(AssetsController.class, "serveStatic");
+
+    JaxyRoutes routes = new JaxyRoutes(ninjaProperties);
+    routes.init(router);
   }
 
 }

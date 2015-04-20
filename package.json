@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "bower": "latest",
+    "grunt": "latest",
+    "karma": "latest",
+    "karma-jasmine": "latest",
+    "karma-phantomjs-launcher": "latest",
+    "karma-chrome-launcher": "latest",
+    "karma-junit-reporter": "latest"
+  }
+}
