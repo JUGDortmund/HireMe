@@ -9,4 +9,9 @@ angular.module('app', [
                     enabled: true,
                     requireBase: false
                 });
-            });
+            })
+    .controller('NavigationCtrl', function ($scope, $location) {
+                    $scope.isActive = function (route) {
+                        return route === $location.path();
+                    }
+                });
