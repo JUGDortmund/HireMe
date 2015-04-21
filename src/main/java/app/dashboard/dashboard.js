@@ -6,4 +6,11 @@ angular.module('dashboard', [])
             .otherwise({
                 redirectTo: '/dashboard'
             });
-    }]);
+    }])
+    .controller('SearchController', function ($scope, $location) {
+                    $scope.submit = function () {
+                        $location.path('/search').search({q: $scope.search});
+                    }
+                })
+;
+

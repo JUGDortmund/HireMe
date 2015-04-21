@@ -1,1 +1,15 @@
-Dashboard
+<div class="box box-solid" ng-controller="SearchController">
+    <div class="box-body text-center">
+        <form name="searchForm" novalidate role="form">
+            <div class="input-group input-group-lg">
+                <input type="text" name="search" ng-model="search"
+                       placeholder=${i18n('sidebar.search.placeholder')} class="form-control">
+                <span class="input-group-btn">
+                    <button ng-click="submit()" class="btn btn-success btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>

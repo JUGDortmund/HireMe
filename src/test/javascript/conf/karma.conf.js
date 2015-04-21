@@ -10,7 +10,8 @@ module.exports = function (config) {
             'src/test/javascript/**/*.js'
         ],
         exclude: [
-            '**/karma.*.js'
+            '**/karma.*.js',
+            '**/e2e-tests/**'
         ],
         preprocessors: {},
         reporters: ['progress'],
