@@ -1,3 +1,6 @@
+if (typeof exports === 'undefined') {
+    exports = {};
+}
 exports.config = {
     multiCapabilities: [{
         browserName: 'firefox'
