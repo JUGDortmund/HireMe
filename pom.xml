@@ -377,6 +377,7 @@
             </activation>
             <properties>
                 <build.profile.id>dev</build.profile.id>
+                <skip.protractor.tests>true</skip.protractor.tests>
                 <skip.integration.tests>true</skip.integration.tests>
                 <skip.unit.tests>false</skip.unit.tests>
             </properties>
@@ -384,7 +385,6 @@
         <profile>
             <id>integration</id>
             <properties>
-
                 <build.profile.id>integration</build.profile.id>
                 <skip.protractor.tests>true</skip.protractor.tests>
                 <skip.integration.tests>false</skip.integration.tests>
@@ -397,6 +397,7 @@
                 <build.profile.id>protractor</build.profile.id>
                 <skip.protractor.tests>false</skip.protractor.tests>
                 <skip.integration.tests>true</skip.integration.tests>
+                <skip.unit.tests>false</skip.unit.tests>
             </properties>
         </profile>
         <profile>
@@ -405,6 +406,7 @@
                 <build.profile.id>all</build.profile.id>
                 <skip.protractor.tests>false</skip.protractor.tests>
                 <skip.integration.tests>false</skip.integration.tests>
+                <skip.unit.tests>false</skip.unit.tests>
             </properties>
         </profile>
     </profiles>
