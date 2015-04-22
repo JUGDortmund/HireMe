@@ -16,9 +16,9 @@
     "phantomjs": "~1.9.16"
   },
   "scripts": {
-    "preupdate-webdriver": "npm install",
+    "preupdate-webdriver": "node/npm/bin/npm-cli.js install",
     "update-webdriver": "webdriver-manager update",
-    "preprotractor": "npm run update-webdriver",
+    "preprotractor": "node/npm/bin/npm-cli.js run update-webdriver",
     "protractor": "protractor src/test/javascript/conf/protractor.conf.js"
   }
 }
