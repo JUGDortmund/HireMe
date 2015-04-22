@@ -1,5 +1,9 @@
 {
   "name": "hireme",
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@stash.maredit.net:7999/com/hireme.git"
+  },
   "devDependencies": {
     "grunt": "~0.4.5",
     "grunt-cli": "~0.1.13",
