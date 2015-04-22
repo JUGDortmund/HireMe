@@ -12,9 +12,19 @@ exports.config = {
     specs: [
         '../e2e-tests/dashboard.js'
     ],
-    framework: 'jasmine',
+    framework: 'jasmine2',
     jasmineNodeOpts: {
         showColors: true,
         defaultTimeoutInterval: 30000
+    },
+    onPrepare: function () {
+        var jasmineReporters = require('jasmine-reporters');
+        jasmine.getEnv().addReporter(
+            new jasmineReporters.JUnitXmlReporter({
+                    consolidateAll: true,
+                    filePrefix: 'xmloutput',
+                    savePath: 'target/protractor-reports'
+                }
+            ));
     }
 };
