@@ -2,11 +2,11 @@ if (typeof exports === 'undefined') {
     exports = {};
 }
 exports.config = {
-    multiCapabilities: [{
-        browserName: 'firefox'
-    }, {
-        browserName: 'chrome'
-    }],
+    capabilities: {
+        'browserName': 'phantomjs',
+        'phantomjs.binary.path': require('phantomjs').path,
+        'phantomjs.ghostdriver.cli.args': ['--loglevel=DEBUG']
+    },
     baseUrl: 'http://localhost:8080/',
     allScriptsTimeout: 21000,
     specs: [
