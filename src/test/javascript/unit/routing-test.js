@@ -22,7 +22,7 @@ describe('angularJS routing suite', function () {
 
     it('default fallback', function () {
         inject(function ($route) {
-            expect($route.routes[null].redirectTo).toBe('/dashboardfdf');
+            expect($route.routes[null].redirectTo).toBe('/dashboard');
         });
     });
 
