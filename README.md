@@ -12,13 +12,33 @@
 3. mvn ninja:run
 4. visit http://localhost:8080/
 
-### test-concept
-| Profile / TestCase | protractor | integration | unit |
-|-------------------:|:----------:|:-----------:|:----:|
+### Documentation 
+
+#### Test-concept
+
+##### Overview profile `(x)` to testCase `(y)` mapping
+
+  | protractor | integration | unit 
+-------------: | :-------------: | :-------------: | :-------------:
 |                dev |     NO     |      NO     |  YES |
 |        integration |     NO     |     YES     |  YES |
 |         protractor |     YES    |      NO     |  YES |
 |                all |     YES    |     YES     |  YES |
+
+###### Usage
+
+General:
+
+```
+mvn integration-test -P [profile]
+```
+
+Example:
+
+```
+mvn integration-test -P dev
+```
+
 
 ## Development-Environment
 
