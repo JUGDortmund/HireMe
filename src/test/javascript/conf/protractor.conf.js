@@ -10,7 +10,7 @@ exports.config = {
     baseUrl: 'http://localhost:8080/',
     allScriptsTimeout: 21000,
     specs: [
-        '../e2e-tests/dashboard.js'
+        '../e2e-tests/**/*.js'
     ],
     framework: 'jasmine2',
     jasmineNodeOpts: {
