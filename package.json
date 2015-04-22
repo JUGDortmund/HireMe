@@ -14,8 +14,7 @@
     "shelljs": "^0.2.6",
     "protractor": "~2.0.0",
     "chromedriver": "~2.14.1",
-    "phantomjs": "~1.9.16",
-    "jasmine-reporters": "~2.0.5"
+    "phantomjs": "~1.9.16"
   },
   "scripts": {
     "preupdate-webdriver": "node/npm/bin/npm-cli.js install",
