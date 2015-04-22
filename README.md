@@ -12,6 +12,14 @@
 3. mvn ninja:run
 4. visit http://localhost:8080/
 
+### test-concept
+| Profile / TestCase | protractor | integration | unit |
+|-------------------:|:----------:|:-----------:|:----:|
+|                dev |     NO     |      NO     |  YES |
+|        integration |     NO     |     YES     |  YES |
+|         protractor |     YES    |      NO     |  YES |
+|                all |     YES    |     YES     |  YES |
+
 ## Development-Environment
 
 ### Installation of Development environment
