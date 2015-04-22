@@ -69,8 +69,9 @@
                                 <include>**/*</include>
                             </includes>
                             <excludes>
-                                <exclude>**/*.ftl.html</exclude>
+                                <exclude>**/*.html</exclude>
                                 <exclude>assets/**</exclude>
+                                <exclude>app/**</exclude>
                             </excludes>
                         </scanTargetPattern>
                     </scanTargetPatterns>
@@ -114,7 +115,11 @@
                 <artifactId>ninja-maven-plugin</artifactId>
                 <version>${ninja.version}</version>
                 <configuration>
-                    <useDefaultExcludes>true</useDefaultExcludes>
+                    <excludes>
+                        <exclude>**/*.html</exclude>
+                        <exclude>assets/**</exclude>
+                        <exclude>app/**</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
             <plugin>
@@ -324,18 +329,16 @@
         <!-- If you want to deploy to a war please -->
         <!-- comment ninja-standalone dependency and  -->
         <!-- uncomment the dependency for ninja-servlet -->
-        <!--
         <dependency>
             <groupId>org.ninjaframework</groupId>
             <artifactId>ninja-servlet</artifactId>
             <version>${ninja.version}</version>
         </dependency>
-        -->
-        <dependency>
-            <groupId>org.ninjaframework</groupId>
-            <artifactId>ninja-standalone</artifactId>
-            <version>${ninja.version}</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.ninjaframework</groupId>-->
+        <!--<artifactId>ninja-standalone</artifactId>-->
+        <!--<version>${ninja.version}</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.ninjaframework</groupId>
             <artifactId>ninja-jaxy-routes</artifactId>
