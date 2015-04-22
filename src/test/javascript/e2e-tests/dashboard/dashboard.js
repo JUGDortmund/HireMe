@@ -13,6 +13,6 @@ describe('dashboard', function () {
            var searchElement = element(by.model('search'));
            searchElement.sendKeys('blub');
            searchElement.sendKeys(protractor.Key.ENTER);
-           expect(browser.getLocationAbsUrl()).toEqual("/search?q=blub");
+           expect(browser.getLocationAbsUrl()).toEqual("/search?q=blubcv");
        });
 });
