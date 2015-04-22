@@ -216,6 +216,7 @@
                         <exclude>/integration/**</exclude>
                         <exclude>**.js</exclude>
                     </excludes>
+                    <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
             </plugin>
             <plugin>
@@ -228,6 +229,7 @@
                         <include>/doctester/**</include>
                         <include>/integration/**</include>
                     </includes>
+                    <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
                 <executions>
                     <execution>
