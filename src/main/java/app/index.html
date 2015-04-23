@@ -24,6 +24,15 @@
 </head>
 <body class="skin-blue">
 <div class="wrapper">
+    <div class="test">
+        ${renderGitProperties}
+        <#--${git.commit.id.abbrev}
+                ${git.commit.user.name}
+                ${git.branch}
+                ${git.commit.time}
+                ${git.build.time}-->
+    </div>
+
     <div ng-include="'header.tpl.html'"></div>
     <div ng-include="'navigation.tpl.html'"></div>
 
