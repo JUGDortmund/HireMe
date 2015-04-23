@@ -27,7 +27,7 @@ public class RoutingTest extends NinjaDocTester {
             testServerUrl().path("dashboard/dashboard.tpl.html")
         )
     );
-    assertThat(response.payload).contains("<div class=\"box box-solid\" ng-controller=\"SearchControllerXTESTFAILX\">");
+    assertThat(response.payload).contains("<div class=\"box box-solid\" ng-controller=\"SearchController\">");
   }
 
   @Test
