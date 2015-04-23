@@ -3,8 +3,6 @@ package controllers;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import ninja.Result;
 import ninja.Results;
 import ninja.jaxy.GET;
@@ -20,24 +18,10 @@ public class IndexController {
   @Inject
   private PropertyService propertyService;
 
-  @Inject
-  private ObjectMapper objectMapper;
-
   @GET
   @Path("^((?!(\\/api\\/|tpl)).)*$")
   public Result index() {
-    Result result = Results.html();
-
-    result.render("renderGitProperties", Boolean.toString(propertyService.renderGitProperties()));
-    /*result.render("git.commit.id.abbrev", propertyService.getString("git.commit.id.abbrev"));
-    result.render("git.commit.user.name", propertyService.getString("git.commit.user.name"));
-    result.render("git.branch", propertyService.getString("git.branch"));
-    result.render("git.commit.time", propertyService.getString("git.commit.time"));
-    result.render("git.build.time", propertyService.getString("git.build.time"));*/
-
-    result.template("/app/index.html");
-
-    return result;
+    return Results.ok().html().template("/app/index.html").render("gitPropertyDTO", propertyService.getGitPropertyDTO());
   }
 
   @GET

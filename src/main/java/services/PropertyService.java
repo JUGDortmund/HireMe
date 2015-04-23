@@ -5,6 +5,7 @@ import com.google.inject.Singleton;
 
 import org.apache.commons.configuration.PropertiesConfiguration;
 
+import dtos.GitPropertyDTO;
 import ninja.utils.NinjaProperties;
 import ninja.utils.SwissKnife;
 
@@ -17,7 +18,7 @@ public class PropertyService {
   @Inject
   private NinjaProperties ninjaProperties;
 
-  public PropertiesConfiguration getGitProperties() {
+  private PropertiesConfiguration getGitProperties() {
     if (ninjaProperties.isProd()) {
       return null;
     }
@@ -28,11 +29,22 @@ public class PropertyService {
     return !ninjaProperties.isProd();
   }
 
-  public String getString(String key) {
+  private String getString(String key) {
     return getGitProperties().getString(key);
   }
 
-  public boolean getBoolean(String key) {
+  private boolean getBoolean(String key) {
     return getGitProperties().getBoolean(key);
+  }
+
+  public GitPropertyDTO getGitPropertyDTO() {
+    GitPropertyDTO gitPropertyDTO = new GitPropertyDTO();
+    gitPropertyDTO.setAbbrev(getString("git.commit.id.abbrev"));
+    gitPropertyDTO.setBranch(getString("git.branch"));
+    gitPropertyDTO.setBuildTime(getString("git.build.time"));
+    gitPropertyDTO.setCommitTime(getString("git.commit.time"));
+    gitPropertyDTO.setCommitUserName(getString("git.commit.user.name"));
+    gitPropertyDTO.setShowGitProperties(renderGitProperties());
+    return gitPropertyDTO;
   }
 }
