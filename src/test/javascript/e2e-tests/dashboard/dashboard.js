@@ -4,7 +4,7 @@ describe('dashboard', function () {
            browser.get('/dashboard');
            element(by.model('search')).sendKeys('blub');
            element(by.css('.btn-success')).click();
-           expect(browser.getLocationAbsUrl()).toEqual("/search?q=blqb");
+           expect(browser.getLocationAbsUrl()).toEqual("/search?q=blub");
        });
 
     it('redirect to \"/search?q=blub\" if \"blub\" is entered in search-form and \"enter\" is triggered',
