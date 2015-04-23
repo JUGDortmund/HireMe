@@ -100,7 +100,7 @@ we defined the google-styleguide as default code style.
 
 [Karma Homepage](http://karma-runner.github.io)
 
-<img src='http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/phantomjs.png?raw' width='230' height='70' />
+<img src='http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/phantomjs.png-logo?raw' width='230' height='70' />
 
 [PhantomJS Homepage](http://phantomjs.org/)
 
