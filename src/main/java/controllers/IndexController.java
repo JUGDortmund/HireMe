@@ -15,7 +15,7 @@ public class IndexController {
   @GET
   @Path("^((?!(\\/api\\/|tpl)).)*$")
   public Result index() {
-    return Results.ok().html().template("/app/index.html");
+    return Results.ok().html().template("/app/index.html")
   }
 
   @GET
