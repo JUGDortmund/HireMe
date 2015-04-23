@@ -72,45 +72,45 @@ we defined the google-styleguide as default code style.
 
 ### Web framework (Full Stack)
 
-![Ninja Framework](http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/ninja.png =230x70)
+<img src='http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/ninja.png' width='230' height='70' />
 
 [Ninja Framework Homepage](http://www.ninjaframework.org/)
 
 ### Javascript framework
 
-![AngularJS](http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/angularjs.png =70x70)
+<img src='http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/angularjs.png' width='70' height='70' />
 
 [AngularJs Homepage](https://angularjs.org/)
 
 ### Database
 
-![MongoDB](http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/mongodb.png =70x70)
+<img src='http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/mongodb.png' width='70' height='70' />
 
 [MongoDB Homepage](https://www.mongodb.org/)
 
 ### Build-Management-Tool
 
-![Maven](http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/maven.png =230x70)
+<img src='http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/maven.png' width='230' height='70' />
 
 [Maven Homepage](http://maven.apache.org/)
 
 ### Test frameworks
 
-![Karma](http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/karma.png =70x70)
+<img src='http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/karma.png' width='70' height='70' />
 
 [Karma Homepage](http://karma-runner.github.io)
 
-![PhantomJS](http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/karma.png =230x70)
+<img src='http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/phantomjs.png' width='230' height='70' />
 
 [PhantomJS Homepage](http://phantomjs.org/)
 
 #### Framework helpers
 
-![NodeJs](http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/nodejs.png =70x70)
+<img src='http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/nodejs.png' width='70' height='70' />
 
 [NodeJs Homepage](https://nodejs.org/)
 
-![NPM](http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/npm.png =70x70)
+<img src='http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/npm.png' width='70' height='70' />
 
 [npm Homepage](https://www.npmjs.com/)
 
