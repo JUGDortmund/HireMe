@@ -67,3 +67,44 @@ we defined the google-styleguide as default code style.
 3. Enable google-styleguide in Eclipse via Preferences > Java > Code Style : GoogleStyle
 4. Enable auto-code-style on save in Eclipse via Preferences > Java > Editor > Save Actions
 ![Eclipse Screen Reformat Code on save](http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/eclipse-reformatcode-save.png?raw)
+
+## Technology usages
+
+### Web framework (Full Stack)
+
+![Ninja Framework](http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/ninja.png?raw =230x70)
+[Ninja Framework Homepage](http://www.ninjaframework.org/)
+
+### Javascript framework
+
+![AngularJS](http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/angularjs.png?raw =70x70)
+[AngularJs Homepage](https://angularjs.org/)
+
+### Database
+
+![MongoDB](http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/mongodb.png?raw =70x70)
+[MongoDB Homepage](https://www.mongodb.org/)
+
+### Build-Management-Tool
+
+![Maven](http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/maven.png?raw =230x70)
+[Maven Homepage](http://maven.apache.org/)
+
+### Test frameworks
+
+![Karma](http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/karma.png?raw =70x70)
+[Karma Homepage](http://karma-runner.github.io)
+
+![PhantomJS](http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/karma.png?raw =230x70)
+[PhantomJS Homepage](http://phantomjs.org/)
+
+#### Framework helpers
+
+![NodeJs](http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/nodejs.png?raw =70x70)
+[NodeJs Homepage](https://nodejs.org/)
+
+![NPM](http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/npm.png?raw =70x70)
+[npm Homepage](https://www.npmjs.com/)
+
+
+
