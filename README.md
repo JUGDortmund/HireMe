@@ -12,11 +12,11 @@
 3. mvn ninja:run
 4. visit http://localhost:8080/
 
-### Documentation 
+## Testing 
 
-#### Test-concept
+### Test-concept
 
-##### Overview profile `(x)` to testCase `(y)` mapping
+#### Overview profile `(x)` to testCase `(y)` mapping
 
   | protractor | integration | unit 
 -------------: | :-------------: | :-------------: | :-------------:
@@ -25,7 +25,7 @@
 |         protractor |     YES    |      NO     |  YES |
 |                all |     YES    |     YES     |  YES |
 
-###### Usage
+##### Usage
 
 General:
 
