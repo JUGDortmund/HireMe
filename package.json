@@ -1,11 +1,13 @@
 {
   "name": "hireme",
+  "private": "true",
   "devDependencies": {
     "grunt-cli": "~0.1.13",
     "karma": "~0.12.31",
     "karma-cli": "~0.0.4",
     "karma-jasmine": "~0.3.5",
     "karma-phantomjs-launcher": "~0.1.4",
+    "karma-chrome-launcher": "~0.1.8",
     "karma-junit-reporter": "~0.2.2",
     "http-server": "^0.6.1",
     "shelljs": "^0.2.6",
@@ -22,11 +24,13 @@
     "gulp-if": "~1.2.5",
     "gulp-watch": "~4.2.4",
     "gulp-livereload": "~3.8.0"
+    "phantomjs": "~1.9.16",
+    "jasmine-reporters": "~2.0.5"
   },
   "scripts": {
-    "preupdate-webdriver": "npm install",
+    "preupdate-webdriver": "node/npm/bin/npm-cli.js install",
     "update-webdriver": "webdriver-manager update",
-    "preprotractor": "npm run update-webdriver",
+    "preprotractor": "node/npm/bin/npm-cli.js run update-webdriver",
     "protractor": "protractor src/test/javascript/conf/protractor.conf.js"
   }
 }

@@ -12,6 +12,36 @@
 3. mvn ninja:run
 4. visit http://localhost:8080/
 
+
+## Testing 
+
+### Test-concept
+
+#### Overview profile `(x)` to testCase `(y)` mapping
+
+  | protractor | integration | unit 
+-------------: | :-------------: | :-------------: | :-------------:
+|                dev |     NO     |      NO     |  YES |
+|        integration |     NO     |     YES     |  YES |
+|         protractor |     YES    |      NO     |  YES |
+|                all |     YES    |     YES     |  YES |
+
+##### Usage
+
+General:
+
+```
+mvn integration-test -P [profile]
+```
+
+Example:
+
+```
+mvn integration-test -P dev
+```
+
+
+
 ## Development-Environment
 
 ### Installation of Development environment
@@ -39,3 +69,53 @@ we defined the google-styleguide as default code style.
 3. Enable google-styleguide in Eclipse via Preferences > Java > Code Style : GoogleStyle
 4. Enable auto-code-style on save in Eclipse via Preferences > Java > Editor > Save Actions
 ![Eclipse Screen Reformat Code on save](http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/eclipse-reformatcode-save.png?raw)
+
+
+## Technology usages
+
+### Web framework (Full Stack)
+
+<img src='http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/ninja.png?raw' width='230' height='70' />
+
+[Ninja Framework Homepage](http://www.ninjaframework.org/)
+
+### Javascript framework
+
+<img src='http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/angularjs.png?raw' width='70' height='70' />
+
+[AngularJs Homepage](https://angularjs.org/)
+
+### Database
+
+<img src='http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/mongodb.png?raw' width='70' height='70' />
+
+[MongoDB Homepage](https://www.mongodb.org/)
+
+### Build-Management-Tool
+
+<img src='http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/maven.png?raw' width='230' height='70' />
+
+[Maven Homepage](http://maven.apache.org/)
+
+### Test frameworks
+
+<img src='http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/karma.png?raw' width='70' height='70' />
+
+[Karma Homepage](http://karma-runner.github.io)
+
+<img src='http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/phantomjs-logo.png?raw' width='230' height='70' />
+
+[PhantomJS Homepage](http://phantomjs.org/)
+
+#### Framework helpers
+
+<img src='http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/nodejs.png?raw' width='70' height='70' />
+
+[NodeJs Homepage](https://nodejs.org/)
+
+<img src='http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/tech-stickers/npm.png?raw' width='70' height='70' />
+
+[npm Homepage](https://www.npmjs.com/)
+
+
+

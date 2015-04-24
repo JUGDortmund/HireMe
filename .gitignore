@@ -13,3 +13,4 @@ node
 node_modules
 bower_components
 src/main/java/app/dist
+phantomjsdriver.log
