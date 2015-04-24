@@ -30,14 +30,14 @@ gulp.task 'default', [
   'build-css'
 ], ->
             notifier.notify
-              title: 'Production Build'
+              title: 'Finished Resource Generation'
               message: 'Done'
 
 gulp.task 'watch', ->
   gulp.start('default')
   watch 'src/main/java/app/**/*.coffee', ->
     gulp.start 'build-js'
-  watch 'src/main/java/app/**/*.hs', ->
+  watch 'src/main/java/app/**/*.js', ->
     gulp.start 'build-js'
   watch 'src/main/java/assets/css/**/*.css', ->
     gulp.start 'build-css'

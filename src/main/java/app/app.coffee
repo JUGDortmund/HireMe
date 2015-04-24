@@ -8,7 +8,6 @@ angular.module('app', [
     enabled: true
     requireBase: false
 ).controller('NavigationCtrl', ($scope, $location) ->
-
   $scope.isActive = (route) ->
     route == $location.path()
 ).controller 'HeaderCtrl', ($scope) ->
