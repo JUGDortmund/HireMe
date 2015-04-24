@@ -13,3 +13,4 @@ node
 node_modules
 bower_components
 phantomjsdriver.log
+git.properties
