@@ -12,7 +12,7 @@
         </developerConnection>
         <url>http://stash.maredit.net/projects/COM/repos/hireme/browse</url>
       <tag>HEAD</tag>
-  </scm>
+    </scm>
 
     <properties>
         <ninja.version>5.1.0</ninja.version>
