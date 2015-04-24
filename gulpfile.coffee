@@ -9,7 +9,9 @@ coffee = require('gulp-coffee')
 gulpif = require('gulp-if')
 watch = require('gulp-watch')
 livereload = require('gulp-livereload')
+less = require('gulp-less')
 ngmin = require('gulp-ngmin')
+plumber = require('gulp-plumber')
 
 generatedFileWarning = '/* Warning! This is a generated file. Do not modify. Use Gulp task instead */\n'
 distFolder = 'src/main/java/app/dist'
@@ -32,8 +34,14 @@ gulp.task 'default', [
 
 gulp.task 'watch', ->
   gulp.start('default')
-  gulp.watch 'src/main/java/app/**/*.coffee', ['build-js']
-  gulp.watch 'src/main/java/app/**/*.hs', ['build-js']
+  watch 'src/main/java/app/**/*.coffee', ->
+    gulp.start 'build-js'
+  watch 'src/main/java/app/**/*.hs', ->
+    gulp.start 'build-js'
+  watch 'src/main/java/assets/css/**/*.css', ->
+    gulp.start 'build-css'
+  watch 'src/main/java/assets/less/**/*.less', ->
+    gulp.start 'build-css'
   livereload.listen()
   gulp.watch([distFolder]).on 'change', livereload.changed
 
@@ -58,11 +66,18 @@ gulp.task 'build-css', [
   'uglify-css'
 ], ->
 gulp.task 'concat-css', ->
-  gulp.src(['src/main/java/assets/css/**/*.css']).pipe(concat('main.css')).pipe(header(generatedFileWarning)).pipe gulp.dest(distFolder)
-gulp.task 'uglify-css', ->
-  gulp.src(['src/main/java/assets/css/**/*.css'])
-  .pipe(concat('main.min.css'))
+  gulp.src(['src/main/java/assets/css/**/*.css'
+    'src/main/java/assets/less/**/*.less'])
+  .pipe(gulpif(/[.]less$/,less()))
+  .pipe(concat('main.css'))
   .pipe(header(generatedFileWarning))
+  .pipe gulp.dest(distFolder)
+gulp.task 'uglify-css', ->
+  gulp.src(['src/main/java/assets/css/**/*.css'
+    'src/main/java/assets/less/**/*.less'])
+  .pipe(plumber())
+  .pipe(gulpif(/[.]less$/,less()))
+  .pipe(concat('main.min.css'))
   .pipe(uglify())
   .pipe gulp.dest(distFolder)
 

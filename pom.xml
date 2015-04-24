@@ -116,9 +116,9 @@
                 <version>${ninja.version}</version>
                 <configuration>
                     <excludes>
-                        <exclude>**/*.html</exclude>
-                        <exclude>assets/**</exclude>
-                        <exclude>app/**</exclude>
+                        <exclude>.+\\.html</exclude>
+                        <exclude>assets/.+</exclude>
+                        <exclude>app/.+</exclude>
                     </excludes>
                 </configuration>
             </plugin>
