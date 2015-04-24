@@ -6,7 +6,7 @@ module.exports = function (config) {
             'http://localhost:8080/webjars/angularjs/1.3.8/angular.js',
             'http://localhost:8080/webjars/angularjs/1.3.8/angular-mocks.js',
             'http://localhost:8080/webjars/angularjs/1.3.8/angular-route.js',
-            'src/main/java/app/**/*.js',
+            'src/main/java/app/dist/main.js',
             'src/test/javascript/**/*.js'
         ],
         exclude: [

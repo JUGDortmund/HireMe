@@ -28,7 +28,7 @@
     <div ng-include="'navigation.tpl.html'"></div>
 
     <div class="content-wrapper">
-		<div ng-view />
+        <div ng-view/>
     </div>
 </div>
 <!-- ./wrapper -->
@@ -39,11 +39,10 @@
 
 <script src="/webjars/bootstrap/3.3.2/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="/webjars/adminlte/2.0.5/dist/js/app.min.js" type="text/javascript"></script>
-<script src="/app.js"></script>
-
-<!-- custom module based js files -->
-<script src="/dashboard/dashboard.js"></script>
-<script src="/profile/profile.js"></script>
-<script src="/search/search.js"></script>
+<#if isProd>
+    <script src="/dist/main.min.js"></script>
+    <#else>
+        <script src="/dist/main.js"></script>
+</#if>
 </body>
 </html>

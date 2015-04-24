@@ -4,7 +4,7 @@ angular.module('app', [
     'profile',
     'search'
 ])
-    .config(function ($locationProvider) {
+    .config(['$locationProvider'], function ($locationProvider) {
                 $locationProvider.html5Mode({
                     enabled: true,
                     requireBase: false
