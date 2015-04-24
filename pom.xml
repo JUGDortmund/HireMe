@@ -95,14 +95,15 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>${jetty.version}</version>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>maven-jetty-plugin</artifactId>
+                <version>6.1.26</version>
                 <configuration>
                     <stopKey>stop</stopKey>
                     <stopPort>8889</stopPort>
                     <scanIntervalSeconds>1</scanIntervalSeconds>
                     <reload>automatic</reload>
+                    <contextPath>/</contextPath>
                     <scanTargetPatterns>
                         <scanTargetPattern>
                             <directory>target/classes</directory>
@@ -110,8 +111,9 @@
                                 <include>**/*</include>
                             </includes>
                             <excludes>
-                                <exclude>**/*.ftl.html</exclude>
+                                <exclude>**/*.html</exclude>
                                 <exclude>assets/**</exclude>
+                                <exclude>app/**</exclude>
                             </excludes>
                         </scanTargetPattern>
                     </scanTargetPatterns>
@@ -122,6 +124,30 @@
                         </systemProperty>
                     </systemProperties>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>start-jetty</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${skip.protractor.tests}</skip>
+                            <scanIntervalSeconds>0</scanIntervalSeconds>
+                            <daemon>true</daemon>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>stop-jetty</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${skip.protractor.tests}</skip>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <!-- Allows you to run Ninja via the SuperDevMode. -->
             <!-- run "mvn ninja:run" on the command line for the best -->
@@ -131,7 +157,11 @@
                 <artifactId>ninja-maven-plugin</artifactId>
                 <version>${ninja.version}</version>
                 <configuration>
-                    <useDefaultExcludes>true</useDefaultExcludes>
+                    <excludes>
+                        <exclude>**/*.html</exclude>
+                        <exclude>assets/**</exclude>
+                        <exclude>app/**</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
             <plugin>
@@ -178,6 +208,19 @@
                         </goals>
                     </execution>
                     <execution>
+                        <id>npm update webdriver</id>
+                        <phase>
+                            integration-test
+                        </phase>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>run protractor</arguments>
+                            <skip>${skip.protractor.tests}</skip>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>javascript tests</id>
                         <goals>
                             <goal>karma</goal>
@@ -201,6 +244,44 @@
                         <configuration>
                             <includes>**/*.js</includes>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.18.1</version>
+                <configuration>
+                    <skip>${skip.unit.tests}</skip>
+                    <forkCount>3</forkCount>
+                    <reuseForks>true</reuseForks>
+                    <includes>
+                        <include>/unit/**.java</include>
+                    </includes>
+                    <excludes>
+                        <exclude>/doctester/**</exclude>
+                        <exclude>/integration/**</exclude>
+                        <exclude>**.js</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.18.1</version>
+                <configuration>
+                    <skip>${skip.integration.tests}</skip>
+                    <includes>
+                        <include>/doctester/**</include>
+                        <include>/integration/**</include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>verify</goal>
+                            <goal>integration-test</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
@@ -290,18 +371,16 @@
         <!-- If you want to deploy to a war please -->
         <!-- comment ninja-standalone dependency and  -->
         <!-- uncomment the dependency for ninja-servlet -->
-        <!--
         <dependency>
             <groupId>org.ninjaframework</groupId>
             <artifactId>ninja-servlet</artifactId>
             <version>${ninja.version}</version>
         </dependency>
-        -->
-        <dependency>
-            <groupId>org.ninjaframework</groupId>
-            <artifactId>ninja-standalone</artifactId>
-            <version>${ninja.version}</version>
-        </dependency>
+        <!--<dependency>-->
+        <!--<groupId>org.ninjaframework</groupId>-->
+        <!--<artifactId>ninja-standalone</artifactId>-->
+        <!--<version>${ninja.version}</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.ninjaframework</groupId>
             <artifactId>ninja-jaxy-routes</artifactId>
@@ -311,6 +390,11 @@
             <groupId>de.svenkubiak</groupId>
             <artifactId>ninja-mongodb-module</artifactId>
             <version>1.5.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jsp-2.1</artifactId>
+            <version>6.0.0</version>
         </dependency>
         <dependency>
             <groupId>org.ninjaframework</groupId>
@@ -330,4 +414,45 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <build.profile.id>dev</build.profile.id>
+                <skip.protractor.tests>true</skip.protractor.tests>
+                <skip.integration.tests>true</skip.integration.tests>
+                <skip.unit.tests>false</skip.unit.tests>
+            </properties>
+        </profile>
+        <profile>
+            <id>integration</id>
+            <properties>
+                <build.profile.id>integration</build.profile.id>
+                <skip.protractor.tests>true</skip.protractor.tests>
+                <skip.integration.tests>false</skip.integration.tests>
+                <skip.unit.tests>false</skip.unit.tests>
+            </properties>
+        </profile>
+        <profile>
+            <id>protractor</id>
+            <properties>
+                <build.profile.id>protractor</build.profile.id>
+                <skip.protractor.tests>false</skip.protractor.tests>
+                <skip.integration.tests>true</skip.integration.tests>
+                <skip.unit.tests>false</skip.unit.tests>
+            </properties>
+        </profile>
+        <profile>
+            <id>all</id>
+            <properties>
+                <build.profile.id>all</build.profile.id>
+                <skip.protractor.tests>false</skip.protractor.tests>
+                <skip.integration.tests>false</skip.integration.tests>
+                <skip.unit.tests>false</skip.unit.tests>
+            </properties>
+        </profile>
+    </profiles>
 </project>
