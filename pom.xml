@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>hireme</artifactId>
     <packaging>war</packaging>
     <groupId>de.maredit</groupId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1</version>
     <scm>
         <connection>scm:git:ssh://git@stash.maredit.net:7999/com/hireme.git</connection>
         <developerConnection>scm:git:ssh://git@stash.maredit.net:7999/com/hireme.git
         </developerConnection>
         <url>http://stash.maredit.net/projects/COM/repos/hireme/browse</url>
-    </scm>
+      <tag>hireme-0.1</tag>
+  </scm>
 
     <properties>
         <ninja.version>5.1.0</ninja.version>
