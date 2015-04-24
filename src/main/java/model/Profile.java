@@ -14,6 +14,10 @@ public class Profile {
   private String lastname;
   private String careerStage;
 
+  public Profile() {
+    firstname = "Klaus";
+  }
+
   public String getFirstname() {
     return firstname;
   }
