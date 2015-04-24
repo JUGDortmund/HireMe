@@ -155,7 +155,7 @@
                             <goal>install-node-and-npm</goal>
                         </goals>
                         <configuration>
-                            <nodeVersion>v0.10.18</nodeVersion>
+                            <nodeVersion>v0.12.2</nodeVersion>
                             <npmVersion>1.3.8</npmVersion>
                         </configuration>
                     </execution>
@@ -204,6 +204,40 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.cargo</groupId>
+                <artifactId>cargo-maven2-plugin</artifactId>
+                <version>1.4.13</version>
+                <configuration>
+                    <container>
+                        <containerId>jetty9x</containerId>
+                        <type>remote</type>
+                    </container>
+
+                    <configuration>
+                        <type>runtime</type>
+                        <properties>
+                            <cargo.hostname>${cargo.hostname}</cargo.hostname>
+                            <cargo.servlet.port>8080</cargo.servlet.port>
+                        </properties>
+                    </configuration>
+
+                    <deployer>
+                        <type>remote</type>
+                    </deployer>
+
+                    <deployables>
+                        <deployable>
+                            <groupId>de.maredit</groupId>
+                            <artifactId>hireme</artifactId>
+                            <type>war</type>
+                            <properties>
+                                <context>/</context>
+                            </properties>
+                        </deployable>
+                    </deployables>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -412,5 +446,17 @@
                 <skip.unit.tests>false</skip.unit.tests>
             </properties>
         </profile>
-    </profiles>
+    <profile>
+        <id>build</id>
+        <properties>
+            <cargo.hostname>hireme-build.maredit.net</cargo.hostname>
+        </properties>
+    </profile>
+    <profile>
+        <id>prod</id>
+        <properties>
+            <cargo.hostname>hireme-prod.maredit.net</cargo.hostname>
+        </properties>
+    </profile>
+</profiles>
 </project>
