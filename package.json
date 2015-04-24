@@ -28,7 +28,8 @@
     "jasmine-reporters": "~2.0.5",
     "gulp-less": "~3.0.3",
     "gulp-ngmin": "~0.3.0",
-    "gulp-plumber": "~1.0.0"
+    "gulp-plumber": "~1.0.0",
+    "gulp-uglifycss": "~1.0.4"
   },
   "scripts": {
     "preupdate-webdriver": "node/npm/bin/npm-cli.js install",

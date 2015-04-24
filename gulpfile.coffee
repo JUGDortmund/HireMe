@@ -12,6 +12,7 @@ livereload = require('gulp-livereload')
 less = require('gulp-less')
 ngmin = require('gulp-ngmin')
 plumber = require('gulp-plumber')
+uglifycss = require('gulp-uglifycss')
 
 generatedFileWarning = '/* Warning! This is a generated file. Do not modify. Use Gulp task instead */\n'
 distFolder = 'src/main/java/app/dist'
@@ -78,6 +79,6 @@ gulp.task 'uglify-css', ->
   .pipe(plumber())
   .pipe(gulpif(/[.]less$/,less()))
   .pipe(concat('main.min.css'))
-  .pipe(uglify())
+  .pipe(uglifycss())
   .pipe gulp.dest(distFolder)
 
