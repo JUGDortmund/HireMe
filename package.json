@@ -25,7 +25,9 @@
     "gulp-watch": "~4.2.4",
     "gulp-livereload": "~3.8.0",
     "phantomjs": "~1.9.16",
-    "jasmine-reporters": "~2.0.5"
+    "jasmine-reporters": "~2.0.5",
+    "gulp-less": "~3.0.3",
+    "gulp-ngmin": "~0.3.0"
   },
   "scripts": {
     "preupdate-webdriver": "node/npm/bin/npm-cli.js install",
