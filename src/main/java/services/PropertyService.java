@@ -46,7 +46,7 @@ public class PropertyService {
     return gitPropertyDTO;
   }
 
-  private boolean renderGitProperties() {
+  public boolean renderGitProperties() {
     return !ninjaProperties.isProd();
   }
 

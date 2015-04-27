@@ -8,8 +8,8 @@ import ninja.Results;
 import ninja.jaxy.GET;
 import ninja.jaxy.Path;
 import ninja.params.PathParam;
-import services.PropertyService;
 import ninja.utils.NinjaProperties;
+import services.PropertyService;
 
 @Singleton
 @Path("")
@@ -24,10 +24,10 @@ public class IndexController {
   @GET
   @Path("^((?!(\\/api\\/|tpl)).)*$")
   public Result index() {
-    return Results.ok().html().template("/app/index.html").render("isProd", isProd());
+    return Results.ok().html().template("/app/index.html").render("showMinifiedVersion", showMinifiedVersion());
   }
 
-  private boolean isProd() {
+  private boolean showMinifiedVersion() {
     return !(ninjaProperties.isTest() || ninjaProperties.isDev());
   }
 
