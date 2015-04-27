@@ -125,7 +125,7 @@
                                 <include>**/*</include>
                             </includes>
                             <excludes>
-                                <exclude>**/*.html</exclude>
+                                <exclude>*/*.html</exclude>
                                 <exclude>assets/**</exclude>
                                 <exclude>app/**</exclude>
                             </excludes>
@@ -172,9 +172,10 @@
                 <version>${ninja.version}</version>
                 <configuration>
                     <excludes>
-                        <exclude>**/*.html</exclude>
-                        <exclude>assets/**</exclude>
-                        <exclude>app/**</exclude>
+                        <exclude>.+\\.html</exclude>
+                        <exclude>assets/.+</exclude>
+                        <exclude>dist/.+</exclude>
+                        <exclude>app/.+</exclude>
                     </excludes>
                 </configuration>
             </plugin>
@@ -242,6 +243,12 @@
                         <configuration>
                             <karmaConfPath>src/test/javascript/conf/karma.ci.conf.js</karmaConfPath>
                         </configuration>
+                    </execution>
+                    <execution>
+                        <id>gulp build</id>
+                        <goals>
+                            <goal>gulp</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>

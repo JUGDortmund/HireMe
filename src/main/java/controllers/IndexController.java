@@ -9,7 +9,7 @@ import ninja.jaxy.GET;
 import ninja.jaxy.Path;
 import ninja.params.PathParam;
 import services.PropertyService;
-
+import ninja.utils.NinjaProperties;
 
 @Singleton
 @Path("")
@@ -18,10 +18,17 @@ public class IndexController {
   @Inject
   private PropertyService propertyService;
 
+  @Inject
+  private NinjaProperties ninjaProperties;
+
   @GET
   @Path("^((?!(\\/api\\/|tpl)).)*$")
   public Result index() {
-    return Results.ok().html().template("/app/index.html").render("gitPropertyDTO", propertyService.getGitPropertyDTO());
+    return Results.ok().html().template("/app/index.html").render("isProd", isProd());
+  }
+
+  private boolean isProd() {
+    return !(ninjaProperties.isTest() || ninjaProperties.isDev());
   }
 
   @GET
