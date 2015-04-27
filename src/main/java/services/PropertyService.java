@@ -12,39 +12,52 @@ import ninja.utils.SwissKnife;
 @Singleton
 public class PropertyService {
 
+  private static final String GIT_PROPERTY_ABBREV = "git.commit.id.abbrev";
+  private static final String GIT_PROPERTY_BRANCH = "git.branch";
+  private static final String GIT_PROPERY_BUILD_TIME = "git.build.time";
+  private static final String GIT_PROPERTY_COMMIT_TIME = "git.commit.time";
+  private static final String GIT_PROPERTY_COMMIT_USER = "git.commit.user.name";
+
   @Inject
   private SwissKnife swissKnife;
 
   @Inject
   private NinjaProperties ninjaProperties;
 
+  private GitPropertyDTO gitPropertyDTO;
+
+  public GitPropertyDTO getGitPropertyDTO() {
+    if (gitPropertyDTO == null) {
+      gitPropertyDTO = createGitPropertyDTO();
+    }
+    return gitPropertyDTO;
+  }
+
+  private GitPropertyDTO createGitPropertyDTO() {
+    GitPropertyDTO gitPropertyDTO = new GitPropertyDTO();
+    gitPropertyDTO.setShowGitProperties(renderGitProperties());
+    if (gitPropertyDTO.isShowGitProperties()) {
+      gitPropertyDTO.setAbbrev(getString(GIT_PROPERTY_ABBREV));
+      gitPropertyDTO.setBranch(getString(GIT_PROPERTY_BRANCH));
+      gitPropertyDTO.setBuildTime(getString(GIT_PROPERY_BUILD_TIME));
+      gitPropertyDTO.setCommitTime(getString(GIT_PROPERTY_COMMIT_TIME));
+      gitPropertyDTO.setCommitUserName(getString(GIT_PROPERTY_COMMIT_USER));
+    }
+    return gitPropertyDTO;
+  }
+
+  private boolean renderGitProperties() {
+    return !ninjaProperties.isProd();
+  }
+
+  private String getString(String key) {
+    return getGitProperties() != null ? getGitProperties().getString(key): null;
+  }
+
   private PropertiesConfiguration getGitProperties() {
     if (ninjaProperties.isProd()) {
       return null;
     }
     return swissKnife.loadConfigurationInUtf8("conf/git.properties");
-  }
-
-  public boolean renderGitProperties() {
-    return !ninjaProperties.isProd();
-  }
-
-  private String getString(String key) {
-    return getGitProperties().getString(key);
-  }
-
-  private boolean getBoolean(String key) {
-    return getGitProperties().getBoolean(key);
-  }
-
-  public GitPropertyDTO getGitPropertyDTO() {
-    GitPropertyDTO gitPropertyDTO = new GitPropertyDTO();
-    gitPropertyDTO.setAbbrev(getString("git.commit.id.abbrev"));
-    gitPropertyDTO.setBranch(getString("git.branch"));
-    gitPropertyDTO.setBuildTime(getString("git.build.time"));
-    gitPropertyDTO.setCommitTime(getString("git.commit.time"));
-    gitPropertyDTO.setCommitUserName(getString("git.commit.user.name"));
-    gitPropertyDTO.setShowGitProperties(renderGitProperties());
-    return gitPropertyDTO;
   }
 }

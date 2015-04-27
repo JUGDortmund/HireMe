@@ -18,7 +18,8 @@ public class GitPropertyDTO {
     return showGitProperties;
   }
 
-  public void setShowGitProperties(boolean showGitProperties) {
+  public void setShowGitProperties(
+      boolean showGitProperties) {
     this.showGitProperties = showGitProperties;
   }
 

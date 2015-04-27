@@ -31,6 +31,12 @@ public class IndexController {
   }
 
   @GET
+  @Path("/api/getGitProperties")
+  public Result gitPropertyDTO() {
+    return Results.ok().json().render("gitPropertyDTO", propertyService.getGitPropertyDTO());
+  }
+
+  @GET
   @Path("{file: .*}.js")
   public Result customJavascriptModuleFiles(@PathParam("file") String fileName) {
     return Results.ok().html().template("/app" + fileName + ".js");
