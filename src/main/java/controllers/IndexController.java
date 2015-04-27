@@ -34,9 +34,10 @@ public class IndexController {
   }
 
   @GET
-  @Path("{file: .*}.js")
+  @Path("/dist/{file: .*}")
   public Result customJavascriptModuleFiles(@PathParam("file") String fileName) {
-    return Results.ok().html().template("/app" + fileName + ".js");
+    System.out.println(fileName);
+    return Results.ok().html().template("/app/dist/" + fileName);
   }
 
 
