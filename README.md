@@ -13,35 +13,6 @@
 4. visit http://localhost:8080/
 
 
-## Testing 
-
-### Test-concept
-
-#### Overview profile `(x)` to testCase `(y)` mapping
-
-  | protractor | integration | unit 
--------------: | :-------------: | :-------------: | :-------------:
-|                dev |     NO     |      NO     |  YES |
-|        integration |     NO     |     YES     |  YES |
-|         protractor |     YES    |      NO     |  YES |
-|                all |     YES    |     YES     |  YES |
-
-##### Usage
-
-General:
-
-```
-mvn integration-test -P [profile]
-```
-
-Example:
-
-```
-mvn integration-test -P dev
-```
-
-
-
 ## Development-Environment
 
 ### Installation of Development environment
@@ -69,6 +40,45 @@ we defined the google-styleguide as default code style.
 3. Enable google-styleguide in Eclipse via Preferences > Java > Code Style : GoogleStyle
 4. Enable auto-code-style on save in Eclipse via Preferences > Java > Editor > Save Actions
 ![Eclipse Screen Reformat Code on save](http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/eclipse-reformatcode-save.png?raw)
+
+
+## Testing 
+
+### Test-concept
+
+#### Overview profile `(x)` to testCase `(y)` mapping
+
+  | protractor | integration | unit 
+-------------: | :-------------: | :-------------: | :-------------:
+|                dev |     NO     |      NO     |  YES |
+|        integration |     NO     |     YES     |  YES |
+|         protractor |     YES    |      NO     |  YES |
+|                all |     YES    |     YES     |  YES |
+
+##### Usage
+
+General:
+
+```
+mvn integration-test -P [profile]
+```
+
+Example:
+
+```
+mvn integration-test -P dev
+```
+
+## Building and deploying a release
+
+### Create and tag a release
+1. create a release branch (e.g. hireme-0.1) from the develop branch
+2. mvn clean install
+3. verify all tests pass
+4. mvn release:prepare (set scm release version (e.g. 0.1), new delevopment version (e.g. 0.2-SNAPSHOT) and tag name (e.g. hireme-0.1))
+5. mvn release:perform
+6. merge release branch to develop branch and push changes
+7. merge release branch to master branch and push changes
 
 
 ## Technology usages
