@@ -4,4 +4,7 @@ angular.module('dashboard', []).config(['$routeProvider',
     .otherwise redirectTo: '/dashboard'
 ]).controller 'SearchController',['$scope', '$location', ($scope, $location) ->
     $scope.submit = -> $location.path('/search').search q: $scope.search
+    $scope.init = ->
+    	$('[autofocus]:first').focus()
+    	return false
   ]
