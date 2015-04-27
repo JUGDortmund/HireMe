@@ -1,5 +1,7 @@
 # Welcome to **hireMe**
 
+******************************************************
+
 ## Quick start
 
 ### Requirements
@@ -12,6 +14,7 @@
 3. mvn ninja:run
 4. visit http://localhost:8080/
 
+******************************************************
 
 ## Development-Environment
 
@@ -42,6 +45,11 @@ we defined the google-styleguide as default code style.
 ![Eclipse Screen Reformat Code on save](http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/eclipse-reformatcode-save.png?raw)
 
 
+### Start gulp watcher
+1. In project root directory execute: `./gulp-watcher` to automatically build all asset files (js, coffee, css, less)
+
+******************************************************
+
 ## Testing 
 
 ### Test-concept
@@ -69,17 +77,29 @@ Example:
 mvn integration-test -P dev
 ```
 
+******************************************************
+
 ## Building and deploying a release
 
 ### Create and tag a release
-1. create a release branch (e.g. hireme-0.1) from the develop branch
-2. mvn clean install
+1. create a release branch (e.g. *hireme-0.1*) from develop branch
+2. `mvn clean install`
 3. verify all tests pass
-4. mvn release:prepare (set scm release version (e.g. 0.1), new delevopment version (e.g. 0.2-SNAPSHOT) and tag name (e.g. hireme-0.1))
-5. mvn release:perform
-6. merge release branch to develop branch and push changes
-7. merge release branch to master branch and push changes
+4. `mvn release:prepare` (set **scm release version** (e.g. *0.1*), **new delevopment version** (e.g. *0.2-SNAPSHOT*) and **tag name** (e.g. *hireme-0.1*))
+5. `mvn release:perform`
+6. merge *release* branch to *develop* branch and push changes
+7. merge *release* branch to *master* branch and push changes
 
+### Deploy a release
+1. `mvn clean install`
+2. `mvn cargo:deploy -P build`
+
+### Deploy commands
+- General deploy command: `mvn cargo:<<deploy|redeploy>> -P <<build|prod>>`
+
+Example: Redeploy prod system: `mvn cargo:redeploy -P build`
+
+******************************************************
 
 ## Technology usages
 
