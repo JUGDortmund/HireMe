@@ -36,7 +36,6 @@ public class IndexController {
   @GET
   @Path("/dist/{file: .*}")
   public Result customJavascriptModuleFiles(@PathParam("file") String fileName) {
-    System.out.println(fileName);
     return Results.ok().html().template("/app/dist/" + fileName);
   }
 
