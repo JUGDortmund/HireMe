@@ -132,6 +132,7 @@
                     <excludes>
                         <exclude>.+\\.html</exclude>
                         <exclude>assets/.+</exclude>
+                        <exclude>dist/.+</exclude>
                         <exclude>app/.+</exclude>
                     </excludes>
                 </configuration>
