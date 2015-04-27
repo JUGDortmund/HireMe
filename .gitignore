@@ -11,6 +11,5 @@ bin
 *~
 node
 node_modules
-bower_components
-src/main/java/app/dist
+src/main/java/assets/dist
 phantomjsdriver.log

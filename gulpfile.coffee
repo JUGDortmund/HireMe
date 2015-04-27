@@ -15,7 +15,7 @@ plumber = require('gulp-plumber')
 uglifycss = require('gulp-uglifycss')
 
 generatedFileWarning = '/* Warning! This is a generated file. Do not modify. Use Gulp task instead */\n'
-distFolder = 'src/main/java/app/dist'
+distFolder = 'src/main/java/assets/dist'
 
 jsBaseBuild =
   gulp.src([
