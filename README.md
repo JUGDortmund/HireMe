@@ -1,6 +1,8 @@
 # Welcome to **hireMe**
 
+
 ******************************************************
+
 
 ## Quick start
 
@@ -10,11 +12,13 @@
 
 ### Run
 1. Checkout
-2. mvn clean install
-3. mvn ninja:run
+2. `mvn clean install`
+3. `mvn ninja:run`
 4. visit http://localhost:8080/
 
+
 ******************************************************
+
 
 ## Development-Environment
 
@@ -46,9 +50,11 @@ we defined the google-styleguide as default code style.
 
 
 ### Start gulp watcher
-1. In project root directory execute: `./gulp-watcher` to automatically build all asset files (js, coffee, css, less)
+1. In project root directory execute: `./gulp-watcher` to automatically build all distribution asset files (.js, .css) after changing/saving source files (.js, .coffee, .css, .less).
+
 
 ******************************************************
+
 
 ## Testing 
 
@@ -77,7 +83,9 @@ Example:
 mvn integration-test -P dev
 ```
 
+
 ******************************************************
+
 
 ## Building and deploying a release
 
@@ -92,14 +100,18 @@ mvn integration-test -P dev
 
 ### Deploy a release
 1. `mvn clean install`
-2. `mvn cargo:deploy -P build`
+2. deploy release to desired system (see commands below)
 
 ### Deploy commands
 - General deploy command: `mvn cargo:<<deploy|redeploy>> -P <<build|prod>>`
 
-Example: Redeploy prod system: `mvn cargo:redeploy -P build`
+Examples:
+- Deploy build system: `mvn cargo:redeploy -P build`
+- Redeploy prod system: `mvn cargo:redeploy -P prod`
+
 
 ******************************************************
+
 
 ## Technology usages
 
