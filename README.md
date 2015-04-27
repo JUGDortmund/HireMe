@@ -104,19 +104,16 @@ mvn integration-test -P dev
 
 ### Deploy commands
 * General deploy command: `mvn cargo:[command] -P [system]`
-* Commands:
-** **deploy** - deploys the application to the system
-** **undeploy**  - undeploy the application from the system
-** **redeploy** - Undeploy and deploy the application to the system again. If the application was not deployed before calling cargo:redeploy it will simply be deployed.
-
-* Systems:
-** **build** - build system
-** **prod** - prod system
-
-Examples:
-* Deploy build system: `mvn cargo:deploy -P build`
-* Redeploy prod system: `mvn cargo:redeploy -P prod`
-
+* Commands
+  * **deploy** - deploys the application to the system
+  * **undeploy**  - undeploy the application from the system
+  * **redeploy** - Undeploy and deploy the application to the system again. If the application was not deployed before calling cargo:redeploy it will simply be deployed.
+* Systems
+  * **build** - deploy to build system
+  * **prod** - deploy to prod system  
+* Examples:
+  * Deploy build system: `mvn cargo:deploy -P build`
+  * Redeploy prod system: `mvn cargo:redeploy -P prod`
 
 ******************************************************
 
