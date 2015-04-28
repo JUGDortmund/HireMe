@@ -16,9 +16,9 @@
 								</span>
 							</div>
 						</form>
-						<h4>${i18n("search.result")}:</h4>
+						<h4 ng-show="filteredProfiles.length">${i18n("search.result")}</h4>
 						<div>
-							<div class="info-box bg-green" ng-repeat="profile in profiles | filter:search">
+							<div class="info-box bg-green" ng-repeat="profile in (filteredProfiles = (profiles | filter:search))">
 								<span class="info-box-icon"><i class="fa fa-user"></i></span>
 								<a ng-href="/profile/{{profile.id}}">
 									<div class="info-box-content">
@@ -28,6 +28,7 @@
 								</a>
 							</div>
 						</div>
+						<span ng-hide="filteredProfiles.length">${i18n("search.result.none")}</span>
 					</div>
 				</div>
 			</div>
