@@ -3,7 +3,9 @@ describe('navigation-bar', function () {
         browser.get('/search');
         element(by.id('profile-count')).getText().then(function (oldCount) {
             element(by.id('own-profile')).click();
-            expect(element(by.id('profile-count')).getText()).toContain(parseInt(oldCount) + 1);
+            browser.wait(function () {
+                return element(by.id('profile-count')).getText() == (parseInt(oldCount) + 1)
+            }, 500);
         });
 
     });

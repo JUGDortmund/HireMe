@@ -2,7 +2,7 @@ angular.module('app', [
   'ngRoute'
   'dashboard'
   'profile'
-  'search',
+  'search'
   'restangular'
 ]).config(($locationProvider, RestangularProvider) ->
   $locationProvider.html5Mode

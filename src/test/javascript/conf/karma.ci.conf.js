@@ -35,8 +35,9 @@ module.exports = function(config) {
     reporters: ['progress', 'junit'],
     singleRun: true,
     autoWatch: true,
-    plugins: ['karma-jasmine', 'karma-phantomjs-launcher',
-        'karma-junit-reporter',
+    plugins: ['karma-jasmine',
+              'karma-phantomjs-launcher',
+              'karma-junit-reporter',
               'karma-coffee-preprocessor'
     ],
     junitReporter: {
