@@ -4,6 +4,3 @@ angular.module 'dashboard', []
     .otherwise redirectTo: '/dashboard'
 .controller 'SearchCtrl', ($scope, $location) ->
     $scope.submit = -> $location.path('/search').search q: $scope.search
-    $scope.init = ->
-    	$('[autofocus]:first').focus()
-    	return false

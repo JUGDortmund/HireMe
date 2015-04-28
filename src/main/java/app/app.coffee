@@ -1,4 +1,4 @@
-angular.module 'app', ['ngRoute', 'dashboard', 'profile', 'search', 'restangular']
+angular.module 'app', ['ngRoute', 'dashboard', 'profile', 'search', 'restangular', 'utils.autofocus']
 .config ($locationProvider, RestangularProvider) ->
   $locationProvider.html5Mode
     enabled: true

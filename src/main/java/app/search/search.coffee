@@ -1,7 +1,7 @@
 angular.module 'search', []
 .config ($routeProvider) ->
     $routeProvider.when '/search', templateUrl: 'search/search.tpl.html'
-.controller 'ListCtrl', ($scope, Restangular) ->
+.controller 'ListCtrl', ($scope, $location, Restangular) ->
   profiles = Restangular.all('profile')
   getProfiles =  -> profiles.getList().then (profiles) ->
     $scope.profiles = profiles
@@ -12,5 +12,5 @@ angular.module 'search', []
   getProfiles()
 
   $scope.init = ->
-  $('[autofocus]:first').focus()
-  return false
+    $scope.search=$location.search().q
+  
