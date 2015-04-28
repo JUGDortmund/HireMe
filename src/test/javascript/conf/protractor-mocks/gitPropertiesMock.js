@@ -1,6 +1,6 @@
 module.exports = {
   request: {
-    path: '/api/getGitProperties',
+    path: '/api/gitProperties',
     method: 'GET'
   },
   response: {

@@ -5,8 +5,6 @@ describe('dashboard', function () {
 
   beforeEach(function () {
     mock(['gitPropertiesMock']);
-    browser.get('/dashboard');
-    browser.waitForAngular();
   });
 
     it('redirect to \"/search?q=blub\" if \"blub\" is entered in search-form and button \"btn-success\" is clicked',
@@ -25,12 +23,6 @@ describe('dashboard', function () {
            searchElement.sendKeys(protractor.Key.ENTER);
            expect(browser.getLocationAbsUrl()).toEqual("/search?q=blub");
        });
-
-  it('blub', function () {
-    expect(mock.requestsMade()).toEqual([
-      {url: '/api/getGitProperties', method: 'GET'}
-    ]);
-  });
 
   it('should render a build-information tab into the navigation menu', function () {
     browser.get('/dashboard');

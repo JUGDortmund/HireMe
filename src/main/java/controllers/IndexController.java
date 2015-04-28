@@ -38,7 +38,7 @@ public class IndexController {
   }
 
   @GET
-  @Path("/api/getGitProperties")
+  @Path("/api/gitProperties")
   public Result gitPropertyDTO() {
     return Results.ok().json().render("gitPropertyDTO", propertyService.getGitPropertyDTO());
   }
