@@ -1,11 +1,12 @@
 package doctester;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import ninja.NinjaDocTester;
 
 import org.doctester.testbrowser.Request;
 import org.doctester.testbrowser.Response;
 import org.junit.Test;
+
+import ninja.NinjaDocTester;
 
 public class RoutingTest extends NinjaDocTester {
 
@@ -20,7 +21,7 @@ public class RoutingTest extends NinjaDocTester {
     Response response =
         sayAndMakeRequest(Request.GET().url(testServerUrl().path("dashboard/dashboard.tpl.html")));
     assertThat(response.payload).contains(
-        "<div class=\"box box-solid\" ng-controller=\"SearchCtrl\" ng-init=\"init()\">");
+        "<div class=\"box box-solid\" ng-controller=\"SearchCtrl\">");
   }
 
   @Test
