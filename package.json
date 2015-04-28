@@ -10,6 +10,8 @@
     "http-server": "^0.6.1",
     "shelljs": "^0.2.6",
     "protractor": "~2.0.0",
+    "protractor-http-mock": "~0.1.8",
+    "my-local-ip": "~1.0.0",
     "gulp": "~3.8.11",
     "gulp-concat": "~2.5.2",
     "gulp-notify": "~2.2.0",

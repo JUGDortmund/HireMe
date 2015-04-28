@@ -1,4 +1,14 @@
+var mock = require('protractor-http-mock');
+
 describe('dashboard', function () {
+  'use strict';
+
+  beforeEach(function () {
+    mock(['gitPropertiesMock']);
+    browser.get('/dashboard');
+    browser.waitForAngular();
+  });
+
     it('redirect to \"/search?q=blub\" if \"blub\" is entered in search-form and button \"btn-success\" is clicked',
        function () {
            browser.get('/dashboard');
@@ -15,4 +25,20 @@ describe('dashboard', function () {
            searchElement.sendKeys(protractor.Key.ENTER);
            expect(browser.getLocationAbsUrl()).toEqual("/search?q=blub");
        });
+
+  it('blub', function () {
+    expect(mock.requestsMade()).toEqual([
+      {url: '/api/getGitProperties', method: 'GET'}
+    ]);
+  });
+
+  it('should render a build-information tab into the navigation menu', function () {
+    browser.get('/dashboard');
+    var spanBuildInformation = element(by.id('span-build-information'));
+    expect(spanBuildInformation.getText()).toBe("Build information");
+  });
+
+  afterEach(function () {
+    mock.teardown();
+  });
 });
