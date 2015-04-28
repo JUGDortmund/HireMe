@@ -385,6 +385,11 @@
             <artifactId>restangular</artifactId>
             <version>1.5.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>lodash</artifactId>
+            <version>3.7.0</version>
+        </dependency>
 
         <!-- If you want to deploy to a war please -->
         <!-- comment ninja-standalone dependency and  -->

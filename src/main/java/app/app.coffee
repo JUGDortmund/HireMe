@@ -4,16 +4,18 @@ angular.module('app', [
   'profile'
   'search',
   'restangular'
-]).config(($locationProvider) ->
+]).config(($locationProvider, RestangularProvider) ->
   $locationProvider.html5Mode
     enabled: true
     requireBase: false
-  Restangular.BaseUrl('/api/')
+   RestangularProvider.setBaseUrl('/api/')
 ).controller('NavigationCtrl', ($scope, $location) ->
   $scope.isActive = (route) ->
     route == $location.path()
-).controller 'HeaderCtrl', ($scope, Restangular) ->
+).controller 'HeaderCtrl', ($scope, $rootScope, Restangular) ->
   $scope.init = ->
     $.AdminLTE.pushMenu '[data-toggle=\'offcanvas\']'
   $scope.addProfile = ->
-    Restangular.post('profile')
+    baseProfile = Restangular.all('profile')
+    baseProfile.post()
+    $rootScope.$broadcast('add-profile');

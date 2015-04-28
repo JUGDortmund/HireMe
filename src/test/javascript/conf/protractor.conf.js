@@ -3,7 +3,7 @@ if (typeof exports === 'undefined') {
 }
 exports.config = {
     capabilities: {
-        'browserName': 'phantomjs',
+        'browserName': 'firefox',
         'phantomjs.binary.path': require('phantomjs').path,
         'phantomjs.ghostdriver.cli.args': ['--loglevel=DEBUG']
     },
