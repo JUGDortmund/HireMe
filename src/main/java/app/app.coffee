@@ -10,11 +10,9 @@ angular.module('app', [
     requireBase: false
             RestangularProvider.setBaseUrl('/api/')
          ).controller('NavigationCtrl', ($scope, $location, Restangular) ->
-  console.log "TEST"
   gitProperties = Restangular.one('gitProperties')
   gitProperties.get().then (data) ->
     $scope.gitPropertyDTO = data.gitPropertyDTO
-    console.log data.gitPropertyDTO
   $scope.isActive = (route) ->
     route is $location.path()
   $scope.triggerBuildInformation = ->
