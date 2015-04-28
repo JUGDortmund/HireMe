@@ -8,8 +8,8 @@ angular.module('app', [
   $locationProvider.html5Mode
     enabled: true
     requireBase: false
-            RestangularProvider.setBaseUrl('/api/')
-         ).controller('NavigationCtrl', ($scope, $location, Restangular) ->
+  RestangularProvider.setBaseUrl('/api/')
+).controller('NavigationCtrl', ($scope, $location, Restangular) ->
   gitProperties = Restangular.one('gitProperties')
   gitProperties.get().then (data) ->
     $scope.gitPropertyDTO = data.gitPropertyDTO
