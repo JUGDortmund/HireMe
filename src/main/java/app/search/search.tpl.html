@@ -1,24 +1,23 @@
-<section class="content">
+<section class="content" ng-controller="ListCtrl" ng-init="init()">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12 col-md-offset-0">
 				<div class="box">
 					<div class="box-body">
-						<form name="searchForm" novalidate role="form" ng-controller="SearchCtrl" ng-init="init()">
+						<form name="searchForm" novalidate role="form">
 							<div class="input-group input-group-lg">
 								<input type="text" name="search" ng-model="search"
 									placeholder=${i18n(
 									'sidebar.search.placeholder')} class="form-control"
 									autofocus="autofocus"> <span class="input-group-btn">
-									<button ng-click="submit()" class="btn btn-success btn-flat">
+									<button class="btn btn-success btn-flat">
 										<i class="fa fa-search"></i>
 									</button>
 								</span>
 							</div>
 						</form>
-						<h4>Search Results:</h4>
-						<div ng-controller="ListCtrl">
-							<!-- ng-repeat="profile in profiles" -->
+						<h4>${i18n("search.result")}:</h4>
+						<div>
 							<div class="info-box bg-green" ng-repeat="profile in profiles | filter:search">
 								<span class="info-box-icon"><i class="fa fa-user"></i></span>
 								<a ng-href="/profile/{{profile.id}}">
@@ -34,7 +33,7 @@
 			</div>
 		</div>
 	</div>
-	<div ng-controller="ListCtrl">
+	<div>
     	Profile count: <span id="profile-count">{{profiles.length}}</span>
 	</div>
 </section>
