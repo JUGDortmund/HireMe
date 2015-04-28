@@ -53,6 +53,12 @@ we defined the google-styleguide as default code style.
 1. In project root directory execute: `./gulp-watcher` to automatically build all distribution asset files (.js, .css) after changing/saving source files (.js, .coffee, .css, .less).
 
 
+### Guidelines
+
+#### [HTTP/1.1 Method Definitions](http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html)
+
+Official W3C Spec on how to use the HTTP-methods
+
 ******************************************************
 
 
