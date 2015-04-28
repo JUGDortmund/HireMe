@@ -6,6 +6,7 @@ import com.google.inject.Singleton;
 import org.mongodb.morphia.Datastore;
 
 import model.Profile;
+
 import ninja.Result;
 import ninja.Results;
 import ninja.jaxy.GET;
@@ -29,6 +30,9 @@ public class ProfileController {
   @Path("")
   public Result addProfile() {
     Profile profile = new Profile();
+    profile.setFirstname("Max");
+    profile.setLastname("Mustermann");
+    profile.setCareerStage("Manager");
     datastore.save(profile);
     return Results.status(201).json().render(profile);
   }
