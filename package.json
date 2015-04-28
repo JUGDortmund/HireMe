@@ -29,7 +29,8 @@
     "gulp-less": "~3.0.3",
     "gulp-ngmin": "~0.3.0",
     "gulp-plumber": "~1.0.0",
-    "gulp-uglifycss": "~1.0.4"
+    "gulp-uglifycss": "~1.0.4",
+    "karma-coffee-preprocessor": "~0.2.1"
   },
   "scripts": {
     "preupdate-webdriver": "node/npm/bin/npm-cli.js install",
