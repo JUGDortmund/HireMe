@@ -1,4 +1,4 @@
-angular.module 'search', []
+angular.module 'search', ['utils.autofocus']
 .config ($routeProvider) ->
     $routeProvider.when '/search', templateUrl: 'search/search.tpl.html'
 .controller 'ListCtrl', ($scope, $location, Restangular) ->

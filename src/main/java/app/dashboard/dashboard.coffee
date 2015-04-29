@@ -1,4 +1,4 @@
-angular.module 'dashboard', []
+angular.module 'dashboard', ['utils.autofocus']
 .config ($routeProvider) ->
     $routeProvider.when('/dashboard', templateUrl: 'dashboard/dashboard.tpl.html')
     .otherwise redirectTo: '/dashboard'

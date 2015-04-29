@@ -13,8 +13,7 @@
 
 do ->
   'use strict'
-  angular.module('utils.autofocus', []).directive 'autofocus', [
-    '$timeout'
+  angular.module('utils.autofocus', []).directive 'autofocus',
     ($timeout) ->
       {
         restrict: 'A'
@@ -23,9 +22,7 @@ do ->
             $element[0].focus()
             return
           return
-
       }
-  ]
   return
 
 # ---
