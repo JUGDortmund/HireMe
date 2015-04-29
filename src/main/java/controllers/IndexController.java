@@ -16,6 +16,9 @@ import services.PropertyService;
 public class IndexController {
 
   @Inject
+  private PropertyService propertyService;
+
+  @Inject
   private NinjaProperties ninjaProperties;
 
   @GET
