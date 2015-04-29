@@ -5,7 +5,7 @@ module.exports = {
     },
     response: {
         data: {
-            "gitPropertyDTO": {
+            "getGitPropertyDTO": {
                 "showGitProperties": true,
                 "abbrev": "bc9e5be",
                 "commitUserName": "Test Testuser",
