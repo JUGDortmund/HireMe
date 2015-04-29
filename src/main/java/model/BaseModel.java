@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.Id;
 
 import unit.serializer.ObjectIdDeserializer;
 import unit.serializer.ObjectIdSerializer;
@@ -12,6 +13,7 @@ public class BaseModel {
 
   @JsonSerialize(using = ObjectIdSerializer.class)
   @JsonDeserialize(using = ObjectIdDeserializer.class)
+  @Id
   private ObjectId id;
 
   public ObjectId getId() {
