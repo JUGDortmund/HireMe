@@ -39,7 +39,7 @@ public class DatastoreProvider implements Provider<Datastore> {
   @Inject
   public DatastoreProvider(NinjaProperties properties) throws UnknownHostException {
     this.properties = properties;
-    if (!properties.isProd()) {
+    if (properties.isProd()) {
       createMongoDBConnection();
     } else {
       initiateInMemoryDatestore();
