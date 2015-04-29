@@ -1,14 +1,14 @@
 package controllers;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+
 import ninja.Result;
 import ninja.Results;
 import ninja.jaxy.GET;
 import ninja.jaxy.Path;
 import ninja.params.PathParam;
 import ninja.utils.NinjaProperties;
-
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
 
 @Singleton
 @Path("")
