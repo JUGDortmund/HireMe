@@ -9,6 +9,7 @@ import ninja.jaxy.GET;
 import ninja.jaxy.Path;
 import ninja.params.PathParam;
 import ninja.utils.NinjaProperties;
+import services.PropertyService;
 
 @Singleton
 @Path("")
@@ -20,10 +21,11 @@ public class IndexController {
   @GET
   @Path("^((?!(\\/api\\/|tpl)).)*$")
   public Result index() {
-    return Results.ok().html().template("/app/index.html").render("isProd", isProd());
+    return Results.ok().html().template("/app/index.html")
+                  .render("showMinifiedVersion", showMinifiedVersion());
   }
 
-  private boolean isProd() {
+  private boolean showMinifiedVersion() {
     return !(ninjaProperties.isTest() || ninjaProperties.isDev());
   }
 
@@ -32,4 +34,18 @@ public class IndexController {
   public Result getTemplate(@PathParam("template") String templateName) {
     return Results.ok().html().template("/app" + templateName + ".tpl.html");
   }
+
+  @GET
+  @Path("/api/gitProperties")
+  public Result getGitPropertyDTO() {
+    return Results.ok().json().render("getGitPropertyDTO", propertyService.getGitPropertyDTO());
+  }
+
+  @GET
+  @Path("{file: .*}.js")
+  public Result getCustomJavascriptModuleFiles(@PathParam("file") String fileName) {
+    return Results.ok().html().template("/app" + fileName + ".js");
+  }
+
+
 }

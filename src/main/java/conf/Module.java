@@ -22,7 +22,6 @@ import org.mongodb.morphia.Datastore;
 @Singleton
 public class Module extends AbstractModule {
 
-
   protected void configure() {
     bind(Datastore.class).toProvider(DatastoreProvider.class);
   }

@@ -3,7 +3,7 @@
     <section class="sidebar">
         <form class="sidebar-form" method="get" action="#">
             <div class="input-group">
-                <input type="text" placeholder="${i18n("sidebar.search.placeholder")}"
+                <input type="text" placeholder="${i18n(" sidebar.search.placeholder")}"
                 class="form-control" name="q">
 	      <span class="input-group-btn">
 	        <button class="btn btn-flat" id="search-btn" name="search" type="submit"><i
@@ -18,6 +18,26 @@
             <li ng-class="{active:isActive('/profile')}"><a href="/profile"><span>${i18n("sidebar.navigation.profile")}</span></a>
             </li>
             <li ng-class="{active:isActive('/search')}"><a href="/search"><span>${i18n("sidebar.navigation.searchprofiles")}</span></a>
+            </li>
+            <li ng-if="gitPropertyDTO.showGitProperties" id="li-build-information" class="treeview">
+                <a id="a-build-information" href="#" ng-click="triggerBuildInformation()">
+                    <i class="fa fa-bar-chart"></i> <span id="span-build-information">Build information</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul id="ul-build-information" class="treeview-menu bg-info">
+                    <li><span class="small bg-warning"> Commit: {{gitPropertyDTO.abbrev}}</span>
+                    </li>
+                    <li><span
+                            class="small bg-info">Commit-User: {{gitPropertyDTO.commitUserName}}</span>
+                    </li>
+                    <li><span class="small bg-warning">Branch: {{gitPropertyDTO.branch}}</span></li>
+                    <li><span
+                            class="small bg-info">Commit-Time: {{gitPropertyDTO.commitTime}}</span>
+                    </li>
+                    <li><span
+                            class="small bg-warning">Build-Time: {{gitPropertyDTO.buildTime}}</span>
+                    </li>
+                </ul>
             </li>
         </ul>
 
