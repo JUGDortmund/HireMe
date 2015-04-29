@@ -14,3 +14,4 @@ node_modules
 src/main/java/assets/dist
 phantomjsdriver.log
 .tern-project
+git.properties
