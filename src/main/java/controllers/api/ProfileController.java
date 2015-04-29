@@ -1,17 +1,19 @@
 package controllers.api;
 
+import com.google.common.base.Strings;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 
 import model.Profile;
-
 import ninja.Result;
 import ninja.Results;
 import ninja.jaxy.GET;
 import ninja.jaxy.POST;
 import ninja.jaxy.Path;
+import ninja.params.PathParam;
 
 @Singleton
 @Path("/api/profile")
@@ -25,6 +27,25 @@ public class ProfileController {
   public Result getProfiles() {
     return Results.json().render(datastore.find(Profile.class).asList());
   }
+
+  @Path("/{id}")
+  @GET
+  public Result getSingleProfileById(@PathParam("id") String id) {
+    if (Strings.isNullOrEmpty(id)) {
+      return Results.json().status(400);
+    }
+    if (!ObjectId.isValid(id)) {
+      return Results.json().status(404);
+    }
+
+    final Profile profile = datastore.get(Profile.class, new ObjectId(id));
+    if (profile == null) {
+      return Results.json().status(404);
+    }
+
+    return Results.json().render(profile);
+  }
+
 
   @POST
   @Path("")
