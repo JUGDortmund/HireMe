@@ -1,7 +1,5 @@
 package doctester;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import org.doctester.testbrowser.Request;
@@ -11,13 +9,15 @@ import org.junit.Test;
 import java.util.List;
 
 import model.Profile;
-
 import ninja.NinjaDocTester;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ProfileTest extends NinjaDocTester {
 
   public static final TypeReference<List<Profile>> PROFILE_LIST_TYPE =
-      new TypeReference<List<Profile>>() {};
+      new TypeReference<List<Profile>>() {
+      };
 
   @Test
   public void addProfileReturns201() throws Exception {
