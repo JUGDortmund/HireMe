@@ -57,7 +57,7 @@ public class PropertyService {
   }
 
   private PropertiesConfiguration getGitProperties() {
-    if (ninjaProperties.isProd()) {
+    if (!renderGitProperties()) {
       return null;
     }
     return SwissKnife.loadConfigurationInUtf8("conf/git.properties");
