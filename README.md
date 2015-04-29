@@ -89,6 +89,7 @@ Example:
 mvn integration-test -P dev
 ```
 
+*Note*: Protractor tests are are executed on the [mercus grid](http://mercus-selenium-grid.maredit.net:4444/wd/hub) using the ip-address that the integration tests were started from as server. If you start the integration tests locally be sure to deactivate your firewall, so that the grid can access http://[your-ip-address]:8080/`.
 
 ******************************************************
 
