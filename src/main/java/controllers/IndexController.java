@@ -39,13 +39,13 @@ public class IndexController {
 
   @GET
   @Path("/api/gitProperties")
-  public Result gitPropertyDTO() {
-    return Results.ok().json().render("gitPropertyDTO", propertyService.getGitPropertyDTO());
+  public Result getGitPropertyDTO() {
+    return Results.ok().json().render("getGitPropertyDTO", propertyService.getGitPropertyDTO());
   }
 
   @GET
   @Path("{file: .*}.js")
-  public Result customJavascriptModuleFiles(@PathParam("file") String fileName) {
+  public Result getCustomJavascriptModuleFiles(@PathParam("file") String fileName) {
     return Results.ok().html().template("/app" + fileName + ".js");
   }
 

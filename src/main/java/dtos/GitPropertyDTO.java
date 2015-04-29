@@ -3,15 +3,10 @@ package dtos;
 public class GitPropertyDTO {
 
   private boolean showGitProperties;
-
   private String abbrev;
-
   private String commitUserName;
-
   private String branch;
-
   private String commitTime;
-
   private String buildTime;
 
   public boolean isShowGitProperties() {
