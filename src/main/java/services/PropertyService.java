@@ -47,7 +47,9 @@ public class PropertyService {
   }
 
   public boolean renderGitProperties() {
-    return !ninjaProperties.isProd();
+    return true;
+    //TODO replace return true by next line, if HIRE-96 is completed.
+    /*return !ninjaProperties.isProd();*/
   }
 
   private String getString(String key) {
