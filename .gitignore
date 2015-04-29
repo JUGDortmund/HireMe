@@ -13,3 +13,4 @@ node
 node_modules
 src/main/java/assets/dist
 phantomjsdriver.log
+git.properties

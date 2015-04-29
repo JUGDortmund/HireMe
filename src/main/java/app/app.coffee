@@ -8,10 +8,18 @@ angular.module('app', [
   $locationProvider.html5Mode
     enabled: true
     requireBase: false
-   RestangularProvider.setBaseUrl('/api/')
-).controller('NavigationCtrl', ($scope, $location) ->
+  RestangularProvider.setBaseUrl('/api/')
+).controller('NavigationCtrl'
+, ($scope, $location, Restangular) ->
+  gitProperties = Restangular.one('gitProperties')
+  gitProperties.get().then (data) ->
+    $scope.gitPropertyDTO = data.getGitPropertyDTO
   $scope.isActive = (route) ->
-    route == $location.path()
+    route is $location.path()
+  $scope.triggerBuildInformation = ->
+    liBuildInformation = angular.element(document.querySelector('#li-build-information'))
+    liBuildInformation.toggleClass 'active'
+    return false
 ).controller 'HeaderCtrl', ($scope, $rootScope, Restangular) ->
   $scope.init = ->
     $.AdminLTE.pushMenu '[data-toggle=\'offcanvas\']'
