@@ -13,7 +13,7 @@ public class Ninja extends NinjaDefault{
 
   @Override
   public void onRouteRequest(Context.Impl context) {
-    LOG.debug(context.getRequestPath());
+    LOG.info(context.getRequestPath());
     super.onRouteRequest(context);
   }
 
@@ -23,7 +23,6 @@ public class Ninja extends NinjaDefault{
     LOG.error(context.getRequestPath());
     LOG.error(exception.getMessage());
     LOG.error("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-    /*return super.onException(context, exception);*/
     return super.onException(context,exception);
   }
 
