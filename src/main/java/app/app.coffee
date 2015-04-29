@@ -12,7 +12,7 @@ angular.module('app', [
 ).controller('NavigationCtrl', ($scope, $location, Restangular) ->
   gitProperties = Restangular.one('gitProperties')
   gitProperties.get().then (data) ->
-    $scope.gitPropertyDTO = data.gitPropertyDTO
+    $scope.gitPropertyDTO = data.getGitPropertyDTO
   $scope.isActive = (route) ->
     route is $location.path()
   $scope.triggerBuildInformation = ->
