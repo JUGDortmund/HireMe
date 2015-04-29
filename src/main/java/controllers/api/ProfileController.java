@@ -6,7 +6,6 @@ import com.google.inject.Singleton;
 import org.mongodb.morphia.Datastore;
 
 import model.Profile;
-
 import ninja.Result;
 import ninja.Results;
 import ninja.jaxy.GET;

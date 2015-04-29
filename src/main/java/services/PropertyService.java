@@ -51,13 +51,13 @@ public class PropertyService {
   }
 
   private String getString(String key) {
-    return getGitProperties() != null ? getGitProperties().getString(key): null;
+    return getGitProperties() != null ? getGitProperties().getString(key) : null;
   }
 
   private PropertiesConfiguration getGitProperties() {
     if (ninjaProperties.isProd()) {
       return null;
     }
-    return swissKnife.loadConfigurationInUtf8("conf/git.properties");
+    return SwissKnife.loadConfigurationInUtf8("conf/git.properties");
   }
 }

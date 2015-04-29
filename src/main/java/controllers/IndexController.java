@@ -24,7 +24,8 @@ public class IndexController {
   @GET
   @Path("^((?!(\\/api\\/|tpl)).)*$")
   public Result index() {
-    return Results.ok().html().template("/app/index.html").render("showMinifiedVersion", showMinifiedVersion());
+    return Results.ok().html().template("/app/index.html")
+                  .render("showMinifiedVersion", showMinifiedVersion());
   }
 
   private boolean showMinifiedVersion() {

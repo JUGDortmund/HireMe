@@ -1,11 +1,11 @@
 var mock = require('protractor-http-mock');
 
 describe('dashboard', function () {
-  'use strict';
+    'use strict';
 
-  beforeEach(function () {
-    mock(['gitPropertiesMock']);
-  });
+    beforeEach(function () {
+        mock(['gitPropertiesMock']);
+    });
 
     it('redirect to \"/search?q=blub\" if \"blub\" is entered in search-form and button \"btn-success\" is clicked',
        function () {
@@ -24,13 +24,13 @@ describe('dashboard', function () {
            expect(browser.getLocationAbsUrl()).toEqual("/search?q=blub");
        });
 
-  it('should render a build-information tab into the navigation menu', function () {
-    browser.get('/dashboard');
-    var spanBuildInformation = element(by.id('span-build-information'));
-    expect(spanBuildInformation.getText()).toBe("Build information");
-  });
+    it('should render a build-information tab into the navigation menu', function () {
+        browser.get('/dashboard');
+        var spanBuildInformation = element(by.id('span-build-information'));
+        expect(spanBuildInformation.getText()).toBe("Build information");
+    });
 
-  afterEach(function () {
-    mock.teardown();
-  });
+    afterEach(function () {
+        mock.teardown();
+    });
 });
