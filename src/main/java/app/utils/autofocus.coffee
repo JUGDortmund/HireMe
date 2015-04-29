@@ -19,6 +19,9 @@ do ->
         restrict: 'A'
         link: ($scope, $element) ->
           $timeout ->
+            $element[0].focus = ->
+              this.select();
+              return;
             $element[0].focus()
             return
           return
