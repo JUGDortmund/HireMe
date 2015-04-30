@@ -1,36 +1,36 @@
 'use strict';
 
-var SearchPage = function() {
+var SearchPage = function () {
   browser.get('/search');
 };
 
 SearchPage.prototype = Object.create({}, {
   addProfileButton: {
-    get: function() {
+    get: function () {
       return element(by.id('own-profile'));
     }
   },
   profileCount: {
-    get: function() {
+    get: function () {
       return element.all(by.className('profile')).count();
     }
   },
   firstProfile: {
-    get: function() {
+    get: function () {
       return element(by.className('profile'))
     }
   },
   addProfile: {
-    value: function() {
-//      this.profileCount.getText().then(function(oldCount) {
-        this.addProfileButton.click();
-//        setTimeout(function() {
-//          this.profileCount.getText().then(function(newCount) {
-//            expect(parseInt(newCount)).toBeGreaterThan(parseInt(oldCount));
-//          });
-//          done();
-//        }, 1000);
-//      });
+    value: function () {
+      var page = this;
+      this.profileCount.then(function (oldValue) {
+        page.addProfileButton.click();
+        page.profileCount.then(function (newValue) {
+          browser.wait(function () {
+            return oldValue != newValue;
+          }, 500);
+        });
+      });
     }
   }
 });

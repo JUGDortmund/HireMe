@@ -4,9 +4,9 @@ if (typeof exports === 'undefined') {
     exports = {};
 }
 exports.config = {
-    seleniumAddress: 'http://mercus-selenium-grid.maredit.net:4444/wd/hub',
+    //seleniumAddress: 'http://mercus-selenium-grid.maredit.net:4444/wd/hub',
     capabilities: {
-        'browserName': 'chrome'
+        'browserName': 'firefox'
     },
     baseUrl: getUrl(),
     allScriptsTimeout: 21000,
