@@ -1,0 +1,2 @@
+#!/bin/sh
+./node/node "node_modules/protractor/lib/cli.js" "src/test/javascript/conf/protractor.local.conf"
