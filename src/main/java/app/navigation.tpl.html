@@ -1,17 +1,5 @@
 <aside class="main-sidebar" ng-controller="NavigationCtrl">
-
     <section class="sidebar">
-        <form class="sidebar-form" method="get" action="#">
-            <div class="input-group">
-                <input type="text" placeholder=${i18n('sidebar.search.placeholder')}
-                class="form-control" name="q">
-	      <span class="input-group-btn">
-	        <button class="btn btn-flat" id="search-btn" name="search" type="submit"><i
-                    class="fa fa-search"></i></button>
-	      </span>
-            </div>
-        </form>
-
         <ul class="sidebar-menu">
             <li ng-class="{active:isActive('/dashboard')}"><a href="/dashboard"><span>${i18n("sidebar.navigation.dashboard")}</span></a>
             </li>
@@ -40,6 +28,5 @@
                 </ul>
             </li>
         </ul>
-
     </section>
 </aside>
