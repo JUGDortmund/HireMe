@@ -3,6 +3,7 @@ angular.module('app', [
   'dashboard'
   'profile'
   'search'
+  'errors'
   'restangular'
 ]).config(($locationProvider, RestangularProvider) ->
   $locationProvider.html5Mode

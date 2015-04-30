@@ -1,0 +1,30 @@
+<section class="content">
+    <div class="error-page">
+        <h2 class="headline text-yellow">403</h2>
+
+        <div class="error-content">
+            <h3>
+                <i class="fa fa-warning text-yellow"></i>
+                ${i18n('errors.forbidden.header')}
+            </h3>
+
+            <p>
+                ${i18n('errors.forbidden.paragraph01')}
+                <a href="../../index.html">${i18n('errors.default.link')}</a>
+                ${i18n('errors.default.paragraph02')}
+            </p>
+
+            <form class="search-form" ng-controller="SearchController">
+                <div class="input-group">
+                    <input class="form-control" type="text"
+                           placeholder=${i18n('errors.default.search')} name="search" ng-model="search">
+                    <div class="input-group-btn">
+                        <button class="btn btn-warning btn-flat" name="submit" type="submit" ng-click="submit()">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

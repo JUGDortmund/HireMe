@@ -8,7 +8,6 @@ import ninja.Results;
 import ninja.jaxy.GET;
 import ninja.jaxy.Path;
 import ninja.params.PathParam;
-import ninja.utils.NinjaProperties;
 import services.PropertyService;
 
 @Singleton
@@ -18,18 +17,11 @@ public class IndexController {
   @Inject
   private PropertyService propertyService;
 
-  @Inject
-  private NinjaProperties ninjaProperties;
-
   @GET
   @Path("^((?!(\\/api\\/|tpl)).)*$")
   public Result index() {
     return Results.ok().html().template("/app/index.html")
-                  .render("showMinifiedVersion", showMinifiedVersion());
-  }
-
-  private boolean showMinifiedVersion() {
-    return !(ninjaProperties.isTest() || ninjaProperties.isDev());
+                  .render("showMinifiedVersion", propertyService.showMinifiedVersion());
   }
 
   @GET
