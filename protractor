@@ -1,2 +1,3 @@
 #!/bin/sh
-./node/node "node_modules/protractor/lib/cli.js" "src/test/javascript/conf/protractor.local.conf"
+# run protractor via node, pass all parameters to protractor and pass local protractor conf
+./node/node "node_modules/protractor/lib/cli.js" "$@" "src/test/javascript/conf/protractor.local.conf"
