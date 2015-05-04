@@ -10,6 +10,7 @@ import org.mongodb.morphia.Datastore;
 import model.Profile;
 import ninja.Result;
 import ninja.Results;
+import ninja.exceptions.BadRequestException;
 import ninja.jaxy.GET;
 import ninja.jaxy.POST;
 import ninja.jaxy.Path;
@@ -32,7 +33,7 @@ public class ProfileController {
   @GET
   public Result getSingleProfileById(@PathParam("id") String id) {
     if (Strings.isNullOrEmpty(id)) {
-      return Results.json().status(400);
+      throw new BadRequestException();
     }
     if (!ObjectId.isValid(id)) {
       return Results.json().status(404);

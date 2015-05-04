@@ -4,7 +4,8 @@ angular.module('app', [
   'profile'
   'search'
   'restangular'
-]).config(($locationProvider, RestangularProvider) ->
+])
+.config ($locationProvider, RestangularProvider) ->
   $locationProvider.html5Mode
     enabled: true
     requireBase: false
@@ -18,7 +19,7 @@ angular.module('app', [
   $scope.triggerBuildInformation = ->
     liBuildInformation = angular.element(document.querySelector('#li-build-information'))
     liBuildInformation.toggleClass 'active'
-    return false
+    false
 .controller 'HeaderCtrl', ($scope, $rootScope, Restangular) ->
   $scope.init = ->
     $.AdminLTE.pushMenu '[data-toggle=\'offcanvas\']'
