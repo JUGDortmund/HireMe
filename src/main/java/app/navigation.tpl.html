@@ -3,8 +3,9 @@
         <ul class="sidebar-menu">
             <li ng-class="{active:isActive('/dashboard')}"><a href="/dashboard"><span>${i18n("sidebar.navigation.dashboard")}</span></a>
             </li>
-            <li ng-class="{active:isActive('/profile')}"><a href="/profile"><span>${i18n("sidebar.navigation.profile")}</span></a>
-            </li>
+<!-- uncomment the following lines when profile is needed -->
+<!--             <li ng-class="{active:isActive('/profile')}"><a href="/profile"><span>${i18n("sidebar.navigation.profile")}</span></a> -->
+<!--             </li> -->
             <li ng-class="{active:isActive('/search')}"><a href="/search"><span>${i18n("sidebar.navigation.searchprofiles")}</span></a>
             </li>
             <li ng-if="gitPropertyDTO.showGitProperties" id="li-build-information" class="treeview">
