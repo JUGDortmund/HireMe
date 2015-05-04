@@ -71,9 +71,6 @@ describe('errorpages', function () {
     expect(searchElement.isDisplayed()).toBe(true);
   });
 
-
-
-
 });
 
 

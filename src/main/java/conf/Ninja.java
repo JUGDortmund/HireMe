@@ -5,7 +5,7 @@ import ninja.NinjaDefault;
 import ninja.Result;
 import ninja.Results;
 
-public class Ninja extends NinjaDefault{
+public class Ninja extends NinjaDefault {
 
   private static final String INTERNALSERVERERRORRESULT_URL = "/505";
   private static final String BADREQUEST_URL = "/400";
