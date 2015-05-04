@@ -7,6 +7,7 @@ import com.google.inject.Singleton;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 
+import exception.ElementNotFoundException;
 import model.Profile;
 import ninja.Result;
 import ninja.Results;
@@ -36,14 +37,13 @@ public class ProfileController {
       throw new BadRequestException();
     }
     if (!ObjectId.isValid(id)) {
-      return Results.json().status(404);
+      throw new ElementNotFoundException();
     }
 
     final Profile profile = datastore.get(Profile.class, new ObjectId(id));
     if (profile == null) {
-      return Results.json().status(404);
+      throw new ElementNotFoundException();
     }
-
     return Results.json().render(profile);
   }
 
