@@ -17,8 +17,8 @@ SearchPage.prototype = Object.create({}, {
   },
   profileCount: {
     get: function () {
-      return element(by.id('profile-count')).getInnerHtml().then(function (html) {
-        return parseInt(html);
+      return element(by.id('profile-count')).getText().then(function (text) {
+        return parseInt(text);
       });
     }
   },  
