@@ -52,7 +52,7 @@ public class ProfileTest extends NinjaDocTester {
     addNewProfile();
     Response secondResponse = getAllProfiles();
 
-    assertThat(oldSize).isLessThan(secondResponse.payloadJsonAs(PROFILE_LIST_TYPE).size());
+    assertThat(oldSize + 1).isEqualTo(secondResponse.payloadJsonAs(PROFILE_LIST_TYPE).size());
   }
 
   @Test
