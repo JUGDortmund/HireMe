@@ -1,5 +1,10 @@
-angular.module 'app', ['ngRoute', 'dashboard', 'profile', 'search', 'restangular']
-.config ($locationProvider, RestangularProvider) ->
+angular.module('app', [
+  'ngRoute'
+  'dashboard'
+  'profile'
+  'search'
+  'restangular'
+]).config(($locationProvider, RestangularProvider) ->
   $locationProvider.html5Mode
     enabled: true
     requireBase: false

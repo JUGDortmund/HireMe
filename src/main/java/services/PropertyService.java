@@ -62,4 +62,8 @@ public class PropertyService {
     }
     return SwissKnife.loadConfigurationInUtf8("conf/git.properties");
   }
+
+  public boolean showMinifiedVersion() {
+    return !(ninjaProperties.isTest() || ninjaProperties.isDev());
+  }
 }
