@@ -17,7 +17,6 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
-import model.Profile;
 import ninja.utils.NinjaProperties;
 
 @Singleton
@@ -49,11 +48,6 @@ public class DatastoreProvider implements Provider<Datastore> {
 
     morphia = new Morphia().mapPackage(packageName);
     datastore = morphia.createDatastore(mongoClient, databaseName);
-
-    // TODO: find solution for persisting problem
-    Profile profile = new Profile();
-    datastore.save(profile);
-    datastore.delete(profile);
   }
 
   private void createMongoDBConnection() throws UnknownHostException {

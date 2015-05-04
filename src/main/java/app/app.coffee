@@ -19,5 +19,5 @@ angular.module 'app', ['ngRoute', 'dashboard', 'profile', 'search', 'restangular
     $.AdminLTE.pushMenu '[data-toggle=\'offcanvas\']'
   $scope.addProfile = ->
     baseProfile = Restangular.all('profile')
-    baseProfile.post()
-    $rootScope.$broadcast('add-profile');
+    baseProfile.post().then ->
+      $rootScope.$broadcast('add-profile');
