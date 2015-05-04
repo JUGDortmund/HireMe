@@ -9,7 +9,7 @@ describe('profile page', function () {
   beforeEach(function () {
     searchPage = new SearchPage();
     searchPage.addProfile();
-    searchPage.lastProfile.element(by.tagName('a')).click();
+    searchPage.lastProfile.element(by.css('a .info-box-content')).click();
     browser.wait(function () {
       return browser.getCurrentUrl().then(function (url) {
         return url.indexOf('/profile/') > -1;
