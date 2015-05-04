@@ -10,7 +10,7 @@ describe('angularJS routing suite', function () {
 
     it('profile route', function () {
         inject(function ($route) {
-            expect($route.routes['/profile'].templateUrl).toBe('profile/profile.tpl.html');
+            expect($route.routes['/profile'].templateUrl).toBe('/profile/profile.tpl.html');
         });
     });
 

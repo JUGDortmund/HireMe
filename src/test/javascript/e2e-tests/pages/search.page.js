@@ -15,21 +15,20 @@ SearchPage.prototype = Object.create({}, {
       return element.all(by.className('profile')).count();
     }
   },
-  firstProfile: {
+  lastProfile: {
     get: function () {
-      return element(by.className('profile'))
+      return element.all(by.className('profile')).first();
     }
   },
   addProfile: {
     value: function () {
       var page = this;
-      this.profileCount.then(function (oldValue) {
-        page.addProfileButton.click();
-        page.profileCount.then(function (newValue) {
-          browser.wait(function () {
-            return oldValue != newValue;
-          }, 500);
-        });
+      page.addProfileButton.click().then(function () {
+        browser.wait(function () {
+          return page.profileCount.then(function (count) {
+            return count > 0;
+          });
+        }, 500);
       });
     }
   }
