@@ -9,13 +9,12 @@ import org.bson.types.ObjectId;
 
 import java.io.IOException;
 
-public class ObjectIdDeserializer extends JsonDeserializer<ObjectId>{
+public class ObjectIdDeserializer extends JsonDeserializer<ObjectId> {
 
   @Override
   public ObjectId deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
       throws IOException, JsonProcessingException {
     String valueAsString = jsonParser.getValueAsString();
-    System.out.println(valueAsString);
     return new ObjectId(valueAsString);
   }
 
