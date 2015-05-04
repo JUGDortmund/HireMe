@@ -89,7 +89,30 @@ Example:
 mvn integration-test -P dev
 ```
 
-*Note*: Protractor tests are are executed on the [mercus grid](http://mercus-selenium-grid.maredit.net:4444/wd/hub) using the ip-address that the integration tests were started from as server. If you start the integration tests locally be sure to deactivate your firewall, so that the grid can access http://[your-ip-address]:8080/`.
+*Note*: Protractor tests per default are executed on the [mercus grid](http://mercus-selenium-grid.maredit.net:4444/wd/hub) using the ip-address that the integration tests were started from as server. If you start the integration tests locally be sure to deactivate your firewall, so that the grid can access http://[your-ip-address]:8080/`.
+
+####### Run protractor tests locally
+
+For testing purposes it may be useful to run protractor tests locally and see how the tests are executed.
+To run all protractor tests locally, first ensure that ninja is running
+
+```
+mvn ninja:run
+```
+
+and afterwards execute protractor:
+
+```
+./protractor
+```
+
+It is also possible to run just a single protractor test via:
+
+```
+./protractor --specs src/test/javascript/e2e-tests/dashboard/dashboard.spec.js
+```
+
+To change how protractor is run locally, you could change the config file: `/hireme/src/test/javascript/conf/protractor.local.conf.js`
 
 ******************************************************
 

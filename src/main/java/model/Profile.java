@@ -3,13 +3,13 @@ package model;
 import org.mongodb.morphia.annotations.Entity;
 
 @Entity
-public class Profile extends BaseModel{
+public class Profile extends BaseModel {
 
   private String firstname;
   private String lastname;
   private String careerStage;
 
-   public String getFirstname() {
+  public String getFirstname() {
     return firstname;
   }
 
