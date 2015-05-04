@@ -1,9 +1,8 @@
 'use strict';
 
-var SearchPage = require('./pages/search.page.js');
+var SearchPage = require('../pages/search.page.js');
 
 describe('profile page', function () {
-  browser.get('/search');
 
   var searchPage;
   beforeEach(function () {

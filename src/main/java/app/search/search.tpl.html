@@ -16,7 +16,7 @@
 								</span>
 							</div>
 						</form>
-						<h4 ng-show="filteredProfiles.length">${i18n("search.result")} <span id="filter-count">({{filteredProfiles.length}}</span> / <span id="profile-count">{{profiles.length}}</span>)</h4>
+						<h4>${i18n("search.result")} (<span id="filter-count">{{filteredProfiles.length}}</span> / <span id="profile-count">{{profiles.length}}</span>)</h4>
 						<div>
 							<div class="profile info-box bg-green" ng-repeat="profile in (filteredProfiles = (profiles | filter:search))">
 								<span class="info-box-icon"><i class="fa fa-user"></i></span>

@@ -12,6 +12,13 @@ SearchPage.prototype = Object.create({}, {
   },
   profileCount: {
     get: function () {
+      return element(by.id('profile-count')).getInnerHtml().then(function (html) {
+        return parseInt(html);
+      });
+    }
+  },  
+  filteredProfileCount: {
+    get: function () {
       return element.all(by.className('profile')).count();
     }
   },
@@ -31,7 +38,12 @@ SearchPage.prototype = Object.create({}, {
         }, 500);
       });
     }
-  }
+  },
+  searchInputField: {
+    get: function () {
+      return element(by.model('search'));
+    }
+  },
 });
 
 module.exports = SearchPage;
