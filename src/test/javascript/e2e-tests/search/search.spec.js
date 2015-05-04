@@ -12,30 +12,26 @@ describe('search page', function() {
   });
 
   it('should show all profiles if search keyword is empty', function() {
-    searchPage.searchInputField.clear();
-    searchPage.searchInputField.sendKeys("");
+    searchPage.searchProfile("");
     expect(element(by.id('search-results-none')).isDisplayed()).toBeFalsy();
     expect(searchPage.filteredProfileCount).toBe(3);
     expect(searchPage.profileCount).toBe(3);
   });
   
   it('should not show any profile if search keyword does not match', function() {
-    searchPage.searchInputField.clear();
-    searchPage.searchInputField.sendKeys("LONG_STRING_HOPEFULLY_NOT_MATCHING_ANY_PROFILES");
+    searchPage.searchProfile("LONG_STRING_HOPEFULLY_NOT_MATCHING_ANY_PROFILES");
     expect(searchPage.filteredProfileCount).toBe(0);
     expect(searchPage.profileCount).toBe(3);
     expect(element(by.id('search-results-none')).isDisplayed()).toBeTruthy();
   });
   
   it('should show profiles containing \"Manager\" if search keyword is \"Manager\"', function() {
-    searchPage.searchInputField.clear();
-    searchPage.searchInputField.sendKeys("Manager");
+    searchPage.searchProfile("Manager");
     expect(element(by.id('search-results-none')).isDisplayed()).toBeFalsy();
     expect(searchPage.filteredProfileCount).toBe(2);
     expect(searchPage.profileCount).toBe(3);
     
-    searchPage.searchInputField.clear();
-    searchPage.searchInputField.sendKeys("Moritz");
+    searchPage.searchProfile("Moritz");
     expect(element(by.id('search-results-none')).isDisplayed()).toBeFalsy();
     expect(searchPage.filteredProfileCount).toBe(1);
     expect(searchPage.profileCount).toBe(3);

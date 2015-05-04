@@ -5,6 +5,11 @@ var SearchPage = function () {
 };
 
 SearchPage.prototype = Object.create({}, {
+  searchInputField: {
+    get: function () {
+      return element(by.model('search'));
+    }
+  },
   addProfileButton: {
     get: function () {
       return element(by.id('own-profile'));
@@ -39,11 +44,12 @@ SearchPage.prototype = Object.create({}, {
       });
     }
   },
-  searchInputField: {
-    get: function () {
-      return element(by.model('search'));
+  searchProfile: {
+    value: function (searchKeyword) {
+      this.searchInputField.clear();
+      this.searchInputField.sendKeys(searchKeyword);
     }
-  },
+  }, 
 });
 
 module.exports = SearchPage;
