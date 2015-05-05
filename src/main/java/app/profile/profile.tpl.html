@@ -15,7 +15,10 @@
 	                <div class="box-header">
 	                  <h3 class="box-title">${i18n('profile.personal.section')}</h3>
 	                </div>
-	               
+	               <div ng-show="showme" class="no-print button-dialog">
+						<button ng-click ="submit()" class="btn btn-block btn-primary">Submit</button>
+						<button ng-click ="cancel()" class="btn btn-block btn-primary">Cancel</button>
+					</div>
                   	<div class="box-body form-horizontal">
 	                    <div class="form-group">
 	                      <label for="lastName" class="control-label col-md-4">${i18n('profile.personal.lastName')}</label>

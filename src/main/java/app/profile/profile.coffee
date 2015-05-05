@@ -25,14 +25,18 @@ angular.module 'profile', []
 
   $scope.$watchGroup [
       "profile.firstname",
-      "profile.firstname",
+      "profile.lastname",
       "profile.degree",
       "profile.careerStage",
       "profile.workExperience",
       "profile.languages"
     ], (newValue, oldValue) ->
       if (newValue != oldValue)
-        console.log "changed!"
+       $scope.showme = true
+       
+  $scope.submit = -> $scope.showme = false
+  $scope.cancel = -> $scope.showme = false
+  
 
 
 
