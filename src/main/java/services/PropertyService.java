@@ -19,9 +19,6 @@ public class PropertyService {
   private static final String GIT_PROPERTY_COMMIT_USER = "git.commit.user.name";
 
   @Inject
-  private SwissKnife swissKnife;
-
-  @Inject
   private NinjaProperties ninjaProperties;
 
   private GitPropertyDTO gitPropertyDTO;
