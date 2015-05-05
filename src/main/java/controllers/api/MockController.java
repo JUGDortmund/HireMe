@@ -37,7 +37,7 @@ public class MockController {
   public Result getMock()
   {
     LOG.info("[GET] Reached getMock() in MockController---> Returning statusCode \"200\"");
-    return Results.status(200).json().render("method", "getMock");
+    return Results.status(200).json().render("method", "getMock").render("createdBy", "MockController");
   }
 
   @Dev
@@ -46,7 +46,7 @@ public class MockController {
   public Result getNotFoundMock()
   {
     LOG.info("[GET] Reached getNotFoundMock() in MockController---> Returning statusCode \"404\"");
-    return Results.status(404).json().render("method", "getNotFoundMock");
+    return Results.status(404).json().render("method", "getNotFoundMock").render("createdBy", "MockController");
   }
 
   @Dev
@@ -55,7 +55,7 @@ public class MockController {
   public Result putMock()
   {
     LOG.info("[PUT] Reached putMock() in MockController---> Returning statusCode \"200\"");
-    return Results.status(200).json().render("method", "putMock");
+    return Results.status(200).json().render("method", "putMock").render("createdBy", "MockController");
   }
 
   @Dev
@@ -63,7 +63,7 @@ public class MockController {
   @Path("/notfound")
   public Result putNotFoundMock(){
     LOG.info("[PUT] Reached putNotFoundMock() in MockController---> Returning statusCode \"404\"");
-    return Results.status(404).json().render("method", "putNotFoundMock");
+    return Results.status(404).json().render("method", "putNotFoundMock").render("createdBy", "MockController");
   }
 
   @Dev
@@ -71,7 +71,7 @@ public class MockController {
   @Path("/nocontent")
   public Result putNoContentMock(){
     LOG.info("[PUT] Reached putNoContentMock() in MockController---> Returning statusCode \"204\"");
-    return Results.status(204).json().render("method", "putNoContentMock");
+    return Results.status(204).json().render("method", "putNoContentMock").render("createdBy", "MockController");
   }
 
   @Dev
@@ -79,7 +79,7 @@ public class MockController {
   @Path("")
   public Result postMock() {
     LOG.info("[POST] Reached postMock() in MockController---> Returning statusCode \"201\"");
-    return Results.status(201).json().render("method", "postMock");
+    return Results.status(201).json().render("method", "postMock").render("createdBy", "MockController");
   }
 
   @Dev
@@ -87,7 +87,7 @@ public class MockController {
   @Path("")
   public Result postNotFoundMock() {
     LOG.info("[POST] Reached postNotFoundMock() in MockController---> Returning statusCode \"404\"");
-    return Results.status(404).json().render("method", "postNotFoundMock");
+    return Results.status(404).json().render("method", "postNotFoundMock").render("createdBy", "MockController");
   }
 
   @Dev
@@ -95,7 +95,7 @@ public class MockController {
   @Path("")
   public Result deleteMock() {
     LOG.info("[DELETE] Reached deleteMock() in MockController---> Returning statusCode \"200\"");
-    return Results.status(200).json().render("method", "deleteMock");
+    return Results.status(200).json().render("method", "deleteMock").render("createdBy", "MockController");
   }
 
   @Dev
@@ -103,6 +103,6 @@ public class MockController {
   @Path("/notfound")
   public Result deleteNotFoundMock() {
     LOG.info("[DELETE] Reached deleteNotFoundMock() in MockController---> Returning statusCode \"404\"");
-    return Results.status(404).json().render("method", "deleteNotFoundMock");
+    return Results.status(404).json().render("method", "deleteNotFoundMock").render("createdBy", "MockController");
   }
 }

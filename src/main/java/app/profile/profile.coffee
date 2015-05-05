@@ -7,13 +7,12 @@ angular.module 'profile', []
     resolve:
       profile: (Restangular, $route) ->
         Restangular.one('profile', $route.current.params.profileId).get()
-.factory 'ProfileService', ->
+.factory 'ProfileService', () ->
   profileService = {}
   profileService.profile = undefined;
 
   profileService.addProfile = (value) ->
     this.profile = value;
-
 
   profileService.getProfile = () ->
     return this.profile
@@ -21,6 +20,7 @@ angular.module 'profile', []
   return profileService
 .controller 'ProfileCtrl', ($scope, Restangular, profile, ProfileService) ->
   $scope.profile = profile
+
   ProfileService.addProfile(profile)
 
   $scope.$watchGroup [
@@ -34,8 +34,12 @@ angular.module 'profile', []
       if (newValue != oldValue)
        $scope.showme = true
        
-  $scope.submit = -> $scope.showme = false
-  $scope.cancel = -> $scope.showme = false
+  $scope.save = ->
+    ### set scope to false ###
+    $scope.showme = false
+  $scope.cancel = ->
+    ### set scope to false ###
+    $scope.showme = false
   
 
 
