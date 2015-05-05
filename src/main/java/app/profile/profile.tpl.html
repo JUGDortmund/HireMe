@@ -30,14 +30,14 @@
 	                      <label for="firstName" class="control-label col-md-4">${i18n('profile.personal.firstName')}</label>
 	                      <div class="col-md-8">
 							  <input type="text" name="firstName" id="firstName"
-									 class="form-control" ng-model="profile.firstname"/>
+									 class="form-control" ng-model="profile.firstname" />
 
 						  </div>
 	                    </div>
 	                    <div class="form-group">
 	                      <label for="degree" class="control-label col-md-4">${i18n('profile.personal.degree')}</label>
 	                      <div class="col-md-8">
-	                      	<input type="text" name="degree" id="degree" class="form-control" />
+	                      	<input type="text" name="degree" id="degree" class="form-control" ng-model="profile.degree" />
 	                      </div>
 	                    </div>
 	                    <div class="form-group">
@@ -50,13 +50,13 @@
 	                    <div class="form-group">
 	                    	<label for="workExperience" class="control-label col-md-4">${i18n('profile.personal.workExperience')}</label>
 	  						<div class="col-md-8">
-	                    		<input type="text" class="form-control" name="workExperience" id="workExperience" />
+	                    		<input type="text" class="form-control" name="workExperience" id="workExperience" ng-model="profile.workExperience"/>
 	                		</div>
 	                    </div>
 	                    <div class="form-group">
 	                      <label for="languages" class="control-label col-md-4">${i18n('profile.personal.languages')}</label>
 	                      <div class="col-md-8">
-	                      	<input type="text" name="languages" id="languages" class="form-control" />
+	                      	<input type="text" name="languages" id="languages" class="form-control" ng-model="profile.languages" />
 	                      </div>
 	                    </div>
                   	</div>

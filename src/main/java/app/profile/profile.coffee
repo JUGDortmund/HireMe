@@ -7,5 +7,32 @@ angular.module 'profile', []
     resolve:
       profile: (Restangular, $route) ->
         Restangular.one('profile', $route.current.params.profileId).get()
-.controller 'ProfileCtrl', ($scope, Restangular, profile) ->
+.factory 'ProfileService', ->
+  profileService = {}
+  profileService.profile = undefined;
+
+  profileService.addProfile = (value) ->
+    this.profile = value;
+
+
+  profileService.getProfile = () ->
+    return this.profile
+
+  return profileService
+.controller 'ProfileCtrl', ($scope, Restangular, profile, ProfileService) ->
   $scope.profile = profile
+  ProfileService.addProfile(profile)
+
+  $scope.$watchGroup [
+      "profile.firstname",
+      "profile.firstname",
+      "profile.degree",
+      "profile.careerStage",
+      "profile.workExperience",
+      "profile.languages"
+    ], (newValue, oldValue) ->
+      if (newValue != oldValue)
+        console.log "changed!"
+
+
+
