@@ -7,14 +7,12 @@
                 <i class="fa fa-warning text-yellow"></i>
                 ${i18n('errors.badrequest.header')}
             </h3>
-
             <p>
                 ${i18n('errors.badrequest.paragraph01')}
                 <a href="/">${i18n('errors.default.link')}</a>
                 ${i18n('errors.default.paragraph02')}
             </p>
-
-            <form class="search-form" ng-controller="SearchController">
+            <form class="search-form" ng-controller="SearchCtrl">
                 <div class="input-group">
                     <input class="form-control" type="text"
                            placeholder=${i18n('errors.default.search')} name="search" ng-model="search">

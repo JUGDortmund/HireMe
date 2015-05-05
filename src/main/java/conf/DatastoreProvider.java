@@ -46,7 +46,6 @@ public class DatastoreProvider implements Provider<Datastore> {
     }
     String packageName = properties.get(MORPHIA_PACKAGE);
 
-    mongoClient.dropDatabase(databaseName);
     morphia = new Morphia().mapPackage(packageName);
     datastore = morphia.createDatastore(mongoClient, databaseName);
   }
@@ -64,6 +63,7 @@ public class DatastoreProvider implements Provider<Datastore> {
                                                                       password.toCharArray());
     mongoClient = new MongoClient(new ServerAddress(host, port), Arrays.asList(credentials));
     databaseName = properties.get(MONGODB_DBNAME);
+
   }
 
   public Datastore get() {

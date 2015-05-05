@@ -68,14 +68,14 @@ gulp.task 'build-css', [
 ], ->
 gulp.task 'concat-css', ->
   gulp.src(['src/main/java/assets/css/**/*.css'
-    'src/main/java/assets/less/**/*.less'])
+    'src/main/java/assets/less/style.less'])
   .pipe(gulpif(/[.]less$/,less()))
   .pipe(concat('main.css'))
   .pipe(header(generatedFileWarning))
   .pipe gulp.dest(distFolder)
 gulp.task 'uglify-css', ->
-  gulp.src(['src/main/java/assets/css/**/*.css'
-    'src/main/java/assets/less/**/*.less'])
+  gulp.src([distFolder + '/main.css'
+    'src/main/java/assets/less/style.less'])
   .pipe(plumber())
   .pipe(gulpif(/[.]less$/,less()))
   .pipe(concat('main.min.css'))

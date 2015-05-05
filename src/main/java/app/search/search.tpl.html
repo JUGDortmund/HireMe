@@ -1,3 +1,37 @@
-<div ng-controller="ListCtrl">
-    Profile count: <span id="profile-count">{{profiles.length}}</span>
-</div>
+<section class="content module search-page" ng-controller="ListCtrl" ng-init="init()">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<div class="box">
+					<div class="box-body">
+						<form name="searchForm" novalidate role="form">
+							<div class="input-group input-group-lg">
+								<input type="text" ng-model="search"
+									placeholder=${i18n(
+									'sidebar.search.placeholder')} class="form-control"
+									autofocus="autofocus"> <span class="input-group-btn">
+									<button class="btn btn-success btn-flat">
+										<i class="fa fa-search"></i>
+									</button>
+								</span>
+							</div>
+						</form>
+						<h4>${i18n("search.result")} (<span id="filter-count">{{filteredProfiles.length}}</span> / <span id="profile-count">{{profiles.length}}</span>)</h4>
+						<div>
+							<div class="profile info-box bg-green" ng-repeat="profile in (filteredProfiles = (profiles | filter:search))">
+						    	<img src="http://placehold.it/90x90" width="90" height="90"/>
+								<a class="profile-link" ng-href="/profile/{{profile.id}}">
+									<div class="info-box-content">
+										<span class="info-box-text">{{profile.careerStage}}</span>
+										<span class="info-box-number">{{profile.firstname}} {{profile.lastname}}</span>
+									</div>
+								</a>
+							</div>
+						</div>
+						<span id="search-results-none" ng-hide="filteredProfiles.length">${i18n("search.result.none")}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

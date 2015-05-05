@@ -1,1 +1,139 @@
-Profile
+<section class="content module profile-page">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-6 col-lg-offset-3 col-md-10 col-md-offset-1">
+				<div class="box border-box">
+	                <div class="header-text">
+	               		<img src="http://placehold.it/100x100" width="100" height="100"/>
+	                	<h2 class="headline">{{profile.firstname}} {{profile.lastname}}</h2>
+		                <p class="description">
+		                	{{profile.careerStage}}
+		                </p>
+		            </div>
+	            </div>
+				<div class="box box-primary">
+	                <div class="box-header">
+	                  <h3 class="box-title">${i18n('profile.personal.section')}</h3>
+	                </div>
+	               
+                  	<div class="box-body form-horizontal">
+	                    <div class="form-group">
+	                      <label for="lastName" class="control-label col-md-4">${i18n('profile.personal.lastName')}</label>
+	                      <div class="col-md-8">
+							  <input type="text" name="lastName" id="lastName" class="form-control"
+									 ng-model="profile.lastname"/>
+	                      </div>
+	                    </div>
+
+	                    <!-- DEMO READONLY -->
+	               		<div class="form-group">
+	                      <label for="firstName" class="control-label col-md-4">${i18n('profile.personal.firstName')}</label>
+	                      <div class="col-md-8">
+							  <input type="text" name="firstName" id="firstName"
+									 class="form-control" ng-model="profile.firstname"/>
+
+						  </div>
+	                    </div>
+	                    <div class="form-group">
+	                      <label for="degree" class="control-label col-md-4">${i18n('profile.personal.degree')}</label>
+	                      <div class="col-md-8">
+	                      	<input type="text" name="degree" id="degree" class="form-control" />
+	                      </div>
+	                    </div>
+	                    <div class="form-group">
+	                      <label for="careerLevel" class="control-label col-md-4">${i18n('profile.personal.careerLevel')}</label>
+	                      <div class="col-md-8">
+							  <input type="text" name="careerLevel" id="careerLevel"
+									 class="form-control" ng-model="profile.careerStage"/>
+	                      </div>
+	                    </div>
+	                    <div class="form-group">
+	                    	<label for="workExperience" class="control-label col-md-4">${i18n('profile.personal.workExperience')}</label>
+	  						<div class="col-md-8">
+	                    		<input type="text" class="form-control" name="workExperience" id="workExperience" />
+	                		</div>
+	                    </div>
+	                    <div class="form-group">
+	                      <label for="languages" class="control-label col-md-4">${i18n('profile.personal.languages')}</label>
+	                      <div class="col-md-8">
+	                      	<input type="text" name="languages" id="languages" class="form-control" />
+	                      </div>
+	                    </div>
+                  	</div>
+	            </div>
+
+	            <div class="box box-green">
+	                <div class="box-header">
+	                  <h3 class="box-title">${i18n('profile.experience.section')}</h3>
+	                </div>
+                  	<div class="box-body form-horizontal">
+                    	<div class="form-group">
+                      		<label for="industry" class="control-label col-md-4">${i18n('profile.experience.industry')}</label>
+                      		<div class="col-md-8">
+                      			<input type="text" name="industry" id="industry" class="form-control" />
+                      		</div>
+                		</div>
+                  	</div>
+				</div>
+
+	            <div class="box box-orange">
+	                <div class="box-header">
+	                  <h3 class="box-title">${i18n('profile.skills.section')}</h3>
+	                </div>
+                  	<div class="box-body form-horizontal">
+
+                  		<!-- DEMO ERROR-STYLE -->
+                        <!-- <div class="form-group has-error"> -->
+                    	<div class="form-group">
+	                    	<label for="platforms" class="control-label col-md-4">${i18n('profile.skills.platforms')}</label>
+	                    	<div class="col-md-8">
+	                      		<input type="text" name="platforms" id="platforms" class="form-control" />
+	                      	</div>
+	                    </div>
+	               		<div class="form-group">
+	                      	<label for="opSystems" class="control-label col-md-4">${i18n('profile.skills.opSystems')}</label>
+	                      	<div class="col-md-8">
+	                      		<input type="text" name="opSystems" id="opSystems" class="form-control" />
+	                      	</div>
+	                    </div>
+	                    <div class="form-group">
+	                     	<label for="progLanguages" class="control-label col-md-4">${i18n('profile.skills.progLanguages')}</label>
+	                      	<div class="col-md-8">
+	                    		<input type="text" name="progLanguages" id="progLanguages" class="form-control" />
+	                    	</div>
+	                    </div>
+	                    <div class="form-group">
+	                      <label for="webTechnologies" class="control-label col-md-4">${i18n('profile.skills.webTechnologies')}</label>
+	                      <div class="col-md-8">
+	                      	<input type="text" name="webTechnologies" id="webTechnologies" class="form-control" />
+	                      </div>
+	                    </div>
+	                    
+	                    <div class="form-group">
+	                      <label for="devEnvironments" class="control-label col-md-4">${i18n('profile.skills.devEnvironments')}</label>
+	                      <div class="col-md-8">
+	                      	<input type="text" name="devEnvironments" id="devEnvironments" class="form-control" />
+	                      </div>
+	                    </div>
+	                    
+	                    <div class="form-group">
+	                      <label for="qualifications" class="control-label col-md-4">${i18n('profile.skills.qualifications')}</label>
+	                      <div class="col-md-8">
+	                      	<input type="text" name="qualifications" id="qualifications" class="form-control" />
+	                      </div>
+	                    </div>
+	                    
+	                   <div class="form-group">
+	                      <label for="summary" class="control-label col-md-4">${i18n('profile.skills.summary')}</label>
+	                      <div class="col-md-8">
+	                      	<input type="text" name="summary" id="summary" class="form-control" />
+	                      </div>
+	                    </div>
+	                    
+                  	</div>
+
+	            </div>
+			</div>
+		</div>
+	</div>
+</section>

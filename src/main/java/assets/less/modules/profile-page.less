@@ -1,0 +1,61 @@
+.profile-page {
+	
+	.box {
+		&.box-primary {
+			.box-title,
+			label {
+				color: #3c8dbc;
+			}
+		}
+
+		&.box-orange {
+			border-top-color: #ff7701;
+
+			.box-title,
+			label {
+				color: #ff7701;
+			}
+		}
+
+		&.box-green {
+			border-top-color: #00a65a;
+
+			.box-title,
+			label {
+				color: #00a65a;
+			}
+		}
+
+		.header-text {
+			position: relative;
+			padding: 10px 10px 10px 120px;
+			min-height:100px;
+			
+			.headline {
+				margin-top: 0;
+			}
+
+			img {
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+
+			.description {
+				color: #777;
+			}
+
+		}
+
+		input[readonly] {
+			background-color: #fff;
+			border-color: #fff;
+
+			&:focus, 
+			&:active {
+				border-color: #fff !important;
+			}
+		}
+	}
+
+}

@@ -174,10 +174,8 @@
                 <version>${ninja.version}</version>
                 <configuration>
                     <excludes>
-                        <exclude>.+\\.html</exclude>
-                        <exclude>assets/.+</exclude>
-                        <exclude>dist/.+</exclude>
-                        <exclude>app/.+</exclude>
+                        <exclude>.*/assets/.*</exclude>
+                        <exclude>.*/app/.*</exclude>
                     </excludes>
                 </configuration>
             </plugin>
@@ -361,41 +359,41 @@
             </resource>
         </resources>
         <pluginManagement>
-        	<plugins>
-        		<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-        		<plugin>
-        			<groupId>org.eclipse.m2e</groupId>
-        			<artifactId>lifecycle-mapping</artifactId>
-        			<version>1.0.0</version>
-        			<configuration>
-        				<lifecycleMappingMetadata>
-        					<pluginExecutions>
-        						<pluginExecution>
-        							<pluginExecutionFilter>
-        								<groupId>
-        									org.apache.maven.plugins
-        								</groupId>
-        								<artifactId>
-        									maven-dependency-plugin
-        								</artifactId>
-        								<versionRange>
-        									[2.8,)
-        								</versionRange>
-        								<goals>
-        									<goal>
-        										unpack-dependencies
-        									</goal>
-        								</goals>
-        							</pluginExecutionFilter>
-        							<action>
-						               <execute />
-        							</action>
-        						</pluginExecution>
-        					</pluginExecutions>
-        				</lifecycleMappingMetadata>
-        			</configuration>
-        		</plugin>
-        	</plugins>
+            <plugins>
+                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>
+                                            org.apache.maven.plugins
+                                        </groupId>
+                                        <artifactId>
+                                            maven-dependency-plugin
+                                        </artifactId>
+                                        <versionRange>
+                                            [2.8,)
+                                        </versionRange>
+                                        <goals>
+                                            <goal>
+                                                unpack-dependencies
+                                            </goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <execute/>
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+            </plugins>
         </pluginManagement>
     </build>
     <dependencies>
@@ -434,6 +432,12 @@
             <artifactId>lodash</artifactId>
             <version>3.7.0</version>
         </dependency>
+        <!--
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap-datepicker</artifactId>
+            <version>1.4.0</version>
+        </dependency>-->
 
         <!-- If you want to deploy to a war please -->
         <!-- comment ninja-standalone dependency and  -->
@@ -464,6 +468,16 @@
             <version>6.0.0</version>
         </dependency>
         <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.5.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>18.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.ninjaframework</groupId>
             <artifactId>ninja-test-utilities</artifactId>
             <version>${ninja.version}</version>
@@ -480,6 +494,7 @@
             <version>1.7.1</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
     <profiles>
         <profile>
@@ -521,17 +536,17 @@
                 <skip.unit.tests>false</skip.unit.tests>
             </properties>
         </profile>
-    <profile>
-        <id>build</id>
-        <properties>
-            <cargo.hostname>hireme-build.maredit.net</cargo.hostname>
-        </properties>
-    </profile>
-    <profile>
-        <id>prod</id>
-        <properties>
-            <cargo.hostname>hireme-prod.maredit.net</cargo.hostname>
-        </properties>
-    </profile>
-</profiles>
+        <profile>
+            <id>build</id>
+            <properties>
+                <cargo.hostname>hireme-build.maredit.net</cargo.hostname>
+            </properties>
+        </profile>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <cargo.hostname>hireme-prod.maredit.net</cargo.hostname>
+            </properties>
+        </profile>
+    </profiles>
 </project>
