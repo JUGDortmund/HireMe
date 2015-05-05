@@ -19,7 +19,7 @@
 						<h4>${i18n("search.result")} (<span id="filter-count">{{filteredProfiles.length}}</span> / <span id="profile-count">{{profiles.length}}</span>)</h4>
 						<div>
 							<div class="profile info-box bg-green" ng-repeat="profile in (filteredProfiles = (profiles | filter:search))">
-								<span class="info-box-icon"><i class="fa fa-user"></i></span>
+						    	<img src="http://placehold.it/90x90" width="90" height="90"/>
 								<a class="profile-link" ng-href="/profile/{{profile.id}}">
 									<div class="info-box-content">
 										<span class="info-box-text">{{profile.careerStage}}</span>
