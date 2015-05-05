@@ -434,6 +434,12 @@
             <artifactId>lodash</artifactId>
             <version>3.7.0</version>
         </dependency>
+        <!--
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap-datepicker</artifactId>
+            <version>1.4.0</version>
+        </dependency>-->
 
         <!-- If you want to deploy to a war please -->
         <!-- comment ninja-standalone dependency and  -->
