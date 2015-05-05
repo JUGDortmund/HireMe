@@ -93,6 +93,7 @@ public class ProfileTest extends NinjaDocTester {
   @Test
   public void successfullySaveProfileReturnsSavedProfile() throws Exception {
     final Profile profile = new Profile();
+    profile.setFirstname("Max");
     Response response = sayAndMakeRequest(Request.POST()
                                               .url(testServerUrl().path("/api/profile"))
                                               .payload(profile));
