@@ -18,7 +18,7 @@ angular.module 'profile', []
     return this.profile
 
   return profileService
-.controller 'ProfileCtrl', ($scope, Restangular, profile, ProfileService) ->
+.controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, ProfileService) ->
   $scope.profile = profile
 
   ProfileService.addProfile(profile)
@@ -35,14 +35,18 @@ angular.module 'profile', []
        $scope.showme = true
        
   $scope.save = ->
-    console.log "save called"
-    newProfile =
-      firstname: $scope.profile.firstname
-      lastname: $scope.profile.lastname
-      careerStage: $scope.profile.careerStage
-    console.log newProfile
-    Restangular.one('mock').post("Profile", newProfile)
-    $scope.showme = false
+    profile.put().then (->
+      ###successful case###
+      $scope.showme = false
+
+    ), ->
+      ###error case###
+      $scope.error = true;
+      $timeout (->
+        $scope.error = false
+
+      ), 10000
+
   $scope.cancel = ->
     ### set scope to false ###
     $scope.showme = false
