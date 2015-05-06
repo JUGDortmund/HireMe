@@ -1,24 +1,23 @@
 package doctester;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-
-import org.bson.types.ObjectId;
-import org.doctester.testbrowser.Request;
-import org.doctester.testbrowser.Response;
-import org.junit.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
 import model.Profile;
 import ninja.NinjaDocTester;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import org.bson.types.ObjectId;
+import org.doctester.testbrowser.Request;
+import org.doctester.testbrowser.Response;
+import org.junit.Test;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 
 public class ProfileTest extends NinjaDocTester {
 
   public static final TypeReference<List<Profile>> PROFILE_LIST_TYPE =
-      new TypeReference<List<Profile>>() {
-      };
+      new TypeReference<List<Profile>>() {};
 
   @Test
   public void addProfileReturns201() throws Exception {
@@ -58,8 +57,8 @@ public class ProfileTest extends NinjaDocTester {
   @Test
   public void getSingleProfile() throws Exception {
     Profile createdProfile = addNewProfile().payloadJsonAs(Profile.class);
-    Profile singleProfile = getSingleProfile(createdProfile.getId().toString()).payloadJsonAs(
-        Profile.class);
+    Profile singleProfile =
+        getSingleProfile(createdProfile.getId().toString()).payloadJsonAs(Profile.class);
     assertThat(singleProfile).isEqualTo(createdProfile);
   }
 
@@ -81,27 +80,41 @@ public class ProfileTest extends NinjaDocTester {
     assertThat(response.httpStatus).isEqualTo(404);
   }
 
+  @Test
+  public void successfullySaveProfileReturns200() throws Exception {
+    final Profile profile = new Profile();
+    Response response = saveProfile(profile);
+    assertThat(response.httpStatus).isEqualTo(200);
+  }
+
+  @Test
+  public void successfullySaveProfileReturnsSavedProfile() throws Exception {
+    final Profile profile = addNewProfile().payloadJsonAs(Profile.class);
+    profile.setFirstname("Max");
+    Response response = saveProfile(profile);
+    assertThat(response.payloadJsonAs(Profile.class)).isEqualTo(profile);
+  }
+
+  @Test
+  public void saveWithoutProfileReturns400() throws Exception {
+    Response response = saveProfile(null);
+    assertThat(response.httpStatus).isEqualTo(400);
+  }
+
   private Response getSingleProfile(final String id) {
-    return sayAndMakeRequest(
-        Request.GET().url(
-            testServerUrl().path("/api/profile/" + id
-            )
-        ));
+    return sayAndMakeRequest(Request.GET().url(testServerUrl().path("/api/profile/" + id)));
   }
 
   private Response getAllProfiles() {
-    return sayAndMakeRequest(
-        Request.GET().url(
-            testServerUrl().path("/api/profile")
-        )
-    );
+    return sayAndMakeRequest(Request.GET().url(testServerUrl().path("/api/profile")));
   }
 
   private Response addNewProfile() {
-    return sayAndMakeRequest(
-        Request.POST().url(
-            testServerUrl().path("/api/profile")
-        )
-    );
+    return sayAndMakeRequest(Request.POST().url(testServerUrl().path("/api/profile")));
+  }
+
+  private Response saveProfile(Profile profile) {
+    return sayAndMakeRequest(Request.PUT().url(testServerUrl().path("/api/profile"))
+        .payload(profile).contentTypeApplicationJson());
   }
 }
