@@ -354,7 +354,7 @@
               <configuration>
               	<generateReports>false</generateReports>
               	<generateProjectInfo>false</generateProjectInfo>
-              	<outputDirectory>${project.build.outputDirectory}/assets/documentation</outputDirectory>
+              	<outputDirectory>${project.build.outputDirectory}/assets/usermanual</outputDirectory>
               </configuration>
             </plugin>
             

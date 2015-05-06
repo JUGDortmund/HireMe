@@ -3,9 +3,6 @@
   <bannerLeft>
     <name>Anwender-Dokumentation ${project.groupId}/${project.artifactId}</name>
    <href>../../</href>
-<!--
-    <src>header3.png</src>
--->
   </bannerLeft> 
   <skin>
     <groupId>org.apache.maven.skins</groupId>
@@ -32,12 +29,8 @@
     	<item href="page2.html" name="Zweite Unterseite" />
     </menu>
 
-<!--
-	<item href="mypage1.html" name="mypage1" />
-	
-    <menu name="Menu entry">
-      <item href="page.html" name="page" />
-    </menu>
---> 
   </body>
+  <poweredBy>
+    <logo name="Maredit" href="http://maredit.de/" img="maredit.png"/>
+  </poweredBy>
 </project>
