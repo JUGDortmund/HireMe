@@ -7,21 +7,7 @@ angular.module 'profile', []
     resolve:
       profile: (Restangular, $route) ->
         Restangular.one('profile', $route.current.params.profileId).get()
-.factory 'ProfileService', () ->
-  profileService = {}
-  profileService.profile = undefined;
-
-  profileService.addProfile = (value) ->
-  	@profile = angular.copy(value)
-  	console.log @profile
-
-  profileService.getProfile = () ->
-    console.log @profile
-    return @profile
-    
-
-  return profileService
-.controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, ProfileService) ->
+.controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile) ->
   $scope.profile = profile
   $scope.originProfile = angular.copy($scope.profile)
 
@@ -38,7 +24,7 @@ angular.module 'profile', []
       "profile.progLanguages",
       "profile.webTechnologies",
       "profile.devEnvironments",
-      "profile.qualifikation",
+      "profile.qualifications",
       "profile.summary"
     ], (newValue, oldValue) ->
       if (newValue != oldValue && $scope.editMode)
@@ -46,27 +32,21 @@ angular.module 'profile', []
        
   $scope.enableEditMode = ->
   	$scope.editMode = true
-  	return
+
   $scope.save = ->
     profile.put().then (->
-      ###successful case###
       $scope.showme = false
-
     ), ->
-      ###error case###
       $scope.error = true;
       $timeout (->
         $scope.error = false
-
       ), 10000
 
   $scope.cancel = ->
     $scope.editMode = false
-  
-    ### set scope to false ### 
     $scope.profile = angular.copy($scope.originProfile)
     $scope.showme = false
-    return
-    
-  return  
+
+
+
     
