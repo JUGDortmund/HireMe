@@ -12,16 +12,18 @@ angular.module 'profile', []
   profileService.profile = undefined;
 
   profileService.addProfile = (value) ->
-    this.profile = value;
+  	@profile = angular.copy(value)
+  	console.log @profile
 
   profileService.getProfile = () ->
-    return this.profile
+    console.log @profile
+    return @profile
+    
 
   return profileService
 .controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, ProfileService) ->
   $scope.profile = profile
-
-  ProfileService.addProfile(profile)
+  $scope.originProfile = angular.copy($scope.profile)
 
   $scope.$watchGroup [
       "profile.firstname",
@@ -29,11 +31,22 @@ angular.module 'profile', []
       "profile.degree",
       "profile.careerStage",
       "profile.workExperience",
-      "profile.languages"
+      "profile.languages",
+      "profile.industry",
+      "profile.platforms",
+      "profile.opSystems",
+      "profile.progLanguages",
+      "profile.webTechnologies",
+      "profile.devEnvironments",
+      "profile.qualifikation",
+      "profile.summary"
     ], (newValue, oldValue) ->
-      if (newValue != oldValue)
+      if (newValue != oldValue && $scope.editMode)
        $scope.showme = true
        
+  $scope.enableEditMode = ->
+  	$scope.editMode = true
+  	return
   $scope.save = ->
     profile.put().then (->
       ###successful case###
@@ -48,9 +61,12 @@ angular.module 'profile', []
       ), 10000
 
   $scope.cancel = ->
-    ### set scope to false ###
-    $scope.showme = false
+    $scope.editMode = false
   
-
-
-
+    ### set scope to false ### 
+    $scope.profile = angular.copy($scope.originProfile)
+    $scope.showme = false
+    return
+    
+  return  
+    
