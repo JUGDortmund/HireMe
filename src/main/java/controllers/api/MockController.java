@@ -6,6 +6,7 @@ import com.google.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ninja.Context;
 import ninja.Result;
 import ninja.Results;
 import ninja.jaxy.DELETE;
@@ -77,7 +78,7 @@ public class MockController {
   @Dev
   @POST
   @Path("")
-  public Result postMock() {
+  public Result postMock(Context context) {
     LOG.info("[POST] Reached postMock() in MockController---> Returning statusCode \"201\"");
     return Results.status(201).json().render("method", "postMock").render("createdBy", "MockController");
   }

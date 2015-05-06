@@ -35,7 +35,13 @@ angular.module 'profile', []
        $scope.showme = true
        
   $scope.save = ->
-    ### set scope to false ###
+    console.log "save called"
+    newProfile =
+      firstname: $scope.profile.firstname
+      lastname: $scope.profile.lastname
+      careerStage: $scope.profile.careerStage
+    console.log newProfile
+    Restangular.one('mock').post("Profile", newProfile)
     $scope.showme = false
   $scope.cancel = ->
     ### set scope to false ###
