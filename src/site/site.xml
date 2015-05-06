@@ -1,57 +1,43 @@
-<project name="${project.artifactId}">
+<!-- see http://maven.apache.org/plugins/maven-site-plugin/examples/sitedescriptor.html for configuration options in this file -->
+<project name="${project.artifactId} - Anwender-Dokumentation">
   <bannerLeft>
-    <name>${project.groupId}/${project.artifactId}</name>
-    <href>${project.url}</href>
+    <name>Anwender-Dokumentation ${project.groupId}/${project.artifactId}</name>
+   <href>../../</href>
+<!--
     <src>header3.png</src>
+-->
   </bannerLeft> 
   <skin>
     <groupId>org.apache.maven.skins</groupId>
     <artifactId>maven-fluido-skin</artifactId>
     <version>1.3.0</version>
   </skin>
-  <!-- http://maven.apache.org/skins/maven-fluido-skin/ -->
+<!-- http://maven.apache.org/skins/maven-fluido-skin/ -->
 <!-- from example https://github.com/apache/maven-surefire/blob/master/src/site/site.xml
  see it in action http://maven.apache.org/surefire/maven-failsafe-plugin/ -->
   <custom>
     <fluidoSkin>
       <topBarEnabled>true</topBarEnabled>
       <sideBarEnabled>true</sideBarEnabled>
-<!--
-      <googleSearch>
-        <sitesearch>${project.url}</sitesearch>
-      </googleSearch>
-      <gitHub>
-        <projectId>Nodeclipse/nodeclipse-1</projectId>
-        <ribbonOrientation>right</ribbonOrientation>
-        <ribbonColor>gray</ribbonColor>
-      </gitHub>
--->
     </fluidoSkin>
   </custom> 
   <body>
     <!-- http://maven.apache.org/doxia/doxia-sitetools/doxia-decoration-model/decoration.html 
     <item collapse=.. ref=.. name=.. href="README" img=.. position=.. alt=.. border=.. width=.. height=.. target=.. title=.. >
     -->
-    <menu name="User guide">
-      <item href="mypage1.html" name="mypage1" />
-      <item href="mypage2.html" name="mypage2" />
-    </menu>
-    <menu name="Developer guide">
-      <item href="mypage2.html" name="mypage2" />
-    </menu>
-    <menu name="Administration guide">
-      <item href="mypage3.html" name="mypage3" />
+    
+    <menu name="Anwender-Dokumentation">
+    	<item href="index.html" name="Überblick" />
+    	<item href="page1.html" name="Erste Unterseite" />
+    	<item href="page2.html" name="Zweite Unterseite" />
     </menu>
 
-<!--   <menu ref="modules"/> -->
-<!--    <menu ref="reports" inherit="bottom" /> -->
 <!--
-	<menu name="Developer Notes">
-      <item href="markdown.html" name="markdown" />
-      <item href="build.html" name="build" />
-      <item href="git-remove-submodules.html" name="git-remove-submodules" />
-      <item href="tips.html" name="tips" />
+	<item href="mypage1.html" name="mypage1" />
+	
+    <menu name="Menu entry">
+      <item href="page.html" name="page" />
     </menu>
--->    
+--> 
   </body>
 </project>
