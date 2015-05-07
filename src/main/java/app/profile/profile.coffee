@@ -64,8 +64,10 @@ angular.module( 'profile', ['duScroll'])
     $('.form-group').removeClass('has-warning')
     $document.duScrollTopAnimated(0)
 
+
   $scope.change = (id) ->
     $('#' + id).addClass('has-warning')
+
 
 
 
