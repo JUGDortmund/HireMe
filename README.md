@@ -181,11 +181,11 @@ src/main/usermanual/site.xml
 All pages that should be included in the user manual need to be specified in this file via
 
 ```
-    <menu name="Anwenderdokumentation">
-    ...
-    	<item href="myPage.html" name="My Page Title" />
-    ...
-    </menu>
+<menu name="Anwenderdokumentation">
+...
+	<item href="myPage.html" name="My Page Title" />
+...
+</menu>
 ```
 
 ### Operation manual
@@ -210,12 +210,13 @@ src/main/usermanual/pdf.xml
 ```
 
 All pages that should be included in the operation manual need to be specified in this file via
+
 ```
-  <toc name="Inhaltsverzeichnis">
-    ...
-    <item ref="index.md" name="My Page Title" />
-    ...
-  </toc>
+<toc name="Inhaltsverzeichnis">
+...
+	<item ref="index.md" name="My Page Title" />
+...
+</toc>
 ```
 
 ### Generation of documentation
