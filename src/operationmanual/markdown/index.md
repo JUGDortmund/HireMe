@@ -1,6 +1,4 @@
 Überblick
 ====================
 
-In diesem Dokument befindet sich die Anwender-Dokumentation für hireMe.
-
-Operation
+In diesem Dokument befindet sich die Betriebsdokumentaton für hireMe.
