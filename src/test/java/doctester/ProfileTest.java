@@ -1,18 +1,18 @@
 package doctester;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.util.List;
-
-import model.Profile;
-import ninja.NinjaDocTester;
+import com.fasterxml.jackson.core.type.TypeReference;
 
 import org.bson.types.ObjectId;
 import org.doctester.testbrowser.Request;
 import org.doctester.testbrowser.Response;
 import org.junit.Test;
 
-import com.fasterxml.jackson.core.type.TypeReference;
+import java.util.List;
+
+import model.Profile;
+import ninja.NinjaDocTester;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ProfileTest extends NinjaDocTester {
 
@@ -114,7 +114,7 @@ public class ProfileTest extends NinjaDocTester {
   }
 
   private Response saveProfile(Profile profile) {
-    return sayAndMakeRequest(Request.PUT().url(testServerUrl().path("/api/profile"))
+    return sayAndMakeRequest(Request.PUT().url(testServerUrl().path("/api/profile/" + profile.getId()))
         .payload(profile).contentTypeApplicationJson());
   }
 }
