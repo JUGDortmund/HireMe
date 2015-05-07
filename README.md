@@ -190,7 +190,8 @@ All pages that should be included in the user manual need to be specified in thi
 
 ### Operation manual
 
-The operation manual is written in markdown and compiled to pdf.
+The operation manual contains all information needed for the maintenance of the application.  
+It is written in markdown and compiled to pdf.
 All source pages of the manual are located at
 
 ```
