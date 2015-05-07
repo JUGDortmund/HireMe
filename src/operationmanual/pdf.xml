@@ -19,7 +19,6 @@
     <coverSubTitle>Version ${project.version}</coverSubTitle>
     <coverType>Betriebshandbuch</coverType>
     <projectName>${project.name}</projectName>
-    <!--  <projectLogo>http://maven.apache.org/images/maventxt_logo_200.gif</projectLogo> -->
     <companyName>maredit GmbH</companyName>
     <companyLogo>maredit.png</companyLogo>
   </cover>
