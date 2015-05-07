@@ -214,7 +214,7 @@ All pages that should be included in the operation manual need to be specified i
 ```
 <toc name="Inhaltsverzeichnis">
 ...
-	<item ref="index.md" name="My Page Title" />
+	<item ref="myPage.md" name="My Page Title" />
 ...
 </toc>
 ```
@@ -229,11 +229,16 @@ mvn site
 
 The user manual will be compiled to
 
-`target/classes/assets/usermanual`
+```
+target/classes/assets/usermanual
+```
 
 The operation manual will be compiled to
 
-`target/classes/assets/operationmanual`
+```
+target/classes/assets/operationmanual
+```
+
 
 
 ******************************************************
