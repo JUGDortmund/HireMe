@@ -9,7 +9,7 @@ angular.module( 'profile', ['duScroll'])
     resolve:
       profile: (Restangular, $route) ->
         Restangular.one('profile', $route.current.params.profileId).get()
-.controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, $document) ->
+.controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, $document, $parse) ->
   $scope.profile = profile
   $scope.originProfile = angular.copy($scope.profile)
 
@@ -35,27 +35,23 @@ angular.module( 'profile', ['duScroll'])
   $scope.enableEditMode = ->
   	$scope.editMode = true
 
+  showToolTip = (targetName) ->
+    target = $parse(targetName)
+    target.assign($scope, true)
+    $document.duScrollTopAnimated(0)
+    $('.form-group').removeClass('has-warning')
+    $timeout (->
+      target.assign($scope, true)
+
+    ), 10000
+
   $scope.save = ->
     profile.put().then (->
       $scope.showme = false
-      $document.duScrollTopAnimated(0)
-      $('.form-group').removeClass('has-warning')
       $scope.originProfile = angular.copy($scope.profile)
-      $scope.success = true
-      $timeout (->
-        $scope.success = false
-        return
-      ), 10000
-      return
+      showToolTip('success')
     ), ->
-      $scope.error = true
-      $document.duScrollTopAnimated(0)
-      $('.form-group').removeClass('has-warning')
-      $timeout (->
-        $scope.error = false
-        return
-      ), 10000
-      return
+      showToolTip('error')
 
   $scope.cancel = ->
     $scope.editMode = false
@@ -63,11 +59,10 @@ angular.module( 'profile', ['duScroll'])
     $scope.showme = false
     $('.form-group').removeClass('has-warning')
     $document.duScrollTopAnimated(0)
-    return
 
   $scope.change = (id) ->
     $('#' + id).addClass('has-warning')
-    return
+
 
 
 

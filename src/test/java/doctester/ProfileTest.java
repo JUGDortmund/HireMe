@@ -16,8 +16,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ProfileTest extends NinjaDocTester {
 
-  public static final TypeReference<List<Profile>> PROFILE_LIST_TYPE =
-      new TypeReference<List<Profile>>() {};
+  public static final TypeReference<List<Profile>>
+      PROFILE_LIST_TYPE =
+      new TypeReference<List<Profile>>() {
+      };
 
   @Test
   public void addProfileReturns201() throws Exception {
@@ -57,8 +59,8 @@ public class ProfileTest extends NinjaDocTester {
   @Test
   public void getSingleProfile() throws Exception {
     Profile createdProfile = addNewProfile().payloadJsonAs(Profile.class);
-    Profile singleProfile =
-        getSingleProfile(createdProfile.getId().toString()).payloadJsonAs(Profile.class);
+    Profile singleProfile = getSingleProfile(createdProfile.getId()
+                                                 .toString()).payloadJsonAs(Profile.class);
     assertThat(singleProfile).isEqualTo(createdProfile);
   }
 
@@ -114,13 +116,16 @@ public class ProfileTest extends NinjaDocTester {
   }
 
   private Response saveProfile(Profile profile) {
-    if (profile != null) {
-      return sayAndMakeRequest(Request.PUT().url(testServerUrl().path("/api/profile/" + profile.getId()))
-          .payload(profile).contentTypeApplicationJson());
+    if (profile == null) {
+      return sayAndMakeRequest(Request.PUT()
+                                   .url(testServerUrl().path("/api/profile/null"))
+                                   .payload(profile)
+                                   .contentTypeApplicationJson());
     }
-    else {
-      return sayAndMakeRequest(Request.PUT().url(testServerUrl().path("/api/profile/null"))
-          .payload(profile).contentTypeApplicationJson());
-    }
+    return sayAndMakeRequest(Request.PUT()
+                                 .url(testServerUrl().path("/api/profile/" + profile.getId()))
+                                 .payload(profile)
+                                 .contentTypeApplicationJson());
+
   }
 }

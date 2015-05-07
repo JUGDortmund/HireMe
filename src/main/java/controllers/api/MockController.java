@@ -15,6 +15,7 @@ import ninja.jaxy.GET;
 import ninja.jaxy.POST;
 import ninja.jaxy.PUT;
 import ninja.jaxy.Path;
+import ninja.jaxy.Test;
 
 /**
  * The type Mock controller.
@@ -33,6 +34,7 @@ public class MockController {
   Logger LOG = LoggerFactory.getLogger(MockController.class);
 
   @Dev
+  @Test
   @GET
   @Path("")
   public Result getMock()
@@ -42,6 +44,7 @@ public class MockController {
   }
 
   @Dev
+  @Test
   @GET
   @Path("/notfound")
   public Result getNotFoundMock()
@@ -51,6 +54,7 @@ public class MockController {
   }
 
   @Dev
+  @Test
   @PUT
   @Path("")
   public Result putMock()
@@ -60,6 +64,7 @@ public class MockController {
   }
 
   @Dev
+  @Test
   @PUT
   @Path("/notfound")
   public Result putNotFoundMock(){
@@ -68,6 +73,7 @@ public class MockController {
   }
 
   @Dev
+  @Test
   @PUT
   @Path("/nocontent")
   public Result putNoContentMock(){
@@ -76,6 +82,7 @@ public class MockController {
   }
 
   @Dev
+  @Test
   @POST
   @Path("")
   public Result postMock(Context context) {
@@ -84,6 +91,7 @@ public class MockController {
   }
 
   @Dev
+  @Test
   @POST
   @Path("")
   public Result postNotFoundMock() {
@@ -92,6 +100,7 @@ public class MockController {
   }
 
   @Dev
+  @Test
   @DELETE
   @Path("")
   public Result deleteMock() {
@@ -100,6 +109,7 @@ public class MockController {
   }
 
   @Dev
+  @Test
   @DELETE
   @Path("/notfound")
   public Result deleteNotFoundMock() {
