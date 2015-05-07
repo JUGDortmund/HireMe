@@ -432,6 +432,11 @@
             <artifactId>lodash</artifactId>
             <version>3.7.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>angular-scroll</artifactId>
+            <version>0.7.0</version>
+        </dependency>
         <!--
         <dependency>
             <groupId>org.webjars</groupId>
