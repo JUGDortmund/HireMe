@@ -1,7 +1,7 @@
 <!-- see http://maven.apache.org/plugins/maven-site-plugin/examples/sitedescriptor.html for configuration options in this file -->
 <project name="${project.artifactId} - Anwender-Dokumentation">
   <bannerLeft>
-    <name>Anwender-Dokumentation ${project.groupId}/${project.artifactId}</name>
+    <name>Anwenderdokumentation ${project.groupId}/${project.artifactId}</name>
    <href>../../</href>
   </bannerLeft> 
   <skin>
@@ -23,7 +23,7 @@
     <item collapse=.. ref=.. name=.. href="README" img=.. position=.. alt=.. border=.. width=.. height=.. target=.. title=.. >
     -->
     
-    <menu name="Anwender-Dokumentation">
+    <menu name="Anwenderdokumentation">
     	<item href="index.html" name="Überblick" />
     	<item href="page1.html" name="Erste Unterseite" />
     	<item href="page2.html" name="Zweite Unterseite" />
