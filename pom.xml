@@ -148,6 +148,12 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
+                            <systemProperties>
+                                <systemProperty>
+                                    <name>ninja.mode</name>
+                                    <value>prod</value>
+                                </systemProperty>
+                            </systemProperties>
                             <skip>${skip.protractor.tests}</skip>
                             <scanIntervalSeconds>0</scanIntervalSeconds>
                             <daemon>true</daemon>

@@ -10,7 +10,7 @@ gulpif = require('gulp-if')
 watch = require('gulp-watch')
 livereload = require('gulp-livereload')
 less = require('gulp-less')
-ngmin = require('gulp-ngmin')
+ngAnnotate = require('gulp-ng-annotate')
 plumber = require('gulp-plumber')
 uglifycss = require('gulp-uglifycss')
 
@@ -53,12 +53,14 @@ gulp.task 'build-js', [
 gulp.task 'concat-js', ->
   jsBaseBuild
   .pipe(concat('main.js'))
+  .pipe(ngAnnotate())
   .pipe(header(generatedFileWarning))
   .pipe gulp.dest(distFolder)
+  .pipe(livereload())
 gulp.task 'uglify-js', ->
   jsBaseBuild
   .pipe(concat('main.min.js'))
-  .pipe(ngmin())
+  .pipe(ngAnnotate())
   .pipe(uglify())
   .pipe(header(generatedFileWarning))
   .pipe gulp.dest(distFolder)
@@ -73,6 +75,7 @@ gulp.task 'concat-css', ->
   .pipe(concat('main.css'))
   .pipe(header(generatedFileWarning))
   .pipe gulp.dest(distFolder)
+  .pipe(livereload())
 gulp.task 'uglify-css', ->
   gulp.src([distFolder + '/main.css'
     'src/main/java/assets/less/style.less'])
