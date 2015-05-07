@@ -156,7 +156,7 @@ All developer documentation should be integrated in this readme file.
 
 ### User manual
 
-The user manual gives an overview of the application and answers questions about special non-obvious uses cases.
+The user manual gives an overview of the application and answers questions about special non-obvious use cases.
 It is a manual website which is integrated into the application and can be accessed on a running instance of the application via the *Help*-Button.
 
 The user manual is written in markdown and compiled to a website.
