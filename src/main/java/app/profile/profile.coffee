@@ -44,18 +44,18 @@ angular.module( 'profile', ['duScroll'])
       $scope.success = true
       $timeout (->
         $scope.success = false
-
+        return
       ), 10000
-
+      return
     ), ->
       $scope.error = true
       $document.duScrollTopAnimated(0)
       $('.form-group').removeClass('has-warning')
       $timeout (->
         $scope.error = false
-
+        return
       ), 10000
-
+      return
 
   $scope.cancel = ->
     $scope.editMode = false
@@ -63,11 +63,11 @@ angular.module( 'profile', ['duScroll'])
     $scope.showme = false
     $('.form-group').removeClass('has-warning')
     $document.duScrollTopAnimated(0)
-
+    return
 
   $scope.change = (id) ->
     $('#' + id).addClass('has-warning')
-
+    return
 
 
 
