@@ -29,7 +29,7 @@ SearchPage.prototype = Object.create({}, {
   },
   lastProfile: {
     get: function () {
-      return element.all(by.className('profile')).first();
+      return element.all(by.className('profile')).last();
     }
   },
   addProfile: {

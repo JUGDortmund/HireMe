@@ -30,12 +30,12 @@ angular.module( 'profile', ['duScroll'])
       "profile.summary"
     ], (newValue, oldValue) ->
       if (newValue != oldValue && $scope.editMode)
-        $scope.showme = true
+        $scope.showEditModeButtons = true
        
   $scope.enableEditMode = ->
   	$scope.editMode = true
 
-  showToolTip = (targetName) ->
+  showMessage = (targetName) ->
     target = $parse(targetName)
     target.assign($scope, true)
     $document.duScrollTopAnimated(0)
@@ -47,16 +47,16 @@ angular.module( 'profile', ['duScroll'])
 
   $scope.save = ->
     profile.put().then (->
-      $scope.showme = false
+      $scope.showEditModeButtons = false
       $scope.originProfile = angular.copy($scope.profile)
-      showToolTip('success')
+      showMessage('success')
     ), ->
-      showToolTip('error')
+      showMessage('error')
 
   $scope.cancel = ->
     $scope.editMode = false
     $scope.profile = angular.copy($scope.originProfile)
-    $scope.showme = false
+    $scope.showEditModeButtons = false
     $('.form-group').removeClass('has-warning')
     $document.duScrollTopAnimated(0)
 
