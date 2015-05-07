@@ -40,6 +40,7 @@ angular.module( 'profile', ['duScroll'])
       $scope.showme = false
       $document.duScrollTopAnimated(0)
       $('.form-group').removeClass('has-warning')
+      $scope.originProfile = angular.copy($scope.profile)
       $scope.success = true
       $timeout (->
         $scope.success = false
