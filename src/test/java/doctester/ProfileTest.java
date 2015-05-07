@@ -114,7 +114,13 @@ public class ProfileTest extends NinjaDocTester {
   }
 
   private Response saveProfile(Profile profile) {
-    return sayAndMakeRequest(Request.PUT().url(testServerUrl().path("/api/profile/" + profile.getId()))
-        .payload(profile).contentTypeApplicationJson());
+    if (profile != null) {
+      return sayAndMakeRequest(Request.PUT().url(testServerUrl().path("/api/profile/" + profile.getId()))
+          .payload(profile).contentTypeApplicationJson());
+    }
+    else {
+      return sayAndMakeRequest(Request.PUT().url(testServerUrl().path("/api/profile/null"))
+          .payload(profile).contentTypeApplicationJson());
+    }
   }
 }
