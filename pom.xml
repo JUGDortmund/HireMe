@@ -182,9 +182,9 @@
                 <artifactId>ninja-maven-plugin</artifactId>
                 <version>${ninja.version}</version>
                 <configuration>
+                    <useDefaultExcludes>true</useDefaultExcludes>
                     <excludes>
-                        <exclude>.*/assets/.*</exclude>
-                        <exclude>.*/app/.*</exclude>
+                        <exclude>(.*)/app/(.*)</exclude>
                     </excludes>
                 </configuration>
             </plugin>
@@ -285,7 +285,7 @@
             <plugin>
                 <groupId>org.codehaus.cargo</groupId>
                 <artifactId>cargo-maven2-plugin</artifactId>
-                <version>1.4.13</version>
+                <version>1.4.14</version>
                 <configuration>
                     <container>
                         <containerId>jetty9x</containerId>
