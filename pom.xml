@@ -94,7 +94,7 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-            <!-- Plugin used for extraction of javascript files out of webjars, so that they can be used in protractor tests -->
+            <!-- Plugin inserted by ninja framework by default. Prevents inclusion of commons-logging via maven. -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
@@ -118,6 +118,7 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- Plugin inserted by ninja framework by default -->
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>maven-jetty-plugin</artifactId>
@@ -187,6 +188,7 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <!-- Plugin inserted by ninja framework per default -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
@@ -195,6 +197,7 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
+            <!-- Plugin inserted by ninja framework per default. Used for building standalone jar file -->
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>2.5</version>
@@ -209,6 +212,7 @@
                     </archive>
                 </configuration>
             </plugin>
+            <!-- Plugin to install and run node, npm, karma, protractor and gulp. Used for testing and building of resources -->
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
@@ -260,6 +264,7 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- Plugin used for extraction of javascript files out of webjars, so that they can be used in protractor tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -276,6 +281,7 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- Plugin to deploy the application to a remote jetty container. Used for deployment on different systems. -->
             <plugin>
                 <groupId>org.codehaus.cargo</groupId>
                 <artifactId>cargo-maven2-plugin</artifactId>
@@ -554,6 +560,7 @@
 
     </dependencies>
     <profiles>
+        <!-- Test profile for development -->
         <profile>
             <id>dev</id>
             <activation>
@@ -566,6 +573,7 @@
                 <skip.unit.tests>false</skip.unit.tests>
             </properties>
         </profile>
+        <!-- Test profile for integration tests -->
         <profile>
             <id>integration</id>
             <properties>
@@ -575,6 +583,7 @@
                 <skip.unit.tests>false</skip.unit.tests>
             </properties>
         </profile>
+        <!-- Test profile for protractor/selenium tests -->
         <profile>
             <id>protractor</id>
             <properties>
@@ -584,6 +593,7 @@
                 <skip.unit.tests>false</skip.unit.tests>
             </properties>
         </profile>
+        <!-- Test profile for running all tests -->
         <profile>
             <id>all</id>
             <properties>
@@ -593,12 +603,14 @@
                 <skip.unit.tests>false</skip.unit.tests>
             </properties>
         </profile>
+        <!-- Profile for deployment on build system via cargo plugin -->
         <profile>
             <id>build</id>
             <properties>
                 <cargo.hostname>hireme-build.maredit.net</cargo.hostname>
             </properties>
         </profile>
+        <!-- Profile for deployment on prod system via cargo plugin -->
         <profile>
             <id>prod</id>
             <properties>
