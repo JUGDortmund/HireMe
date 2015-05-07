@@ -25,6 +25,7 @@
 
     <build>
         <plugins>
+           <!-- Plugin for extraction of git properties. Used to display build information inside the application -->
             <plugin>
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
@@ -66,6 +67,12 @@
                     </gitDescribe>
                 </configuration>
             </plugin>
+            <!-- Plugin for building releases via release:prepare|perform.
+                 Plugin is loaded by maven by default, but we need to define a specific git provider version to fix issues.
+                 For details see:
+                 https://jira.codehaus.org/browse/MRELEASE-812
+                 http://stackoverflow.com/questions/15166781/mvn-releaseprepare-not-committing-changes-to-pom-xml
+             -->
             <plugin>
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.5.1</version>
@@ -77,6 +84,7 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <!-- Plugin is defined explicitly to set java version to 1.8 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -86,6 +94,7 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <!-- Plugin used for extraction of javascript files out of webjars, so that they can be used in protractor tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
@@ -301,6 +310,7 @@
                     </deployables>
                 </configuration>
             </plugin>
+            <!-- Plugin for generation of unit test reports -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -319,6 +329,7 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <!-- Plugin for generation of integration test reports -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
@@ -339,7 +350,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- Plugin for generation of user manual site -->
+            <!-- Plugin for generation of user manual as website -->
             <plugin>    
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-site-plugin</artifactId>
@@ -354,11 +365,12 @@
               <configuration>
               	<generateReports>false</generateReports>
               	<generateProjectInfo>false</generateProjectInfo>
+              	<siteDirectory>${basedir}/src/usermanual</siteDirectory>
+             	<templateDirectory>${basedir}/src/usermanual</templateDirectory>
               	<outputDirectory>${project.build.outputDirectory}/assets/usermanual</outputDirectory>
               </configuration>
             </plugin>
-            
-            <!-- Plugin for generation of operation documentation -->
+            <!-- Plugin for generation of operation documentation as pdf-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pdf-plugin</artifactId>
@@ -371,7 +383,9 @@
 							<goal>pdf</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}</outputDirectory>
+			              	<siteDirectory>${basedir}/src/operationmanual</siteDirectory>
+			             	<templateDirectory>${basedir}/src/operationmanual</templateDirectory>
+			              	<outputDirectory>${project.build.outputDirectory}/assets/operationmanual</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>
