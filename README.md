@@ -148,6 +148,96 @@ To change how protractor is run locally, you could change the config file: `/hir
 ******************************************************
 
 
+## Documentation
+
+### Developer documentation
+
+All developer documentation should be integrated in this readme file.	
+
+### User manual
+
+The user manual gives an overview of the application and answers questions about special non-obvious uses cases.
+It is a manual website which is integrated into the application and can be accessed on a running instance of the application via the *Help*-Button.
+
+The user manual is written in markdown and compiled to a website.
+All source pages of the manual are located at
+
+```
+src/main/usermanual/markdown/*.md
+```
+
+All resources used in the manual files should be placed at
+
+```
+src/main/usermanual/resources
+```
+
+The compilation of the user manual website can be configured in
+
+```
+src/main/usermanual/site.xml
+```
+
+All pages that should be included in the user manual need to be specified in this file via
+
+```
+    <menu name="Anwenderdokumentation">
+    ...
+    	<item href="myPage.html" name="My Page Title" />
+    ...
+    </menu>
+```
+
+### Operation manual
+
+The operation manual is written in markdown and compiled to pdf.
+All source pages of the manual are located at
+
+```
+src/main/operationmanual/markdown/*.md
+```
+
+All resources used in the manual files should be placed at
+
+```
+src/main/operationmanual/resources
+```
+
+The compilation of the operation manual pdf can be configured in
+
+```
+src/main/usermanual/pdf.xml
+```
+
+All pages that should be included in the operation manual need to be specified in this file via
+```
+  <toc name="Inhaltsverzeichnis">
+    ...
+    <item ref="index.md" name="My Page Title" />
+    ...
+  </toc>
+```
+
+### Generation of documentation
+
+The user manual and the operation manual can be build via
+
+```
+mvn site
+```
+
+The user manual will be compiled to
+
+`target/classes/assets/usermanual`
+
+The operation manual will be compiled to
+
+`target/classes/assets/operationmanual`
+
+
+******************************************************
+
+
 ## Technology usages
 
 ### Web framework (Full Stack)
