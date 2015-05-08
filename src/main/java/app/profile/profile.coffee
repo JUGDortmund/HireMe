@@ -33,7 +33,8 @@ angular.module( 'profile', ['duScroll'])
         $scope.showEditModeButtons = true
        
   $scope.enableEditMode = ->
-  	$scope.editMode = true
+    $scope.editMode = true
+    return
 
   showMessage = (targetName) ->
     target = $parse(targetName)
@@ -41,17 +42,20 @@ angular.module( 'profile', ['duScroll'])
     $document.duScrollTopAnimated(0)
     $('.form-group').removeClass('has-warning')
     $timeout (->
-      target.assign($scope, true)
-
-    ), 10000
+      target.assign($scope, false)
+      return
+    ), 6000
+    return
 
   $scope.save = ->
     profile.put().then (->
       $scope.showEditModeButtons = false
       $scope.originProfile = angular.copy($scope.profile)
       showMessage('success')
+      return
     ), ->
       showMessage('error')
+      return
 
   $scope.cancel = ->
     $scope.editMode = false
@@ -59,9 +63,11 @@ angular.module( 'profile', ['duScroll'])
     $scope.showEditModeButtons = false
     $('.form-group').removeClass('has-warning')
     $document.duScrollTopAnimated(0)
+    return
 
   $scope.change = (id) ->
     $('#' + id).addClass('has-warning')
+    return
 
 
 
