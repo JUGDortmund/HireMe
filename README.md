@@ -150,6 +150,9 @@ To change how protractor is run locally, you could change the config file: `/hir
 
 ## Documentation
 
+All documentation is written in markdown language.
+To get familiar with the syntax see [Markdown Basics](http://daringfireball.net/projects/markdown/basics) and [Markdown Syntax](http://daringfireball.net/projects/markdown/syntax).
+
 ### Developer documentation
 
 All developer documentation should be integrated in this readme file.	
