@@ -6,6 +6,8 @@ import com.google.inject.Singleton;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import exception.ElementNotFoundException;
 import model.Profile;
@@ -14,12 +16,15 @@ import ninja.Results;
 import ninja.exceptions.BadRequestException;
 import ninja.jaxy.GET;
 import ninja.jaxy.POST;
+import ninja.jaxy.PUT;
 import ninja.jaxy.Path;
 import ninja.params.PathParam;
 
 @Singleton
 @Path("/api/profile")
 public class ProfileController {
+
+  Logger LOG = LoggerFactory.getLogger(ProfileController.class);
 
   @Inject
   private Datastore datastore;
@@ -58,4 +63,15 @@ public class ProfileController {
     datastore.save(profile);
     return Results.status(201).json().render(profile);
   }
+
+  @PUT
+  @Path("/{id}")
+  public Result saveProfile(Profile profile) {
+    if (profile == null) {
+      throw new BadRequestException();
+    }
+    datastore.save(profile);
+    return Results.json().render(profile);
+  }
+
 }
