@@ -19,12 +19,14 @@
     <properties>
         <ninja.version>5.1.0</ninja.version>
         <jetty.version>9.2.10.v20150310</jetty.version>
+        <doxia-markdown.version>1.6</doxia-markdown.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <build>
         <plugins>
+           <!-- Plugin for extraction of git properties. Used to display build information inside the application -->
             <plugin>
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
@@ -36,7 +38,6 @@
                         </goals>
                     </execution>
                 </executions>
-
                 <configuration>
                     <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
                     <prefix>git</prefix>
@@ -67,6 +68,12 @@
                     </gitDescribe>
                 </configuration>
             </plugin>
+            <!-- Plugin for building releases via release:prepare|perform.
+                 Plugin is loaded by maven by default, but we need to define a specific git provider version to fix issues in the interaction with git.
+                 For details see:
+                 https://jira.codehaus.org/browse/MRELEASE-812
+                 http://stackoverflow.com/questions/15166781/mvn-releaseprepare-not-committing-changes-to-pom-xml
+             -->
             <plugin>
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.5.1</version>
@@ -78,6 +85,7 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <!-- Plugin is defined explicitly to set java version to 1.8 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -87,6 +95,7 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <!-- Plugin inserted by ninja framework by default. Prevents inclusion of commons-logging via maven. -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
@@ -110,6 +119,7 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- Plugin inserted by ninja framework by default -->
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>maven-jetty-plugin</artifactId>
@@ -179,12 +189,13 @@
                 <artifactId>ninja-maven-plugin</artifactId>
                 <version>${ninja.version}</version>
                 <configuration>
+                    <useDefaultExcludes>true</useDefaultExcludes>
                     <excludes>
-                        <exclude>.*/assets/.*</exclude>
-                        <exclude>.*/app/.*</exclude>
+                        <exclude>(.*)/app/(.*)</exclude>
                     </excludes>
                 </configuration>
             </plugin>
+            <!-- Plugin inserted by ninja framework per default -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
@@ -193,6 +204,7 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
+            <!-- Plugin inserted by ninja framework per default. Used for building standalone jar file -->
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>2.5</version>
@@ -207,6 +219,7 @@
                     </archive>
                 </configuration>
             </plugin>
+            <!-- Plugin to install and run node, npm, karma, protractor and gulp. Used for testing and building of resources -->
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
@@ -258,6 +271,7 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- Plugin used for extraction of javascript files out of webjars, so that they can be used in protractor tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -274,10 +288,11 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- Plugin to deploy the application to a remote jetty container. Used for deployment on different systems. -->
             <plugin>
                 <groupId>org.codehaus.cargo</groupId>
                 <artifactId>cargo-maven2-plugin</artifactId>
-                <version>1.4.13</version>
+                <version>1.4.14</version>
                 <configuration>
                     <container>
                         <containerId>jetty9x</containerId>
@@ -308,6 +323,7 @@
                     </deployables>
                 </configuration>
             </plugin>
+            <!-- Plugin for generation of unit test reports -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -326,6 +342,7 @@
                     </excludes>
                 </configuration>
             </plugin>
+            <!-- Plugin for generation of integration test reports -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
@@ -346,6 +363,56 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- Plugin for generation of user manual as website -->
+            <plugin>    
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-site-plugin</artifactId>
+              <version>3.4</version>
+              <dependencies>
+                <dependency>
+                  <groupId>org.apache.maven.doxia</groupId>
+                  <artifactId>doxia-module-markdown</artifactId>
+                  <version>${doxia-markdown.version}</version>
+                </dependency>
+              </dependencies>
+              <configuration>
+              	<generateReports>false</generateReports>
+              	<generateProjectInfo>false</generateProjectInfo>
+              	<siteDirectory>${basedir}/src/usermanual</siteDirectory>
+             	<templateDirectory>${basedir}/src/usermanual</templateDirectory>
+              	<outputDirectory>${project.build.outputDirectory}/assets/usermanual</outputDirectory>
+              </configuration>
+            </plugin>
+            <!-- Plugin for generation of operation documentation as pdf-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pdf-plugin</artifactId>
+				<version>1.3</version>
+				<executions>
+					<execution>
+						<id>pdf</id>
+						<phase>site</phase>
+						<goals>
+							<goal>pdf</goal>
+						</goals>
+						<configuration>
+							<generateReports>false</generateReports>
+							<generateProjectInfo>false</generateProjectInfo>
+							<siteDirectory>${basedir}/src/operationmanual</siteDirectory>
+							<templateDirectory>${basedir}/src/operationmanual</templateDirectory>
+							<outputDirectory>${project.build.outputDirectory}/assets/operationmanual</outputDirectory>
+							<docDescriptor>${basedir}/src/operationmanual/pdf.xml</docDescriptor>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.maven.doxia</groupId>
+						<artifactId>doxia-module-markdown</artifactId>
+						<version>${doxia-markdown.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin> 
         </plugins>
         <resources>
             <resource>
@@ -508,6 +575,7 @@
 
     </dependencies>
     <profiles>
+        <!-- Test profile for development -->
         <profile>
             <id>dev</id>
             <activation>
@@ -520,6 +588,7 @@
                 <skip.unit.tests>false</skip.unit.tests>
             </properties>
         </profile>
+        <!-- Test profile for integration tests -->
         <profile>
             <id>integration</id>
             <properties>
@@ -529,6 +598,7 @@
                 <skip.unit.tests>false</skip.unit.tests>
             </properties>
         </profile>
+        <!-- Test profile for protractor/selenium tests -->
         <profile>
             <id>protractor</id>
             <properties>
@@ -538,6 +608,7 @@
                 <skip.unit.tests>false</skip.unit.tests>
             </properties>
         </profile>
+        <!-- Test profile for running all tests -->
         <profile>
             <id>all</id>
             <properties>
@@ -547,12 +618,14 @@
                 <skip.unit.tests>false</skip.unit.tests>
             </properties>
         </profile>
+        <!-- Profile for deployment on build system via cargo plugin -->
         <profile>
             <id>build</id>
             <properties>
                 <cargo.hostname>hireme-build.maredit.net</cargo.hostname>
             </properties>
         </profile>
+        <!-- Profile for deployment on prod system via cargo plugin -->
         <profile>
             <id>prod</id>
             <properties>
