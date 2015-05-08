@@ -24,6 +24,7 @@ angular.module('app', [
 .controller 'HeaderCtrl', ($scope, $rootScope, Restangular) ->
   $scope.init = ->
     $.AdminLTE.pushMenu '[data-toggle=\'offcanvas\']'
+    $.AdminLTE.layout.activate();
   $scope.addProfile = ->
     baseProfile = Restangular.all('profile')
     baseProfile.post().then ->
