@@ -1,4 +1,4 @@
-angular.module 'errors', []
+angular.module 'errors', ['utils.autofocus']
 .config ($routeProvider) ->
     $routeProvider.when '/400', templateUrl: 'errors/400.tpl.html'
     $routeProvider.when '/401', templateUrl: 'errors/401.tpl.html'
