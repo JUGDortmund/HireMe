@@ -40,6 +40,7 @@ describe('errorpages', function () {
       expect(result.statusCode).toBe(500);
     });
   });
+  
 
   it('should place a search-input into the content-area of the site ('+STATUSURL_400+')', function() {
     browser.get(STATUSURL_400);
@@ -70,7 +71,84 @@ describe('errorpages', function () {
     var searchElement = element(by.model('search'));
     expect(searchElement.isDisplayed()).toBe(true);
   });
+  
+  
+  it('redirect to \"/search?q=blub\" if \"blub\" is entered in search-form and button \"btn-warning\" is clicked on the site ('+STATUSURL_400+')', function () {
+    browser.get(STATUSURL_400);
+    element(by.model('search')).sendKeys('blub');
+    element(by.css('.btn-warning')).click();
+    expect(browser.getLocationAbsUrl()).toEqual("/search?q=blub");
+  });
+  
+  it('redirect to \"/search?q=blub\" if \"blub\" is entered in search-form and button \"btn-warning\" is clicked on the site ('+STATUSURL_401+')', function () {
+    browser.get(STATUSURL_401);
+    element(by.model('search')).sendKeys('blub');
+    element(by.css('.btn-warning')).click();
+    expect(browser.getLocationAbsUrl()).toEqual("/search?q=blub");
+  });
+  
+  it('redirect to \"/search?q=blub\" if \"blub\" is entered in search-form and button \"btn-warning\" is clicked on the site ('+STATUSURL_403+')', function () {
+    browser.get(STATUSURL_403);
+    element(by.model('search')).sendKeys('blub');
+    element(by.css('.btn-warning')).click();
+    expect(browser.getLocationAbsUrl()).toEqual("/search?q=blub");
+  });
+  
+  it('redirect to \"/search?q=blub\" if \"blub\" is entered in search-form and button \"btn-warning\" is clicked on the site ('+STATUSURL_404+')', function () {
+    browser.get(STATUSURL_404);
+    element(by.model('search')).sendKeys('blub');
+    element(by.css('.btn-warning')).click();
+    expect(browser.getLocationAbsUrl()).toEqual("/search?q=blub");
+  });  
+  
+  it('redirect to \"/search?q=blub\" if \"blub\" is entered in search-form and button \"btn-warning\" is clicked on the site ('+STATUSURL_500+')', function () {
+    browser.get(STATUSURL_500);
+    element(by.model('search')).sendKeys('blub');
+    element(by.css('.btn-warning')).click();
+    expect(browser.getLocationAbsUrl()).toEqual("/search?q=blub");
+  }); 
+  
 
+  it('redirect to \"/search?q=blub\" if \"blub\" is entered in search-form and \"enter\" is triggered on the site ('+STATUSURL_400+')', function () {
+    browser.get(STATUSURL_400);
+    var searchElement = element(by.model('search'));
+    searchElement.sendKeys('blub');
+    searchElement.sendKeys(protractor.Key.ENTER);
+    expect(browser.getLocationAbsUrl()).toEqual("/search?q=blub");
+  });
+
+  it('redirect to \"/search?q=blub\" if \"blub\" is entered in search-form and \"enter\" is triggered on the site ('+STATUSURL_401+')', function () {
+    browser.get(STATUSURL_401);
+    var searchElement = element(by.model('search'));
+    searchElement.sendKeys('blub');
+    searchElement.sendKeys(protractor.Key.ENTER);
+    expect(browser.getLocationAbsUrl()).toEqual("/search?q=blub");
+  });
+  
+  it('redirect to \"/search?q=blub\" if \"blub\" is entered in search-form and \"enter\" is triggered on the site ('+STATUSURL_403+')', function () {
+    browser.get(STATUSURL_403);
+    var searchElement = element(by.model('search'));
+    searchElement.sendKeys('blub');
+    searchElement.sendKeys(protractor.Key.ENTER);
+    expect(browser.getLocationAbsUrl()).toEqual("/search?q=blub");
+  });
+  
+  it('redirect to \"/search?q=blub\" if \"blub\" is entered in search-form and \"enter\" is triggered on the site ('+STATUSURL_404+')', function () {
+    browser.get(STATUSURL_404);
+    var searchElement = element(by.model('search'));
+    searchElement.sendKeys('blub');
+    searchElement.sendKeys(protractor.Key.ENTER);
+    expect(browser.getLocationAbsUrl()).toEqual("/search?q=blub");
+  });
+  
+  it('redirect to \"/search?q=blub\" if \"blub\" is entered in search-form and \"enter\" is triggered on the site ('+STATUSURL_500+')', function () {
+    browser.get(STATUSURL_500);
+    var searchElement = element(by.model('search'));
+    searchElement.sendKeys('blub');
+    searchElement.sendKeys(protractor.Key.ENTER);
+    expect(browser.getLocationAbsUrl()).toEqual("/search?q=blub");
+  });
+  
 });
 
 
