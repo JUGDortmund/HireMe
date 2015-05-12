@@ -1,4 +1,6 @@
-package unit.util.serializer;
+package util.serializer;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -6,10 +8,6 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.bson.types.ObjectId;
 import org.junit.Before;
 import org.junit.Test;
-
-import unit.serializer.ObjectIdSerializer;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class ObjectIdSerializerTest {
 
@@ -22,7 +20,6 @@ public class ObjectIdSerializerTest {
     SimpleModule module = new SimpleModule();
     module.addSerializer(new ObjectIdSerializer());
     mapper.registerModule(module);
-
     id = new ObjectId();
   }
 

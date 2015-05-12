@@ -1,4 +1,6 @@
-package unit.util.serializer;
+package util.serializer;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -9,10 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import model.Profile;
-import unit.serializer.ObjectIdDeserializer;
-import unit.serializer.ObjectIdSerializer;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class ObjectIdDeserializerTest {
   private ObjectMapper mapper;
@@ -29,11 +27,12 @@ public class ObjectIdDeserializerTest {
   }
 
   @Test
-  public void serialize() throws Exception {
+  public void deserialize() throws Exception {
     Profile profile = new Profile();
     profile.setId(id);
 
-    assertThat(mapper.readValue(mapper.writeValueAsString(profile), Profile.class).getId()).isEqualTo(id);
+    assertThat(mapper.readValue(mapper.writeValueAsString(profile), Profile.class).getId())
+        .isEqualTo(id);
   }
 
   @Test
