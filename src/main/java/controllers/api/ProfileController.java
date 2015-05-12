@@ -14,6 +14,7 @@ import model.Profile;
 import ninja.Result;
 import ninja.Results;
 import ninja.exceptions.BadRequestException;
+import ninja.i18n.Lang;
 import ninja.jaxy.GET;
 import ninja.jaxy.POST;
 import ninja.jaxy.PUT;
@@ -27,6 +28,9 @@ public class ProfileController {
   Logger LOG = LoggerFactory.getLogger(ProfileController.class);
 
   @Inject
+  Lang lang;
+
+  @Inject
   private Datastore datastore;
 
   @GET
@@ -38,6 +42,7 @@ public class ProfileController {
   @Path("/{id}")
   @GET
   public Result getSingleProfileById(@PathParam("id") String id) {
+
     if (Strings.isNullOrEmpty(id)) {
       throw new BadRequestException();
     }
@@ -67,6 +72,7 @@ public class ProfileController {
   @PUT
   @Path("/{id}")
   public Result saveProfile(Profile profile) {
+    LOG.info("Profile date: " + profile.getWorkExperience().toString());
     if (profile == null) {
       throw new BadRequestException();
     }
