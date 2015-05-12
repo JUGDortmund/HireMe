@@ -34,14 +34,15 @@ public class LocalizationService {
 
   public Optional<String> getLanguage(Context context) {
     if (language == null) {
-      language = generateLanguage(context);
+      Optional<String> tempLanguage = generateLanguage(context);
+      language = tempLanguage != null ? tempLanguage : Optional.of("en-Us");
     }
     return language;
   }
 
   public String getPattern(Context context) {
     if (pattern == null) {
-      pattern = generateDateFormat(generateLanguage(context));
+      pattern = generateDateFormat(getLanguage(context));
     }
     return pattern;
   }

@@ -38,7 +38,7 @@ public class IndexController {
   @Path("{template: .*}\\.tpl\\.html")
   public Result getTemplate(Context context, @PathParam("template") String templateName) {
     return Results.ok().html().template("/app" + templateName + ".tpl.html")
-        .render("language", localizationService.getLanguage(context).get())
+        .render("language", localizationService.getLanguage(context).or("en"))
         .render("dateformat", localizationService.getPattern(context));
   }
 

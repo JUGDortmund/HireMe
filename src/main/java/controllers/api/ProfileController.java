@@ -72,7 +72,6 @@ public class ProfileController {
   @PUT
   @Path("/{id}")
   public Result saveProfile(Profile profile) {
-    LOG.info("Profile date: " + profile.getWorkExperience().toString());
     if (profile == null) {
       throw new BadRequestException();
     }
