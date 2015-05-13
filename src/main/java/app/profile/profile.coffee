@@ -57,9 +57,10 @@ angular.module( 'profile', ['duScroll'])
     dateString=  moment($scope.profile.workExperience, dateFormat).toDate();
     $scope.profile.workExperience = dateString
     profile.put().then (->
-      $scope.showEditModeButtons = false
       $scope.profile.workExperience = moment($scope.profile.workExperience).format(dateFormat);
       $scope.originProfile = angular.copy($scope.profile)
+      $scope.editMode = false
+      $scope.showEditModeButtons = false
       showMessage('success')
       return
     ), ->
