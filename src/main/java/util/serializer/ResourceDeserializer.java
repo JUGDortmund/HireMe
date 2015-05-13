@@ -5,21 +5,25 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 
+import org.bson.types.ObjectId;
+
 import java.io.IOException;
 
-import javax.xml.bind.DatatypeConverter;
+import model.Resource;
 
-public class ByteArrayDeserializer extends JsonDeserializer<byte[]> {
+public class ResourceDeserializer extends JsonDeserializer<Resource> {
 
   @Override
-  public byte[] deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
+  public Resource deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
       throws IOException, JsonProcessingException {
     String valueAsString = jsonParser.getValueAsString();
-    return DatatypeConverter.parseBase64Binary(valueAsString);
+    Resource resource = new Resource();
+    resource.setId(new ObjectId(valueAsString));
+    return resource;
   }
 
   @Override
-  public Class<byte[]> handledType() {
-    return byte[].class;
+  public Class<Resource> handledType() {
+    return Resource.class;
   }
 }

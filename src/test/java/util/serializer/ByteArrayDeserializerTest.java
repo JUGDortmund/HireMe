@@ -3,17 +3,20 @@ package util.serializer;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import model.Profile;
+import javax.xml.bind.DatatypeConverter;
+
 
 public class ByteArrayDeserializerTest {
+
   private ObjectMapper mapper;
-  private byte[] image;
+  private byte[] field = DatatypeConverter.parseBase64Binary("abc");
 
   @Before
   public void setUp() throws Exception {
@@ -25,15 +28,33 @@ public class ByteArrayDeserializerTest {
 
   @Test
   public void deserializeTest() throws Exception {
-    Profile profile = new Profile();
-    profile.setImage(image);
+    ByteArraySerializeTestClass testClass = new ByteArraySerializeTestClass();
+    testClass.setMyField(field);
 
-    assertThat(mapper.readValue(mapper.writeValueAsString(profile), Profile.class).getImage())
-        .isEqualTo(image);
+    assertThat(
+        mapper.readValue(mapper.writeValueAsString(testClass), ByteArraySerializeTestClass.class)
+            .getMyField()).isEqualTo(field);
   }
 
   @Test
   public void handlesTypes() throws Exception {
     assertThat(mapper.canDeserialize(TypeFactory.defaultInstance().constructType(byte[].class)));
+  }
+
+}
+
+
+class ByteArraySerializeTestClass {
+  @JsonDeserialize(using = ByteArrayDeserializer.class)
+  private byte[] myField;
+
+  public ByteArraySerializeTestClass() {}
+
+  public byte[] getMyField() {
+    return myField;
+  }
+
+  public void setMyField(byte[] myField) {
+    this.myField = myField;
   }
 }
