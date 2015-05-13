@@ -19,8 +19,6 @@ import services.PropertyService;
 @Path("")
 public class IndexController {
 
-  Logger LOG = LoggerFactory.getLogger(IndexController.class);
-
   @Inject
   private PropertyService propertyService;
 
