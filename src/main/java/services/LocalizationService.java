@@ -23,10 +23,10 @@ public class LocalizationService {
   private Optional<String> generateLanguage(Context context){
     Optional<Result> resultOptional = Optional.absent();
     Optional<String> optionalValue = lang.getLanguage(context, resultOptional);
-    return optionalValue;
+    return (optionalValue != null || optionalValue.get() != null) ? optionalValue : Optional.of("en-Us");
   }
 
-  private String generateDateFormat(Optional<String> optionalValue){
+  private String generatePattern(Optional<String> optionalValue){
     Locale locale = lang.getLocaleFromStringOrDefault(optionalValue);
     DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, locale);
     return ((SimpleDateFormat) dateFormat).toPattern().toLowerCase();
@@ -34,15 +34,14 @@ public class LocalizationService {
 
   public Optional<String> getLanguage(Context context) {
     if (language == null) {
-      Optional<String> tempLanguage = generateLanguage(context);
-      language = tempLanguage != null ? tempLanguage : Optional.of("en-Us");
+      language = generateLanguage(context);
     }
     return language;
   }
 
   public String getPattern(Context context) {
     if (pattern == null) {
-      pattern = generateDateFormat(getLanguage(context));
+      pattern = generatePattern(getLanguage(context));
     }
     return pattern;
   }

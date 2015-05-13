@@ -6,8 +6,6 @@ import org.bson.types.ObjectId;
 import org.doctester.testbrowser.Request;
 import org.doctester.testbrowser.Response;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
@@ -17,8 +15,6 @@ import ninja.NinjaDocTester;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ProfileTest extends NinjaDocTester {
-
-  Logger LOG = LoggerFactory.getLogger(ProfileTest.class);
 
   public static final TypeReference<List<Profile>>
       PROFILE_LIST_TYPE =

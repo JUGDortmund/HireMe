@@ -56,7 +56,6 @@ angular.module( 'profile', ['duScroll'])
     dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
     dateString=  moment($scope.profile.workExperience, dateFormat).toDate();
     $scope.profile.workExperience = dateString
-    console.log $scope.profile.workExperience
     profile.put().then (->
       $scope.showEditModeButtons = false
       $scope.profile.workExperience = moment($scope.profile.workExperience).format(dateFormat);

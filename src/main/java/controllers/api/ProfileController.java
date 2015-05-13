@@ -6,15 +6,12 @@ import com.google.inject.Singleton;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import exception.ElementNotFoundException;
 import model.Profile;
 import ninja.Result;
 import ninja.Results;
 import ninja.exceptions.BadRequestException;
-import ninja.i18n.Lang;
 import ninja.jaxy.GET;
 import ninja.jaxy.POST;
 import ninja.jaxy.PUT;
@@ -24,11 +21,6 @@ import ninja.params.PathParam;
 @Singleton
 @Path("/api/profile")
 public class ProfileController {
-
-  Logger LOG = LoggerFactory.getLogger(ProfileController.class);
-
-  @Inject
-  Lang lang;
 
   @Inject
   private Datastore datastore;

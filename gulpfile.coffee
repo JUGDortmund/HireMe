@@ -19,7 +19,6 @@ distFolder = 'src/main/java/assets/dist'
 
 jsBaseBuild =
   gulp.src([
-             'src/main/java/assets/coffee/**/*.coffee'
              'src/main/java/app/**/*.coffee'
              'src/main/java/app/**/*.js'
              '!src/main/java/app/dist/**'

@@ -55,7 +55,7 @@ describe('profile page', function () {
     expect(inputWorkExperience.getAttribute('value')).toBe(inputDate);
   });
 
-  it('should reject a date before persisting', function() {
+  it('should reject an invalid date before persisting', function() {
     var incorrectInputDate = '01.0x.01';
     var inputWorkExperience = element(by.id('workExperience'));
     inputWorkExperience.clear();
@@ -64,7 +64,7 @@ describe('profile page', function () {
     expect(element(by.id('cancel-button')).isDisplayed()).toBe(false);
   });
 
-  it('should set a date correctly and persist after correcting a falsy date', function() {
+  it('should set an invalid date and persist it after correcting it', function() {
     var incorrectInputDate = '01.0x.01';
     var inputWorkExperience = element(by.id('workExperience'));
     inputWorkExperience.click();
@@ -77,9 +77,5 @@ describe('profile page', function () {
     element(by.id('save-button')).click();
     expect(inputWorkExperience.getAttribute('value')).toBe(newValue);
   });
-
-
-
-
 
 });
