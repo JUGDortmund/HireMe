@@ -16,11 +16,7 @@ public class LocalizationService {
   @Inject
   private Lang lang;
 
-  private Optional<String> language;
-
-  private String pattern;
-
-  private Optional<String> generateLanguage(Context context) {
+  public Optional<String> getLanguage(Context context) {
     Optional<Result> resultOptional = Optional.absent();
     return lang.getLanguage(context, resultOptional);
   }
@@ -31,17 +27,7 @@ public class LocalizationService {
     return ((SimpleDateFormat) dateFormat).toPattern().toLowerCase();
   }
 
-  public Optional<String> getLanguage(Context context) {
-    if (language == null) {
-      language = generateLanguage(context);
-    }
-    return language;
-  }
-
   public String getPattern(Context context) {
-    if (pattern == null) {
-      pattern = generatePattern(getLanguage(context));
-    }
-    return pattern;
+    return generatePattern(getLanguage(context));
   }
 }
