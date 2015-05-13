@@ -10,7 +10,12 @@ angular.module( 'profile', ['duScroll'])
       profile: (Restangular, $route) ->
         Restangular.one('profile', $route.current.params.profileId).get()
 .controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, $document, $parse) ->
+  dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
   $scope.profile = profile
+  if moment(profile.workExperience).isValid()
+    $scope.profile.workExperience = moment(profile.workExperience).format(dateFormat)
+  else
+    $scope.profile.workExperience = ""
   $scope.originProfile = angular.copy($scope.profile)
 
   $scope.$watchGroup [
@@ -48,8 +53,12 @@ angular.module( 'profile', ['duScroll'])
     return
 
   $scope.save = ->
+    dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
+    dateString=  moment($scope.profile.workExperience, dateFormat).toDate();
+    $scope.profile.workExperience = dateString
     profile.put().then (->
       $scope.showEditModeButtons = false
+      $scope.profile.workExperience = moment($scope.profile.workExperience).format(dateFormat);
       $scope.originProfile = angular.copy($scope.profile)
       showMessage('success')
       return
@@ -68,6 +77,7 @@ angular.module( 'profile', ['duScroll'])
   $scope.change = (id) ->
     $('#' + id).addClass('has-warning')
     return
+
 
 
 

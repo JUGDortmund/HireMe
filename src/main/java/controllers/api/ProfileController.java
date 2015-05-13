@@ -6,8 +6,6 @@ import com.google.inject.Singleton;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import exception.ElementNotFoundException;
 import model.Profile;
@@ -24,8 +22,6 @@ import ninja.params.PathParam;
 @Path("/api/profile")
 public class ProfileController {
 
-  Logger LOG = LoggerFactory.getLogger(ProfileController.class);
-
   @Inject
   private Datastore datastore;
 
@@ -38,6 +34,7 @@ public class ProfileController {
   @Path("/{id}")
   @GET
   public Result getSingleProfileById(@PathParam("id") String id) {
+
     if (Strings.isNullOrEmpty(id)) {
       throw new BadRequestException();
     }
