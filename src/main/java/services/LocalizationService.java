@@ -20,13 +20,12 @@ public class LocalizationService {
 
   private String pattern;
 
-  private Optional<String> generateLanguage(Context context){
+  private Optional<String> generateLanguage(Context context) {
     Optional<Result> resultOptional = Optional.absent();
-    Optional<String> optionalValue = lang.getLanguage(context, resultOptional);
-    return (optionalValue != null || optionalValue.get() != null) ? optionalValue : Optional.of("en-Us");
+    return lang.getLanguage(context, resultOptional);
   }
 
-  private String generatePattern(Optional<String> optionalValue){
+  private String generatePattern(Optional<String> optionalValue) {
     Locale locale = lang.getLocaleFromStringOrDefault(optionalValue);
     DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, locale);
     return ((SimpleDateFormat) dateFormat).toPattern().toLowerCase();
