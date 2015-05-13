@@ -6,6 +6,7 @@ module.exports = function (config) {
             'http://localhost:8080/webjars/angularjs/1.3.8/angular.js',
             'http://localhost:8080/webjars/angularjs/1.3.8/angular-mocks.js',
             'http://localhost:8080/webjars/angularjs/1.3.8/angular-route.js',
+            'http://localhost:8080/webjars/ng-tags-input/2.3.0/ng-tags-input.min.js',
             'http://localhost:8080/webjars/restangular/1.5.1/dist/restangular.min.js',
             'http://localhost:8080/webjars/angular-scroll/0.7.0/angular-scroll.js',
             'http://localhost:8080/webjars/lodash/3.7.0/lodash.min.js',

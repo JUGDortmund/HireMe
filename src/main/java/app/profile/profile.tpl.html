@@ -1,4 +1,4 @@
-<section id="profile-page-section" class="content module profile-page">
+<section id="profile-page-section" class="content module profile-page">	
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-lg-8 col-lg-offset-2" style="padding-bottom: 80px;">
@@ -69,7 +69,8 @@
 	                    <div class="form-group" id="form-group-languages">
 	                      <label for="languages" class="control-label col-md-4">${i18n('profile.personal.languages')}</label>
 	                      <div class="col-md-8">
-	                      	<input type="text" name="languages" id="languages" class="form-control" ng-model="profile.languages" ng-click="enableEditMode()" ng-change="change('form-group-languages')"/>
+	                      	<tags-input type="text" name="languages" id="languages" placeholder="" class="ng-tags-custom" ng-model="profile.languages" ng-click="enableEditMode()" ng-change="change('form-group-languages')">
+	                      	</tags-input>
 	                      </div>
 	                    </div>
                   	</div>
