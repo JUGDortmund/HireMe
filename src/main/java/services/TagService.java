@@ -88,4 +88,8 @@ public class TagService {
 
     return tags.get(tagName);
   }
+
+  public Map<String, Collection<String>> getTags() {
+    return tags.asMap();
+  }
 }

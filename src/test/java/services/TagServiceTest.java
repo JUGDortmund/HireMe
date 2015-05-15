@@ -1,12 +1,16 @@
 package services;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.Collection;
+import java.util.Map;
 
 import conf.Module;
 import model.Profile;
@@ -51,6 +55,13 @@ public class TagServiceTest {
   @Test
   public void getTagByName() throws Exception {
     assertThat(service.getTags("careerStage")).contains("Associate");
+  }
+
+  @Test
+  public void getAllTags() throws Exception {
+    Map<String, Collection<String>> tags = service.getTags();
+    assertThat(tags).containsOnlyKeys("degrees", "careerStage");
+    assertThat(tags.get("degrees")).isEqualTo(Sets.newHashSet("Bachelor", "Master"));
   }
 
   @Test
