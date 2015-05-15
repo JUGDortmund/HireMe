@@ -63,7 +63,24 @@
 			.description {
 				color: #777;
 			}
-
+			
+			span {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100px;
+				height: 100px;
+				display: none;
+				text-align: center;
+				background: none repeat scroll 0 0 rgba(0, 0, 0, 0.5);
+    			color: rgba(255, 255, 255, 1.0);
+			}
+			
+			&:hover, &.dragover {
+				span {
+					display: block;
+				}
+			}
 		}
 
 		input[readonly] {

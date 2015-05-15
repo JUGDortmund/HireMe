@@ -9,8 +9,18 @@
                     <strong>${i18n('message.success.header')}</strong> ${i18n('message.success.content')}
                 </div>
 				<div class="box border-box">
-	                <div class="header-text">
-	               		<img src="http://placehold.it/100x100" width="100" height="100"/>
+	                <div class="header-text"
+	                       ngf-drop
+	                       ngf-select
+	                       ng-model="files" 
+	                       ngf-drag-over-class="dragover"
+	                       ngf-multiple="false"
+	                       ngf-allow-dir="false"
+	                       ngf-accept="'image/*'"
+	                       ngf-min-size='10'
+	                       ngf-max-size='15728640'>
+	                	<img width="100" height="100" ngf-src="files[0]" ngf-default-src="{{profileImage}}"/>
+	                    <span><i class="fa fa-cloud-upload"></i></br>Profilbild wechseln</br>.png, .jpg, .gif (bis 16 MB)</span>
 	                	<h2 class="headline">{{profile.firstname}} {{profile.lastname}}</h2>
 		                <p class="description">
 		                	{{profile.careerStage}}
@@ -24,12 +34,20 @@
 						<button ng-click="cancel()" id="cancel-button"
 								class="btn btn-block btn-danger">${i18n('buttonDialog.cancel')}
 						</button>
-					</div>
+				</div>
 				<div class="box box-primary">
 	                <div class="box-header">
 	                  <h3 class="box-title">${i18n('profile.personal.section')}</h3>
 	                </div>
                   	<div class="box-body form-horizontal">
+	                    <div class="form-group" id="form-group-image">
+	                      <label for="image" class="control-label col-md-4">....</label>
+	                      <div class="col-md-8">
+							  <input type="text" name="image" id="image" class="form-control"
+									 ng-model="profile.image"/>
+	                      </div>
+	                    </div>
+                  	
 	                    <div class="form-group" id="form-group-lastName">
 	                      <label for="lastName" class="control-label col-md-4">${i18n('profile.personal.lastName')}</label>
 	                      <div class="col-md-8">
@@ -37,8 +55,6 @@
 									 ng-model="profile.lastname" ng-click="enableEditMode()" ng-change="change('form-group-lastName')"/>
 	                      </div>
 	                    </div>
-
-	                    <!-- DEMO READONLY -->
 	               		<div class="form-group" id="form-group-firstname">
 	                      <label for="firstName" class="control-label col-md-4">${i18n('profile.personal.firstName')}</label>
 	                      <div class="col-md-8">

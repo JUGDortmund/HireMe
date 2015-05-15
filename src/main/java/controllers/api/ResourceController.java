@@ -27,6 +27,7 @@ import ninja.jaxy.GET;
 import ninja.jaxy.POST;
 import ninja.jaxy.Path;
 import ninja.params.PathParam;
+import ninja.utils.HttpCacheToolkit;
 
 @Singleton
 @Path("/api/resource")
@@ -37,14 +38,14 @@ public class ResourceController {
   @Inject
   private Datastore datastore;
 
+  @Inject
+  private HttpCacheToolkit httpCacheToolkit;
+
   @POST
   @Path("/upload")
   public Result upload(Context context) throws Exception {
 
-    // Make sure the context really is a multipart context...
     if (context.isMultipart()) {
-      // This is the iterator we can use to iterate over the
-      // contents of the request.
       FileItemIterator fileItemIterator = context.getFileItemIterator();
 
       while (fileItemIterator.hasNext()) {
@@ -54,9 +55,6 @@ public class ResourceController {
         String contentType = item.getContentType();
         InputStream stream = item.openStream();
 
-        LOG.error("name: {}", name);
-        LOG.error("type:  {}", contentType);
-
         if (item.isFormField()) {
           LOG.warn("no form field expected");
         } else {
@@ -64,7 +62,7 @@ public class ResourceController {
           resource.setName(name);
           resource.setMimeType(contentType);
           resource.setContent(ByteStreams.toByteArray(stream));
-          resource.setUploadTime(new Date());
+          resource.setLastModified(new Date());
           datastore.save(resource);
           return Results.ok().json().render(resource);
         }
@@ -75,7 +73,7 @@ public class ResourceController {
 
   @Path("/{id}")
   @GET
-  public Result getResourceById(@PathParam("id") String id) {
+  public Result getResourceById(Context context, @PathParam("id") String id) {
     if (Strings.isNullOrEmpty(id)) {
       throw new BadRequestException();
     }
@@ -87,6 +85,17 @@ public class ResourceController {
     if (resource == null) {
       throw new ElementNotFoundException();
     }
-    return Results.json().render(resource);
+
+    Result result = Results.ok().json();
+
+    httpCacheToolkit.addEtag(context, result, resource.getLastModified().getTime());
+
+    // if resource was modified render image as result
+    if (result.getStatusCode() != Result.SC_304_NOT_MODIFIED) {
+      result.contentType(resource.getMimeType()).renderRaw(resource.getContent());
+    }
+
+    // if resource was not modified return result with not modified header
+    return result;
   }
 }

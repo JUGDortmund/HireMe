@@ -14,7 +14,7 @@ public class Resource extends BaseModel {
   @JsonDeserialize(using = ByteArrayDeserializer.class)
   private byte[] content;
   private String mimeType;
-  private Date uploadTime;
+  private Date lastModified;
   private String name;
 
   public byte[] getContent() {
@@ -33,12 +33,12 @@ public class Resource extends BaseModel {
     this.mimeType = mimeType;
   }
 
-  public Date getUploadTime() {
-    return uploadTime;
+  public Date getLastModified() {
+    return lastModified;
   }
 
-  public void setUploadTime(Date uploadTime) {
-    this.uploadTime = uploadTime;
+  public void setLastModified(Date lastModified) {
+    this.lastModified = lastModified;
   }
 
   public String getName() {

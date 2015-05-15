@@ -1,4 +1,4 @@
-angular.module( 'profile', ['duScroll'])
+angular.module 'profile', ['duScroll', 'ngFileUpload']
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
 .config ($routeProvider) ->
@@ -9,10 +9,17 @@ angular.module( 'profile', ['duScroll'])
     resolve:
       profile: (Restangular, $route) ->
         Restangular.one('profile', $route.current.params.profileId).get()
-.controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, $document, $parse) ->
+.controller 'ProfileCtrl', ($scope, $timeout, $document, $parse, Restangular, profile, Upload) ->
   $scope.profile = profile
   $scope.originProfile = angular.copy($scope.profile)
+        
+  loadProfileImage = () ->
+    $scope.files = []
+    $scope.profileImage = '/api/resource/' + $scope.profile.image
+    return
 
+  loadProfileImage()
+  
   $scope.$watchGroup [
       "profile.firstname",
       "profile.lastname",
@@ -27,7 +34,8 @@ angular.module( 'profile', ['duScroll'])
       "profile.webTechnologies",
       "profile.devEnvironments",
       "profile.qualifications",
-      "profile.summary"
+      "profile.summary",
+      "profile.image"
     ], (newValue, oldValue) ->
       if (newValue != oldValue && $scope.editMode)
         $scope.showEditModeButtons = true
@@ -51,6 +59,7 @@ angular.module( 'profile', ['duScroll'])
     profile.put().then (->
       $scope.showEditModeButtons = false
       $scope.originProfile = angular.copy($scope.profile)
+      loadProfileImage()
       showMessage('success')
       return
     ), ->
@@ -60,6 +69,7 @@ angular.module( 'profile', ['duScroll'])
   $scope.cancel = ->
     $scope.editMode = false
     $scope.profile = angular.copy($scope.originProfile)
+    loadProfileImage()
     $scope.showEditModeButtons = false
     $('.form-group').removeClass('has-warning')
     $document.duScrollTopAnimated(0)
@@ -69,8 +79,27 @@ angular.module( 'profile', ['duScroll'])
     $('#' + id).addClass('has-warning')
     return
 
-
-
-
-
-    
+  $scope.$watch 'files', ->
+    $scope.upload $scope.files
+    return
+  
+  $scope.upload = (files) ->
+    if files and files.length
+      i = 0
+      while i < files.length
+        file = files[i]
+        Upload.upload(
+          url: '/api/resource/upload'
+          file: file).progress((evt) ->
+          progressPercentage = parseInt(100.0 * evt.loaded / evt.total)
+          return
+        ).success (data, status, headers, config) ->
+          $timeout (->
+            $scope.$apply()
+            return
+          )
+          $scope.enableEditMode()
+          $scope.profile.image = data.id
+          return
+        i++
+    return
