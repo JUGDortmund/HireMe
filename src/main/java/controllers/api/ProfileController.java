@@ -1,6 +1,7 @@
 package controllers.api;
 
 import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -59,7 +60,7 @@ public class ProfileController {
     Profile profile = new Profile();
     profile.setFirstname("Max");
     profile.setLastname("Mustermann");
-    profile.setCareerStage("Manager");
+    profile.setCareerStage(Lists.newArrayList("Manager"));
     datastore.save(profile);
     return Results.status(201).json().render(profile);
   }
