@@ -64,7 +64,8 @@ public class ResourceController {
           resource.setContent(ByteStreams.toByteArray(stream));
           resource.setLastModified(new Date());
           datastore.save(resource);
-          return Results.ok().json().render(resource);
+          // TODO: HIRE-94: search for nice solution to return resourceId only
+          return Results.ok().json().render("id", resource.getId().toString());
         }
       }
     }
