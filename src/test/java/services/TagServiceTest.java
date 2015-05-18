@@ -1,7 +1,6 @@
 package services;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -9,10 +8,10 @@ import com.google.inject.Injector;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Collection;
-import java.util.Map;
+import java.util.List;
 
 import conf.Module;
+import dtos.TagList;
 import model.Profile;
 import model.events.EntityChangedEvent;
 import util.TestModule;
@@ -32,7 +31,7 @@ public class TagServiceTest {
     service = new TagService();
     profile = new Profile();
     profile.setDegrees(Lists.newArrayList("Master", "Bachelor", "Bachelor"));
-    profile.setCareerStage(Lists.newArrayList("Associate"));
+    profile.setCareerLevel(Lists.newArrayList("Associate"));
     service.add(profile);
   }
 
@@ -48,20 +47,20 @@ public class TagServiceTest {
 
   @Test
   public void differentTagsAreSavedInDifferentSets() throws Exception {
-    assertThat(service.getTags("careerStage")).contains("Associate").doesNotContain("Bachelor");
+    assertThat(service.getTags("careerLevel")).contains("Associate").doesNotContain("Bachelor");
     assertThat(service.getTags("degrees")).contains("Bachelor").doesNotContain("Associate");
   }
 
   @Test
   public void getTagByName() throws Exception {
-    assertThat(service.getTags("careerStage")).contains("Associate");
+    assertThat(service.getTags("careerLevel")).contains("Associate");
   }
 
   @Test
   public void getAllTags() throws Exception {
-    Map<String, Collection<String>> tags = service.getTags();
-    assertThat(tags).containsOnlyKeys("degrees", "careerStage");
-    assertThat(tags.get("degrees")).isEqualTo(Sets.newHashSet("Bachelor", "Master"));
+    List<TagList> tags = service.getTags();
+    assertThat(tags.get(0).getValues()).contains("Bachelor", "Master");
+    assertThat(tags.get(0).getName()).isEqualTo("degrees");
   }
 
   @Test

@@ -4,6 +4,7 @@ angular.module('app', [
   'profile'
   'search'
   'errors'
+  'tags'
   'restangular'
 ])
 .config ($locationProvider, RestangularProvider) ->

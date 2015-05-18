@@ -10,7 +10,9 @@ module.exports = function (config) {
             'http://localhost:8080/webjars/restangular/1.5.1/dist/restangular.min.js',
             'http://localhost:8080/webjars/angular-scroll/0.7.0/angular-scroll.js',
             'http://localhost:8080/webjars/lodash/3.7.0/lodash.min.js',
+            'http://localhost:8080//webjars/underscorejs/1.8.3/underscore-min.js',
             'src/main/java/app/**/*.js',
+            'src/main/java/assets/javascript/**/*.js',
             'src/main/java/app/**/*.coffee',
             'src/test/javascript/**/*.js',
             'src/test/javascript/**/*.coffee'

@@ -10,7 +10,7 @@ public class Profile extends BaseModel {
   private String firstname;
   private String lastname;
   @Tag
-  private List<String> careerStage;
+  private List<String> careerLevel;
   @Tag
   private List<String> degrees;
   private String workExperience;
@@ -25,7 +25,7 @@ public class Profile extends BaseModel {
   @Tag
   private List<String> progLanguages;
   @Tag
-  private String webTechnologies;
+  private List<String> webTechnologies;
   @Tag
   private List<String> devEnvironments;
   @Tag
@@ -48,12 +48,12 @@ public class Profile extends BaseModel {
     this.lastname = lastname;
   }
 
-  public List<String> getCareerStage() {
-    return careerStage;
+  public List<String> getCareerLevel() {
+    return careerLevel;
   }
 
-  public void setCareerStage(List<String> careerStage) {
-    this.careerStage = careerStage;
+  public void setCareerLevel(List<String> careerLevel) {
+    this.careerLevel = careerLevel;
   }
 
   public List<String> getDegrees() {
@@ -112,11 +112,11 @@ public class Profile extends BaseModel {
     this.progLanguages = progLanguages;
   }
 
-  public String getWebTechnologies() {
+  public List<String> getWebTechnologies() {
     return webTechnologies;
   }
 
-  public void setWebTechnologies(String webTechnologies) {
+  public void setWebTechnologies(List<String> webTechnologies) {
     this.webTechnologies = webTechnologies;
   }
 

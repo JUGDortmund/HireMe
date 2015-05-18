@@ -65,7 +65,7 @@ public class ProfileController {
     Profile profile = new Profile();
     profile.setFirstname("Max");
     profile.setLastname("Mustermann");
-    profile.setCareerStage(Lists.newArrayList("Manager"));
+    profile.setCareerLevel(Lists.newArrayList("Manager"));
     datastore.save(profile);
     return Results.status(201).json().render(profile);
   }

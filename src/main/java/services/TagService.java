@@ -9,6 +9,7 @@ import com.google.inject.Singleton;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotNull;
 
+import dtos.TagList;
 import model.BaseModel;
 import model.Tag;
 import model.events.EntityChangedEvent;
@@ -89,7 +91,13 @@ public class TagService {
     return tags.get(tagName);
   }
 
-  public Map<String, Collection<String>> getTags() {
-    return tags.asMap();
+  public List<TagList> getTags() {
+    return tags.asMap()
+               .entrySet()
+               .stream()
+               .map(x -> new TagList(x.getKey(),
+                                        new ArrayList<>(x.getValue())))
+               .collect(Collectors.toList());
   }
+
 }

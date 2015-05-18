@@ -9,8 +9,8 @@ import org.doctester.testbrowser.Response;
 import org.junit.Test;
 
 import java.util.List;
-import java.util.Map;
 
+import dtos.TagList;
 import model.Profile;
 import ninja.NinjaDocTester;
 
@@ -18,10 +18,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class TagTest extends NinjaDocTester {
 
-  public static final TypeReference<Map<String, List<String>>>
-      TYPE_REFERENCE =
-      new TypeReference<Map<String, List<String>>>() {
+  public static final TypeReference<List<TagList>>
+      TYPE_REFERENCE = new TypeReference<List<TagList>>() {
       };
+
 
   @Test
   public void getReturnsObjectOfLists() throws Exception {
@@ -31,10 +31,9 @@ public class TagTest extends NinjaDocTester {
     saveProfile(testProfile);
 
     Response response = sayAndMakeRequest(Request.GET().url(testServerUrl().path("/api/tags")));
-    Map<String, List<String>> result = response.payloadJsonAs(TYPE_REFERENCE);
-    assertThat(result).containsOnlyKeys("industries", "degrees");
-    assertThat(result.get("industries")).isEqualTo(Lists.newArrayList("testIndustry"));
-    assertThat(result.get("degrees")).isEqualTo(Lists.newArrayList("Bachelor", "Master"));
+    List<TagList> result = response.payloadJsonAs(TYPE_REFERENCE);
+    assertThat(result.get(0).getValues()).isEqualTo(Lists.newArrayList("Bachelor", "Master"));
+    assertThat(result.get(1).getValues()).isEqualTo(Lists.newArrayList("testIndustry"));
   }
 
   private Response saveProfile(Profile profile) {
