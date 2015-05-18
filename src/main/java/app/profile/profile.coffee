@@ -37,11 +37,11 @@ angular.module 'profile', ['duScroll', 'ngFileUpload', 'utils.customResource']
     $scope.editMode = true
     return
 
-  showMessage = (targetName) ->
+  showMessage = (targetName, keepChangeIndicators) ->
     target = $parse(targetName)
     target.assign($scope, true)
     $document.duScrollTopAnimated(0)
-    $('.form-group').removeClass('has-warning')
+    $('.form-group').removeClass('has-warning') unless keepChangeIndicators?
     $timeout (->
       target.assign($scope, false)
       return
@@ -75,6 +75,12 @@ angular.module 'profile', ['duScroll', 'ngFileUpload', 'utils.customResource']
   $scope.$watch 'files', ->
     $scope.upload $scope.files
     return
+    
+  $scope.$watch 'rejectedFiles', (newValue, oldValue) ->
+    if(newValue != oldValue && $scope.rejectedFiles.length > 0)
+        showMessage('reject', true)
+        $scope.rejectedFile = []
+    return
   
   $scope.upload = (files) ->
     if files and files.length
@@ -85,10 +91,7 @@ angular.module 'profile', ['duScroll', 'ngFileUpload', 'utils.customResource']
           url: '/api/resource/upload'
           file: file
           fileFormDataName: file.name)
-        .progress((evt) ->
-          progressPercentage = parseInt(100.0 * evt.loaded / evt.total)
-          return
-        ).success (data, status, headers, config) ->
+        .success (data, status, headers, config) ->
           $timeout (->
             $scope.$apply()
             return
