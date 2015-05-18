@@ -9,6 +9,8 @@ import org.mongodb.morphia.annotations.Reference;
 import util.serializer.ResourceDeserializer;
 import util.serializer.ResourceSerializer;
 
+import java.util.Date;
+
 @Entity
 public class Profile extends BaseModel {
 
@@ -16,7 +18,7 @@ public class Profile extends BaseModel {
   private String lastname;
   private String careerStage;
   private String degree;
-  private String workExperience;
+  private Date workExperience;
   private String languages;
   private String industry;
   private String platforms;
@@ -64,11 +66,11 @@ public class Profile extends BaseModel {
     this.degree = degree;
   }
 
-  public String getWorkExperience() {
+  public Date getWorkExperience() {
     return workExperience;
   }
 
-  public void setWorkExperience(String workExperience) {
+  public void setWorkExperience(Date workExperience) {
     this.workExperience = workExperience;
   }
 

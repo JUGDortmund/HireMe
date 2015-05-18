@@ -509,12 +509,11 @@
             <artifactId>angular-scroll</artifactId>
             <version>0.7.0</version>
         </dependency>
-        <!--
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap-datepicker</artifactId>
             <version>1.4.0</version>
-        </dependency>-->
+        </dependency>
 		<dependency>
 		  <groupId>org.webjars.bower</groupId>
 		  <artifactId>ng-file-upload</artifactId>
@@ -530,6 +529,11 @@
 			<artifactId>ionicons</artifactId>
 			<version>2.0.1</version>
 		</dependency>
+        <dependency>
+            <groupId>org.webjars.bower</groupId>
+            <artifactId>momentjs</artifactId>
+            <version>2.10.2</version>
+        </dependency>
         <!-- If you want to deploy to a war please -->
         <!-- comment ninja-standalone dependency and  -->
         <!-- uncomment the dependency for ninja-servlet -->

@@ -1,12 +1,14 @@
 <section id="profile-page-section" class="content module profile-page">
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-lg-8 col-lg-offset-2" style="padding-bottom: 80px;">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2" style="padding-bottom: 80px;">
                 <div class="alert alert-danger alert-dismissible" role="alert" ng-show="error">
-                    <strong>${i18n('message.error.header')}</strong> ${i18n('message.error.content')}
+                    <strong>${i18n('message.error.header')}</strong>
+                    ${i18n('message.error.content')}
                 </div>
                 <div class="alert alert-success alert-dismissible" role="alert" ng-show="success">
-                    <strong>${i18n('message.success.header')}</strong> ${i18n('message.success.content')}
+                    <strong>${i18n('message.success.header')}</strong>
+                    ${i18n('message.success.content')}
                 </div>
                 <div class="alert alert-warning alert-dismissible" role="alert" ng-show="reject">
                     <strong>${i18n('message.reject.header')}</strong> ${i18n('message.reject.content')} ${i18n('profile.image.acceptfiles')}
@@ -32,135 +34,193 @@
 		                </p>
 		            </div>
 	            </div>
-				<div ng-show="showEditModeButtons" class="no-print button-dialog">
-						<button ng-click="save()" id="save-button"
-								class="btn btn-block btn-success">${i18n('buttonDialog.save')}
-						</button>
-						<button ng-click="cancel()" id="cancel-button"
-								class="btn btn-block btn-danger">${i18n('buttonDialog.cancel')}
-						</button>
-				</div>
-				<div class="box box-primary">
-	                <div class="box-header">
-	                  <h3 class="box-title">${i18n('profile.personal.section')}</h3>
-	                </div>
-                  	<div class="box-body form-horizontal">
-	                    <div class="form-group" id="form-group-lastName">
-	                      <label for="lastName" class="control-label col-md-4">${i18n('profile.personal.lastName')}</label>
-	                      <div class="col-md-8">
-							  <input type="text" name="lastName" id="lastName" class="form-control"
-									 ng-model="profile.lastname" ng-click="enableEditMode()" ng-change="change('form-group-lastName')"/>
-	                      </div>
-	                    </div>
-	               		<div class="form-group" id="form-group-firstname">
-	                      <label for="firstName" class="control-label col-md-4">${i18n('profile.personal.firstName')}</label>
-	                      <div class="col-md-8">
-							  <input type="text" name="firstName" id="firstName"
-									 class="form-control" ng-model="profile.firstname" ng-click="enableEditMode()" ng-change="change('form-group-firstname')" />
+                <div ng-show="showEditModeButtons" class="no-print button-dialog">
+                    <button ng-click="save()" id="save-button"
+                            class="btn btn-block btn-success">${i18n('buttonDialog.save')}
+                    </button>
+                    <button ng-click="cancel()" id="cancel-button"
+                            class="btn btn-block btn-danger">${i18n('buttonDialog.cancel')}
+                    </button>
+                </div>
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">${i18n('profile.personal.section')}</h3>
+                    </div>
+                    <div class="box-body form-horizontal">
+                        <div class="form-group" id="form-group-lastName">
+                            <label for="lastName" class="control-label col-md-4">${i18n('profile.personal.lastName')}</label>
 
-						  </div>
-	                    </div>
-	                    <div class="form-group" id="form-group-degree">
-	                      <label for="degree" class="control-label col-md-4">${i18n('profile.personal.degree')}</label>
-	                      <div class="col-md-8">
-	                      	<input type="text" name="degree" id="degree" class="form-control" ng-model="profile.degree" ng-click="enableEditMode()" ng-change="change('form-group-degree')"/>
-	                      </div>
-	                    </div>
-	                    <div class="form-group" id="form-group-careerLevel">
-	                      <label for="careerLevel" class="control-label col-md-4">${i18n('profile.personal.careerLevel')}</label>
-	                      <div class="col-md-8">
-							  <input type="text" name="careerLevel" id="careerLevel"
-									 class="form-control" ng-model="profile.careerStage" ng-click="enableEditMode()" ng-change="change('form-group-careerLevel')"/>
-	                      </div>
-	                    </div>
-	                    <div class="form-group" id="form-group-workExperience">
-	                    	<label for="workExperience" class="control-label col-md-4">${i18n('profile.personal.workExperience')}</label>
-	  						<div class="col-md-8">
-	                    		<input type="text" class="form-control" name="workExperience" id="workExperience" ng-model="profile.workExperience" ng-click="enableEditMode()" ng-change="change('form-group-workExperience')"/>
-	                		</div>
-	                    </div>
-	                    <div class="form-group" id="form-group-languages">
-	                      <label for="languages" class="control-label col-md-4">${i18n('profile.personal.languages')}</label>
-	                      <div class="col-md-8">
-	                      	<input type="text" name="languages" id="languages" class="form-control" ng-model="profile.languages" ng-click="enableEditMode()" ng-change="change('form-group-languages')"/>
-	                      </div>
-	                    </div>
-                  	</div>
-	            </div>
+                            <div class="col-md-8">
+                                <input type="text" name="lastName" id="lastName"
+                                       class="form-control"
+                                       ng-model="profile.lastname" ng-click="enableEditMode()"
+                                       ng-change="change('form-group-lastName')"/>
+                            </div>
+                        </div>
+                        <div class="form-group" id="form-group-firstname">
+                            <label for="firstName" class="control-label col-md-4">${i18n('profile.personal.firstName')}</label>
 
-	            <div class="box box-green">
-	                <div class="box-header">
-	                  <h3 class="box-title">${i18n('profile.experience.section')}</h3>
-	                </div>
-                  	<div class="box-body form-horizontal">
-                    	<div class="form-group" id="form-group-industry">
-                      		<label for="industry" class="control-label col-md-4">${i18n('profile.experience.industry')}</label>
-                      		<div class="col-md-8">
-                      			<input type="text" name="industry" id="industry" class="form-control" ng-model="profile.industry" ng-click="enableEditMode()" ng-change="change('form-group-industry')"/>
-                      		</div>
-                		</div>
-                  	</div>
-				</div>
+                            <div class="col-md-8">
+                                <input type="text" name="firstName" id="firstName"
+                                       class="form-control" ng-model="profile.firstname"
+                                       ng-click="enableEditMode()"
+                                       ng-change="change('form-group-firstname')"/>
 
-	            <div class="box box-orange">
-	                <div class="box-header">
-	                  <h3 class="box-title">${i18n('profile.skills.section')}</h3>
-	                </div>
-                  	<div class="box-body form-horizontal">
+                            </div>
+                        </div>
+                        <div class="form-group" id="form-group-degree">
+                            <label for="degree" class="control-label col-md-4">${i18n('profile.personal.degree')}</label>
 
-                  		<!-- DEMO ERROR-STYLE -->
-                        <!-- <div class="form-group has-error"> -->
-                    	<div class="form-group" id="form-group-platforms">
-	                    	<label for="platforms" class="control-label col-md-4">${i18n('profile.skills.platforms')}</label>
-	                    	<div class="col-md-8">
-	                      		<input type="text" name="platforms" id="platforms" class="form-control" ng-model="profile.platforms" ng-click="enableEditMode()" ng-change="change('form-group-platforms')"/>
-	                      	</div>
-	                    </div>
-	               		<div class="form-group" id="form-group-opSystems">
-	                      	<label for="opSystems" class="control-label col-md-4">${i18n('profile.skills.opSystems')}</label>
-	                      	<div class="col-md-8">
-	                      		<input type="text" name="opSystems" id="opSystems" class="form-control" ng-model="profile.opSystems" ng-click="enableEditMode()" ng-change="change('form-group-opSystems')"/>
-	                      	</div>
-	                    </div>
-	                    <div class="form-group" id="form-group-progLanguages">
-	                     	<label for="progLanguages" class="control-label col-md-4">${i18n('profile.skills.progLanguages')}</label>
-	                      	<div class="col-md-8">
-	                    		<input type="text" name="progLanguages" id="progLanguages" class="form-control" ng-model="profile.progLanguages" ng-click="enableEditMode()" ng-change="change('form-group-progLanguages')"/>
-	                    	</div>
-	                    </div>
-	                    <div class="form-group" id="form-group-webTechnologies">
-	                      <label for="webTechnologies" class="control-label col-md-4">${i18n('profile.skills.webTechnologies')}</label>
-	                      <div class="col-md-8">
-	                      	<input type="text" name="webTechnologies" id="webTechnologies" class="form-control" ng-model="profile.webTechnologies" ng-click="enableEditMode()" ng-change="change('form-group-webTechnologies')"/>
-	                      </div>
-	                    </div>
-	                    
-	                    <div class="form-group" id="form-group-devEnvironments">
-	                      <label for="devEnvironments" class="control-label col-md-4">${i18n('profile.skills.devEnvironments')}</label>
-	                      <div class="col-md-8">
-	                      	<input type="text" name="devEnvironments" id="devEnvironments" class="form-control" ng-model="profile.devEnvironments" ng-click="enableEditMode()" ng-change="change('form-group-devEnvironments')"/>
-	                      </div>
-	                    </div>
-	                    
-	                    <div class="form-group" id="form-group-qualifications">
-	                      <label for="qualifications" class="control-label col-md-4">${i18n('profile.skills.qualifications')}</label>
-	                      <div class="col-md-8">
-	                      	<input type="text" name="qualifications" id="qualifications" class="form-control" ng-model="profile.qualifications" ng-click="enableEditMode()" ng-change="change('form-group-qualifications')"/>
-	                      </div>
-	                    </div>
+                            <div class="col-md-8">
+                                <input type="text" name="degree" id="degree" class="form-control"
+                                       ng-model="profile.degree" ng-click="enableEditMode()"
+                                       ng-change="change('form-group-degree')"/>
+                            </div>
+                        </div>
+                        <div class="form-group" id="form-group-careerLevel">
+                            <label for="careerLevel" class="control-label col-md-4">${i18n('profile.personal.careerLevel')}</label>
+
+                            <div class="col-md-8">
+                                <input type="text" name="careerLevel" id="careerLevel"
+                                       class="form-control" ng-model="profile.careerStage"
+                                       ng-click="enableEditMode()"
+                                       ng-change="change('form-group-careerLevel')"/>
+                            </div>
+                        </div>
+                        <div class="form-group" id="form-group-workExperience">
+                            <label for="workExperience" class="control-label col-md-4">${i18n('profile.personal.workExperience')}</label>
+
+                            <div class="col-md-8">
+                                <input type="text"
+                                       class="form-control datepicker"
+                                       data-provide="datepicker"
+                                       data-date-format=${dateformat}
+                                       data-date-autoclose="true"
+                                       data-date-language=${language}
+                                       name="workExperience"
+                                       id="workExperience"
+                                       ng-model="profile.workExperience"
+                                       ng-click="enableEditMode()"
+                                       ng-change="change('form-group-workExperience')"/>
+                            </div>
+
+
+
+                        </div>
+                        <div class="form-group" id="form-group-languages">
+                            <label for="languages" class="control-label col-md-4">${i18n('profile.personal.languages')}</label>
+
+                            <div class="col-md-8">
+                                <input type="text" name="languages" id="languages"
+                                       class="form-control" ng-model="profile.languages"
+                                       ng-click="enableEditMode()"
+                                       ng-change="change('form-group-languages')"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box box-green">
+                    <div class="box-header">
+                        <h3 class="box-title">${i18n('profile.experience.section')}</h3>
+                    </div>
+                    <div class="box-body form-horizontal">
+                        <div class="form-group" id="form-group-industry">
+                            <label for="industry" class="control-label col-md-4">${i18n('profile.experience.industry')}</label>
+
+                            <div class="col-md-8">
+                                <input type="text" name="industry" id="industry"
+                                       class="form-control" ng-model="profile.industry"
+                                       ng-click="enableEditMode()"
+                                       ng-change="change('form-group-industry')"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="box box-orange">
+                    <div class="box-header">
+                        <h3 class="box-title">${i18n('profile.skills.section')}</h3>
+                    </div>
+                    <div class="box-body form-horizontal">
+                        <div class="form-group" id="form-group-platforms">
+                            <label for="platforms" class="control-label col-md-4">${i18n('profile.skills.platforms')}</label>
+
+                            <div class="col-md-8">
+                                <input type="text" name="platforms" id="platforms"
+                                       class="form-control" ng-model="profile.platforms"
+                                       ng-click="enableEditMode()"
+                                       ng-change="change('form-group-platforms')"/>
+                            </div>
+                        </div>
+                        <div class="form-group" id="form-group-opSystems">
+                            <label for="opSystems" class="control-label col-md-4">${i18n('profile.skills.opSystems')}</label>
+
+                            <div class="col-md-8">
+                                <input type="text" name="opSystems" id="opSystems"
+                                       class="form-control" ng-model="profile.opSystems"
+                                       ng-click="enableEditMode()"
+                                       ng-change="change('form-group-opSystems')"/>
+                            </div>
+                        </div>
+                        <div class="form-group" id="form-group-progLanguages">
+                            <label for="progLanguages" class="control-label col-md-4">${i18n('profile.skills.progLanguages')}</label>
+
+                            <div class="col-md-8">
+                                <input type="text" name="progLanguages" id="progLanguages"
+                                       class="form-control" ng-model="profile.progLanguages"
+                                       ng-click="enableEditMode()"
+                                       ng-change="change('form-group-progLanguages')"/>
+                            </div>
+                        </div>
+                        <div class="form-group" id="form-group-webTechnologies">
+                            <label for="webTechnologies" class="control-label col-md-4">${i18n('profile.skills.webTechnologies')}</label>
+
+                            <div class="col-md-8">
+                                <input type="text" name="webTechnologies" id="webTechnologies"
+                                       class="form-control" ng-model="profile.webTechnologies"
+                                       ng-click="enableEditMode()"
+                                       ng-change="change('form-group-webTechnologies')"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="form-group-devEnvironments">
+                            <label for="devEnvironments" class="control-label col-md-4">${i18n('profile.skills.devEnvironments')}</label>
+
+                            <div class="col-md-8">
+                                <input type="text" name="devEnvironments" id="devEnvironments"
+                                       class="form-control" ng-model="profile.devEnvironments"
+                                       ng-click="enableEditMode()"
+                                       ng-change="change('form-group-devEnvironments')"/>
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="form-group-qualifications">
+                            <label for="qualifications" class="control-label col-md-4">${i18n('profile.skills.qualifications')}</label>
+
+                            <div class="col-md-8">
+                                <input type="text" name="qualifications" id="qualifications"
+                                       class="form-control" ng-model="profile.qualifications"
+                                       ng-click="enableEditMode()"
+                                       ng-change="change('form-group-qualifications')"/>
+                            </div>
+                        </div>
 
                         <div class="form-group" id="form-group-summary">
-	                      <label for="summary" class="control-label col-md-4">${i18n('profile.skills.summary')}</label>
-	                      <div class="col-md-8">
-	                      	<input type="text" name="summary" id="summary" class="form-control" ng-model="profile.summary" ng-click="enableEditMode()" ng-change="change('form-group-summary')"/>
-	                      </div>
-	                    </div>
-                        
+                            <label for="summary" class="control-label col-md-4">${i18n('profile.skills.summary')}</label>
 
-                  	</div>
+                            <div class="col-md-8">
+                                <input type="text" name="summary" id="summary" class="form-control"
+                                       ng-model="profile.summary" ng-click="enableEditMode()"
+                                       ng-change="change('form-group-summary')"/>
+                            </div>
+                        </div>
 
-	            </div>
-			</div>
-		</div>
-	</div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </section>

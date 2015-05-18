@@ -10,7 +10,12 @@ angular.module 'profile', ['duScroll', 'ngFileUpload', 'utils.customResource']
       profile: (Restangular, $route) ->
         Restangular.one('profile', $route.current.params.profileId).get()
 .controller 'ProfileCtrl', ($scope, $timeout, $document, $parse, Restangular, profile, Upload) ->
+  dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
   $scope.profile = profile
+  if moment(profile.workExperience).isValid()
+    $scope.profile.workExperience = moment(profile.workExperience).format(dateFormat)
+  else
+    $scope.profile.workExperience = ""
   $scope.originProfile = angular.copy($scope.profile)
   
   $scope.$watchGroup [
@@ -49,9 +54,14 @@ angular.module 'profile', ['duScroll', 'ngFileUpload', 'utils.customResource']
     return
 
   $scope.save = ->
+    dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
+    dateString=  moment($scope.profile.workExperience, dateFormat).toDate();
+    $scope.profile.workExperience = dateString
     profile.put().then (->
-      $scope.showEditModeButtons = false
+      $scope.profile.workExperience = moment($scope.profile.workExperience).format(dateFormat);
       $scope.originProfile = angular.copy($scope.profile)
+      $scope.editMode = false
+      $scope.showEditModeButtons = false
       $scope.files = []
       showMessage('success')
       return
