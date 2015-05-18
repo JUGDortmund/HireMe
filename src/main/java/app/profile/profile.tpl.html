@@ -20,6 +20,7 @@
 	                       ngf-min-size='10'
 	                       ngf-max-size='15728640'>
 	                	<img width="100" height="100" ngf-src="files[0]" ngf-default-src="{{profile.image|toResourceUrl}}"/>
+	                	<input type="hidden" name="image" id="image" class="form-control" ng-model="profile.image"/>
 	                    <span><i class="fa fa-cloud-upload"></i></br>Profilbild wechseln</br>.png, .jpg, .gif (bis 16 MB)</span>
 	                	<h2 class="headline">{{profile.firstname}} {{profile.lastname}}</h2>
 		                <p class="description">
@@ -40,14 +41,6 @@
 	                  <h3 class="box-title">${i18n('profile.personal.section')}</h3>
 	                </div>
                   	<div class="box-body form-horizontal">
-	                    <div class="form-group" id="form-group-image">
-	                      <label for="image" class="control-label col-md-4">....</label>
-	                      <div class="col-md-8">
-							  <input type="text" name="image" id="image" class="form-control"
-									 ng-model="profile.image"/>
-	                      </div>
-	                    </div>
-                  	
 	                    <div class="form-group" id="form-group-lastName">
 	                      <label for="lastName" class="control-label col-md-4">${i18n('profile.personal.lastName')}</label>
 	                      <div class="col-md-8">
