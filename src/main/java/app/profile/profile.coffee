@@ -1,4 +1,4 @@
-angular.module 'profile', ['duScroll', 'ngFileUpload']
+angular.module 'profile', ['duScroll', 'ngFileUpload', 'utils.customResource']
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
 .config ($routeProvider) ->
@@ -12,13 +12,6 @@ angular.module 'profile', ['duScroll', 'ngFileUpload']
 .controller 'ProfileCtrl', ($scope, $timeout, $document, $parse, Restangular, profile, Upload) ->
   $scope.profile = profile
   $scope.originProfile = angular.copy($scope.profile)
-        
-  loadProfileImage = () ->
-    $scope.files = []
-    $scope.profileImage = '/api/resource/' + $scope.profile.image
-    return
-
-  loadProfileImage()
   
   $scope.$watchGroup [
       "profile.firstname",
@@ -59,7 +52,7 @@ angular.module 'profile', ['duScroll', 'ngFileUpload']
     profile.put().then (->
       $scope.showEditModeButtons = false
       $scope.originProfile = angular.copy($scope.profile)
-      loadProfileImage()
+      $scope.files = []
       showMessage('success')
       return
     ), ->
@@ -69,8 +62,8 @@ angular.module 'profile', ['duScroll', 'ngFileUpload']
   $scope.cancel = ->
     $scope.editMode = false
     $scope.profile = angular.copy($scope.originProfile)
-    loadProfileImage()
     $scope.showEditModeButtons = false
+    $scope.files = []
     $('.form-group').removeClass('has-warning')
     $document.duScrollTopAnimated(0)
     return
