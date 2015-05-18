@@ -4,6 +4,8 @@ import org.mongodb.morphia.annotations.Entity;
 
 import java.util.List;
 
+import java.util.Date;
+
 @Entity
 public class Profile extends BaseModel {
 
@@ -13,7 +15,7 @@ public class Profile extends BaseModel {
   private List<String> careerLevel;
   @Tag
   private List<String> degrees;
-  private String workExperience;
+  private Date workExperience;
   @Tag
   private List<String> languages;
   @Tag
@@ -64,11 +66,11 @@ public class Profile extends BaseModel {
     this.degrees = degrees;
   }
 
-  public String getWorkExperience() {
+  public Date getWorkExperience() {
     return workExperience;
   }
 
-  public void setWorkExperience(String workExperience) {
+  public void setWorkExperience(Date workExperience) {
     this.workExperience = workExperience;
   }
 

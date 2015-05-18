@@ -1,9 +1,8 @@
 package conf;
 
+import com.github.fakemongo.Fongo;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
-
-import com.github.fakemongo.Fongo;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
@@ -42,7 +41,7 @@ public class DatastoreProvider implements Provider<Datastore> {
     if (properties.isProd()) {
       createMongoDBConnection();
     } else {
-      initiateInMemoryDatestore();
+      initiateInMemoryDatastore();
     }
     String packageName = properties.get(MORPHIA_PACKAGE);
 
@@ -58,22 +57,20 @@ public class DatastoreProvider implements Provider<Datastore> {
     String password = properties.get(MONGODB_PASS);
     String authdb = properties.get(MONGODB_AUTHDB);
 
-    MongoCredential credentials = MongoCredential.createCredential(username,
-                                                                      authdb,
-                                                                      password.toCharArray());
+    MongoCredential credentials =
+        MongoCredential.createCredential(username, authdb, password.toCharArray());
     mongoClient = new MongoClient(new ServerAddress(host, port), Arrays.asList(credentials));
     databaseName = properties.get(MONGODB_DBNAME);
-
+    mongoClient.dropDatabase(databaseName);
   }
 
   public Datastore get() {
     return datastore;
   }
 
-  private void initiateInMemoryDatestore() {
+  private void initiateInMemoryDatastore() {
     databaseName = UUID.randomUUID().toString();
     Fongo fongo = new Fongo(databaseName);
     mongoClient = fongo.getMongo();
   }
 }
-

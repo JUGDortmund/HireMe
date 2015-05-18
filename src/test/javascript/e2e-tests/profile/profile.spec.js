@@ -45,11 +45,42 @@ describe('profile page', function () {
     expect(firstname.getAttribute('value')).toBe(oldText);
   });
 
+  it('should set a date correctly and persist date to profile', function() {
+    var inputDate = '01.03.01';
+    var inputWorkExperience = element(by.id('workExperience'));
+    inputWorkExperience.click();
+    inputWorkExperience.clear();
+    inputWorkExperience.sendKeys(inputDate);
+    element(by.id('save-button')).click();
+    expect(inputWorkExperience.getAttribute('value')).toBe(inputDate);
+  });
   it('should be able to create a new tag', function () {
     var degrees = element(by.css('#degrees input[type="text"]'));
     degrees.click();
     degrees.sendKeys("Test");
 
+  it('should reject an invalid date before persisting', function() {
+    var incorrectInputDate = '01.0x.01';
+    var inputWorkExperience = element(by.id('workExperience'));
+    inputWorkExperience.clear();
+    inputWorkExperience.sendKeys(incorrectInputDate);
+    expect(element(by.id('save-button')).isDisplayed()).toBe(false);
+    expect(element(by.id('cancel-button')).isDisplayed()).toBe(false);
+  });
+
+  it('should set an invalid date and persist it after correcting it', function() {
+    var incorrectInputDate = '01.0x.01';
+    var inputWorkExperience = element(by.id('workExperience'));
+    inputWorkExperience.click();
+    inputWorkExperience.clear();
+    inputWorkExperience.sendKeys(incorrectInputDate);
+    inputWorkExperience.sendKeys(protractor.Key.DOWN);
+    inputWorkExperience.sendKeys(protractor.Key.ENTER);
+    inputWorkExperience.click();
+    var newValue = inputWorkExperience.getAttribute('value');
+    element(by.id('save-button')).click();
+    expect(inputWorkExperience.getAttribute('value')).toBe(newValue);
+  });
     var tagCount = element.all(by.tagName('ti-tag-item')).count();
 
     expect(tagCount).toBe(1);

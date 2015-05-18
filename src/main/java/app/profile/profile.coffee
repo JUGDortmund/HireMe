@@ -1,4 +1,4 @@
-angular.module 'profile', ['duScroll', 'ngTagsInput']
+angular.module( 'profile', ['duScroll'])
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
 .config ($routeProvider) ->
@@ -10,9 +10,37 @@ angular.module 'profile', ['duScroll', 'ngTagsInput']
       profile: (Restangular, $route) ->
         Restangular.one('profile', $route.current.params.profileId).get()
 .controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, $document, $parse, tagService) ->
+  dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
   $scope.profile = profile
+  if moment(profile.workExperience).isValid()
+    $scope.profile.workExperience = moment(profile.workExperience).format(dateFormat)
+  else
+    $scope.profile.workExperience = ""
   $scope.originProfile = angular.copy($scope.profile)
   tagService.loadTags()
+
+  $scope.$watchGroup [
+      "profile.firstname",
+      "profile.lastname",
+      "profile.degree",
+      "profile.careerStage",
+      "profile.workExperience",
+      "profile.languages",
+      "profile.industry",
+      "profile.platforms",
+      "profile.opSystems",
+      "profile.progLanguages",
+      "profile.webTechnologies",
+      "profile.devEnvironments",
+      "profile.qualifications",
+      "profile.summary"
+    ], (newValue, oldValue) ->
+      if (newValue != oldValue && $scope.editMode)
+        $scope.showEditModeButtons = true
+       
+  $scope.enableEditMode = ->
+    $scope.editMode = true
+    return
 
   showMessage = (targetName) ->
     target = $parse(targetName)
@@ -52,6 +80,10 @@ angular.module 'profile', ['duScroll', 'ngTagsInput']
   $scope.save = ->
     putWithTags(profile).then (->
       $scope.showEditModeButtons = false
+      dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
+      dateString=  moment($scope.profile.workExperience, dateFormat).toDate();
+      $scope.profile.workExperience = dateString
+      $scope.profile.workExperience = moment($scope.profile.workExperience).format(dateFormat);
       $scope.originProfile = angular.copy($scope.profile)
       showMessage('success')
       tagService.loadTags()

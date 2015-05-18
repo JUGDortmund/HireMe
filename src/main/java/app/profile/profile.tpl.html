@@ -70,12 +70,22 @@
                               </tags-input>
 	                      </div>
 	                    </div>
-	                    <div class="form-group" id="form-group-workExperience">
-	                    	<label for="workExperience" class="control-label col-md-4">${i18n('profile.personal.workExperience')}</label>
-	  						<div class="col-md-8">
-	                    		<input type="text" class="form-control" name="workExperience" id="workExperience" ng-model="profile.workExperience" ng-click="enableEditMode()" ng-change="change('form-group-workExperience')"/>
-	                		</div>
-	                    </div>
+                        <div class="form-group" id="form-group-workExperience">
+                            <label for="workExperience" class="control-label col-md-4">${i18n('profile.personal.workExperience')}</label>
+                            <div class="col-md-8">
+                                <input type="text"
+                                       class="form-control datepicker"
+                                       data-provide="datepicker"
+                                       data-date-format=${dateformat}
+                                       data-date-autoclose="true"
+                                       data-date-language=${language}
+                                       name="workExperience"
+                                       id="workExperience"
+                                       ng-model="profile.workExperience"
+                                       ng-click="enableEditMode()"
+                                       ng-change="change('form-group-workExperience')"/>
+                            </div>
+                        </div>
 	                    <div class="form-group" id="form-group-languages">
 	                      <label for="languages" class="control-label col-md-4">${i18n('profile.personal.languages')}</label>
 	                      <div class="col-md-8">
