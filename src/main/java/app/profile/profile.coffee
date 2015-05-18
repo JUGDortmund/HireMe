@@ -19,29 +19,6 @@ angular.module('profile', ['duScroll', 'ngTagsInput'])
   $scope.originProfile = angular.copy($scope.profile)
   tagService.loadTags()
 
-  $scope.$watchGroup [
-      "profile.firstname",
-      "profile.lastname",
-      "profile.degree",
-      "profile.careerStage",
-      "profile.workExperience",
-      "profile.languages",
-      "profile.industry",
-      "profile.platforms",
-      "profile.opSystems",
-      "profile.progLanguages",
-      "profile.webTechnologies",
-      "profile.devEnvironments",
-      "profile.qualifications",
-      "profile.summary"
-    ], (newValue, oldValue) ->
-      if (newValue != oldValue && $scope.editMode)
-        $scope.showEditModeButtons = true
-       
-  $scope.enableEditMode = ->
-    $scope.editMode = true
-    return
-
   showMessage = (targetName) ->
     target = $parse(targetName)
     target.assign($scope, true)
