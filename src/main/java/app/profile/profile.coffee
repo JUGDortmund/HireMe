@@ -1,4 +1,4 @@
-angular.module( 'profile', ['duScroll'])
+angular.module('profile', ['duScroll', 'ngTagsInput'])
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
 .config ($routeProvider) ->
