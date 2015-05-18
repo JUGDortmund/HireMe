@@ -83,7 +83,9 @@ angular.module 'profile', ['duScroll', 'ngFileUpload', 'utils.customResource']
         file = files[i]
         Upload.upload(
           url: '/api/resource/upload'
-          file: file).progress((evt) ->
+          file: file
+          fileFormDataName: file.name)
+        .progress((evt) ->
           progressPercentage = parseInt(100.0 * evt.loaded / evt.total)
           return
         ).success (data, status, headers, config) ->
