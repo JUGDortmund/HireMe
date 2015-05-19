@@ -6,6 +6,8 @@ import com.google.common.collect.SetMultimap;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Singleton;
 
+import org.slf4j.Logger;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -22,6 +24,7 @@ import javax.validation.constraints.NotNull;
 
 import dtos.TagList;
 import model.BaseModel;
+import model.annotations.InjectLogger;
 import model.annotations.Tag;
 import model.events.EntityChangedEvent;
 
@@ -36,6 +39,9 @@ public class TagService {
   private final SetMultimap<String, String>
       tags =
       MultimapBuilder.hashKeys().treeSetValues().build();
+
+  @InjectLogger
+  private Logger LOG;
 
   /**
    * Subscribes to EntityChangedEvent and adds the Entity's values to the tag registry
@@ -60,7 +66,7 @@ public class TagService {
       Preconditions.checkNotNull(model, "The model cannot be null");
       tryAdd(model);
     } catch (IllegalAccessException | ClassCastException e) {
-      e.printStackTrace();
+      LOG.error("Trying to add an invalid tag value", e);
     }
   }
 

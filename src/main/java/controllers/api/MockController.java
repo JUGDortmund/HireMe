@@ -4,8 +4,8 @@ package controllers.api;
 import com.google.inject.Singleton;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+import model.annotations.InjectLogger;
 import ninja.Context;
 import ninja.Result;
 import ninja.Results;
@@ -31,7 +31,8 @@ import ninja.jaxy.Test;
 @Path("/api/mock")
 public class MockController {
 
-  Logger LOG = LoggerFactory.getLogger(MockController.class);
+  @InjectLogger
+  private Logger LOG;
 
   @Dev
   @Test

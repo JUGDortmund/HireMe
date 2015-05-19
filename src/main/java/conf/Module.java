@@ -43,6 +43,7 @@ public class Module extends AbstractModule {
         encounter.register((InjectionListener<I>) eventBus::register);
       }
     });
+    bindListener(Matchers.any(), new LoggerTypeListener());
   }
 
 }
