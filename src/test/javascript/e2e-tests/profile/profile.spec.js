@@ -57,7 +57,7 @@ describe('profile page', function () {
     var degrees = profilePage.degrees;
     degrees.click();
     degrees.sendKeys("Test");
-
+    degrees.sendKeys(protractor.Key.ENTER);
     expect(profilePage.degreeTagCount).toBe(1);
   });
 
@@ -92,7 +92,7 @@ describe('profile page', function () {
     degrees.sendKeys(protractor.Key.BACK_SPACE);
     degrees.sendKeys(protractor.Key.BACK_SPACE);
     profilePage.save();
-    expect(profilePage.degreeTagCount).toBe(3);
+    expect(profilePage.degreeTagCount).toBe(2);
   });
 
   it('should provide suggestions for tag fields from other profiles', function () {
