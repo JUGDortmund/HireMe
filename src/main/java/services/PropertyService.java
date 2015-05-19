@@ -12,12 +12,12 @@ import ninja.utils.SwissKnife;
 @Singleton
 public class PropertyService {
 
+  public static final String SHOW_BUILD_INFO = "hireMe.showBuildInfo";
   private static final String GIT_PROPERTY_ABBREV = "git.commit.id.abbrev";
   private static final String GIT_PROPERTY_BRANCH = "git.branch";
   private static final String GIT_PROPERY_BUILD_TIME = "git.build.time";
   private static final String GIT_PROPERTY_COMMIT_TIME = "git.commit.time";
   private static final String GIT_PROPERTY_COMMIT_USER = "git.commit.user.name";
-
   @Inject
   private NinjaProperties ninjaProperties;
 
@@ -44,9 +44,7 @@ public class PropertyService {
   }
 
   public boolean renderGitProperties() {
-    return true;
-    //TODO replace return true by next line, if HIRE-96 is completed.
-    /*return !ninjaProperties.isProd();*/
+    return ninjaProperties.getBooleanWithDefault(SHOW_BUILD_INFO, true);
   }
 
   private String getString(String key) {

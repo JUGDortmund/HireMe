@@ -91,6 +91,21 @@ mvn integration-test -P dev
 
 *Note*: Protractor tests per default are executed on the [mercus grid](http://mercus-selenium-grid.maredit.net:4444/wd/hub) using the ip-address that the integration tests were started from as server. If you start the integration tests locally be sure to deactivate your firewall, so that the grid can access http://[your-ip-address]:8080/`.
 
+Build deployment artifact
+
+``
+mvn clean install -Denvironment.name=environment
+``
+
+Example:
+
+``
+mvn clean install -Denvironment.name=build
+``
+
+*Note*: The default environment name is dev for the local development
+
+
 ####### Run protractor tests locally
 
 For testing purposes it may be useful to run protractor tests locally and see how the tests are executed.
