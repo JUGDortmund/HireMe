@@ -3,7 +3,7 @@ package model.events;
 import model.BaseModel;
 
 /**
- * @author Lukas Eichler
+ * Event to indicate a changed Entity
  */
 public class EntityChangedEvent<T extends BaseModel> {
 

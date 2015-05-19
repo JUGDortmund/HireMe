@@ -55,11 +55,11 @@ angular.module('profile', ['duScroll', 'ngTagsInput'])
     Restangular.one('profile', profile.id).customPUT(workingProfile);
 
   $scope.save = ->
+    dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
+    dateString = moment($scope.profile.workExperience, dateFormat).toDate();
+    $scope.profile.workExperience = dateString
     putWithTags(profile).then (->
       $scope.showEditModeButtons = false
-      dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
-      dateString=  moment($scope.profile.workExperience, dateFormat).toDate();
-      $scope.profile.workExperience = dateString
       $scope.profile.workExperience = moment($scope.profile.workExperience).format(dateFormat);
       $scope.originProfile = angular.copy($scope.profile)
       showMessage('success')

@@ -1,23 +1,21 @@
 'use strict';
 
 var SearchPage = require('../pages/search.page.js');
+var ProfilePage = require('../pages/profile.page');
 
 describe('profile page', function () {
 
   var searchPage;
+  var profilePage;
   beforeEach(function () {
     searchPage = new SearchPage();
     searchPage.addProfile();
-    searchPage.lastProfile.element(by.css('a .info-box-content')).click();
-    browser.wait(function () {
-      return browser.getCurrentUrl().then(function (url) {
-        return url.indexOf('/profile/') > -1;
-      });
-    }, 500);
+    searchPage.openLastProfile();
+    profilePage = new ProfilePage;
   });
 
   it('should show the name of the selected user', function () {
-    expect(element(by.id('firstName')).getAttribute('value')).toBe('Max');
+    expect(profilePage.firstName.getAttribute('value')).toBe('Max');
   });
 
   it('should redirect if a profile with a valid id is called', function () {
@@ -26,51 +24,46 @@ describe('profile page', function () {
 
   it('should save the new name of the selected user after save button is pressed', function () {
     var expectedText = 'newUserFirstName';
-    var firstname = element(by.id('firstName'));
+    var firstname = profilePage.firstName;
     firstname.click();
     firstname.clear();
     firstname.sendKeys(expectedText);
-    element(by.id('save-button')).click();
+    profilePage.save();
     expect(firstname.getAttribute('value')).toBe(expectedText);
   });
 
   it('should reset the new name of the selected user after cancel button is pressed', function () {
     var newText = 'newUserFirstName';
-    var firstname = element(by.id('firstName'));
+    var firstname = profilePage.firstName;
     var oldText = firstname.getAttribute('value');
     firstname.click();
     firstname.clear();
     firstname.sendKeys(newText);
-    element(by.id('cancel-button')).click();
+    profilePage.cancel();
     expect(firstname.getAttribute('value')).toBe(oldText);
   });
 
   it('should set a date correctly and persist date to profile', function() {
     var inputDate = '01.03.01';
-    var inputWorkExperience = element(by.id('workExperience'));
+    var inputWorkExperience = profilePage.workExperience;
     inputWorkExperience.click();
     inputWorkExperience.clear();
     inputWorkExperience.sendKeys(inputDate);
-    element(by.id('save-button')).click();
+    profilePage.save();
     expect(inputWorkExperience.getAttribute('value')).toBe(inputDate);
   });
+
   it('should be able to create a new tag', function () {
-    var degrees = element(by.css('#degrees input[type="text"]'));
+    var degrees = profilePage.degrees;
     degrees.click();
     degrees.sendKeys("Test");
 
-  it('should reject an invalid date before persisting', function() {
-    var incorrectInputDate = '01.0x.01';
-    var inputWorkExperience = element(by.id('workExperience'));
-    inputWorkExperience.clear();
-    inputWorkExperience.sendKeys(incorrectInputDate);
-    expect(element(by.id('save-button')).isDisplayed()).toBe(false);
-    expect(element(by.id('cancel-button')).isDisplayed()).toBe(false);
+    expect(profilePage.degreeTagCount).toBe(1);
   });
 
   it('should set an invalid date and persist it after correcting it', function() {
     var incorrectInputDate = '01.0x.01';
-    var inputWorkExperience = element(by.id('workExperience'));
+    var inputWorkExperience = profilePage.workExperience;
     inputWorkExperience.click();
     inputWorkExperience.clear();
     inputWorkExperience.sendKeys(incorrectInputDate);
@@ -78,16 +71,12 @@ describe('profile page', function () {
     inputWorkExperience.sendKeys(protractor.Key.ENTER);
     inputWorkExperience.click();
     var newValue = inputWorkExperience.getAttribute('value');
-    element(by.id('save-button')).click();
+    profilePage.save();
     expect(inputWorkExperience.getAttribute('value')).toBe(newValue);
-  });
-    var tagCount = element.all(by.tagName('ti-tag-item')).count();
-
-    expect(tagCount).toBe(1);
   });
 
   it('should be able to remove an existing tag', function () {
-    var degrees = element(by.css('#degrees input[type="text"]'));
+    var degrees = profilePage.degrees;
     degrees.click();
     degrees.sendKeys("Test");
     degrees.sendKeys(protractor.Key.ENTER);
@@ -102,35 +91,29 @@ describe('profile page', function () {
 
     degrees.sendKeys(protractor.Key.BACK_SPACE);
     degrees.sendKeys(protractor.Key.BACK_SPACE);
-
-    var tagCount = element.all(by.tagName('ti-tag-item')).count();
-    expect(tagCount).toBe(3);
+    profilePage.save();
+    expect(profilePage.degreeTagCount).toBe(3);
   });
 
   it('should provide suggestions for tag fields from other profiles', function () {
-    var degrees = element(by.css('#degrees input[type="text"]'));
+    var degrees = profilePage.degrees;
     degrees.click();
     degrees.sendKeys("Test123");
     degrees.sendKeys("Test124");
     degrees.sendKeys(protractor.Key.ENTER);
 
-    element(by.id('save-button')).click();
+    profilePage.save();
 
     searchPage = new SearchPage();
     searchPage.addProfile();
-    searchPage.lastProfile.element(by.css('a .info-box-content')).click();
-    browser.wait(function () {
-      return browser.getCurrentUrl().then(function (url) {
-        return url.indexOf('/profile/') > -1;
-      });
-    }, 500);
+    searchPage.openLastProfile();
 
-    var degrees = element(by.css('#degrees input[type="text"]'));
+    degrees = profilePage.degrees;
     degrees.click();
     degrees.sendKeys("Test");
 
-    var tagCount = element.all(by.css('.suggestion-item')).count();
-    expect(tagCount).toBe(1);
+    var suggestionsCount = element.all(by.css('.suggestion-item')).count();
+    expect(suggestionsCount).toBe(3);
   });
 
 });

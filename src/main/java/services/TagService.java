@@ -22,7 +22,7 @@ import javax.validation.constraints.NotNull;
 
 import dtos.TagList;
 import model.BaseModel;
-import model.Tag;
+import model.annotations.Tag;
 import model.events.EntityChangedEvent;
 
 import static org.reflections.ReflectionUtils.getAllFields;
@@ -37,12 +37,24 @@ public class TagService {
       tags =
       MultimapBuilder.hashKeys().treeSetValues().build();
 
+  /**
+   * Subscribes to EntityChangedEvent and adds the Entity's values to the tag registry
+   *
+   * @param event Event that is send when a entity is changed
+   * @param <T>   Type of the changed Entity
+   */
   @Subscribe
   public <T extends BaseModel> void receiveEntityChangedEvent(@NotNull final EntityChangedEvent<T> event) {
     Preconditions.checkNotNull(event, "The event cannot be null");
     add(event.getModel());
   }
 
+  /**
+   * Adds a model's tag values to the tag registry
+   *
+   * @param model the given model
+   * @param <T>   type of the model
+   */
   public <T extends BaseModel> void add(@NotNull final T model) {
     try {
       Preconditions.checkNotNull(model, "The model cannot be null");
@@ -52,6 +64,7 @@ public class TagService {
     }
   }
 
+  @SuppressWarnings("unchecked")
   private <T extends BaseModel> void tryAdd(@NotNull final T model) throws IllegalAccessException {
     for (final Field field : getFields(model.getClass())) {
       field.setAccessible(true);
@@ -67,6 +80,7 @@ public class TagService {
     }
   }
 
+  @SuppressWarnings("unchecked")
   private Set<Field> getFields(final Class<? extends BaseModel> modelClass) {
     if (!fieldCache.containsKey(modelClass.getName())) {
       fieldCache.put(modelClass.getName(), getAllFields(modelClass, withAnnotation(Tag.class)));
@@ -85,12 +99,21 @@ public class TagService {
                .collect(Collectors.counting()) == 1;
   }
 
+  /**
+   * Gets the Tags as of a given TagName as Set
+   * @param tagName the given tagName
+   * @return the set of tag values
+   */
   public Set<String> getTags(@NotNull final String tagName) {
     Preconditions.checkNotNull(tagName, "The tagName cannot be null");
 
     return tags.get(tagName);
   }
 
+  /**
+   * Gets the Tags as a List of TagList dtos
+   * @return List of TagList dots
+   */
   public List<TagList> getTags() {
     return tags.asMap()
                .entrySet()
