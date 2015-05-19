@@ -5,6 +5,7 @@ import com.google.common.eventbus.EventBus;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
+import org.bson.types.ObjectId;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,6 +33,7 @@ public class TagServiceTest {
     profile = new Profile();
     profile.setDegrees(Lists.newArrayList("Master", "Bachelor", "Bachelor"));
     profile.setCareerLevel(Lists.newArrayList("Associate"));
+    profile.setId(new ObjectId());
     service.add(profile);
   }
 
@@ -61,6 +63,17 @@ public class TagServiceTest {
     List<TagList> tags = service.getTags();
     assertThat(tags.get(0).getValues()).contains("Bachelor", "Master");
     assertThat(tags.get(0).getName()).isEqualTo("degrees");
+  }
+
+  @Test
+  public void removeTags() throws Exception {
+    Profile profile2 = new Profile();
+    profile2.setId(new ObjectId());
+    profile2.setCareerLevel(Lists.newArrayList("Senior"));
+    service.add(profile2);
+    profile.setCareerLevel(Lists.newArrayList());
+    service.add(profile);
+    assertThat(service.getTags("careerLevel")).containsOnly("Senior");
   }
 
   @Test
