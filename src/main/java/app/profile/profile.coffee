@@ -84,7 +84,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput'])
     return
 
   $scope.tagsToList = (tags) ->
-    tags.map toList
+    if tags? then tags.map toList else []
 
   $scope.getTags = (name) ->
     tagService.getTag(name)
