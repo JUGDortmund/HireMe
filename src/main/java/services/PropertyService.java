@@ -5,7 +5,7 @@ import com.google.inject.Singleton;
 
 import org.apache.commons.configuration.PropertiesConfiguration;
 
-import dtos.GitPropertyDTO;
+import dtos.GitProperties;
 import ninja.utils.NinjaProperties;
 import ninja.utils.SwissKnife;
 
@@ -21,26 +21,26 @@ public class PropertyService {
   @Inject
   private NinjaProperties ninjaProperties;
 
-  private GitPropertyDTO gitPropertyDTO;
+  private GitProperties gitProperties;
 
-  public GitPropertyDTO getGitPropertyDTO() {
-    if (gitPropertyDTO == null) {
-      gitPropertyDTO = createGitPropertyDTO();
+  public GitProperties getGitProperties() {
+    if (gitProperties == null) {
+      gitProperties = createGitProperties();
     }
-    return gitPropertyDTO;
+    return gitProperties;
   }
 
-  private GitPropertyDTO createGitPropertyDTO() {
-    GitPropertyDTO gitPropertyDTO = new GitPropertyDTO();
-    gitPropertyDTO.setShowGitProperties(renderGitProperties());
-    if (gitPropertyDTO.isShowGitProperties()) {
-      gitPropertyDTO.setAbbrev(getString(GIT_PROPERTY_ABBREV));
-      gitPropertyDTO.setBranch(getString(GIT_PROPERTY_BRANCH));
-      gitPropertyDTO.setBuildTime(getString(GIT_PROPERY_BUILD_TIME));
-      gitPropertyDTO.setCommitTime(getString(GIT_PROPERTY_COMMIT_TIME));
-      gitPropertyDTO.setCommitUserName(getString(GIT_PROPERTY_COMMIT_USER));
+  private GitProperties createGitProperties() {
+    GitProperties gitProperties = new GitProperties();
+    gitProperties.setShowGitProperties(renderGitProperties());
+    if (gitProperties.isShowGitProperties()) {
+      gitProperties.setAbbrev(getString(GIT_PROPERTY_ABBREV));
+      gitProperties.setBranch(getString(GIT_PROPERTY_BRANCH));
+      gitProperties.setBuildTime(getString(GIT_PROPERY_BUILD_TIME));
+      gitProperties.setCommitTime(getString(GIT_PROPERTY_COMMIT_TIME));
+      gitProperties.setCommitUserName(getString(GIT_PROPERTY_COMMIT_USER));
     }
-    return gitPropertyDTO;
+    return gitProperties;
   }
 
   public boolean renderGitProperties() {
@@ -50,13 +50,13 @@ public class PropertyService {
   }
 
   private String getString(String key) {
-    return getGitProperties() != null ? getGitProperties().getString(key) : null;
-  }
-
-  private PropertiesConfiguration getGitProperties() {
     if (!renderGitProperties()) {
       return null;
     }
+    return getPropertiesFile().getString(key);
+  }
+
+  private PropertiesConfiguration getPropertiesFile() {
     return SwissKnife.loadConfigurationInUtf8("conf/git.properties");
   }
 
