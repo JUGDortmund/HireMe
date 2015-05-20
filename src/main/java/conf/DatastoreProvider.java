@@ -1,8 +1,9 @@
 package conf;
 
-import com.github.fakemongo.Fongo;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
+
+import com.github.fakemongo.Fongo;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
@@ -28,6 +29,7 @@ public class DatastoreProvider implements Provider<Datastore> {
   private static final String MONGODB_PASS = "ninja.mongodb.pass";
   private static final String MONGODB_DBNAME = "ninja.mongodb.dbname";
   private static final String MONGODB_AUTHDB = "ninja.mongodb.authdb";
+  private static final String MONGODB_USE_IN_MEMORY = "ninja.mongodb.useInMemory";
   private NinjaProperties properties;
   private MongoClient mongoClient;
   private Morphia morphia;
@@ -38,10 +40,10 @@ public class DatastoreProvider implements Provider<Datastore> {
   @Inject
   public DatastoreProvider(NinjaProperties properties) throws UnknownHostException {
     this.properties = properties;
-    if (properties.isProd()) {
-      createMongoDBConnection();
-    } else {
+    if (properties.getBooleanWithDefault(MONGODB_USE_IN_MEMORY, true)) {
       initiateInMemoryDatastore();
+    } else {
+      createMongoDBConnection();
     }
     String packageName = properties.get(MORPHIA_PACKAGE);
 
