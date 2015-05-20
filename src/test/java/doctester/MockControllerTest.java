@@ -1,4 +1,4 @@
-package controllers.api;
+package doctester;
 
 import org.doctester.testbrowser.Request;
 import org.doctester.testbrowser.Response;

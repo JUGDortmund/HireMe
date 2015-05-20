@@ -32,6 +32,16 @@ SearchPage.prototype = Object.create({}, {
       return element.all(by.className('profile')).last();
     }
   },
+  openLastProfile: {
+    value: function () {
+      this.lastProfile.element(by.css('a .info-box-content')).click();
+      browser.wait(function () {
+        return browser.getCurrentUrl().then(function (url) {
+          return url.indexOf('/profile/') > -1;
+        });
+      }, 500);
+    }
+  },
   addProfile: {
     value: function () {
       var page = this;
@@ -49,7 +59,7 @@ SearchPage.prototype = Object.create({}, {
       this.searchInputField.clear();
       this.searchInputField.sendKeys(searchKeyword);
     }
-  }, 
+  }
 });
 
 module.exports = SearchPage;

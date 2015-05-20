@@ -13,7 +13,7 @@
         <developerConnection>scm:git:ssh://git@stash.maredit.net:7999/com/hireme.git
         </developerConnection>
         <url>http://stash.maredit.net/projects/COM/repos/hireme/browse</url>
-        <tag>HEAD</tag>
+      <tag>HEAD</tag>
     </scm>
 
     <properties>
@@ -26,7 +26,7 @@
 
     <build>
         <plugins>
-            <!-- Plugin for extraction of git properties. Used to display build information inside the application -->
+           <!-- Plugin for extraction of git properties. Used to display build information inside the application -->
             <plugin>
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
@@ -538,6 +538,11 @@
         </dependency>
         <dependency>
             <groupId>org.webjars</groupId>
+            <artifactId>underscorejs</artifactId>
+            <version>1.8.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
             <artifactId>bootstrap-datepicker</artifactId>
             <version>1.4.0</version>
         </dependency>
@@ -581,6 +586,11 @@
             <version>2.5.3</version>
         </dependency>
         <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections-maven</artifactId>
+            <version>0.9.8</version>
+        </dependency>
+        <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>18.0</version>
@@ -602,6 +612,7 @@
             <version>1.7.1</version>
             <scope>test</scope>
         </dependency>
+
     </dependencies>
     <profiles>
         <!-- Test profile for development -->

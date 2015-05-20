@@ -17,7 +17,7 @@
                         <h2 class="headline">{{profile.firstname}} {{profile.lastname}}</h2>
 
                         <p class="description">
-                            {{profile.careerStage}}
+                            {{tagsToList(profile.careerLevel).join(', ')}}
                         </p>
                     </div>
                 </div>
@@ -40,38 +40,49 @@
                             <div class="col-md-8">
                                 <input type="text" name="lastName" id="lastName"
                                        class="form-control"
-                                       ng-model="profile.lastname" ng-click="enableEditMode()"
+                                       ng-model="profile.lastname"
                                        ng-change="change('form-group-lastName')"/>
                             </div>
                         </div>
+
                         <div class="form-group" id="form-group-firstname">
                             <label for="firstName" class="control-label col-md-4">${i18n('profile.personal.firstName')}</label>
 
                             <div class="col-md-8">
                                 <input type="text" name="firstName" id="firstName"
                                        class="form-control" ng-model="profile.firstname"
-                                       ng-click="enableEditMode()"
                                        ng-change="change('form-group-firstname')"/>
 
                             </div>
                         </div>
                         <div class="form-group" id="form-group-degree">
-                            <label for="degree" class="control-label col-md-4">${i18n('profile.personal.degree')}</label>
+                            <label for="degrees" class="control-label col-md-4">${i18n('profile.personal.degree')}</label>
 
                             <div class="col-md-8">
-                                <input type="text" name="degree" id="degree" class="form-control"
-                                       ng-model="profile.degree" ng-click="enableEditMode()"
-                                       ng-change="change('form-group-degree')"/>
+                                <tags-input type="text" name="degrees" id="degrees"
+                                            placeholder="${i18n('form.addTag')}"
+                                            class="ng-tags-custom" ng-model="profile.degrees"
+
+                                            on-tag-added="change('form-group-degree')"
+                                            on-tag-removed="change('form-group-degree')">
+                                    <auto-complete source="getTags('degrees')|filter:$query"
+                                            ></auto-complete>
+                                </tags-input>
                             </div>
                         </div>
                         <div class="form-group" id="form-group-careerLevel">
                             <label for="careerLevel" class="control-label col-md-4">${i18n('profile.personal.careerLevel')}</label>
 
                             <div class="col-md-8">
-                                <input type="text" name="careerLevel" id="careerLevel"
-                                       class="form-control" ng-model="profile.careerStage"
-                                       ng-click="enableEditMode()"
-                                       ng-change="change('form-group-careerLevel')"/>
+                                <tags-input type="text" name="careerLevel" id="careerLevel"
+                                            placeholder="${i18n('form.addTag')}"
+                                            class="ng-tags-custom" ng-model="profile.careerLevel"
+
+                                            on-tag-added="change('form-group-careerLevel')"
+                                            on-tag-removed="change('form-group-careerLevel')">
+                                    <auto-complete source="getTags('careerLevel')|filter:$query"
+                                            ></auto-complete>
+                                </tags-input>
                             </div>
                         </div>
                         <div class="form-group" id="form-group-workExperience">
@@ -87,21 +98,23 @@
                                        name="workExperience"
                                        id="workExperience"
                                        ng-model="profile.workExperience"
-                                       ng-click="enableEditMode()"
+
                                        ng-change="change('form-group-workExperience')"/>
                             </div>
-
-
-
                         </div>
                         <div class="form-group" id="form-group-languages">
                             <label for="languages" class="control-label col-md-4">${i18n('profile.personal.languages')}</label>
 
                             <div class="col-md-8">
-                                <input type="text" name="languages" id="languages"
-                                       class="form-control" ng-model="profile.languages"
-                                       ng-click="enableEditMode()"
-                                       ng-change="change('form-group-languages')"/>
+                                <tags-input type="text" name="languages" id="languages"
+                                            placeholder="${i18n('form.addTag')}"
+                                            class="ng-tags-custom" ng-model="profile.languages"
+
+                                            on-tag-added="change('form-group-languages')"
+                                            on-tag-removed="change('form-group-languages')">
+                                    <auto-complete source="getTags('languages')|filter:$query"
+                                            ></auto-complete>
+                                </tags-input>
                             </div>
                         </div>
                     </div>
@@ -112,14 +125,19 @@
                         <h3 class="box-title">${i18n('profile.experience.section')}</h3>
                     </div>
                     <div class="box-body form-horizontal">
-                        <div class="form-group" id="form-group-industry">
-                            <label for="industry" class="control-label col-md-4">${i18n('profile.experience.industry')}</label>
+                        <div class="form-group" id="form-group-industries">
+                            <label for="industries" class="control-label col-md-4">${i18n('profile.experience.industry')}</label>
 
                             <div class="col-md-8">
-                                <input type="text" name="industry" id="industry"
-                                       class="form-control" ng-model="profile.industry"
-                                       ng-click="enableEditMode()"
-                                       ng-change="change('form-group-industry')"/>
+                                <tags-input type="text" name="industries" id="industries"
+                                            placeholder="${i18n('form.addTag')}"
+                                            class="ng-tags-custom" ng-model="profile.industries"
+
+                                            on-tag-added="change('form-group-industries')"
+                                            on-tag-removed="change('form-group-industries')">
+                                    <auto-complete source="getTags('industries')|filter:$query"
+                                            ></auto-complete>
+                                </tags-input>
                             </div>
                         </div>
                     </div>
@@ -130,44 +148,68 @@
                         <h3 class="box-title">${i18n('profile.skills.section')}</h3>
                     </div>
                     <div class="box-body form-horizontal">
+
                         <div class="form-group" id="form-group-platforms">
                             <label for="platforms" class="control-label col-md-4">${i18n('profile.skills.platforms')}</label>
 
                             <div class="col-md-8">
-                                <input type="text" name="platforms" id="platforms"
-                                       class="form-control" ng-model="profile.platforms"
-                                       ng-click="enableEditMode()"
-                                       ng-change="change('form-group-platforms')"/>
+                                <tags-input type="text" name="platforms" id="platforms"
+                                            placeholder="${i18n('form.addTag')}"
+                                            class="ng-tags-custom" ng-model="profile.platforms"
+
+                                            on-tag-added="change('form-group-platforms')"
+                                            on-tag-removed="change('form-group-platforms')">
+                                    <auto-complete source="getTags('platforms')|filter:$query"
+                                            ></auto-complete>
+                                </tags-input>
                             </div>
                         </div>
                         <div class="form-group" id="form-group-opSystems">
                             <label for="opSystems" class="control-label col-md-4">${i18n('profile.skills.opSystems')}</label>
 
                             <div class="col-md-8">
-                                <input type="text" name="opSystems" id="opSystems"
-                                       class="form-control" ng-model="profile.opSystems"
-                                       ng-click="enableEditMode()"
-                                       ng-change="change('form-group-opSystems')"/>
+                                <tags-input type="text" name="opSystems" id="opSystems"
+                                            placeholder="${i18n('form.addTag')}"
+                                            class="ng-tags-custom" ng-model="profile.opSystems"
+
+                                            on-tag-added="change('form-group-opSystems')"
+                                            on-tag-removed="change('form-group-opSystems')">
+                                    <auto-complete source="getTags('opSystems')|filter:$query"
+                                            ></auto-complete>
+                                </tags-input>
                             </div>
                         </div>
                         <div class="form-group" id="form-group-progLanguages">
                             <label for="progLanguages" class="control-label col-md-4">${i18n('profile.skills.progLanguages')}</label>
 
                             <div class="col-md-8">
-                                <input type="text" name="progLanguages" id="progLanguages"
-                                       class="form-control" ng-model="profile.progLanguages"
-                                       ng-click="enableEditMode()"
-                                       ng-change="change('form-group-progLanguages')"/>
+                                <tags-input type="text" name="progLanguages" id="progLanguages"
+                                            placeholder="${i18n('form.addTag')}"
+                                            class="ng-tags-custom" ng-model="profile.progLanguages"
+
+                                            on-tag-added="change('form-group-progLanguages')"
+                                            on-tag-removed="change('form-group-progLanguages')">
+                                    <auto-complete
+                                            source="getTags('progLanguages')|filter:$query"
+                                            ></auto-complete>
+                                </tags-input>
                             </div>
                         </div>
                         <div class="form-group" id="form-group-webTechnologies">
                             <label for="webTechnologies" class="control-label col-md-4">${i18n('profile.skills.webTechnologies')}</label>
 
                             <div class="col-md-8">
-                                <input type="text" name="webTechnologies" id="webTechnologies"
-                                       class="form-control" ng-model="profile.webTechnologies"
-                                       ng-click="enableEditMode()"
-                                       ng-change="change('form-group-webTechnologies')"/>
+                                <tags-input type="text" name="webTechnologies" id="webTechnologies"
+                                            placeholder="${i18n('form.addTag')}"
+                                            class="ng-tags-custom"
+                                            ng-model="profile.webTechnologies"
+
+                                            on-tag-added="change('form-group-webTechnologies')"
+                                            on-tag-removed="change('form-group-webTechnologies')">
+                                    <auto-complete
+                                            source="getTags('webTechnologies')|filter:$query"
+                                            ></auto-complete>
+                                </tags-input>
                             </div>
                         </div>
 
@@ -175,10 +217,17 @@
                             <label for="devEnvironments" class="control-label col-md-4">${i18n('profile.skills.devEnvironments')}</label>
 
                             <div class="col-md-8">
-                                <input type="text" name="devEnvironments" id="devEnvironments"
-                                       class="form-control" ng-model="profile.devEnvironments"
-                                       ng-click="enableEditMode()"
-                                       ng-change="change('form-group-devEnvironments')"/>
+                                <tags-input type="text" name="devEnvironments" id="devEnvironments"
+                                            placeholder="${i18n('form.addTag')}"
+                                            class="ng-tags-custom"
+                                            ng-model="profile.devEnvironments"
+
+                                            on-tag-added="change('form-group-devEnvironments')"
+                                            on-tag-removed="change('form-group-devEnvironments')">
+                                    <auto-complete
+                                            source="getTags('devEnvironments')|filter:$query"
+                                            ></auto-complete>
+                                </tags-input>
                             </div>
                         </div>
 
@@ -186,10 +235,15 @@
                             <label for="qualifications" class="control-label col-md-4">${i18n('profile.skills.qualifications')}</label>
 
                             <div class="col-md-8">
-                                <input type="text" name="qualifications" id="qualifications"
-                                       class="form-control" ng-model="profile.qualifications"
-                                       ng-click="enableEditMode()"
-                                       ng-change="change('form-group-qualifications')"/>
+                                <tags-input type="text" name="qualifications" id="qualifications"
+                                            placeholder="${i18n('form.addTag')}"
+                                            class="ng-tags-custom" ng-model="profile.qualifications"
+
+                                            on-tag-added="change('form-group-qualifications')"
+                                            on-tag-removed="change('form-group-qualifications')">
+                                    <auto-complete source="getTags('qualifications')|filter:$query"
+                                            ></auto-complete>
+                                </tags-input>
                             </div>
                         </div>
 
@@ -198,7 +252,7 @@
 
                             <div class="col-md-8">
                                 <input type="text" name="summary" id="summary" class="form-control"
-                                       ng-model="profile.summary" ng-click="enableEditMode()"
+                                       ng-model="profile.summary"
                                        ng-change="change('form-group-summary')"/>
                             </div>
                         </div>
