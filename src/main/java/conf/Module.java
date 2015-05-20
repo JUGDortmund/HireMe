@@ -14,16 +14,36 @@
 
 package conf;
 
+import com.google.common.eventbus.EventBus;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
+import com.google.inject.TypeLiteral;
+import com.google.inject.matcher.Matchers;
+import com.google.inject.spi.InjectionListener;
+import com.google.inject.spi.TypeEncounter;
+import com.google.inject.spi.TypeListener;
 
 import org.mongodb.morphia.Datastore;
+
+import services.TagService;
 
 @Singleton
 public class Module extends AbstractModule {
 
+  private EventBus eventBus = new EventBus("Default EventBus");
+
   protected void configure() {
     bind(Datastore.class).toProvider(DatastoreProvider.class);
+    bind(EventBus.class).toInstance(eventBus);
+    bind(TagService.class).asEagerSingleton();
+
+    bindListener(Matchers.any(), new TypeListener() {
+      @Override
+      public <I> void hear(TypeLiteral<I> type, TypeEncounter<I> encounter) {
+        encounter.register((InjectionListener<I>) eventBus::register);
+      }
+    });
+    bindListener(Matchers.any(), new LoggerTypeListener());
   }
 
 }

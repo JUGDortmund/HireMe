@@ -1,6 +1,8 @@
 package controllers.api;
 
 import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
+import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -9,6 +11,7 @@ import org.mongodb.morphia.Datastore;
 
 import exception.ElementNotFoundException;
 import model.Profile;
+import model.events.EntityChangedEvent;
 import ninja.Result;
 import ninja.Results;
 import ninja.exceptions.BadRequestException;
@@ -24,6 +27,9 @@ public class ProfileController {
 
   @Inject
   private Datastore datastore;
+
+  @Inject
+  private EventBus eventBus;
 
   @GET
   @Path("")
@@ -56,7 +62,7 @@ public class ProfileController {
     Profile profile = new Profile();
     profile.setFirstname("Max");
     profile.setLastname("Mustermann");
-    profile.setCareerStage("Manager");
+    profile.setCareerLevel(Lists.newArrayList("Manager"));
     datastore.save(profile);
     return Results.status(201).json().render(profile);
   }
@@ -68,6 +74,7 @@ public class ProfileController {
       throw new BadRequestException();
     }
     datastore.save(profile);
+    eventBus.post(new EntityChangedEvent<>(profile));
     return Results.json().render(profile);
   }
 

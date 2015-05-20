@@ -11,7 +11,7 @@ exports.config = {
     baseUrl: getUrl(),
     allScriptsTimeout: 21000,
     specs: [
-        '../e2e-tests/**/*.js'
+        '../e2e-tests/**/*.spec.js'
     ],
     framework: 'jasmine2',
     jasmineNodeOpts: {

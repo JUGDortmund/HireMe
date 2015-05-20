@@ -1,3 +1,9 @@
+@import "../global/variables";
+
+@color-blue: #3c8dbc;
+@color-orange: #ff7701;
+@color-green: #00a65a;
+
 .profile-page {
 	
 	.button-dialog {
@@ -23,25 +29,37 @@
 		&.box-primary {
 			.box-title,
 			label {
-				color: #3c8dbc;
+				color: @color-blue;
+			}
+			tags-input .tags .tag-item{
+				background-color: @color-blue;
+				border-color: @color-blue;
 			}
 		}
 
 		&.box-orange {
-			border-top-color: #ff7701;
-
+			border-top-color: @color-orange;
+	
 			.box-title,
 			label {
-				color: #ff7701;
+				color: @color-orange;
+			}
+			tags-input .tags .tag-item{
+				background-color: @color-orange;
+				border-color: @color-orange;
 			}
 		}
 
 		&.box-green {
-			border-top-color: #00a65a;
+			border-top-color: @color-green;
 
 			.box-title,
 			label {
-				color: #00a65a;
+				color: @color-green;
+			}
+			tags-input .tags .tag-item{
+				background-color: @color-green;
+				border-color: @color-green;
 			}
 		}
 
@@ -58,6 +76,11 @@
 				position: absolute;
 				top: 0;
 				left: 0;
+				border: none;
+				
+				&.has-warning {
+					border: 1px @color-warning solid;
+				}
 			}
 
 			.description {

@@ -1,4 +1,4 @@
-angular.module 'profile', ['duScroll', 'ngFileUpload', 'utils.customResource']
+angular.module 'profile', ['duScroll', 'ngTagsInput', 'ngFileUpload', 'utils.customResource']
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
 .config ($routeProvider) ->
@@ -9,7 +9,7 @@ angular.module 'profile', ['duScroll', 'ngFileUpload', 'utils.customResource']
     resolve:
       profile: (Restangular, $route) ->
         Restangular.one('profile', $route.current.params.profileId).get()
-.controller 'ProfileCtrl', ($scope, $timeout, $document, $parse, Restangular, profile, Upload) ->
+.controller 'ProfileCtrl', ($scope, $timeout, $document, $parse, Restangular, Upload, profile, tagService) ->
   dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
   $scope.profile = profile
   if moment(profile.workExperience).isValid()
@@ -18,29 +18,7 @@ angular.module 'profile', ['duScroll', 'ngFileUpload', 'utils.customResource']
     $scope.profile.workExperience = ""
   $scope.originProfile = angular.copy($scope.profile)
   
-  $scope.$watchGroup [
-      "profile.firstname",
-      "profile.lastname",
-      "profile.degree",
-      "profile.careerStage",
-      "profile.workExperience",
-      "profile.languages",
-      "profile.industry",
-      "profile.platforms",
-      "profile.opSystems",
-      "profile.progLanguages",
-      "profile.webTechnologies",
-      "profile.devEnvironments",
-      "profile.qualifications",
-      "profile.summary",
-      "profile.image"
-    ], (newValue, oldValue) ->
-      if (newValue != oldValue && $scope.editMode)
-        $scope.showEditModeButtons = true
-       
-  $scope.enableEditMode = ->
-    $scope.editMode = true
-    return
+  tagService.loadTags()
 
   showMessage = (targetName, keepChangeIndicators) ->
     target = $parse(targetName)
@@ -53,35 +31,70 @@ angular.module 'profile', ['duScroll', 'ngFileUpload', 'utils.customResource']
     ), 6000
     return
 
+  toList = (x) ->
+    x.text
+
+  putWithTags = (profile) ->
+    workingProfile = {}
+
+    workingProfile.id = profile.id
+    workingProfile.firstname = profile.firstname
+    workingProfile.lastname = profile.lastname
+    workingProfile.degrees = profile.degrees.map toList
+    workingProfile.careerLevel = profile.careerLevel.map toList
+    workingProfile.workExperience = profile.workExperience
+    workingProfile.languages = profile.languages.map toList
+    workingProfile.industries = profile.industries.map toList
+    workingProfile.platforms = profile.platforms.map toList
+    workingProfile.opSystems = profile.opSystems.map toList
+    workingProfile.progLanguages = profile.progLanguages.map toList
+    workingProfile.webTechnologies = profile.webTechnologies.map toList
+    workingProfile.devEnvironments = profile.devEnvironments.map toList
+    workingProfile.qualifications = profile.qualifications.map toList
+    workingProfile.summary = profile.summary
+    workingProfile.image = profile.image
+
+    Restangular.one('profile', profile.id).customPUT(workingProfile);
+
   $scope.save = ->
     dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
-    dateString=  moment($scope.profile.workExperience, dateFormat).toDate();
+    dateString = moment($scope.profile.workExperience, dateFormat).toDate();
     $scope.profile.workExperience = dateString
-    profile.put().then (->
+    putWithTags(profile).then (->
+      $scope.showEditModeButtons = false
       $scope.profile.workExperience = moment($scope.profile.workExperience).format(dateFormat);
       $scope.originProfile = angular.copy($scope.profile)
-      $scope.editMode = false
-      $scope.showEditModeButtons = false
       $scope.files = []
+      $('#image').removeClass('has-warning')
       showMessage('success')
+      tagService.loadTags()
       return
     ), ->
       showMessage('error')
+      tagService.loadTags()
       return
 
   $scope.cancel = ->
-    $scope.editMode = false
     $scope.profile = angular.copy($scope.originProfile)
     $scope.showEditModeButtons = false
     $scope.files = []
     $('.form-group').removeClass('has-warning')
+    $('#image').removeClass('has-warning')
     $document.duScrollTopAnimated(0)
+    tagService.loadTags()
     return
 
   $scope.change = (id) ->
     $('#' + id).addClass('has-warning')
+    $scope.showEditModeButtons = true
     return
 
+  $scope.tagsToList = (tags) ->
+    if tags? then tags.map toList else []
+
+  $scope.getTags = (name) ->
+    tagService.getTag(name)
+    
   $scope.$watch 'files', ->
     $scope.upload $scope.files
     return
@@ -106,8 +119,8 @@ angular.module 'profile', ['duScroll', 'ngFileUpload', 'utils.customResource']
             $scope.$apply()
             return
           )
-          $scope.enableEditMode()
           $scope.profile.image = data.id
+          $scope.change('image')
           return
         i++
     return

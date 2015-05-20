@@ -22,8 +22,8 @@
 						    	<img ng-src="{{profile.image|toResourceUrl}}" width="90" height="90"/>
 								<a class="profile-link" ng-href="/profile/{{profile.id}}">
 									<div class="info-box-content">
-										<span class="info-box-text">{{profile.careerStage}}</span>
 										<span class="info-box-number">{{profile.firstname}} {{profile.lastname}}</span>
+										<span class="info-box-text">{{profile.careerLevel.join(', ')}}</span>
 									</div>
 								</a>
 							</div>

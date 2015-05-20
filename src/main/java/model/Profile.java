@@ -10,23 +10,36 @@ import util.serializer.ResourceDeserializer;
 import util.serializer.ResourceSerializer;
 
 import java.util.Date;
+import java.util.List;
+
+import model.annotations.Tag;
 
 @Entity
 public class Profile extends BaseModel {
 
   private String firstname;
   private String lastname;
-  private String careerStage;
-  private String degree;
+  @Tag
+  private List<String> careerLevel;
+  @Tag
+  private List<String> degrees;
   private Date workExperience;
-  private String languages;
-  private String industry;
-  private String platforms;
-  private String opSystems;
-  private String progLanguages;
-  private String webTechnologies;
-  private String devEnvironments;
-  private String qualifications;
+  @Tag
+  private List<String> languages;
+  @Tag
+  private List<String> industries;
+  @Tag
+  private List<String> platforms;
+  @Tag
+  private List<String> opSystems;
+  @Tag
+  private List<String> progLanguages;
+  @Tag
+  private List<String> webTechnologies;
+  @Tag
+  private List<String> devEnvironments;
+  @Tag
+  private List<String> qualifications;
   private String summary;
 
   @JsonSerialize(using = ResourceSerializer.class)
@@ -50,20 +63,20 @@ public class Profile extends BaseModel {
     this.lastname = lastname;
   }
 
-  public String getCareerStage() {
-    return careerStage;
+  public List<String> getCareerLevel() {
+    return careerLevel;
   }
 
-  public void setCareerStage(String careerStage) {
-    this.careerStage = careerStage;
+  public void setCareerLevel(List<String> careerLevel) {
+    this.careerLevel = careerLevel;
   }
 
-  public String getDegree() {
-    return degree;
+  public List<String> getDegrees() {
+    return degrees;
   }
 
-  public void setDegree(String degree) {
-    this.degree = degree;
+  public void setDegrees(List<String> degrees) {
+    this.degrees = degrees;
   }
 
   public Date getWorkExperience() {
@@ -74,67 +87,67 @@ public class Profile extends BaseModel {
     this.workExperience = workExperience;
   }
 
-  public String getLanguages() {
+  public List<String> getLanguages() {
     return languages;
   }
 
-  public void setLanguages(String languages) {
+  public void setLanguages(List<String> languages) {
     this.languages = languages;
   }
 
-  public String getIndustry() {
-    return industry;
+  public List<String> getIndustries() {
+    return industries;
   }
 
-  public void setIndustry(String industry) {
-    this.industry = industry;
+  public void setIndustries(List<String> industries) {
+    this.industries = industries;
   }
 
-  public String getPlatforms() {
+  public List<String> getPlatforms() {
     return platforms;
   }
 
-  public void setPlatforms(String platforms) {
+  public void setPlatforms(List<String> platforms) {
     this.platforms = platforms;
   }
 
-  public String getOpSystems() {
+  public List<String> getOpSystems() {
     return opSystems;
   }
 
-  public void setOpSystems(String opSystems) {
+  public void setOpSystems(List<String> opSystems) {
     this.opSystems = opSystems;
   }
 
-  public String getProgLanguages() {
+  public List<String> getProgLanguages() {
     return progLanguages;
   }
 
-  public void setProgLanguages(String progLanguages) {
+  public void setProgLanguages(List<String> progLanguages) {
     this.progLanguages = progLanguages;
   }
 
-  public String getWebTechnologies() {
+  public List<String> getWebTechnologies() {
     return webTechnologies;
   }
 
-  public void setWebTechnologies(String webTechnologies) {
+  public void setWebTechnologies(List<String> webTechnologies) {
     this.webTechnologies = webTechnologies;
   }
 
-  public String getDevEnvironments() {
+  public List<String> getDevEnvironments() {
     return devEnvironments;
   }
 
-  public void setDevEnvironments(String devEnvironments) {
+  public void setDevEnvironments(List<String> devEnvironments) {
     this.devEnvironments = devEnvironments;
   }
 
-  public String getQualifications() {
+  public List<String> getQualifications() {
     return qualifications;
   }
 
-  public void setQualifications(String qualifications) {
+  public void setQualifications(List<String> qualifications) {
     this.qualifications = qualifications;
   }
 

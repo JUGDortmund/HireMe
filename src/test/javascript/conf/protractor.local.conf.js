@@ -8,7 +8,7 @@ var config = baseConfig.config;
 config.seleniumAddress = undefined;
 config.capabilities = {
         'browserName': 'firefox'
-}
+};
 
 // export config
 exports.config = config;

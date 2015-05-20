@@ -3,9 +3,6 @@ package controllers;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import ninja.Context;
 import ninja.Result;
 import ninja.Results;
@@ -20,10 +17,9 @@ import services.PropertyService;
 public class IndexController {
 
   @Inject
-  private PropertyService propertyService;
-
-  @Inject
   LocalizationService localizationService;
+  @Inject
+  private PropertyService propertyService;
 
   @GET
   @Path("^((?!(\\/api\\/|tpl)).)*$")
@@ -43,7 +39,7 @@ public class IndexController {
   @GET
   @Path("/api/gitProperties")
   public Result getGitPropertyDTO() {
-    return Results.ok().json().render("getGitPropertyDTO", propertyService.getGitPropertyDTO());
+    return Results.ok().json().render("getGitPropertyDTO", propertyService.getGitProperties());
   }
 
   @GET
