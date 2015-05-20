@@ -29,6 +29,7 @@ import model.BaseModel;
 import model.annotations.InjectLogger;
 import model.annotations.Tag;
 import model.events.EntityChangedEvent;
+import model.events.EntityRemovedEvent;
 
 import static org.reflections.ReflectionUtils.getAllFields;
 import static org.reflections.ReflectionUtils.withAnnotation;
@@ -94,6 +95,17 @@ public class TagService {
         tags.put(field.getName(), (String) value);
       }
     }
+  }
+
+  @Subscribe
+  public <T extends BaseModel> void receiveEntityRemovedEvent(@NotNull final EntityRemovedEvent<T> event) {
+    Preconditions.checkNotNull(event, "The event cannot be null");
+    remove(event.getModel());
+  }
+
+  public <T extends BaseModel> void remove(@NotNull T model) {
+    tagAssociations.get(model.getId()).forEach(x -> tags.remove(x.key, x.value));
+    tagAssociations.removeAll(model);
   }
 
   @SuppressWarnings("unchecked")
