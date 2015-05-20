@@ -14,6 +14,10 @@
 
 package conf;
 
+import org.mongodb.morphia.Datastore;
+
+import services.TagService;
+
 import com.google.common.eventbus.EventBus;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
@@ -22,10 +26,6 @@ import com.google.inject.matcher.Matchers;
 import com.google.inject.spi.InjectionListener;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
-
-import org.mongodb.morphia.Datastore;
-
-import services.TagService;
 
 @Singleton
 public class Module extends AbstractModule {
@@ -36,6 +36,7 @@ public class Module extends AbstractModule {
     bind(Datastore.class).toProvider(DatastoreProvider.class);
     bind(EventBus.class).toInstance(eventBus);
     bind(TagService.class).asEagerSingleton();
+    bind(ScheduledResourceCleanUp.class);
 
     bindListener(Matchers.any(), new TypeListener() {
       @Override
