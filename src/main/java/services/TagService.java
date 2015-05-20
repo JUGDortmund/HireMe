@@ -76,7 +76,6 @@ public class TagService {
 
   @SuppressWarnings("unchecked")
   private <T extends BaseModel> void tryAdd(@NotNull final T model) throws IllegalAccessException {
-    int z = 0;
     tagAssociations.get(model.getId()).forEach(x -> tags.remove(x.key, x.value));
     tagAssociations.removeAll(model);
     for (final Field field : getFields(model.getClass())) {
