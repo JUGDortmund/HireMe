@@ -25,7 +25,7 @@
 	                       ngf-accept="'image/*'"
 	                       ngf-min-size='10'
 	                       ngf-max-size='15728640'>
-	                	<img width="100" height="100" ngf-src="files[0]" ngf-default-src="{{profile.image|toResourceUrl}}" id="image"/>
+	                	<img width="100" height="100" ngf-src="files[0]" ngf-default-src="{{profile.image|toThumbnailUrl}}" id="image"/>
 	                	<input type="hidden" name="image" id="image-hidden" class="form-control" ng-model="profile.image"/>
 	                    <span><i class="fa fa-cloud-upload"></i></br>${i18n('profile.image.change')}</br>${i18n('profile.image.acceptfiles')}</span>
 	                	<h2 class="headline">{{profile.firstname}} {{profile.lastname}}</h2>

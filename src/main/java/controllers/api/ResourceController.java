@@ -14,6 +14,8 @@ import org.mongodb.morphia.Datastore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import util.ResourceUtil;
+
 import java.io.InputStream;
 import java.util.Date;
 
@@ -58,13 +60,21 @@ public class ResourceController {
         if (item.isFormField()) {
           LOG.warn("no form field expected");
         } else {
+
+          // create resource
           Resource resource = new Resource();
           resource.setName(name);
           resource.setMimeType(contentType);
           resource.setContent(ByteStreams.toByteArray(stream));
           resource.setLastModified(new Date());
           datastore.save(resource);
-          // TODO: HIRE-94: search for nice solution to return resourceId only
+
+          // create thumbnail
+          Resource thumbnail = ResourceUtil.createThumbnail(resource);
+          datastore.save(thumbnail);
+          resource.setThumbnail(thumbnail);
+          datastore.save(resource);
+
           return Results.ok().json().render("id", resource.getId().toString());
         }
       }
@@ -72,10 +82,11 @@ public class ResourceController {
     return Results.badRequest();
   }
 
-  @Path("/{id}")
+  @Path("/{id}/{format}")
   @GET
-  public Result getResourceById(Context context, @PathParam("id") String id) {
-    if (Strings.isNullOrEmpty(id)) {
+  public Result getResourceById(Context context, @PathParam("id") String id,
+      @PathParam("format") String format) {
+    if (Strings.isNullOrEmpty(id) || Strings.isNullOrEmpty(id)) {
       throw new BadRequestException();
     }
     if (!ObjectId.isValid(id)) {
@@ -87,6 +98,22 @@ public class ResourceController {
       throw new ElementNotFoundException();
     }
 
+    Result result;
+
+    switch (format.toLowerCase()) {
+      case "thumbnail":
+        result = createCachedResourceResult(context, resource.getThumbnail());
+        break;
+      case "original":
+        result = createCachedResourceResult(context, resource);
+      default:
+        throw new BadRequestException();
+    }
+
+    return result;
+  }
+
+  private Result createCachedResourceResult(Context context, Resource resource) {
     Result result = Results.ok().json();
 
     httpCacheToolkit.addEtag(context, result, resource.getLastModified().getTime());
