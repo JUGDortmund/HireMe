@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>hireme</artifactId>
@@ -509,6 +509,16 @@
             <version>0.7.0</version>
         </dependency>
         <dependency>
+        	<groupId>org.webjars.bower</groupId>
+        	<artifactId>ng-tags-input</artifactId>
+        	<version>2.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>underscorejs</artifactId>
+            <version>1.8.3</version>
+        </dependency>
+        <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>bootstrap-datepicker</artifactId>
             <version>1.4.0</version>
@@ -551,6 +561,11 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
             <version>2.5.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections-maven</artifactId>
+            <version>0.9.8</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>

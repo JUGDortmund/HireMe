@@ -1,6 +1,6 @@
 package dtos;
 
-public class GitPropertyDTO {
+public class GitProperties {
 
   private boolean showGitProperties;
   private String abbrev;
