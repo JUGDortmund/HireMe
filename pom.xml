@@ -428,7 +428,7 @@
                             <goal>copy</goal>
                         </goals>
                         <configuration>
-                            <sourceFile>src/confs/application.${environment.name}.conf</sourceFile>
+                            <sourceFile>src/confs/application.${env.name}.conf</sourceFile>
                             <destinationFile>target/classes/conf/application.conf</destinationFile>
                         </configuration>
                     </execution>
@@ -623,7 +623,7 @@
             </activation>
             <properties>
                 <build.profile.id>dev</build.profile.id>
-                <environment.name>dev</environment.name>
+                <env.name>dev</env.name>
                 <skip.protractor.tests>true</skip.protractor.tests>
                 <skip.integration.tests>true</skip.integration.tests>
                 <skip.unit.tests>false</skip.unit.tests>
