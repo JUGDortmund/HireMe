@@ -1,0 +1,145 @@
+<section id="profile-page-section" class="content module profile-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2" style="padding-bottom: 80px;">
+                <div class="alert alert-danger alert-dismissible" role="alert" ng-show="error">
+                    <strong>${i18n('message.error.header')}</strong>
+                    ${i18n('message.error.content')}
+                </div>
+                <div class="alert alert-success alert-dismissible" role="alert" ng-show="success">
+                    <strong>${i18n('message.success.header')}</strong>
+                    ${i18n('message.success.content')}
+                </div>
+                <div class="box border-box">
+                    <div class="header-text">
+
+                        <h2 class="headline">{{project.name}}</h2>
+
+                        <p class="description">
+                            {{project.start}} {{project.end}}
+                        </p>
+                    </div>
+                </div>
+                <div ng-show="showEditModeButtons" class="no-print button-dialog">
+                    <button ng-click="save()" id="save-button"
+                            class="btn btn-block btn-success">${i18n('buttonDialog.save')}
+                    </button>
+                    <button ng-click="cancel()" id="cancel-button"
+                            class="btn btn-block btn-danger">${i18n('buttonDialog.cancel')}
+                    </button>
+                </div>
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">${i18n('project.section')}</h3>
+                    </div>
+                    <div class="box-body form-horizontal">
+                        <div class="form-group" id="form-group-title">
+                            <label for="title" class="control-label col-md-4">${i18n('project.title')}</label>
+
+                            <div class="col-md-8">
+                                <input type="text" name="title" id="title"
+                                       class="form-control"
+                                       ng-model="project.title" ng-click="enableEditMode()"
+                                       ng-change="change('form-group-title')"/>
+                            </div>
+                        </div>
+                        <div class="form-group" id="form-group-firstname">
+                            <label for="companies" class="control-label col-md-4">${i18n('project.companies')}</label>
+
+                            <div class="col-md-8">
+                                <tags-input type="text" name="companies" id="companies"
+                                       placeholder="${i18n('form.addTag')}"
+                                            class="ng-tags-custom" ng-model="project.companies"
+                                       ng-click="enableEditMode()"
+                                       ng-change="change('form-group-companies')">
+                                 <auto-complete source="getTags('companies')|filter:$query"
+                                            ></auto-complete>
+                                </tags-input>      
+
+                            </div>
+                        </div>
+                        <div class="form-group" id="form-group-locations">
+                            <label for="locations" class="control-label col-md-4">${i18n('project.locations')}</label>
+
+                            <div class="col-md-8">
+                                <tags-input type="text" name="locations" id="locations" placeholder="${i18n('form.addTag')}"
+                                            class="ng-tags-custom"
+                                       ng-model="project.locations" ng-click="enableEditMode()"
+                                       ng-change="change('form-group-locantions')">
+                                       <auto-complete source="getTags('locations')|filter:$query"
+                                            ></auto-complete>
+                                </tags-input>
+                            </div>
+                        </div>
+                        <div class="form-group" id="form-group-industries">
+                            <label for="industries" class="control-label col-md-4">${i18n('project.industries')}</label>
+
+                            <div class="col-md-8">
+                                <tags-input type="text" name="industries" id="industries"
+                                       placeholder="${i18n('form.addTag')}"
+                                            class="ng-tags-custom" ng-model="project.industries"
+                                       ng-click="enableEditMode()"
+                                       ng-change="change('form-group-industries')">
+                                       <auto-complete source="getTags('industies')|filter:$query"
+                                            ></auto-complete>
+                                </tags-input>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group" id="form-group-start">
+                            <label for="start" class="control-label col-md-4">${i18n('project.start')}</label>
+
+                            <div class="col-md-8">
+                                <input type="text"
+                                       class="form-control datepicker"
+                                       data-provide="datepicker"
+                                       data-date-format=${dateformat}
+                                       data-date-autoclose="true"
+                                       data-date-language=${language}
+                                       name="start"
+                                       id="start"
+                                       ng-model="project.start"
+                                       ng-click="enableEditMode()"
+                                       ng-change="change('form-group-start')"/>
+                            </div>
+                          </div>
+						 <div class="form-group" id="form-group-end">
+                            <label for="start" class="control-label col-md-4">${i18n('project.end')}</label>
+
+                            <div class="col-md-8">
+                                <input type="text"
+                                       class="form-control datepicker"
+                                       data-provide="datepicker"
+                                       data-date-format=${dateformat}
+                                       data-date-autoclose="true"
+                                       data-date-language=${language}
+                                       name="end"
+                                       id="end"
+                                       ng-model="project.end"
+                                       ng-click="enableEditMode()"
+                                       ng-change="change('form-group-end')"/>
+                            </div>
+
+
+                        </div>
+                        <div class="form-group" id="form-group-summary">
+                            <label for="summary" class="control-label col-md-4">${i18n('project.summary')}</label>
+
+                            <div class="col-md-8">
+                                <input type="text" name="summery" id="summary"
+                                       class="form-control" ng-model="project.summary"
+                                       ng-click="enableEditMode()"
+                                       ng-change="change('form-group-summary')"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+           
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

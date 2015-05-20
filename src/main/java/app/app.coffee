@@ -6,6 +6,8 @@ angular.module('app', [
   'errors'
   'tags'
   'restangular'
+  'project'
+  'projectview'
 ])
 .config ($locationProvider, RestangularProvider) ->
   $locationProvider.html5Mode
