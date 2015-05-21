@@ -25,6 +25,7 @@ angular.module 'profile', ['duScroll', 'ngTagsInput', 'ngFileUpload', 'utils.cus
     target.assign($scope, true)
     $document.duScrollTopAnimated(0)
     $('.form-group').removeClass('has-warning') unless keepChangeIndicators?
+    $('#image-wrapper').removeClass('has-warning') unless keepChangeIndicators?
     $timeout (->
       target.assign($scope, false)
       return
@@ -65,7 +66,6 @@ angular.module 'profile', ['duScroll', 'ngTagsInput', 'ngFileUpload', 'utils.cus
       $scope.profile.workExperience = moment($scope.profile.workExperience).format(dateFormat);
       $scope.originProfile = angular.copy($scope.profile)
       $scope.files = []
-      $('#image').removeClass('has-warning')
       showMessage('success')
       tagService.loadTags()
       return
@@ -79,7 +79,7 @@ angular.module 'profile', ['duScroll', 'ngTagsInput', 'ngFileUpload', 'utils.cus
     $scope.showEditModeButtons = false
     $scope.files = []
     $('.form-group').removeClass('has-warning')
-    $('#image').removeClass('has-warning')
+    $('#image-wrapper').removeClass('has-warning')
     $document.duScrollTopAnimated(0)
     tagService.loadTags()
     return
@@ -120,7 +120,7 @@ angular.module 'profile', ['duScroll', 'ngTagsInput', 'ngFileUpload', 'utils.cus
             return
           )
           $scope.profile.image = data.id
-          $scope.change('image')
+          $scope.change('image-wrapper')
           return
         i++
     return
