@@ -52,25 +52,34 @@ public class ScheduledResourceCleanUp {
     this.properties = properties;
     this.datastore = datastore;
     expireTime = properties.getIntegerWithDefault(EXPIRETIME, DEFAULT_EXPIRE_TIME);
-    if (expireTime < DEFAULT_EXPIRE_TIME) {
-      throw new RuntimeException("Illegal value for expireTime, musst be atleast "
-          + DEFAULT_EXPIRE_TIME);
-    }
+    setExpireTime(expireTime);
   }
 
   public void cleanUpResources() {
 
+    // get profiles and resources referenced by profiles
     List<Profile> profileList = datastore.find(Profile.class).filter("image !=", null).asList();
-    List<ObjectId> resourceIds =
+    List<ObjectId> resourcesReferencedByProfiles =
         profileList.stream().map(x -> x.getImage().getId()).collect(Collectors.toList());
-    List<Key<Resource>> resourceKeys =
-        datastore.find(Resource.class).filter("id nin", resourceIds.toArray())
+
+    // get resources and thumbnails referenced by resources
+    List<Resource> resourceList =
+        datastore.find(Resource.class).filter("thumbnail !=", null).asList();
+    List<ObjectId> thumbnailsReferencedByResources =
+        resourceList.stream().map(x -> x.getThumbnail().getId()).collect(Collectors.toList());
+
+    // find all old resources that are neither referenced by profiles nor by other resources
+    List<Key<Resource>> oldUnreferencedResources =
+        datastore.find(Resource.class).filter("id nin", resourcesReferencedByProfiles.toArray())
+            .filter("id nin", thumbnailsReferencedByResources.toArray())
             .filter("lastModified <", getExpireDate()).asKeyList();
-    if (resourceKeys.isEmpty()) {
+
+    if (oldUnreferencedResources.isEmpty()) {
       LOG.info("No unused resources found. Nothing to do...");
     } else {
-      LOG.info("Found {} unused resources, deleting them from database...", resourceKeys.size());
-      resourceKeys.forEach(x -> datastore.delete(x.getKindClass(), x.getId()));
+      LOG.info("Found {} unused resources, deleting them from database...",
+          oldUnreferencedResources.size());
+      oldUnreferencedResources.forEach(x -> datastore.delete(x.getKindClass(), x.getId()));
     }
   }
 
@@ -85,8 +94,15 @@ public class ScheduledResourceCleanUp {
   }
 
   public void setExpireTime(int expireTime) {
+    validateExpireTime(expireTime);
     this.expireTime = expireTime;
   }
 
+  private void validateExpireTime(int expireTime) {
+    if (expireTime < DEFAULT_EXPIRE_TIME) {
+      throw new RuntimeException("Illegal value for expireTime, musst be atleast "
+          + DEFAULT_EXPIRE_TIME);
+    }
+  }
 
 }

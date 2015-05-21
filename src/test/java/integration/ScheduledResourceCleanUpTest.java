@@ -1,18 +1,19 @@
 package integration;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import conf.ScheduledResourceCleanUp;
+
+import org.junit.Test;
+import org.mongodb.morphia.Datastore;
 
 import java.util.Calendar;
 import java.util.Date;
 
 import model.Profile;
 import model.Resource;
+
 import ninja.NinjaTest;
-
-import org.junit.Test;
-import org.mongodb.morphia.Datastore;
-
-import conf.ScheduledResourceCleanUp;
 
 public class ScheduledResourceCleanUpTest extends NinjaTest {
 
@@ -30,9 +31,10 @@ public class ScheduledResourceCleanUpTest extends NinjaTest {
 
     resource.setLastModified(date);
     datastore.save(resource);
-    cleaner.cleanUpResources();
+    assertTrue(datastore.find(Resource.class).asList().contains(resource));
 
-    assertThat(datastore.find(Resource.class).asKeyList()).hasSize(0);
+    cleaner.cleanUpResources();
+    assertFalse(datastore.find(Resource.class).asList().contains(resource));
   }
 
   @Test
@@ -47,9 +49,10 @@ public class ScheduledResourceCleanUpTest extends NinjaTest {
 
     resource.setLastModified(date);
     datastore.save(resource);
-    cleaner.cleanUpResources();
+    assertTrue(datastore.find(Resource.class).asList().contains(resource));
 
-    assertThat(datastore.find(Resource.class).asKeyList()).hasSize(1);
+    cleaner.cleanUpResources();
+    assertTrue(datastore.find(Resource.class).asList().contains(resource));
   }
 
   @Test
@@ -67,16 +70,14 @@ public class ScheduledResourceCleanUpTest extends NinjaTest {
 
     resource.setLastModified(date);
     datastore.save(resource);
-    cleaner.cleanUpResources();
+    assertTrue(datastore.find(Resource.class).asList().contains(resource));
 
-    resource.setLastModified(date);
     profile.setImage(resource);
-    datastore.save(resource);
     datastore.save(profile);
+    assertTrue(datastore.find(Profile.class).asList().contains(profile));
 
     cleaner.cleanUpResources();
-
-    assertThat(datastore.find(Resource.class).asKeyList()).hasSize(1);
+    assertTrue(datastore.find(Resource.class).asList().contains(resource));
   }
 
   @Test
@@ -91,12 +92,63 @@ public class ScheduledResourceCleanUpTest extends NinjaTest {
         getInjector().getInstance(ScheduledResourceCleanUp.class);
 
     resource.setLastModified(date);
-    profile.setImage(resource);
     datastore.save(resource);
+    assertTrue(datastore.find(Resource.class).asList().contains(resource));
+
+    profile.setImage(resource);
     datastore.save(profile);
+    assertTrue(datastore.find(Profile.class).asList().contains(profile));
 
     cleaner.cleanUpResources();
+    assertTrue(datastore.find(Resource.class).asList().contains(resource));
+  }
 
-    assertThat(datastore.find(Resource.class).asKeyList()).hasSize(1);
+
+  @Test
+  public void testThatUsedOldThumbnailsGettingNotCleaned() {
+
+    final Datastore datastore = getInjector().getInstance(Datastore.class);
+    final Resource resource = new Resource();
+    final Resource thumbnail = new Resource();
+    Calendar cal = Calendar.getInstance();
+    cal.add(Calendar.DATE, -2);
+    final Date date = cal.getTime();
+    final ScheduledResourceCleanUp cleaner =
+        getInjector().getInstance(ScheduledResourceCleanUp.class);
+    cleaner.setExpireTime(1);
+
+    thumbnail.setLastModified(date);
+    datastore.save(thumbnail);
+    assertTrue(datastore.find(Resource.class).asList().contains(thumbnail));
+
+    resource.setThumbnail(thumbnail);
+    datastore.save(resource);
+    assertTrue(datastore.find(Resource.class).asList().contains(resource));
+
+    cleaner.cleanUpResources();
+    assertTrue(datastore.find(Resource.class).asList().contains(thumbnail));
+  }
+
+  @Test
+  public void testThatUsedNewThumbnailsGettingNotCleaned() {
+
+    final Datastore datastore = getInjector().getInstance(Datastore.class);
+    final Resource resource = new Resource();
+    final Resource thumbnail = new Resource();
+    Calendar cal = Calendar.getInstance();
+    final Date date = cal.getTime();
+    final ScheduledResourceCleanUp cleaner =
+        getInjector().getInstance(ScheduledResourceCleanUp.class);
+
+    thumbnail.setLastModified(date);
+    datastore.save(thumbnail);
+    assertTrue(datastore.find(Resource.class).asList().contains(thumbnail));
+
+    resource.setThumbnail(thumbnail);
+    datastore.save(resource);
+    assertTrue(datastore.find(Resource.class).asList().contains(resource));
+
+    cleaner.cleanUpResources();
+    assertTrue(datastore.find(Resource.class).asList().contains(thumbnail));
   }
 }
