@@ -3,7 +3,7 @@ package controllers.api;
 
 import com.google.inject.Singleton;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
 
 import model.annotations.InjectLogger;
 import ninja.Context;
