@@ -1,16 +1,7 @@
 package controllers.api;
 
-import com.google.common.base.Strings;
-import com.google.common.eventbus.EventBus;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-
-import org.bson.types.ObjectId;
-import org.mongodb.morphia.Datastore;
-
 import javax.validation.constraints.NotNull;
 
-import exception.ElementNotFoundException;
 import model.Project;
 import model.events.EntityChangedEvent;
 import ninja.Result;
@@ -22,6 +13,16 @@ import ninja.jaxy.POST;
 import ninja.jaxy.PUT;
 import ninja.jaxy.Path;
 import ninja.params.PathParam;
+
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.Datastore;
+
+import com.google.common.base.Strings;
+import com.google.common.eventbus.EventBus;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+
+import exception.ElementNotFoundException;
 
 @Singleton
 @Path("/api/project")
@@ -59,7 +60,7 @@ public class ProjectController {
 
   @PUT
   @Path("/{id}")
-  public Result saveProfile(@NotNull final Project project) {
+  public Result saveProject(@NotNull final Project project) {
     if (project == null) {
       throw new BadRequestException();
     }

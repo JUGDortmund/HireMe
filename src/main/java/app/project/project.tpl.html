@@ -1,4 +1,4 @@
-<section id="profile-page-section" class="content module profile-page">
+<section id="project-page-section" class="content module project-page">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2" style="padding-bottom: 80px;">
@@ -12,11 +12,9 @@
                 </div>
                 <div class="box border-box">
                     <div class="header-text">
-
-                        <h2 class="headline">{{project.name}}</h2>
-
-                        <p class="description">
-                            {{project.start}} {{project.end}}
+                        <h2 class="headline">{{project.title}}</h2>
+                        <p class="description" ng-show="project.start && project.end">
+                           ${i18n('date.from.header')} {{project.start}} ${i18n('date.to.header')} {{project.end}}
                         </p>
                     </div>
                 </div>
@@ -43,15 +41,16 @@
                                        ng-change="change('form-group-title')"/>
                             </div>
                         </div>
-                        <div class="form-group" id="form-group-firstname">
+                        <div class="form-group" id="form-group-companies">
                             <label for="companies" class="control-label col-md-4">${i18n('project.companies')}</label>
 
                             <div class="col-md-8">
                                 <tags-input type="text" name="companies" id="companies"
                                        placeholder="${i18n('form.addTag')}"
                                             class="ng-tags-custom" ng-model="project.companies"
-                                       ng-click="enableEditMode()"
-                                       ng-change="change('form-group-companies')">
+                                       on-tag-added="change('form-group-companies')"
+                                            on-tag-removed="change('form-group-companies')">
+                                       
                                  <auto-complete source="getTags('companies')|filter:$query"
                                             ></auto-complete>
                                 </tags-input>      
@@ -64,8 +63,8 @@
                             <div class="col-md-8">
                                 <tags-input type="text" name="locations" id="locations" placeholder="${i18n('form.addTag')}"
                                             class="ng-tags-custom"
-                                       ng-model="project.locations" ng-click="enableEditMode()"
-                                       ng-change="change('form-group-locantions')">
+                                       ng-model="project.locations" on-tag-added="change('form-group-locations')"
+                                            on-tag-removed="change('form-group-locations')">
                                        <auto-complete source="getTags('locations')|filter:$query"
                                             ></auto-complete>
                                 </tags-input>
@@ -78,8 +77,8 @@
                                 <tags-input type="text" name="industries" id="industries"
                                        placeholder="${i18n('form.addTag')}"
                                             class="ng-tags-custom" ng-model="project.industries"
-                                       ng-click="enableEditMode()"
-                                       ng-change="change('form-group-industries')">
+                                       on-tag-added="change('form-group-industries')"
+                                            on-tag-removed="change('form-group-industries')">
                                        <auto-complete source="getTags('industies')|filter:$query"
                                             ></auto-complete>
                                 </tags-input>
@@ -99,7 +98,6 @@
                                        name="start"
                                        id="start"
                                        ng-model="project.start"
-                                       ng-click="enableEditMode()"
                                        ng-change="change('form-group-start')"/>
                             </div>
                           </div>
@@ -116,7 +114,6 @@
                                        name="end"
                                        id="end"
                                        ng-model="project.end"
-                                       ng-click="enableEditMode()"
                                        ng-change="change('form-group-end')"/>
                             </div>
 
@@ -128,7 +125,6 @@
                             <div class="col-md-8">
                                 <input type="text" name="summery" id="summary"
                                        class="form-control" ng-model="project.summary"
-                                       ng-click="enableEditMode()"
                                        ng-change="change('form-group-summary')"/>
                             </div>
                         </div>
@@ -141,5 +137,4 @@
                 </div>
             </div>
         </div>
-    </div>
 </section>
