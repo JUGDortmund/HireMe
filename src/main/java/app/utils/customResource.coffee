@@ -18,7 +18,7 @@
 angular.module 'utils.customResource', []
 .provider 'customResource', ->
   path = '/api/resource'
-  placeholder = 'http://placehold.it/100x100'
+  placeholder = '/assets/images/anonymous-thumbnail.png'
   thumbnail = "thumbnail"
   original = "original"
   

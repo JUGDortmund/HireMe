@@ -1,14 +1,7 @@
 package conf;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import model.Profile;
-import model.Resource;
-import ninja.scheduler.Schedule;
-import ninja.utils.NinjaProperties;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
@@ -16,8 +9,16 @@ import org.mongodb.morphia.Key;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import model.Profile;
+import model.Resource;
+
+import ninja.scheduler.Schedule;
+import ninja.utils.NinjaProperties;
 
 @Singleton
 public class ScheduledResourceCleanUp {
@@ -37,7 +38,13 @@ public class ScheduledResourceCleanUp {
 
   @Schedule(delayProperty = DELAY, initialDelayProperty = INIT_DELAY, timeUnitProperty = TIMEUNIT)
   public void doCleanUp() {
+    LOG.info("-------------------------------------------------------------------");
+    LOG.info("Started resource cleanup");
+    LOG.info("-------------------------------------------------------------------");
     cleanUpResources();
+    LOG.info("-------------------------------------------------------------------");
+    LOG.info("Finished resource cleanup");
+    LOG.info("-------------------------------------------------------------------");
   }
 
   @Inject
@@ -59,8 +66,12 @@ public class ScheduledResourceCleanUp {
     List<Key<Resource>> resourceKeys =
         datastore.find(Resource.class).filter("id nin", resourceIds.toArray())
             .filter("lastModified <", getExpireDate()).asKeyList();
-    LOG.info("Found {} unused resources, deleting them from database.", resourceKeys.size());
-    resourceKeys.forEach(x -> datastore.delete(x.getKindClass(), x.getId()));
+    if (resourceKeys.isEmpty()) {
+      LOG.info("No unused resources found. Nothing to do...");
+    } else {
+      LOG.info("Found {} unused resources, deleting them from database...", resourceKeys.size());
+      resourceKeys.forEach(x -> datastore.delete(x.getKindClass(), x.getId()));
+    }
   }
 
   private Date getExpireDate() {
