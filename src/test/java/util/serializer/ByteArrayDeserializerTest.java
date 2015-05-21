@@ -41,20 +41,19 @@ public class ByteArrayDeserializerTest {
     assertThat(mapper.canDeserialize(TypeFactory.defaultInstance().constructType(byte[].class)));
   }
 
-}
+  static class ByteArraySerializeTestClass {
+    @JsonDeserialize(using = ByteArrayDeserializer.class)
+    private byte[] myField;
 
+    public ByteArraySerializeTestClass() {}
 
-class ByteArraySerializeTestClass {
-  @JsonDeserialize(using = ByteArrayDeserializer.class)
-  private byte[] myField;
+    public byte[] getMyField() {
+      return myField;
+    }
 
-  public ByteArraySerializeTestClass() {}
-
-  public byte[] getMyField() {
-    return myField;
+    public void setMyField(byte[] myField) {
+      this.myField = myField;
+    }
   }
 
-  public void setMyField(byte[] myField) {
-    this.myField = myField;
-  }
 }
