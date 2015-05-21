@@ -1,13 +1,13 @@
-angular.module( 'projectview', ['duScroll'])
+angular.module( 'projectlist', ['duScroll'])
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
 .config ($routeProvider) ->
-  $routeProvider.when '/projectview',
-    templateUrl: '/projectview/projectview.tpl.html',
-    controller: 'ProjectViewCtrl', 
+  $routeProvider.when '/projectlist',
+    templateUrl: '/project/list.tpl.html',
+    controller: 'ProjectListCtrl', 
     resolve: 
     	projects:(Restangular) -> Restangular.all('project').getList()
-.controller 'ProjectViewCtrl', ($scope, $timeout, Restangular, projects ,$document, $parse) ->
+.controller 'ProjectListCtrl', ($scope, $timeout, Restangular, projects ,$document, $parse) ->
   #dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
   $scope.projects = projects
   getProjects = -> projects.getList().then (projects) ->

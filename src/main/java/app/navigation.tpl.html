@@ -8,7 +8,7 @@
 <!--             </li> -->
             <li ng-class="{active:isActive('/search')}"><a href="/search"><span>${i18n("sidebar.navigation.searchprofiles")}</span></a>
             </li>
-            <li ng-class="{active:isActive('/projectview')}"><a href="/projectview"><span>${i18n("sidebar.navigation.searchprojects")}</span></a>
+            <li ng-class="{active:isActive('/projectlist')}"><a href="/projectlist"><span>${i18n("sidebar.navigation.searchprojects")}</span></a>
             </li>
             <li ng-if="gitPropertyDTO.showGitProperties" id="li-build-information" class="treeview">
                 <a id="a-build-information" href="#" ng-click="triggerBuildInformation()">
