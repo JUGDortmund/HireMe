@@ -6,6 +6,7 @@ import static org.hamcrest.core.StringContains.containsString;
 
 import com.google.common.io.Files;
 
+import org.doctester.testbrowser.HttpConstants;
 import org.doctester.testbrowser.Request;
 import org.doctester.testbrowser.Response;
 import org.junit.Before;
@@ -28,6 +29,7 @@ public class ResourceControllerTest extends NinjaDocTester {
   String GET_RESOURCE_URL = RESOURCE_CONTROLLER_BASE_URL + "{id}/{format}";
   String THUMBNAIL_FORMAT = "thumbnail";
   String ORIGINAL_FORMAT = "original";
+  String CONTENT_TYPE_PNG = "image/png";
 
   URL url;
   File file;
@@ -88,9 +90,13 @@ public class ResourceControllerTest extends NinjaDocTester {
         sayAndMakeRequest(Request.GET().url(
             testServerUrl().path(
                 GET_RESOURCE_URL.replace("{id}", id).replace("{format}", THUMBNAIL_FORMAT))));
+    String contentType = response.headers.get(HttpConstants.HEADER_CONTENT_TYPE);
 
     sayAndAssertThat("We get the resource back in " + THUMBNAIL_FORMAT + " format",
         response.payload, containsString("PNG"));
+    sayAndAssertThat("We get a response header with png content type", contentType,
+        containsString(CONTENT_TYPE_PNG));
+
   }
 
   private Response uploadFile(File file) throws URISyntaxException {
