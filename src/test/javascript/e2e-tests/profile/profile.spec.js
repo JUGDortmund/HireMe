@@ -43,7 +43,7 @@ describe('profile page', function () {
     expect(firstname.getAttribute('value')).toBe(oldText);
   });
 
-  it('should set a date correctly and persist date to profile', function() {
+  it('should set a date correctly and persist date to profile', function () {
     var inputDate = '01.03.01';
     var inputWorkExperience = profilePage.workExperience;
     inputWorkExperience.click();
@@ -61,7 +61,7 @@ describe('profile page', function () {
     expect(profilePage.degreeTagCount).toBe(1);
   });
 
-  it('should set an invalid date and persist it after correcting it', function() {
+  it('should set an invalid date and persist it after correcting it', function () {
     var incorrectInputDate = '01.0x.01';
     var inputWorkExperience = profilePage.workExperience;
     inputWorkExperience.click();
@@ -116,4 +116,17 @@ describe('profile page', function () {
     expect(suggestionsCount).toBe(3);
   });
 
+  it('should successfully upload a profile picture and set it after save', function () {
+    var oldThumbnailPath = profilePage.thumbnailPath;
+    profilePage.uploadImage();
+    profilePage.save();
+    expect(profilePage.thumbnailPath).not.toBe(oldThumbnailPath);
+  });
+
+  fit('should revert a profile picture change on cancel', function () {
+    var oldThumbnailPath = profilePage.thumbnailPath;
+    profilePage.uploadImage();
+    profilePage.cancel();
+    expect(profilePage.thumbnailPath).toBe(oldThumbnailPath);
+  });
 });
