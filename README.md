@@ -131,8 +131,8 @@ The environment determines which configuration properties the application should
 	* **build** - environment for build system
 	* **prod** - environment for prod system
 	
-The configuration files for the different environments are located at: /hireme/src/confs/application.[environment].conf
-During the build of the application with an environment parameter, the environment-specific configuration is copied to target/classes/conf/application.conf`,
+The configuration files for the different environments are located at: `/hireme/src/confs/application.[environment].conf`
+During the build of the application with an environment parameter, the environment-specific configuration is copied to `target/classes/conf/application.conf`,
 so the resulting jar/war is in a form that the application will be using the environment-specific configuration by default.
 
 ``
