@@ -128,7 +128,7 @@ describe('profile page', function () {
     expect(profilePage.thumbnailPath).not.toBe(oldThumbnailPath);
   });
 
-  fit('should revert a profile picture change on cancel', function () {
+  it('should revert a profile picture change on cancel', function () {
     var oldThumbnailPath = profilePage.thumbnailPath;
     profilePage.uploadImage(getFileName());
     profilePage.cancel();
