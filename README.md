@@ -46,6 +46,7 @@ we defined the google-styleguide as default code style.
 2. Import google-styleguide in Eclipse via Preferences > Java > Code Style > Import...
 3. Enable google-styleguide in Eclipse via Preferences > Java > Code Style : GoogleStyle
 4. Enable auto-code-style on save in Eclipse via Preferences > Java > Editor > Save Actions
+
 ![Eclipse Screen Reformat Code on save](http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/eclipse-reformatcode-save.png?raw)
 
 
