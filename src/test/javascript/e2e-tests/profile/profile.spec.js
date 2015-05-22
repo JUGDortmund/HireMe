@@ -1,7 +1,11 @@
 'use strict';
 
+var pathUtil = require('path');
+
 var SearchPage = require('../pages/search.page.js');
 var ProfilePage = require('../pages/profile.page');
+
+require('../../conf/capabilities.js');
 
 describe('profile page', function () {
 
@@ -43,7 +47,7 @@ describe('profile page', function () {
     expect(firstname.getAttribute('value')).toBe(oldText);
   });
 
-  it('should set a date correctly and persist date to profile', function() {
+  it('should set a date correctly and persist date to profile', function () {
     var inputDate = '01.03.01';
     var inputWorkExperience = profilePage.workExperience;
     inputWorkExperience.click();
@@ -61,7 +65,7 @@ describe('profile page', function () {
     expect(profilePage.degreeTagCount).toBe(1);
   });
 
-  it('should set an invalid date and persist it after correcting it', function() {
+  it('should set an invalid date and persist it after correcting it', function () {
     var incorrectInputDate = '01.0x.01';
     var inputWorkExperience = profilePage.workExperience;
     inputWorkExperience.click();
@@ -116,4 +120,27 @@ describe('profile page', function () {
     expect(suggestionsCount).toBe(3);
   });
 
+  it('should successfully upload a profile picture and set it after save', function () {
+    var oldThumbnailPath = profilePage.thumbnailPath;
+
+    profilePage.uploadImage(getFileName());
+    profilePage.save();
+    expect(profilePage.thumbnailPath).not.toBe(oldThumbnailPath);
+  });
+
+  it('should revert a profile picture change on cancel', function () {
+    var oldThumbnailPath = profilePage.thumbnailPath;
+    profilePage.uploadImage(getFileName());
+    profilePage.cancel();
+    expect(profilePage.thumbnailPath).toBe(oldThumbnailPath);
+  });
+
+  function getFileName() {
+    if (browser.inWindows()) {
+      return "C:\\Users\\Public\\Pictures\\Sample Pictures\\flagge.gif";
+    } else {
+      var defaultImage = "../../../resources/fileupload.png";
+      path = pathUtil.resolve(__dirname, defaultImage);
+    }
+  }
 });
