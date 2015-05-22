@@ -107,9 +107,7 @@ angular.module 'profile', ['duScroll', 'ngTagsInput', 'ngFileUpload', 'utils.cus
   
   $scope.upload = (files) ->
     if files and files.length
-      i = 0
-      while i < files.length
-        file = files[i]
+        file = files[0]
         Upload.upload(
           url: '/api/resource/upload'
           file: file
@@ -122,5 +120,4 @@ angular.module 'profile', ['duScroll', 'ngTagsInput', 'ngFileUpload', 'utils.cus
           $scope.profile.image = data.id
           $scope.change('image-wrapper')
           return
-        i++
     return

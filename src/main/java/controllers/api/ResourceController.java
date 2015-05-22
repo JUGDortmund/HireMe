@@ -50,8 +50,7 @@ public class ResourceController {
     if (context.isMultipart()) {
       FileItemIterator fileItemIterator = context.getFileItemIterator();
 
-      // schleife entfernen
-      while (fileItemIterator.hasNext()) {
+      if (fileItemIterator.hasNext()) {
         FileItemStream item = fileItemIterator.next();
 
         String name = item.getFieldName();
