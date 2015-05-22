@@ -135,13 +135,13 @@ During the build of the application with an environment parameter, the environme
 so the resulting jar/war is in a form that the application will be using the environment-specific configuration by default.
 
 ``
-mvn clean install -Denvironment.name=[environment]
+mvn clean install -Denv.name=[environment]
 ``
 
 Example:
 
 ``
-mvn clean install -Denvironment.name=build
+mvn clean install -Denv.name=build
 ``
 
 ### Create and tag a release
