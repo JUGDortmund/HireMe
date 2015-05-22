@@ -1,7 +1,11 @@
 'use strict';
 
+var pathUtil = require('path');
+
 var SearchPage = require('../pages/search.page.js');
 var ProfilePage = require('../pages/profile.page');
+
+require('../../conf/capabilities.js');
 
 describe('profile page', function () {
 
@@ -118,15 +122,25 @@ describe('profile page', function () {
 
   it('should successfully upload a profile picture and set it after save', function () {
     var oldThumbnailPath = profilePage.thumbnailPath;
-    profilePage.uploadImage();
+
+    profilePage.uploadImage(getFileName());
     profilePage.save();
     expect(profilePage.thumbnailPath).not.toBe(oldThumbnailPath);
   });
 
   fit('should revert a profile picture change on cancel', function () {
     var oldThumbnailPath = profilePage.thumbnailPath;
-    profilePage.uploadImage();
+    profilePage.uploadImage(getFileName());
     profilePage.cancel();
     expect(profilePage.thumbnailPath).toBe(oldThumbnailPath);
   });
+
+  function getFileName() {
+    if (browser.inWindows()) {
+      return "C:\\Users\\Public\\Pictures\\Sample Pictures\\flagge.gif";
+    } else {
+      var defaultImage = "../../../resources/fileupload.png";
+      path = pathUtil.resolve(__dirname, defaultImage);
+    }
+  }
 });

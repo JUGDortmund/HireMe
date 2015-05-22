@@ -1,8 +1,5 @@
 'use strict';
 
-var pathUtil = require('path');
-
-
 var ProfilePage = function () {
 };
 
@@ -44,10 +41,6 @@ ProfilePage.prototype = Object.create({}, {
   },
   uploadImage: {
     value: function (path) {
-      if (!path) {
-        var defaultImage = "../../../resources/fileupload.png";
-        path = pathUtil.resolve(__dirname, defaultImage);
-      }
       element(by.model('files')).click();
       browser.executeScript('$(\'input[type="file"]\').css(\'visibility\', \'visible\');');
       element(by.css('input[type="file"]')).sendKeys(path);
