@@ -45,11 +45,12 @@ public class ResourceController {
 
   @POST
   @Path("/upload")
-  public Result upload(Context context) throws Exception {
+  public Result uploadResource(Context context) throws Exception {
 
     if (context.isMultipart()) {
       FileItemIterator fileItemIterator = context.getFileItemIterator();
 
+      // schleife entfernen
       while (fileItemIterator.hasNext()) {
         FileItemStream item = fileItemIterator.next();
 
@@ -84,9 +85,9 @@ public class ResourceController {
 
   @Path("/{id}/{format}")
   @GET
-  public Result getResourceById(Context context, @PathParam("id") String id,
+  public Result getResourceByIdAndFormat(Context context, @PathParam("id") String id,
       @PathParam("format") String format) {
-    if (Strings.isNullOrEmpty(id) || Strings.isNullOrEmpty(id)) {
+    if (Strings.isNullOrEmpty(id) || Strings.isNullOrEmpty(format)) {
       throw new BadRequestException();
     }
     if (!ObjectId.isValid(id)) {
@@ -106,6 +107,7 @@ public class ResourceController {
         break;
       case "original":
         result = createCachedResourceResult(context, resource);
+        break;
       default:
         throw new BadRequestException();
     }

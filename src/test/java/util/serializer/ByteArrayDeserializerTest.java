@@ -28,11 +28,11 @@ public class ByteArrayDeserializerTest {
 
   @Test
   public void deserializeTest() throws Exception {
-    ByteArraySerializeTestClass testClass = new ByteArraySerializeTestClass();
+    ByteArrayDeSerializeTestClass testClass = new ByteArrayDeSerializeTestClass();
     testClass.setMyField(field);
 
     assertThat(
-        mapper.readValue(mapper.writeValueAsString(testClass), ByteArraySerializeTestClass.class)
+        mapper.readValue(mapper.writeValueAsString(testClass), ByteArrayDeSerializeTestClass.class)
             .getMyField()).isEqualTo(field);
   }
 
@@ -41,11 +41,11 @@ public class ByteArrayDeserializerTest {
     assertThat(mapper.canDeserialize(TypeFactory.defaultInstance().constructType(byte[].class)));
   }
 
-  static class ByteArraySerializeTestClass {
+  static class ByteArrayDeSerializeTestClass {
     @JsonDeserialize(using = ByteArrayDeserializer.class)
     private byte[] myField;
 
-    public ByteArraySerializeTestClass() {}
+    public ByteArrayDeSerializeTestClass() {}
 
     public byte[] getMyField() {
       return myField;
