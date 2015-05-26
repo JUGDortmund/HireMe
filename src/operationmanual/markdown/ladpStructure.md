@@ -1,1 +1,1 @@
-#LDAP-Struktur
+LDAP-Struktur

@@ -1,6 +1,4 @@
-#Logging-Konfiguration
-
-## Überschreiben der Loggin-Konfiguration
+## Überschreiben der Logging-Konfiguration
 
 Über die System-Property `logback.configurationFile` kann ein Pfad/URL zu einer externen logback Konfiguration angeben werden. 
 
