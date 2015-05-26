@@ -23,18 +23,19 @@ import ninja.utils.NinjaProperties;
 @Singleton
 public class ScheduledResourceCleanUp {
 
-  @Inject
-  private NinjaProperties properties;
-  @Inject
-  private Datastore datastore;
   private static final String DELAY = "hireme.resourcecleanup.delay";
   private static final String INIT_DELAY = "hireme.resourcecleanup.initdelay";
   private static final String TIMEUNIT = "hireme.resourcecleanup.timeunit";
   private static final String EXPIRETIME = "hireme.resourcecleanup.expiretime";
-  private int expireTime;
-  public static final int DEFAULT_EXPIRE_TIME = 1;
-  Logger LOG = LoggerFactory.getLogger(ScheduledResourceCleanUp.class);
+  private static final int DEFAULT_EXPIRE_TIME = 1;
+  private static Logger LOG = LoggerFactory.getLogger(ScheduledResourceCleanUp.class);
 
+  private int expireTime;
+
+  @Inject
+  private NinjaProperties properties;
+  @Inject
+  private Datastore datastore;
 
   @Schedule(delayProperty = DELAY, initialDelayProperty = INIT_DELAY, timeUnitProperty = TIMEUNIT)
   public void doCleanUp() {

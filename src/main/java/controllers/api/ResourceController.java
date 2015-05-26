@@ -9,6 +9,7 @@ import exception.ElementNotFoundException;
 
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
+import org.apache.commons.fileupload.FileUploadException;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 import org.slf4j.Logger;
@@ -16,6 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import util.ResourceUtil;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
 
@@ -45,41 +47,43 @@ public class ResourceController {
 
   @POST
   @Path("/upload")
-  public Result uploadResource(Context context) throws Exception {
+  public Result uploadResource(Context context) throws IOException, FileUploadException {
 
     if (context.isMultipart()) {
       FileItemIterator fileItemIterator = context.getFileItemIterator();
 
-      if (fileItemIterator.hasNext()) {
+      if (fileItemIterator != null && fileItemIterator.hasNext()) {
         FileItemStream item = fileItemIterator.next();
+
+        if (item.isFormField()) {
+          throw new BadRequestException("no form field expected");
+        }
 
         String name = item.getFieldName();
         String contentType = item.getContentType();
-        InputStream stream = item.openStream();
-
-        if (item.isFormField()) {
-          LOG.warn("no form field expected");
-        } else {
-
-          // create resource
-          Resource resource = new Resource();
-          resource.setName(name);
-          resource.setMimeType(contentType);
-          resource.setContent(ByteStreams.toByteArray(stream));
-          resource.setLastModified(new Date());
-          datastore.save(resource);
-
-          // create thumbnail
-          Resource thumbnail = ResourceUtil.createThumbnail(resource);
-          datastore.save(thumbnail);
-          resource.setThumbnail(thumbnail);
-          datastore.save(resource);
-
-          return Results.ok().json().render("id", resource.getId().toString());
+        byte[] content;
+        try (InputStream stream = item.openStream()) {
+          content = ByteStreams.toByteArray(stream);
         }
+
+        // create resource
+        Resource resource = new Resource();
+        resource.setName(name);
+        resource.setMimeType(contentType);
+        resource.setContent(content);
+        resource.setLastModified(new Date());
+        datastore.save(resource);
+
+        // create thumbnail
+        Resource thumbnail = ResourceUtil.createThumbnail(resource);
+        datastore.save(thumbnail);
+        resource.setThumbnail(thumbnail);
+        datastore.save(resource);
+
+        return Results.ok().json().render("id", resource.getId().toString());
       }
     }
-    return Results.badRequest();
+    throw new BadRequestException();
   }
 
   @Path("/{id}/{format}")

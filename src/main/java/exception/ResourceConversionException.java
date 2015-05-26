@@ -5,7 +5,7 @@ package exception;
  * 
  * @author plewe
  */
-public class ResourceConversionException extends Exception {
+public class ResourceConversionException extends RuntimeException {
 
   final static String DEFAULT_MESSAGE = "The given resource could not be converted";
 

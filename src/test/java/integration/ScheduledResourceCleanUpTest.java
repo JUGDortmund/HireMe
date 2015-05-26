@@ -1,7 +1,6 @@
 package integration;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 import conf.ScheduledResourceCleanUp;
 
 import org.junit.Before;
@@ -34,15 +33,19 @@ public class ScheduledResourceCleanUpTest extends NinjaTest {
 
   @Test
   public void unusedOldResourcesGettingCleaned() {
+    Resource newResource = new Resource();
+    resource.setLastModified(new Date());
+    datastore.save(newResource);
+
     setOldCalendarDate();
     final Date date = cal.getTime();
 
     resource.setLastModified(date);
     datastore.save(resource);
-    assertTrue(datastore.find(Resource.class).asList().contains(resource));
 
     cleaner.cleanUpResources();
-    assertFalse(datastore.find(Resource.class).asList().contains(resource));
+    assertThat(datastore.find(Resource.class).asList()).containsOnly(newResource).doesNotContain(
+        resource);
   }
 
   @Test
@@ -51,10 +54,9 @@ public class ScheduledResourceCleanUpTest extends NinjaTest {
 
     resource.setLastModified(date);
     datastore.save(resource);
-    assertTrue(datastore.find(Resource.class).asList().contains(resource));
 
     cleaner.cleanUpResources();
-    assertTrue(datastore.find(Resource.class).asList().contains(resource));
+    assertThat(datastore.find(Resource.class).asList()).containsOnly(resource);
   }
 
   @Test
@@ -65,14 +67,12 @@ public class ScheduledResourceCleanUpTest extends NinjaTest {
 
     resource.setLastModified(date);
     datastore.save(resource);
-    assertTrue(datastore.find(Resource.class).asList().contains(resource));
 
     profile.setImage(resource);
     datastore.save(profile);
-    assertTrue(datastore.find(Profile.class).asList().contains(profile));
 
     cleaner.cleanUpResources();
-    assertTrue(datastore.find(Resource.class).asList().contains(resource));
+    assertThat(datastore.find(Resource.class).asList()).containsOnly(resource);
   }
 
   @Test
@@ -83,14 +83,12 @@ public class ScheduledResourceCleanUpTest extends NinjaTest {
 
     thumbnail.setLastModified(date);
     datastore.save(thumbnail);
-    assertTrue(datastore.find(Resource.class).asList().contains(thumbnail));
 
     resource.setThumbnail(thumbnail);
     datastore.save(resource);
-    assertTrue(datastore.find(Resource.class).asList().contains(resource));
 
     cleaner.cleanUpResources();
-    assertTrue(datastore.find(Resource.class).asList().contains(thumbnail));
+    assertThat(datastore.find(Resource.class).asList()).containsOnly(resource, thumbnail);
   }
 
   private void setOldCalendarDate() {

@@ -23,12 +23,12 @@ public class ResourceUtil {
   private static Logger LOG;
 
   public static String THUMBNAIL_IMAGE_FORMAT = "PNG";
-  public static String THUMNAIL_IMAGE_CONTENT_TYPE = "image/png";
+  public static String THUMBNAIL_IMAGE_CONTENT_TYPE = "image/png";
   public static String THUMBNAIL_NAME_PREFIX = "thumbnail";
-  public static int THUMBAIL_HEIGHT = 100;
-  public static int THUMBAIL_WIDTH = 100;
+  public static int THUMBNAIL_HEIGHT = 100;
+  public static int THUMBNAIL_WIDTH = 100;
 
-  public static Resource createThumbnail(Resource resource) throws ResourceConversionException {
+  public static Resource createThumbnail(Resource resource) {
     byte[] thumbnailContent;
 
     // create thumbnail
@@ -42,7 +42,7 @@ public class ResourceUtil {
     Resource thumbnail = new Resource();
     thumbnail.setContent(thumbnailContent);
     thumbnail.setLastModified(new Date());
-    thumbnail.setMimeType(THUMNAIL_IMAGE_CONTENT_TYPE);
+    thumbnail.setMimeType(THUMBNAIL_IMAGE_CONTENT_TYPE);
     if (StringUtils.isNotBlank(resource.getName())) {
       thumbnail.setName(THUMBNAIL_NAME_PREFIX + "_" + resource.getName());
     }
@@ -57,16 +57,15 @@ public class ResourceUtil {
 
       try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
         ImageIO.write(thumbnail, THUMBNAIL_IMAGE_FORMAT, baos);
-        byte[] thumbnailContent = baos.toByteArray();
-        return thumbnailContent;
+        return baos.toByteArray();
       }
     }
   }
 
   private static BufferedImage resize(BufferedImage image) {
     BufferedImage thumbnail =
-        Scalr.resize(image, Scalr.Method.QUALITY, Scalr.Mode.AUTOMATIC, THUMBAIL_WIDTH,
-            THUMBAIL_HEIGHT);
+        Scalr.resize(image, Scalr.Method.QUALITY, Scalr.Mode.AUTOMATIC, THUMBNAIL_WIDTH,
+            THUMBNAIL_HEIGHT);
     image.flush();
     return thumbnail;
   }
