@@ -28,6 +28,9 @@ public class DatastoreProvider implements Provider<Datastore> {
   private static final String MONGODB_PASS = "ninja.mongodb.pass";
   private static final String MONGODB_DBNAME = "ninja.mongodb.dbname";
   private static final String MONGODB_AUTHDB = "ninja.mongodb.authdb";
+  private static final String MONGODB_USE_IN_MEMORY = "ninja.mongodb.useInMemory";
+  private static final String MONGODB_INITIALIZE_DB = "ninja.mongodb.initializedb";
+
   private NinjaProperties properties;
   private MongoClient mongoClient;
   private Morphia morphia;
@@ -38,10 +41,10 @@ public class DatastoreProvider implements Provider<Datastore> {
   @Inject
   public DatastoreProvider(NinjaProperties properties) throws UnknownHostException {
     this.properties = properties;
-    if (properties.isProd()) {
-      createMongoDBConnection();
-    } else {
+    if (properties.getBooleanWithDefault(MONGODB_USE_IN_MEMORY, true)) {
       initiateInMemoryDatastore();
+    } else {
+      createMongoDBConnection();
     }
     String packageName = properties.get(MORPHIA_PACKAGE);
 
@@ -61,7 +64,9 @@ public class DatastoreProvider implements Provider<Datastore> {
         MongoCredential.createCredential(username, authdb, password.toCharArray());
     mongoClient = new MongoClient(new ServerAddress(host, port), Arrays.asList(credentials));
     databaseName = properties.get(MONGODB_DBNAME);
-    mongoClient.dropDatabase(databaseName);
+    if (properties.getBooleanWithDefault(MONGODB_INITIALIZE_DB, false)) {
+      mongoClient.dropDatabase(databaseName);
+    }
   }
 
   public Datastore get() {
