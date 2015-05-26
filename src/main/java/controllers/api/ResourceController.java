@@ -1,5 +1,6 @@
 package controllers.api;
 
+import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.io.ByteStreams;
 import com.google.inject.Inject;
@@ -20,6 +21,8 @@ import util.ResourceUtil;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
+
+import javax.validation.constraints.NotNull;
 
 import model.Resource;
 
@@ -49,41 +52,49 @@ public class ResourceController {
   @Path("/upload")
   public Result uploadResource(Context context) throws IOException, FileUploadException {
 
-    if (context.isMultipart()) {
-      FileItemIterator fileItemIterator = context.getFileItemIterator();
-
-      if (fileItemIterator != null && fileItemIterator.hasNext()) {
-        FileItemStream item = fileItemIterator.next();
-
-        if (item.isFormField()) {
-          throw new BadRequestException("no form field expected");
-        }
-
-        String name = item.getFieldName();
-        String contentType = item.getContentType();
-        byte[] content;
-        try (InputStream stream = item.openStream()) {
-          content = ByteStreams.toByteArray(stream);
-        }
-
-        // create resource
-        Resource resource = new Resource();
-        resource.setName(name);
-        resource.setMimeType(contentType);
-        resource.setContent(content);
-        resource.setLastModified(new Date());
-        datastore.save(resource);
-
-        // create thumbnail
-        Resource thumbnail = ResourceUtil.createThumbnail(resource);
-        datastore.save(thumbnail);
-        resource.setThumbnail(thumbnail);
-        datastore.save(resource);
-
-        return Results.ok().json().render("id", resource.getId().toString());
-      }
+    if (!context.isMultipart()) {
+      throw new BadRequestException();
     }
-    throw new BadRequestException();
+
+    FileItemIterator fileItemIterator = context.getFileItemIterator();
+
+    if (!(fileItemIterator != null && fileItemIterator.hasNext())) {
+      throw new BadRequestException();
+    }
+    FileItemStream item = fileItemIterator.next();
+
+    if (item.isFormField()) {
+      throw new BadRequestException("no form field expected");
+    }
+
+    return processUploadStream(item);
+  }
+
+  private Result processUploadStream(@NotNull FileItemStream item) throws IOException {
+    Preconditions.checkNotNull(item);
+
+    String name = item.getFieldName();
+    String contentType = item.getContentType();
+    byte[] content;
+    try (InputStream stream = item.openStream()) {
+      content = ByteStreams.toByteArray(stream);
+    }
+
+    // create resource
+    Resource resource = new Resource();
+    resource.setName(name);
+    resource.setMimeType(contentType);
+    resource.setContent(content);
+    resource.setLastModified(new Date());
+    datastore.save(resource);
+
+    // create thumbnail
+    Resource thumbnail = ResourceUtil.createThumbnail(resource);
+    datastore.save(thumbnail);
+    resource.setThumbnail(thumbnail);
+    datastore.save(resource);
+
+    return Results.ok().json().render("id", resource.getId().toString());
   }
 
   @Path("/{id}/{format}")
