@@ -157,7 +157,7 @@ mvn clean install -Denv.name=build
 7. merge *release* branch to *master* branch and push changes
 
 ### Deploy a release
-1. `mvn clean install -Denvironment.name=[environment]`
+1. `mvn clean install -Denv.name=[environment]`
 2. deploy release to desired system (see commands below)
 
 ### Deploy commands
