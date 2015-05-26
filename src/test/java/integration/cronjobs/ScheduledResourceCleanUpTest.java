@@ -1,7 +1,7 @@
-package integration;
+package integration.cronjobs;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import conf.ScheduledResourceCleanUp;
+import cronjobs.ScheduledResourceCleanUp;
 
 import org.junit.Before;
 import org.junit.Test;

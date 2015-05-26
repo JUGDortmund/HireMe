@@ -14,10 +14,6 @@
 
 package conf;
 
-import org.mongodb.morphia.Datastore;
-
-import services.TagService;
-
 import com.google.common.eventbus.EventBus;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
@@ -26,6 +22,12 @@ import com.google.inject.matcher.Matchers;
 import com.google.inject.spi.InjectionListener;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
+
+import cronjobs.ScheduledResourceCleanUp;
+
+import org.mongodb.morphia.Datastore;
+
+import services.TagService;
 
 @Singleton
 public class Module extends AbstractModule {
