@@ -46,6 +46,7 @@ we defined the google-styleguide as default code style.
 2. Import google-styleguide in Eclipse via Preferences > Java > Code Style > Import...
 3. Enable google-styleguide in Eclipse via Preferences > Java > Code Style : GoogleStyle
 4. Enable auto-code-style on save in Eclipse via Preferences > Java > Editor > Save Actions
+
 ![Eclipse Screen Reformat Code on save](http://stash.maredit.net/projects/COM/repos/hireme/browse/readme-sources/eclipse-reformatcode-save.png?raw)
 
 
@@ -91,6 +92,7 @@ mvn integration-test -P dev
 
 *Note*: Protractor tests per default are executed on the [mercus grid](http://mercus-selenium-grid.maredit.net:4444/wd/hub) using the ip-address that the integration tests were started from as server. If you start the integration tests locally be sure to deactivate your firewall, so that the grid can access http://[your-ip-address]:8080/`.
 
+
 ####### Run protractor tests locally
 
 For testing purposes it may be useful to run protractor tests locally and see how the tests are executed.
@@ -119,6 +121,32 @@ To change how protractor is run locally, you could change the config file: `/hir
 
 ## Building and deploying a release
 
+### Build environment-specific deployment artifact
+
+The environment determines which configuration properties the application should be build with.
+
+* Existing environments
+	* **dev** - environment for local development (active by default)
+	* **jenkins**  - environment for jenkins/tests
+	* **build** - environment for build system
+	* **prod** - environment for prod system
+	
+The configuration files for the different environments are located at: `/hireme/src/confs/application.[environment].conf`.
+During the build of the application with an environment parameter, the environment-specific configuration is copied to `target/classes/conf/application.conf`,
+so the resulting jar/war is in a form that the application will be using the environment-specific configuration by default.
+
+Command for building environment-specific deployment artifact:
+
+``
+mvn clean install -Denv.name=[environment]
+``
+
+Example:
+
+``
+mvn clean install -Denv.name=build
+``
+
 ### Create and tag a release
 1. create a release branch (e.g. *hireme-0.1*) from develop branch
 2. `mvn clean install`
@@ -129,7 +157,7 @@ To change how protractor is run locally, you could change the config file: `/hir
 7. merge *release* branch to *master* branch and push changes
 
 ### Deploy a release
-1. `mvn clean install`
+1. `mvn clean install -Denv.name=[environment]`
 2. deploy release to desired system (see commands below)
 
 ### Deploy commands
@@ -223,7 +251,7 @@ All pages that should be included in the operation manual need to be specified i
 </toc>
 ```
 
-### Generation of documentation
+### Generation of manuals
 
 The user manual and the operation manual can be build via
 
