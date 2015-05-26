@@ -101,7 +101,7 @@ angular.module 'profile', ['duScroll', 'ngTagsInput', 'ngFileUpload', 'utils.cus
     
   $scope.$watch 'rejectedFiles', (newValue, oldValue) ->
     if(newValue != oldValue && $scope.rejectedFiles.length > 0)
-        showMessage('reject', true)
+        showMessage('upload-reject', true)
         $scope.rejectedFile = []
     return
   
@@ -120,4 +120,10 @@ angular.module 'profile', ['duScroll', 'ngTagsInput', 'ngFileUpload', 'utils.cus
           $scope.profile.image = data.id
           $scope.change('image-wrapper')
           return
+        .error (data, status, headers, config) ->
+          $timeout (->
+            $scope.$apply()
+            return
+          )
+          showMessage('upload-error', true)
     return
