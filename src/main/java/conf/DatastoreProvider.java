@@ -37,10 +37,10 @@ public class DatastoreProvider implements Provider<Datastore> {
   private Datastore datastore;
   private String databaseName;
 
-
   @Inject
   public DatastoreProvider(NinjaProperties properties) throws UnknownHostException {
     this.properties = properties;
+
     if (properties.getBooleanWithDefault(MONGODB_USE_IN_MEMORY, true)) {
       initiateInMemoryDatastore();
     } else {
