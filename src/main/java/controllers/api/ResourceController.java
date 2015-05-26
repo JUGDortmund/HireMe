@@ -61,6 +61,7 @@ public class ResourceController {
     if (!(fileItemIterator != null && fileItemIterator.hasNext())) {
       throw new BadRequestException();
     }
+
     FileItemStream item = fileItemIterator.next();
 
     if (item.isFormField()) {
@@ -73,6 +74,7 @@ public class ResourceController {
   private Result processUploadStream(@NotNull FileItemStream item) throws IOException {
     Preconditions.checkNotNull(item);
 
+    // collect information
     String name = item.getFieldName();
     String contentType = item.getContentType();
     byte[] content;
