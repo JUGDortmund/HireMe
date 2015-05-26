@@ -24,6 +24,11 @@ ProfilePage.prototype = Object.create({}, {
       return element.all(by.css('#degrees ti-tag-item')).count();
     }
   },
+  projectAssociationCount: {
+    get: function () {
+      return element.all(by.css('.project-association')).count();
+    }
+  },
   save: {
     value: function () {
       element(by.id('save-button')).click();
@@ -32,6 +37,11 @@ ProfilePage.prototype = Object.create({}, {
   cancel: {
     value: function () {
       element(by.id('cancel-button')).click();
+    }
+  },
+  addProjectAssociation: {
+    value: function () {
+      element(by.id('add-project-association')).click();
     }
   }
 });

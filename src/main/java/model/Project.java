@@ -1,13 +1,19 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.mongodb.morphia.annotations.Entity;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
 import model.annotations.Tag;
 
 @Entity
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Project extends BaseModel {
 
   @Tag
@@ -20,6 +26,14 @@ public class Project extends BaseModel {
   private String summary;
   private Date start;
   private Date end;
+
+  @JsonCreator
+  public static Project create(String jsonString) throws IOException {
+    Project project = null;
+    ObjectMapper mapper = new ObjectMapper();
+
+    return mapper.readValue(jsonString, Project.class);
+  }
 
   public List<String> getCompanies() {
     return companies;

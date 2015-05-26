@@ -259,9 +259,99 @@
 
 
                     </div>
+                </div>
 
+                <div class="box box-orange">
+                    <div class="box-header">
+                        <h3 class="box-title">Projekt Einsätze</h3>
+                        <a class="btn btn-default pull-right"
+                           id="add-project-association"
+                           ng-click="addProjectAssociation()"><span
+                                class="glyphicon glyphicon-plus"></span> Einsatz hinzufügen</a>
+                    </div>
+                    <div class="box-body form-horizontal">
+
+                        <div class="box box-orange project-association"
+                             ng-repeat="projectAssociation in profile.projectAssociations">
+                            <div class="box-header">
+                            </div>
+                            <div class="box-body form-horizontal">
+                                <div class="form-group"
+                                     id="form-group-projectAssociation-project-{{$index}}">
+                                    <label for="project-{{$index}}" class="control-label col-md-4">Project</label>
+
+                                    <div class="col-md-8">
+                                        <select class="form-control"
+                                                ng-model="projectAssociation.project"
+                                                id="project-{{$index}}"
+                                                ng-options="project.title for project in projects track by project.id"
+                                                ng-change="change('form-group-projectAssociation-project-' + $index)">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group"
+                                     id="form-group-projectAssociation-start-{{$index}}">
+                                    <label for="start-{{$index}}" class="control-label col-md-4">Start</label>
+
+                                    <div class="col-md-8">
+                                        <input type="text"
+                                               class="form-control datepicker"
+                                               data-provide="datepicker"
+                                               data-date-format=${dateformat}
+                                               data-date-autoclose="true"
+                                               data-date-language=${language}
+                                               name="start"
+                                               id="start-{{$index}}"
+                                               ng-model="projectAssociation.start"
+
+                                               ng-change="change('form-group-projectAssociation-start-' + $index)"/>
+                                    </div>
+                                </div>
+                                <div class="form-group"
+                                     id="form-group-projectAssocation-end-{{$index}}">
+                                    <label for="end-{{$index}}"
+                                           class="control-label col-md-4">Ende</label>
+
+                                    <div class="col-md-8">
+                                        <input type="text"
+                                               class="form-control datepicker"
+                                               data-provide="datepicker"
+                                               data-date-format=${dateformat}
+                                               data-date-autoclose="true"
+                                               data-date-language=${language}
+                                               name="end"
+                                               id="end-{{$index}}"
+                                               ng-model="projectAssociation.end"
+
+                                               ng-change="change('form-group-projectAssociation-end-' + $index)"/>
+                                    </div>
+                                </div>
+                                <div class="form-group"
+                                     id="form-group-projectAssociation-locations-{{$index}}">
+                                    <label for="devEnvironments" class="control-label col-md-4">Einsatzorte</label>
+
+                                    <div class="col-md-8">
+                                        <tags-input type="text"
+                                                    name="projectAssociations-locations-{{$index}}"
+                                                    id="projectAssociations-locations-{{$index}}"
+                                                    placeholder="${i18n('form.addTag')}"
+                                                    class="ng-tags-custom"
+                                                    ng-model="projectAssociation.locations"
+
+                                                    on-tag-added="change('form-group-projectAssociation-locations-'+$index)"
+                                                    on-tag-removed="change('form-group-projectAssociation-locations-'+$index)">
+                                            <auto-complete
+                                                    source="getTags('locations')|filter:$query"
+                                                    ></auto-complete>
+                                        </tags-input>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
 </section>

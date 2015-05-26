@@ -73,6 +73,9 @@ public class ProfileController {
     if (profile == null) {
       throw new BadRequestException();
     }
+    if (profile.getProjectAssociations() != null) {
+      profile.getProjectAssociations().forEach(datastore::save);
+    }
     datastore.save(profile);
     eventBus.post(new EntityChangedEvent<>(profile));
     return Results.json().render(profile);

@@ -1,5 +1,6 @@
 package model;
 
+import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 
 import java.util.Date;
@@ -34,6 +35,9 @@ public class Profile extends BaseModel {
   @Tag
   private List<String> qualifications;
   private String summary;
+
+  @Embedded
+  private List<ProjectAssociation> projectAssociations;
 
   public String getFirstname() {
     return firstname;
@@ -145,5 +149,13 @@ public class Profile extends BaseModel {
 
   public void setSummary(String summary) {
     this.summary = summary;
+  }
+
+  public List<ProjectAssociation> getProjectAssociations() {
+    return projectAssociations;
+  }
+
+  public void setProjectAssociations(List<ProjectAssociation> projectAssociations) {
+    this.projectAssociations = projectAssociations;
   }
 }
