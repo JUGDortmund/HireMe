@@ -24,15 +24,15 @@ import ninja.NinjaDocTester;
 
 public class ResourceControllerTest extends NinjaDocTester {
 
-  String RESOURCE_CONTROLLER_BASE_URL = "/api/resource/";
-  String POST_UPLOAD_RESOURCE_URL = RESOURCE_CONTROLLER_BASE_URL + "upload";
-  String GET_RESOURCE_URL = RESOURCE_CONTROLLER_BASE_URL + "{id}/{format}";
-  String THUMBNAIL_FORMAT = "thumbnail";
-  String ORIGINAL_FORMAT = "original";
-  String CONTENT_TYPE_PNG = "image/png";
+  private static final String RESOURCE_CONTROLLER_BASE_URL = "/api/resource/";
+  private static final String POST_UPLOAD_RESOURCE_URL = RESOURCE_CONTROLLER_BASE_URL + "upload";
+  private static final String GET_RESOURCE_URL = RESOURCE_CONTROLLER_BASE_URL + "{id}/{format}";
+  private static final String THUMBNAIL_FORMAT = "thumbnail";
+  private static final String ORIGINAL_FORMAT = "original";
+  private static final String CONTENT_TYPE_PNG = "image/png";
 
-  URL url;
-  File file;
+  private URL url;
+  private File file;
 
   @Before
   public void setup() throws URISyntaxException {
@@ -50,7 +50,7 @@ public class ResourceControllerTest extends NinjaDocTester {
             .addFileToUpload("testfile", file));
     BaseModel baseModel = response.payloadJsonAs(BaseModel.class);
 
-    sayAndAssertThat("We get back an json containing the id of the uploaded resource",
+    sayAndAssertThat("We get back a json containing the id of the uploaded resource",
         baseModel.getId(), notNullValue());
   }
 
