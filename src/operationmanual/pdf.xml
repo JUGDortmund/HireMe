@@ -12,6 +12,8 @@
     <item name="Überblick" ref="index.md"/>
     <item name="Konfigurations Parameter" ref="configurationParameters.md"/>
     <item name="Loggin-Konfiguration" ref="loggingConfiguration.md"/>
+    <item name="Deployment" ref="deployment.md"/>
+    <item name="LDAP-Struktur" ref="ldapStructure.md"/>
     <item name="Release Notes" ref="releaseNotes.md"/>
   </toc>
 
