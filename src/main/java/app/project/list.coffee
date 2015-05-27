@@ -33,7 +33,8 @@ angular.module( 'projectlist', ['duScroll'])
   	 Restangular.one('project', id).remove().then (->
   	   getProjects()
   	   showMessage('success')
-  	   ), ->
+  	   ),(data) ->
+  	   	 $scope.profiles = data
   	   showMessage('error')
   	 return
    return

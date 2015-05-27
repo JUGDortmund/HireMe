@@ -57,7 +57,7 @@ angular.module 'profile', ['duScroll', 'ngTagsInput', 'ngFileUpload', 'utils.cus
     workingProfile.devEnvironments = profile.devEnvironments.map toList
     workingProfile.qualifications = profile.qualifications.map toList
     workingProfile.summary = profile.summary
-    workingProfile.projectAssociations = profile.projectAssociation
+    workingProfile.projectAssociations = profile.projectAssociations
     workingProfile.image = profile.image
 
     Restangular.one('profile', profile.id).customPUT(workingProfile);
