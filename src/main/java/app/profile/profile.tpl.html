@@ -10,17 +10,35 @@
                     <strong>${i18n('message.success.header')}</strong>
                     ${i18n('message.success.content')}
                 </div>
-                <div class="box border-box">
-                    <div class="header-text">
-                        <img src="http://placehold.it/100x100" width="100" height="100"/>
-
-                        <h2 class="headline">{{profile.firstname}} {{profile.lastname}}</h2>
-
-                        <p class="description">
-                            {{tagsToList(profile.careerLevel).join(', ')}}
-                        </p>
-                    </div>
+                <div class="alert alert-warning alert-dismissible" role="alert" ng-show="uploadreject">
+                    <strong>${i18n('message.upload.reject.header')}</strong> ${i18n('message.upload.reject.content')} ${i18n('profile.image.acceptfiles')}
                 </div>
+                <div class="alert alert-warning alert-dismissible" role="alert" ng-show="uploaderror">
+                    <strong>${i18n('message.upload.error.header')}</strong> ${i18n('message.upload.error.content')}
+                </div>
+				<div class="box border-box">
+	                <div class="header-text"
+	                       ngf-drop
+	                       ngf-select
+	                       ng-model="files"
+	                       ng-model-rejected="rejectedFiles" 
+	                       ngf-drag-over-class="dragover"
+	                       ngf-multiple="false"
+	                       ngf-allow-dir="false"
+	                       ngf-accept="'image/*'"
+	                       ngf-min-size='10'
+	                       ngf-max-size='15728640'>
+	                    <div id="image-wrapper">
+	                		<img ngf-src="files[0]" ngf-default-src="{{profile.image|toThumbnailUrl}}" id="image"/>
+	                	</div>
+	                	<input type="hidden" name="image" id="image-hidden" class="form-control" ng-model="profile.image"/>
+	                    <span><i class="fa fa-cloud-upload"></i></br>${i18n('profile.image.change')}</br>${i18n('profile.image.acceptfiles')}</span>
+	                	<h2 class="headline">{{profile.firstname}} {{profile.lastname}}</h2>
+		                <p class="description">
+		                	 {{tagsToList(profile.careerLevel).join(', ')}}
+		                </p>
+		            </div>
+	            </div>
                 <div ng-show="showEditModeButtons" class="no-print button-dialog">
                     <button ng-click="save()" id="save-button"
                             class="btn btn-block btn-success">${i18n('buttonDialog.save')}

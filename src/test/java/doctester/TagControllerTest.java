@@ -16,7 +16,7 @@ import ninja.NinjaDocTester;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TagTest extends NinjaDocTester {
+public class TagControllerTest extends NinjaDocTester {
 
   public static final TypeReference<List<TagList>>
       TYPE_REFERENCE = new TypeReference<List<TagList>>() {

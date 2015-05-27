@@ -1,4 +1,4 @@
-package unit.serializer;
+package util.serializer;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -9,17 +9,21 @@ import org.bson.types.ObjectId;
 
 import java.io.IOException;
 
-public class ObjectIdDeserializer extends JsonDeserializer<ObjectId> {
+import model.Resource;
+
+public class ResourceDeserializer extends JsonDeserializer<Resource> {
 
   @Override
-  public ObjectId deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
+  public Resource deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
       throws IOException, JsonProcessingException {
     String valueAsString = jsonParser.getValueAsString();
-    return new ObjectId(valueAsString);
+    Resource resource = new Resource();
+    resource.setId(new ObjectId(valueAsString));
+    return resource;
   }
 
   @Override
-  public Class<ObjectId> handledType() {
-    return ObjectId.class;
+  public Class<Resource> handledType() {
+    return Resource.class;
   }
 }

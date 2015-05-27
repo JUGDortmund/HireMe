@@ -7,7 +7,7 @@ angular.module( 'projectlist', ['duScroll'])
     controller: 'ProjectListCtrl', 
     resolve: 
     	projects:(Restangular) -> Restangular.all('project').getList()
-.controller 'ProjectListCtrl', ($scope, $timeout, Restangular, projects ,$document, $parse) ->
+.controller 'ProjectListCtrl', ($scope, $timeout, Restangular, projects ,$document, $parse, tagService) ->
   #dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
   $scope.projects = projects
   getProjects = -> projects.getList().then (projects) ->
@@ -30,10 +30,10 @@ angular.module( 'projectlist', ['duScroll'])
   	return
   
   $scope.remove = (id) ->
-  	Restangular.one('project', id).remove().then (->
-  	  getProjects()
-  	  showMessage('success')
-  	  ), ->
-  	  showMessage('error')
-  	return
-  return
+  	 Restangular.one('project', id).remove().then (->
+  	   getProjects()
+  	   showMessage('success')
+  	   ), ->
+  	   showMessage('error')
+  	 return
+   return
