@@ -14,7 +14,7 @@ import ninja.NinjaDocTester;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ProfileTest extends NinjaDocTester {
+public class ProfileControllerTest extends NinjaDocTester {
 
   public static final TypeReference<List<Profile>>
       PROFILE_LIST_TYPE =
