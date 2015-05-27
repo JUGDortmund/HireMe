@@ -122,13 +122,47 @@ describe('profile page', function () {
     expect(profilePage.projectAssociationCount).toBeGreaterThan(oldProjectAssociationCount);
   });
 
-  fit("should save changes inside the project associations", function () {
+  it("should save changes inside the project associations", function () {
     profilePage.addProjectAssociation();
     var elementArrayFinder = element(by.id('start-0'));
     elementArrayFinder.click();
     elementArrayFinder.clear();
     elementArrayFinder.sendKeys("01.01.2012");
     profilePage.save();
-    expect(element(by.id('start-0')).getAttribute('value')).toContain('01.01.2012');
+    expect(element(by.id('start-0')).getAttribute('value')).toContain('01.01.12');
   });
+  
+  it('should be able to delete a project', function() {
+	  profilePage.addProjectAssociation();
+	  var elementArrayFinder = element(by.id('start-0'));
+	  elementArrayFinder.click();
+	  elementArrayFinder.clear();
+	  elementArrayFinder.sendKeys("01.01.2012");
+	  profilePage.deleteProjectAssociation();
+	  expect(profilePage.projectAssociationCount).toEqual(0);
+  });
+  
+  it('should be able to delete a project, after it was saved persistent', function() {
+	  profilePage.addProjectAssociation();
+	  var elementArrayFinder = element(by.id('start-0'));
+	  elementArrayFinder.click();
+	  elementArrayFinder.clear();
+	  elementArrayFinder.sendKeys("01.01.2012");
+	  profilePage.save();
+	  profilePage.deleteProjectAssociation();
+	  profilePage.save();
+	  expect(profilePage.projectAssociationCount).toEqual(0);
+  });
+  
+  fit('project associations should not be deleted, cancel button is pressed', function() {
+	  profilePage.addProjectAssociation();
+	  var elementArrayFinder = element(by.id('start-0'));
+	  elementArrayFinder.click();
+	  elementArrayFinder.clear();
+	  elementArrayFinder.sendKeys("01.01.2012")
+	  profilePage.save();
+	  profilePage.deleteProjectAssociation();
+	  profilePage.cancel();
+	  expect(profilePage.projectAssociationCount).toEqual(1)
+  }); 
 });

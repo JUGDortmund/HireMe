@@ -261,9 +261,9 @@
                     </div>
                 </div>
 
-                <div class="box box-orange">
+                <div class="box box-purple">
                     <div class="box-header">
-                        <h3 class="box-title">Projekt Einsätze</h3>
+                        <h3 class="box-title">${i18n('project.section')}</h3>
                         <a class="btn btn-default pull-right"
                            id="add-project-association"
                            ng-click="addProjectAssociation()"><span
@@ -271,14 +271,14 @@
                     </div>
                     <div class="box-body form-horizontal">
 
-                        <div class="box box-orange project-association"
+                        <div class="box box-purple project-association"
                              ng-repeat="projectAssociation in profile.projectAssociations">
                             <div class="box-header">
                             </div>
                             <div class="box-body form-horizontal">
                                 <div class="form-group"
                                      id="form-group-projectAssociation-project-{{$index}}">
-                                    <label for="project-{{$index}}" class="control-label col-md-4">Project</label>
+                                    <label for="project-{{$index}}" class="control-label col-md-4">${i18n('project.subsection')}</label>
 
                                     <div class="col-md-8">
                                         <select class="form-control"
@@ -291,7 +291,7 @@
                                 </div>
                                 <div class="form-group"
                                      id="form-group-projectAssociation-start-{{$index}}">
-                                    <label for="start-{{$index}}" class="control-label col-md-4">Start</label>
+                                    <label for="start-{{$index}}" class="control-label col-md-4">${i18n('project.start')}</label>
 
                                     <div class="col-md-8">
                                         <input type="text"
@@ -310,7 +310,7 @@
                                 <div class="form-group"
                                      id="form-group-projectAssocation-end-{{$index}}">
                                     <label for="end-{{$index}}"
-                                           class="control-label col-md-4">Ende</label>
+                                           class="control-label col-md-4">${i18n('project.end')}</label>
 
                                     <div class="col-md-8">
                                         <input type="text"
@@ -328,7 +328,7 @@
                                 </div>
                                 <div class="form-group"
                                      id="form-group-projectAssociation-locations-{{$index}}">
-                                    <label for="devEnvironments" class="control-label col-md-4">Einsatzorte</label>
+                                    <label for="devEnvironments" class="control-label col-md-4">${i18n('project.locations')}</label>
 
                                     <div class="col-md-8">
                                         <tags-input type="text"
@@ -346,12 +346,20 @@
                                         </tags-input>
                                     </div>
                                 </div>
+								<div class="form-group"
+                                     id="form-group-projectAssociation-delete-button-{{$index}}">
+                                    <div class="col-md-4 pull-right">
+                                    	<button ng-click="deleteProjectAssociation($index)"
+                                    			id="delete-project-association-button-{{$index}}"
+                            					class="btn btn-block btn-danger">${i18n('project.button.delete')}
+                    					</button>
+                    				</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-    </div>
+	</div>
 </section>

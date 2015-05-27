@@ -43,6 +43,11 @@ ProfilePage.prototype = Object.create({}, {
     value: function () {
       element(by.id('add-project-association')).click();
     }
+  },
+  deleteProjectAssociation: {
+	  value: function () {
+		  element(by.id('delete-project-association-button-0')).click();
+	  }
   }
 });
 

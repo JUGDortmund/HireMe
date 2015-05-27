@@ -83,8 +83,11 @@ angular.module('profile', ['duScroll', 'ngTagsInput'])
     return
 
   $scope.change = (id) ->
-    $('#' + id).addClass('has-warning')
-    $scope.showEditModeButtons = true
+    if id == null
+    	$('#' + id).addClass('has-warning')
+    	$scope.showEditModeButtons = true
+    else
+    	$scope.showEditModeButtons = true;
     return
 
   $scope.tagsToList = (tags) ->
@@ -97,3 +100,11 @@ angular.module('profile', ['duScroll', 'ngTagsInput'])
     if !$scope.profile.projectAssociations? then $scope.profile.projectAssociations = []
     $scope.profile.projectAssociations.push({});
     console.log($scope.profile);
+    
+  $scope.deleteProjectAssociation = (index) ->
+  	$scope.profile.projectAssociations.splice(index, 1);
+  	$scope.change();
+  		
+  	
+  	
+  	
