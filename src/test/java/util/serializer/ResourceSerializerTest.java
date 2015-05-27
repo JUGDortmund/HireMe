@@ -1,4 +1,6 @@
-package unit.util.serializer;
+package util.serializer;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
@@ -7,32 +9,29 @@ import org.bson.types.ObjectId;
 import org.junit.Before;
 import org.junit.Test;
 
-import unit.serializer.ObjectIdSerializer;
+import model.Resource;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-public class ObjectIdSerializerTest {
+public class ResourceSerializerTest {
 
   private ObjectMapper mapper;
-  private ObjectId id;
 
   @Before
   public void setUp() throws Exception {
     mapper = new ObjectMapper();
     SimpleModule module = new SimpleModule();
-    module.addSerializer(new ObjectIdSerializer());
+    module.addSerializer(new ResourceSerializer());
     mapper.registerModule(module);
-
-    id = new ObjectId();
   }
 
   @Test
   public void serialize() throws Exception {
-    assertThat(mapper.writeValueAsString(id)).contains(id.toString());
+    Resource resource = new Resource();
+    resource.setId(new ObjectId());
+    assertThat(mapper.writeValueAsString(resource)).contains(resource.getId().toString());
   }
 
   @Test
   public void handlesTypes() throws Exception {
-    assertThat(mapper.canSerialize(ObjectId.class));
+    assertThat(mapper.canSerialize(Resource.class));
   }
 }

@@ -1,4 +1,4 @@
-angular.module('profile', ['duScroll', 'ngTagsInput'])
+angular.module 'profile', ['duScroll', 'ngTagsInput', 'ngFileUpload', 'utils.customResource']
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
 .config ($routeProvider) ->
@@ -9,7 +9,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput'])
     resolve:
       profile: (Restangular, $route) ->
         Restangular.one('profile', $route.current.params.profileId).get()
-.controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, $document, $parse, tagService) ->
+.controller 'ProfileCtrl', ($scope, $timeout, $document, $parse, Restangular, Upload, profile, tagService) ->
   dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
   $scope.profile = profile
   if moment(profile.workExperience).isValid()
@@ -17,13 +17,15 @@ angular.module('profile', ['duScroll', 'ngTagsInput'])
   else
     $scope.profile.workExperience = ""
   $scope.originProfile = angular.copy($scope.profile)
+  
   tagService.loadTags()
 
-  showMessage = (targetName) ->
+  showMessage = (targetName, keepChangeIndicators) ->
     target = $parse(targetName)
     target.assign($scope, true)
     $document.duScrollTopAnimated(0)
-    $('.form-group').removeClass('has-warning')
+    $('.form-group').removeClass('has-warning') unless keepChangeIndicators?
+    $('#image-wrapper').removeClass('has-warning') unless keepChangeIndicators?
     $timeout (->
       target.assign($scope, false)
       return
@@ -51,6 +53,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput'])
     workingProfile.devEnvironments = profile.devEnvironments.map toList
     workingProfile.qualifications = profile.qualifications.map toList
     workingProfile.summary = profile.summary
+    workingProfile.image = profile.image
 
     Restangular.one('profile', profile.id).customPUT(workingProfile);
 
@@ -62,6 +65,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput'])
       $scope.showEditModeButtons = false
       $scope.profile.workExperience = moment($scope.profile.workExperience).format(dateFormat);
       $scope.originProfile = angular.copy($scope.profile)
+      $scope.files = []
       showMessage('success')
       tagService.loadTags()
       return
@@ -73,7 +77,9 @@ angular.module('profile', ['duScroll', 'ngTagsInput'])
   $scope.cancel = ->
     $scope.profile = angular.copy($scope.originProfile)
     $scope.showEditModeButtons = false
+    $scope.files = []
     $('.form-group').removeClass('has-warning')
+    $('#image-wrapper').removeClass('has-warning')
     $document.duScrollTopAnimated(0)
     tagService.loadTags()
     return
@@ -88,3 +94,37 @@ angular.module('profile', ['duScroll', 'ngTagsInput'])
 
   $scope.getTags = (name) ->
     tagService.getTag(name)
+    
+  $scope.$watch 'files', ->
+    $scope.upload $scope.files
+    return
+    
+  $scope.$watch 'rejectedFiles', (newValue, oldValue) ->
+    if(newValue != oldValue && $scope.rejectedFiles.length > 0)
+        $scope.rejectedFile = []
+        showMessage('uploadreject', true)
+    return
+  
+  $scope.upload = (files) ->
+    if files and files.length
+        file = files[0]
+        Upload.upload(
+          url: '/api/resource/upload'
+          file: file
+          fileFormDataName: file.name)
+        .success (data, status, headers, config) ->
+          $timeout (->
+            $scope.$apply()
+            return
+          )
+          $scope.profile.image = data.id
+          $scope.change('image-wrapper')
+          return
+        .error (data, status, headers, config) ->
+          $timeout (->
+            $scope.$apply()
+            return
+          )
+          $scope.files = []
+          showMessage('uploaderror', true)
+    return

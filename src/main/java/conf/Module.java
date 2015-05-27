@@ -23,6 +23,8 @@ import com.google.inject.spi.InjectionListener;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
 
+import cronjobs.ScheduledResourceCleanUp;
+
 import org.mongodb.morphia.Datastore;
 
 import services.TagService;
@@ -36,6 +38,7 @@ public class Module extends AbstractModule {
     bind(Datastore.class).toProvider(DatastoreProvider.class);
     bind(EventBus.class).toInstance(eventBus);
     bind(TagService.class).asEagerSingleton();
+    bind(ScheduledResourceCleanUp.class);
 
     bindListener(Matchers.any(), new TypeListener() {
       @Override
