@@ -9,9 +9,12 @@ angular.module('profile', ['duScroll', 'ngTagsInput'])
     resolve:
       profile: (Restangular, $route) ->
         Restangular.one('profile', $route.current.params.profileId).get()
-.controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, $document, $parse, tagService) ->
+      projects: (Restangular) ->
+        Restangular.all('project').getList()
+.controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, projects, $document, $parse, tagService) ->
   dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
   $scope.profile = profile
+  $scope.projects = projects
   if moment(profile.workExperience).isValid()
     $scope.profile.workExperience = moment(profile.workExperience).format(dateFormat)
   else
@@ -51,6 +54,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput'])
     workingProfile.devEnvironments = profile.devEnvironments.map toList
     workingProfile.qualifications = profile.qualifications.map toList
     workingProfile.summary = profile.summary
+    workingProfile.projectAssociations = profile.projectAssociations
 
     Restangular.one('profile', profile.id).customPUT(workingProfile);
 
@@ -88,3 +92,8 @@ angular.module('profile', ['duScroll', 'ngTagsInput'])
 
   $scope.getTags = (name) ->
     tagService.getTag(name)
+
+  $scope.addProjectAssociation = ->
+    if !$scope.profile.projectAssociations? then $scope.profile.projectAssociations = []
+    $scope.profile.projectAssociations.push({});
+    console.log($scope.profile);

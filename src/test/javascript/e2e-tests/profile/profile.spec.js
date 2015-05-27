@@ -116,4 +116,19 @@ describe('profile page', function () {
     expect(suggestionsCount).toBe(3);
   });
 
+  it('should be able to add a project', function () {
+    var oldProjectAssociationCount = profilePage.projectAssociationCount;
+    profilePage.addProjectAssociation();
+    expect(profilePage.projectAssociationCount).toBeGreaterThan(oldProjectAssociationCount);
+  });
+
+  fit("should save changes inside the project associations", function () {
+    profilePage.addProjectAssociation();
+    var elementArrayFinder = element(by.id('start-0'));
+    elementArrayFinder.click();
+    elementArrayFinder.clear();
+    elementArrayFinder.sendKeys("01.01.2012");
+    profilePage.save();
+    expect(element(by.id('start-0')).getAttribute('value')).toContain('01.01.2012');
+  });
 });
