@@ -13,7 +13,7 @@
         <developerConnection>scm:git:ssh://git@stash.maredit.net:7999/com/hireme.git
         </developerConnection>
         <url>http://stash.maredit.net/projects/COM/repos/hireme/browse</url>
-      <tag>HEAD</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <properties>
@@ -26,7 +26,7 @@
 
     <build>
         <plugins>
-           <!-- Plugin for extraction of git properties. Used to display build information inside the application -->
+            <!-- Plugin for extraction of git properties. Used to display build information inside the application -->
             <plugin>
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
@@ -417,13 +417,14 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <!-- Plugin for copying environment specific application and logging configuration to target directory -->
             <plugin>
                 <groupId>com.coderplus.maven.plugins</groupId>
                 <artifactId>copy-rename-maven-plugin</artifactId>
                 <version>1.0</version>
                 <executions>
                     <execution>
-                        <id>copy-file</id>
+                        <id>copy application.conf</id>
                         <phase>compile</phase>
                         <goals>
                             <goal>copy</goal>
@@ -431,6 +432,18 @@
                         <configuration>
                             <sourceFile>src/confs/application.${env.name}.conf</sourceFile>
                             <destinationFile>target/classes/conf/application.conf</destinationFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy logback.xml</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <sourceFile>src/confs/logback.${env.name}.xml
+                            </sourceFile>
+                            <destinationFile>target/classes/logback.xml</destinationFile>
                         </configuration>
                     </execution>
                 </executions>
@@ -481,7 +494,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <execute />
+                                        <execute/>
                                     </action>
                                 </pluginExecution>
                             </pluginExecutions>

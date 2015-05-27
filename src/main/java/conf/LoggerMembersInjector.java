@@ -2,9 +2,11 @@ package conf;
 
 import com.google.inject.MembersInjector;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
+
 
 public class LoggerMembersInjector<T> implements MembersInjector<T> {
 
@@ -13,7 +15,7 @@ public class LoggerMembersInjector<T> implements MembersInjector<T> {
 
   public LoggerMembersInjector(Field field) {
     this.field = field;
-    this.logger = Logger.getLogger(field.getDeclaringClass());
+    this.logger = LoggerFactory.getLogger(field.getDeclaringClass());
     field.setAccessible(true);
   }
 

@@ -1,7 +1,7 @@
-<document xmlns="http://maven.apache.org/DOCUMENT/1.0.1"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns="http://maven.apache.org/DOCUMENT/1.0.1"
   xsi:schemaLocation="http://maven.apache.org/DOCUMENT/1.0.1 http://maven.apache.org/xsd/document-1.0.1.xsd"
-  outputName="operation-manual-${project.name}-${project.version}">
+  outputName="${project.version}_${project.name}_betriebshandbuch">
 
   <meta>
     <title>${project.name} - Betriebshandbuch</title>
@@ -10,8 +10,11 @@
 
   <toc name="Inhaltsverzeichnis">
     <item name="Überblick" ref="index.md"/>
-    <item name="Erste Unterseite" ref="page1.md"/>
-    <item name="Zweite Unterseite" ref="page2.md"/>
+    <item name="Konfigurations-Parameter" ref="configurationParameters.md"/>
+    <item name="Logging-Konfiguration" ref="loggingConfiguration.md"/>
+    <item name="Deployment" ref="deployment.md"/>
+    <item name="LDAP-Struktur" ref="ladpStructure.md"/>
+    <item name="Release Notes" ref="releaseNotes.md"/>
   </toc>
 
   <cover>
