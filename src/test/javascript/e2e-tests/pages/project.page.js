@@ -9,7 +9,7 @@ ProjectPage.prototype = Object.create({}, {
       return element(by.id('title'));
     }
   },
-  summary: {
+  locations: {
     get: function () {
       return element(by.css('#summary input[type="text"]'));
     }
