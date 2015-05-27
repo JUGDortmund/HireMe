@@ -13,10 +13,10 @@
 ## Build
 
 * DEBUG -> System.out
-* INFO -> Syslog
+* INFO -> Syslog (syslogHost: localhost, facility: LOCAL0)
 
 ## Prod
 
 * INFO -> System.out
-* WARN -> Syslog
+* WARN -> Syslog (syslogHost: localhost, facility: LOCAL0)
 
