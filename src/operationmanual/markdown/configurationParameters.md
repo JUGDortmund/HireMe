@@ -81,18 +81,15 @@ Zeigt build-Informationen im Frontend: *Boolean*
 Zeitintervall, für Ausführung des Cleanup-Jobs: Long  
 Die Einheit des Zeitintervalls hängt von `hireme.resourcecleanup.timeunit` ab.
 
-
 `hireme.resourcecleanup.initdelay`
 
 Zeitintervall, für erstmalige Ausführung des Cleanup-Jobs nach Starten der Applikation: Long  
 Die Einheit des Zeitintervalls hängt von `hireme.resourcecleanup.timeunit` ab.
   
-  
 `hireme.resourcecleanup.timeunit`
 
 Zeiteinheit für die Angabe der Zeitintervalle: *String*  
 Mögliche Werte: SECONDS, MINUTES, HOURS, DAYS
-
 
 `hireme.resourcecleanup.expiretime`
 
