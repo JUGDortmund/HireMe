@@ -157,13 +157,13 @@ describe('profile page', function () {
 	  profilePage.save();
 	  expect(profilePage.projectAssociationCount).toEqual(0);
   });
-  
-  fit('project associations should not be deleted, cancel button is pressed', function() {
+
+  it('project associations should not be deleted, cancel button is pressed', function () {
 	  profilePage.addProjectAssociation();
 	  var elementArrayFinder = element(by.id('start-0'));
 	  elementArrayFinder.click();
 	  elementArrayFinder.clear();
-	  elementArrayFinder.sendKeys("01.01.2012")
+    elementArrayFinder.sendKeys("01.01.2012");
 	  profilePage.save();
 	  profilePage.deleteProjectAssociation();
 	  profilePage.cancel();
@@ -189,7 +189,7 @@ describe('profile page', function () {
       return "C:\\Users\\Public\\Pictures\\Sample Pictures\\flagge.gif";
     } else {
       var defaultImage = "../../../resources/fileupload.png";
-      path = pathUtil.resolve(__dirname, defaultImage);
+      return pathUtil.resolve(__dirname, defaultImage);
     }
   }
 });

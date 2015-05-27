@@ -303,8 +303,13 @@
                                                 ng-model="projectAssociation.project"
                                                 id="project-{{$index}}"
                                                 ng-options="project.title for project in projects track by project.id"
+                                                ng-show="projects && projects.length > 0"
                                                 ng-change="change('form-group-projectAssociation-project-' + $index)">
                                         </select>
+
+                                        <div ng-hide="projects && projects.length > 0">
+                                            Keine Project vorhanden
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group"

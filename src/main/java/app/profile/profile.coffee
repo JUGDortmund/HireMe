@@ -1,4 +1,4 @@
-angular.module('profile', ['duScroll', 'ngTagsInput'])
+angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'ngFileUpload'])
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
 .config ($routeProvider) ->
@@ -88,7 +88,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput'])
     return
 
   $scope.change = (id) ->
-    ('#' + id).addClass('has-warning') if id?
+    $('#' + id).addClass('has-warning') if id?
     $scope.showEditModeButtons = true
     return
 
@@ -101,7 +101,6 @@ angular.module('profile', ['duScroll', 'ngTagsInput'])
   $scope.addProjectAssociation = ->
     if !$scope.profile.projectAssociations? then $scope.profile.projectAssociations = []
     $scope.profile.projectAssociations.push({});
-    console.log($scope.profile);
 
   $scope.deleteProjectAssociation = (index) ->
     $scope.profile.projectAssociations.splice(index, 1);
