@@ -1,7 +1,14 @@
 package model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Reference;
+
+import util.serializer.ResourceDeserializer;
+import util.serializer.ResourceSerializer;
 
 import java.util.Date;
 import java.util.List;
@@ -38,6 +45,11 @@ public class Profile extends BaseModel {
 
   @Embedded
   private List<ProjectAssociation> projectAssociations;
+
+  @JsonSerialize(using = ResourceSerializer.class)
+  @JsonDeserialize(using = ResourceDeserializer.class)
+  @Reference("image")
+  private Resource image;
 
   public String getFirstname() {
     return firstname;
@@ -157,5 +169,13 @@ public class Profile extends BaseModel {
 
   public void setProjectAssociations(List<ProjectAssociation> projectAssociations) {
     this.projectAssociations = projectAssociations;
+  }
+
+  public Resource getImage() {
+    return image;
+  }
+
+  public void setImage(Resource image) {
+    this.image = image;
   }
 }

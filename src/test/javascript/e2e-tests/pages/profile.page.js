@@ -4,6 +4,11 @@ var ProfilePage = function () {
 };
 
 ProfilePage.prototype = Object.create({}, {
+  thumbnailPath: {
+    get: function () {
+      return element(by.id('image')).getAttribute('src');
+    }
+  },
   firstName: {
     get: function () {
       return element(by.id('firstName'));
@@ -39,6 +44,13 @@ ProfilePage.prototype = Object.create({}, {
       element(by.id('cancel-button')).click();
     }
   },
+  uploadImage: {
+    value: function (path) {
+      element(by.model('files')).click();
+      browser.executeScript('$(\'input[type="file"]\').css(\'visibility\', \'visible\');');
+      element(by.css('input[type="file"]')).sendKeys(path);
+    }
+  },
   addProjectAssociation: {
     value: function () {
       element(by.id('add-project-association')).click();
@@ -49,6 +61,7 @@ ProfilePage.prototype = Object.create({}, {
 		  element(by.id('delete-project-association-button-0')).click();
 	  }
   }
+
 });
 
 module.exports = ProfilePage;

@@ -1,47 +1,59 @@
+@color-blue: #3c8dbc;
+@color-orange: #ff7701;
+@color-green: #00a65a;
 .profile-page {
-	
 	.button-dialog {
-		position: fixed; 
-		top: 120px; 
+		position: fixed;
+		top: 120px;
 		right: 0px;
-		background-color: white; 
-		border-radius: 5px 0px 0px 5px; 
-		padding: 10px 15px; 
-		z-index: 99999; 
+		background-color: white;
+		border-radius: 5px 0px 0px 5px;
+		padding: 10px 15px;
+		z-index: 99999;
 		box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
 	}
-	
-   @media (max-width: 480px) {
-   		.button-dialog {
-   			top: auto;
-   			bottom: 0px;
-   			left: 0px;
-   		}
-   }
-	
+
+	@media (max-width: 480px) {
+		.button-dialog {
+			top: auto;
+			bottom: 0px;
+			left: 0px;
+		}
+	}
+
 	.box {
 		&.box-primary {
-			.box-title,
-			label {
-				color: #3c8dbc;
+			.box-title , label {
+				color: @color-blue;
+			}
+
+			tags-input .tags .tag-item {
+				background-color: @color-blue;
+				border-color: @color-blue;
 			}
 		}
 
 		&.box-orange {
-			border-top-color: #ff7701;
+			border-top-color: @color-orange;
+			.box-title , label {
+				color: @color-orange;
+			}
 
-			.box-title,
-			label {
-				color: #ff7701;
+			tags-input .tags .tag-item {
+				background-color: @color-orange;
+				border-color: @color-orange;
 			}
 		}
 
 		&.box-green {
-			border-top-color: #00a65a;
+			border-top-color: @color-green;
+			.box-title , label {
+				color: @color-green;
+			}
 
-			.box-title,
-			label {
-				color: #00a65a;
+			tags-input .tags .tag-item {
+				background-color: @color-green;
+				border-color: @color-green;
 			}
 		}
 		
@@ -57,33 +69,61 @@
 		.header-text {
 			position: relative;
 			padding: 10px 10px 10px 120px;
-			min-height:100px;
-			
+			min-height: 100px;
 			.headline {
 				margin-top: 0;
 			}
 
-			img {
+			#image-wrapper {
+				background: #d2d6de;
 				position: absolute;
 				top: 0;
 				left: 0;
+				width: 100px;
+				height: 100px;
+				line-height: 100px;
+				text-align: center;
+				&.has-warning {
+					border: 1px @color-warning solid;
+				}
+
+				img {
+					max-width: 100%;
+					max-height: 100%;
+					vertical-align: baseline;
+				}
 			}
 
 			.description {
 				color: #777;
 			}
 
+			span {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100px;
+				height: 100px;
+				display: none;
+				text-align: center;
+				background: none repeat scroll 0 0 rgba(0, 0, 0, 0.5);
+				color: rgba(255, 255, 255, 1.0);
+			}
+
+			&:hover , &.dragover {
+				span {
+					display: block;
+				}
+			}
 		}
 
 		input[readonly] {
 			background-color: #fff;
 			border-color: #fff;
-
-			&:focus, 
-			&:active {
-				border-color: #fff !important;
+			&:focus , &:active {
+				border-color: #fff ! important;
 			}
 		}
 	}
-
 }
+
