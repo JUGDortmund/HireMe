@@ -7,7 +7,7 @@ angular.module('app', [
   'tags'
   'restangular'
   'project'
-  'projectlist'
+  'projectList'
 ])
 .config ($locationProvider, RestangularProvider) ->
   $locationProvider.html5Mode

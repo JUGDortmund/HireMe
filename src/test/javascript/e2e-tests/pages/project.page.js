@@ -11,7 +11,7 @@ ProjectPage.prototype = Object.create({}, {
   },
   locations: {
     get: function () {
-      return element(by.css('#summary input[type="text"]'));
+      return element(by.css('#locations input[type="text"]'));
     }
   },
   start: {

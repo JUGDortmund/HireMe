@@ -1,4 +1,4 @@
-angular.module( 'projectlist', ['duScroll'])
+angular.module( 'projectList', ['duScroll'])
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
 .config ($routeProvider) ->
@@ -36,7 +36,7 @@ angular.module( 'projectlist', ['duScroll'])
   	   ),(response) ->
 	    $scope.profiles = response.data
 	    if response.status == 450 
-	      showMessage('errorp') 
+	      showMessage('errorReferenceProfiles') 
 	    else 
 	      showMessage('error')
 	    return

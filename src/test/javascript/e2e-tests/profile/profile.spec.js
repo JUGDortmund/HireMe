@@ -126,7 +126,7 @@ describe('profile page', function () {
     expect(profilePage.projectAssociationCount).toBeGreaterThan(oldProjectAssociationCount);
   });
 
-  fit("should save changes inside the project associations", function () {
+  it("should save changes inside the project associations", function () {
     profilePage.addProjectAssociation();
     var elementArrayFinder = element(by.id('start-0'));
     elementArrayFinder.click();

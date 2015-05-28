@@ -1,5 +1,5 @@
 <section id="projectlist-page-section" class="content module projectlist-page">
-	 <div class="alert alert-danger alert-dismissible" role="alert" ng-show="errorp">
+	 <div class="alert alert-danger alert-dismissible" role="alert" ng-show="errorReferenceProfiles">
         <strong>${i18n('message.error.header')}</strong>
                 ${i18n('message.error.reference')}
               <div ng-repeat="profile in profiles">  
@@ -45,7 +45,7 @@
 					 		<td>{{project.start | date : 'dd.MM.yyyy'}}</td>
 					 		<td>{{project.end | date : 'dd.MM.yyyy'}} </td>
 					 		<td>{{project.summary}}</td>
-					 		<td><a ng-href="/project/{{project.id}}"><button id={{$index}} class="fa fa-edit" type="button"> </button></a><button id={{$index}}  class="fa fa-times" type="button" ng-click="remove(project.id)"></button>
+					 		<td><a ng-href="/project/{{project.id}}"><button class="fa fa-edit" type="button"> </button></a><button class="fa fa-times" type="button" ng-click="remove(project.id)"></button>
 					 		</td>
 						</tr>
 				</tbody>

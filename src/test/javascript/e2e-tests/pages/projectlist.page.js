@@ -1,13 +1,13 @@
 'use strict';
 
-var ProjectlistPage = function () {
+var ProjectListPage = function () {
   browser.get('/projectlist');
 };
 
-ProjectlistPage.prototype = Object.create({}, {
+ProjectListPage.prototype = Object.create({}, {
   searchInputField: {
     get: function () {
-      return element(by.model('projectlist'));
+      return element(by.model('projectList'));
     }
   },
   addProjectButton: {
@@ -31,11 +31,14 @@ ProjectlistPage.prototype = Object.create({}, {
     }
   },
   addProject: {
-    value: function () {
-      var page = this;
-      page.addProjectButton.click().then(function () {
-        browser.wait(function () {
-        }, 500);
+	value: function () {
+		var page = this;
+		  page.addProjectButton.click().then(function () {
+		     browser.wait(function () {
+		       return page.projectCount.then(function (count) {
+		        return count > 0;
+		     });
+		 }, 500);
       });
     }
   },
@@ -64,4 +67,4 @@ ProjectlistPage.prototype = Object.create({}, {
   }
 });
 
-module.exports = ProjectlistPage;
+module.exports = ProjectListPage;

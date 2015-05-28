@@ -1,17 +1,19 @@
 'use strict';
 
-var SearchPage = require('../pages/projectlist.page.js');
-var ProjectPage = require('../pages/project.page');
+var ProjectListPage = require('../pages/projectlist.page.js');
+var ProjectPage = require('../pages/project.page.js');
 
 describe('project page', function () {
 	
-	  var searchPage;
-	  var profilePage;
+	  var projectListPage;
+	  var projectPage;
+	  
+	  
 	  beforeEach(function () {
-	    projectlistPage = new ProjectlistPage();
-	    projectlistPage.addProject();
-	    projectlistPage.openLastProject();
-	    projectPage = new ProjectPage;
+	    projectListPage = new ProjectlistPage();
+	    projectListPage.addProject();
+	    projectListPage.openLastProject();
+	    projectPage = new ProjectPage();
 	});
 	  
 	it('should show the title of the selected project', function () {
@@ -45,7 +47,7 @@ describe('project page', function () {
 	  
 	  it('should set a date correctly and persist date to project', function() {
 		    var inputDate = '01.03.01';
-		    var inputStart= projectPage.start;
+		    var inputStart = projectPage.start;
 		    inputStart.click();
 		    inputStart.clear();
 		    inputStart.sendKeys(inputDate);
