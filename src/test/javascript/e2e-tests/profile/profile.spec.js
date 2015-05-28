@@ -3,7 +3,7 @@
 var pathUtil = require('path');
 
 var SearchPage = require('../pages/search.page.js');
-var ProfilePage = require('../pages/profile.page');
+var ProfilePage = require('../pages/profile.page.js');
 
 require('../../conf/capabilities.js');
 

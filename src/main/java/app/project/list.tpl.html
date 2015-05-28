@@ -1,21 +1,22 @@
 <section id="projectlist-page-section" class="content module projectlist-page">
 	 <div class="alert alert-danger alert-dismissible" role="alert" ng-show="errorp">
-                    <strong>${i18n('message.error.header')}</strong>
-                    ${i18n('message.error.reference')}
-                   <div ng-repeat="profile in profiles">  
-                  <a ng-href="/profile/{{profile.id}}"><span>{{profile.firstname}} {{profile.lastname}}</span></a></div>
-                </div>
-                 <div class="alert alert-danger alert-dismissible" role="alert" ng-show="error">
-                    <strong>${i18n('message.error.header')}</strong>
-                    ${i18n('message.error.content')}
-                </div>
-                <div class="alert alert-success alert-dismissible" role="alert" ng-show="success">
-                    <strong>${i18n('message.success.header')}</strong>
-                    ${i18n('message.success.content')}
-                </div>
+        <strong>${i18n('message.error.header')}</strong>
+                ${i18n('message.error.reference')}
+              <div ng-repeat="profile in profiles">  
+               		<a ng-href="/profile/{{profile.id}}"><span>{{profile.firstname}} {{profile.lastname}}</span></a>
+              </div>
+     </div>
+     <div class="alert alert-danger alert-dismissible" role="alert" ng-show="error">
+         <strong>${i18n('message.error.header')}</strong>
+                 ${i18n('message.error.content')}
+    </div>
+	<div class="alert alert-success alert-dismissible" role="alert" ng-show="success">
+	    <strong>${i18n('message.success.header')}</strong>
+	            ${i18n('message.success.content')}
+	</div>
 	<div class="box-header">
 		<button class="btn bg-blue" ng-click="add()" id="add-project" type="button">
-								<i class="glyphicon glyphicon-plus"></i>
+				<i class="glyphicon glyphicon-plus"></i>
 		</button>
 		<h3 class="box-title">${i18n("projectview.title")}</h3>(<span id="filter-count">{{filteredProjects.length}}</span> / <span id="project-count">{{projects.length}}</span>)
 			<div class="box-tools">
