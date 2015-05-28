@@ -133,12 +133,44 @@ describe('profile page', function () {
     elementArrayFinder.clear();
     elementArrayFinder.sendKeys("01.01.2012");
     profilePage.save();
-    expect(element(by.id('start-0')).getAttribute('value')).toContain('01.01.2012');
+    expect(element(by.id('start-0')).getAttribute('value')).toContain('01.01.12');
+  });
+  
+  it('should be able to delete a project', function() {
+	  profilePage.addProjectAssociation();
+	  var elementArrayFinder = element(by.id('start-0'));
+	  elementArrayFinder.click();
+	  elementArrayFinder.clear();
+	  elementArrayFinder.sendKeys("01.01.2012");
+	  profilePage.deleteProjectAssociation();
+	  expect(profilePage.projectAssociationCount).toEqual(0);
+  });
+  
+  it('should be able to delete a project, after it was saved persistent', function() {
+	  profilePage.addProjectAssociation();
+	  var elementArrayFinder = element(by.id('start-0'));
+	  elementArrayFinder.click();
+	  elementArrayFinder.clear();
+	  elementArrayFinder.sendKeys("01.01.2012");
+	  profilePage.save();
+	  profilePage.deleteProjectAssociation();
+	  profilePage.save();
+	  expect(profilePage.projectAssociationCount).toEqual(0);
   });
 
+  it('project associations should not be deleted, cancel button is pressed', function () {
+	  profilePage.addProjectAssociation();
+	  var elementArrayFinder = element(by.id('start-0'));
+	  elementArrayFinder.click();
+	  elementArrayFinder.clear();
+    elementArrayFinder.sendKeys("01.01.2012");
+	  profilePage.save();
+	  profilePage.deleteProjectAssociation();
+	  profilePage.cancel();
+	  expect(profilePage.projectAssociationCount).toEqual(1)
+  }); 
   it('should successfully upload a profile picture and set it after save', function () {
     var oldThumbnailPath = profilePage.thumbnailPath;
-
     profilePage.uploadImage(getFileName());
     profilePage.save();
     expect(profilePage.thumbnailPath).not.toBe(oldThumbnailPath);
@@ -156,8 +188,7 @@ describe('profile page', function () {
       return "C:\\Users\\Public\\Pictures\\Sample Pictures\\flagge.gif";
     } else {
       var defaultImage = "../../../resources/fileupload.png";
-      path = pathUtil.resolve(__dirname, defaultImage);
+      return pathUtil.resolve(__dirname, defaultImage);
     }
   }
-
 });

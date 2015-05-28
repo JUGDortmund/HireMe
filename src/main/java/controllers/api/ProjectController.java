@@ -1,11 +1,7 @@
 package controllers.api;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import javax.validation.constraints.NotNull;
 
-import model.Profile;
 import model.Project;
 import model.events.EntityChangedEvent;
 import ninja.Result;
@@ -92,18 +88,7 @@ public class ProjectController {
     if (project == null) {
       throw new ElementNotFoundException();
     }
-    List<Profile> Association = datastore.find(Profile.class).asList();
-    List<Profile> profile =
-        Association
-            .stream()
-            .filter(
-                x -> x.getProjectAssociations().stream()
-                    .anyMatch(y -> y.getProject().equals(project))).collect(Collectors.toList());
-    if (profile.isEmpty()) {
-      datastore.delete(project);
-      return Results.ok().json();
-    } else {
-      return Results.status(450).json().render(profile);
-    }
+    datastore.delete(project);
+    return Results.ok().json();
   }
 }

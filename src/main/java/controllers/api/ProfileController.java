@@ -1,5 +1,15 @@
 package controllers.api;
 
+import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
+import com.google.common.eventbus.EventBus;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.Datastore;
+
+import exception.ElementNotFoundException;
 import model.Profile;
 import model.events.EntityChangedEvent;
 import ninja.Result;
@@ -10,17 +20,6 @@ import ninja.jaxy.POST;
 import ninja.jaxy.PUT;
 import ninja.jaxy.Path;
 import ninja.params.PathParam;
-
-import org.bson.types.ObjectId;
-import org.mongodb.morphia.Datastore;
-
-import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
-import com.google.common.eventbus.EventBus;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-
-import exception.ElementNotFoundException;
 
 @Singleton
 @Path("/api/profile")

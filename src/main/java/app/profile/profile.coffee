@@ -1,4 +1,4 @@
-angular.module 'profile', ['duScroll', 'ngTagsInput', 'ngFileUpload', 'utils.customResource']
+angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'ngFileUpload'])
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
 .config ($routeProvider) ->
@@ -11,8 +11,7 @@ angular.module 'profile', ['duScroll', 'ngTagsInput', 'ngFileUpload', 'utils.cus
         Restangular.one('profile', $route.current.params.profileId).get()
       projects: (Restangular) ->
         Restangular.all('project').getList()
-.controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, projects, $document, $parse, tagService) ->
-
+.controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, Upload, projects, $document, $parse, tagService) ->
   dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
   $scope.profile = profile
   $scope.projects = projects
@@ -21,7 +20,6 @@ angular.module 'profile', ['duScroll', 'ngTagsInput', 'ngFileUpload', 'utils.cus
   else
     $scope.profile.workExperience = ""
   $scope.originProfile = angular.copy($scope.profile)
-  
   tagService.loadTags()
 
   showMessage = (targetName, keepChangeIndicators) ->
@@ -57,9 +55,18 @@ angular.module 'profile', ['duScroll', 'ngTagsInput', 'ngFileUpload', 'utils.cus
     workingProfile.devEnvironments = profile.devEnvironments.map toList
     workingProfile.qualifications = profile.qualifications.map toList
     workingProfile.summary = profile.summary
-    workingProfile.projectAssociations = profile.projectAssociations
     workingProfile.image = profile.image
-
+    workingProfile.projectAssociations = _.map profile.projectAssociations, (project) ->
+      workingProject = {}
+      workingProject.id = project.id
+      workingProject.project = project.project
+      workingProject.end = project.end if project.end?
+      workingProject.start = project.start if project.end?
+      workingProject.locations = project.locations.map toList
+      workingProject.positions = project.positions.map toList
+      workingProject.technologies = project.technologies.map toList
+      return workingProject
+    console.log(workingProfile)
     Restangular.one('profile', profile.id).customPUT(workingProfile);
 
   $scope.save = ->
@@ -90,7 +97,7 @@ angular.module 'profile', ['duScroll', 'ngTagsInput', 'ngFileUpload', 'utils.cus
     return
 
   $scope.change = (id) ->
-    $('#' + id).addClass('has-warning')
+    $('#' + id).addClass('has-warning') if id?
     $scope.showEditModeButtons = true
     return
 
@@ -103,39 +110,44 @@ angular.module 'profile', ['duScroll', 'ngTagsInput', 'ngFileUpload', 'utils.cus
   $scope.addProjectAssociation = ->
     if !$scope.profile.projectAssociations? then $scope.profile.projectAssociations = []
     $scope.profile.projectAssociations.push({});
-    console.log($scope.profile);
-    
+    $scope.change()
+    return
+
+  $scope.deleteProjectAssociation = (index) ->
+    $scope.profile.projectAssociations.splice(index, 1);
+    $scope.change()
+    return
+
   $scope.$watch 'files', ->
     $scope.upload $scope.files
     return
-    
+
   $scope.$watch 'rejectedFiles', (newValue, oldValue) ->
     if(newValue != oldValue && $scope.rejectedFiles.length > 0)
-        $scope.rejectedFile = []
-        showMessage('uploadreject', true)
-    return
-  
-  $scope.upload = (files) ->
-    if files and files.length
-        file = files[0]
-        Upload.upload(
-          url: '/api/resource/upload'
-          file: file
-          fileFormDataName: file.name)
-        .success (data, status, headers, config) ->
-          $timeout (->
-            $scope.$apply()
-            return
-          )
-          $scope.profile.image = data.id
-          $scope.change('image-wrapper')
-          return
-        .error (data, status, headers, config) ->
-          $timeout (->
-            $scope.$apply()
-            return
-          )
-          $scope.files = []
-          showMessage('uploaderror', true)
+      $scope.rejectedFile = []
+      showMessage('uploadreject', true)
     return
 
+  $scope.upload = (files) ->
+    if files and files.length
+      file = files[0]
+      Upload.upload(
+        url: '/api/resource/upload'
+        file: file
+        fileFormDataName: file.name)
+      .success (data, status, headers, config) ->
+        $timeout (->
+          $scope.$apply()
+          return
+        )
+        $scope.profile.image = data.id
+        $scope.change('image-wrapper')
+        return
+      .error (data, status, headers, config) ->
+        $timeout (->
+          $scope.$apply()
+          return
+        )
+        $scope.files = []
+        showMessage('uploaderror', true)
+    return

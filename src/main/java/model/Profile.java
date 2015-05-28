@@ -1,9 +1,7 @@
 package model;
 
-import java.util.Date;
-import java.util.List;
-
-import model.annotations.Tag;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
@@ -12,8 +10,10 @@ import org.mongodb.morphia.annotations.Reference;
 import util.serializer.ResourceDeserializer;
 import util.serializer.ResourceSerializer;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.util.Date;
+import java.util.List;
+
+import model.annotations.Tag;
 
 @Entity
 public class Profile extends BaseModel {
@@ -42,7 +42,6 @@ public class Profile extends BaseModel {
   @Tag
   private List<String> qualifications;
   private String summary;
-
 
   @Embedded
   private List<ProjectAssociation> projectAssociations;
