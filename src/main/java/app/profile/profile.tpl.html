@@ -10,35 +10,44 @@
                     <strong>${i18n('message.success.header')}</strong>
                     ${i18n('message.success.content')}
                 </div>
-                <div class="alert alert-warning alert-dismissible" role="alert" ng-show="uploadreject">
-                    <strong>${i18n('message.upload.reject.header')}</strong> ${i18n('message.upload.reject.content')} ${i18n('profile.image.acceptfiles')}
+                <div class="alert alert-warning alert-dismissible" role="alert"
+                     ng-show="uploadreject">
+                    <strong>${i18n('message.upload.reject.header')}</strong>
+                    ${i18n('message.upload.reject.content')} ${i18n('profile.image.acceptfiles')}
                 </div>
-                <div class="alert alert-warning alert-dismissible" role="alert" ng-show="uploaderror">
-                    <strong>${i18n('message.upload.error.header')}</strong> ${i18n('message.upload.error.content')}
+                <div class="alert alert-warning alert-dismissible" role="alert"
+                     ng-show="uploaderror">
+                    <strong>${i18n('message.upload.error.header')}</strong>
+                    ${i18n('message.upload.error.content')}
                 </div>
-				<div class="box border-box">
-	                <div class="header-text"
-	                       ngf-drop
-	                       ngf-select
-	                       ng-model="files"
-	                       ng-model-rejected="rejectedFiles" 
-	                       ngf-drag-over-class="dragover"
-	                       ngf-multiple="false"
-	                       ngf-allow-dir="false"
-	                       ngf-accept="'image/*'"
-	                       ngf-min-size='10'
-	                       ngf-max-size='15728640'>
-	                    <div id="image-wrapper">
-	                		<img ngf-src="files[0]" ngf-default-src="{{profile.image|toThumbnailUrl}}" id="image"/>
-	                	</div>
-	                	<input type="hidden" name="image" id="image-hidden" class="form-control" ng-model="profile.image"/>
-	                    <span><i class="fa fa-cloud-upload"></i></br>${i18n('profile.image.change')}</br>${i18n('profile.image.acceptfiles')}</span>
-	                	<h2 class="headline">{{profile.firstname}} {{profile.lastname}}</h2>
-		                <p class="description">
-		                	 {{tagsToList(profile.careerLevel).join(', ')}}
-		                </p>
-		            </div>
-	            </div>
+                <div class="box border-box">
+                    <div class="header-text"
+                         ngf-drop
+                         ngf-select
+                         ng-model="files"
+                         ng-model-rejected="rejectedFiles"
+                         ngf-drag-over-class="dragover"
+                         ngf-multiple="false"
+                         ngf-allow-dir="false"
+                         ngf-accept="'image/*'"
+                         ngf-min-size='10'
+                         ngf-max-size='15728640'>
+                        <div id="image-wrapper">
+                            <img ngf-src="files[0]"
+                                 ngf-default-src="{{profile.image|toThumbnailUrl}}" id="image"/>
+                        </div>
+                        <input type="hidden" name="image" id="image-hidden" class="form-control"
+                               ng-model="profile.image"/>
+                        <span><i class="fa fa-cloud-upload"></i></br>
+                            ${i18n('profile.image.change')}</br>${i18n('profile.image.acceptfiles')}</span>
+
+                        <h2 class="headline">{{profile.firstname}} {{profile.lastname}}</h2>
+
+                        <p class="description">
+                            {{tagsToList(profile.careerLevel).join(', ')}}
+                        </p>
+                    </div>
+                </div>
                 <div ng-show="showEditModeButtons" class="no-print button-dialog">
                     <button ng-click="save()" id="save-button"
                             class="btn btn-block btn-success">${i18n('buttonDialog.save')}
@@ -347,7 +356,7 @@
                                                id="end-{{$index}}"
                                                ng-model="projectAssociation.end"
 
-                                               ng-change="change('form-group-projectAssociation-end-' + $index)"/>
+                                               ng-change="change('form-group-projectAssocation-end-' + $index)"/>
                                     </div>
                                 </div>
                                 <div class="form-group"
@@ -370,15 +379,69 @@
                                         </tags-input>
                                     </div>
                                 </div>
-								<div class="form-group"
+                                <div class="form-group"
+                                     id="form-group-projectAssociation-positions-{{$index}}">
+                                    <label for="devEnvironments" class="control-label col-md-4">${i18n('profile.projects.positions')}</label>
+
+                                    <div class="col-md-8">
+                                        <tags-input type="text"
+                                                    name="projectAssociations-positions-{{$index}}"
+                                                    id="projectAssociations-positions-{{$index}}"
+                                                    placeholder="${i18n('form.addTag')}"
+                                                    class="ng-tags-custom"
+                                                    ng-model="projectAssociation.positions"
+
+                                                    on-tag-added="change('form-group-projectAssociation-positions-'+$index)"
+                                                    on-tag-removed="change('form-group-projectAssociation-positions-'+$index)">
+                                            <auto-complete
+                                                    source="getTags('positions')|filter:$query"
+                                                    ></auto-complete>
+                                        </tags-input>
+                                    </div>
+                                </div>
+                                <div class="form-group"
+                                     id="form-group-projectAssociation-technologies-{{$index}}">
+                                    <label for="devEnvironments" class="control-label col-md-4">${i18n('profile.projects.technologies')}</label>
+
+                                    <div class="col-md-8">
+                                        <tags-input type="text"
+                                                    name="projectAssociations-technologies-{{$index}}"
+                                                    id="projectAssociations-technologies-{{$index}}"
+                                                    placeholder="${i18n('form.addTag')}"
+                                                    class="ng-tags-custom"
+                                                    ng-model="projectAssociation.technologies"
+
+                                                    on-tag-added="change('form-group-projectAssociation-technologies-'+$index)"
+                                                    on-tag-removed="change('form-group-projectAssociation-technologies-'+$index)">
+                                            <auto-complete
+                                                    source="getTags('technologies')|filter:$query"
+                                                    ></auto-complete>
+                                        </tags-input>
+                                    </div>
+                                </div>
+                                <div class="form-group"
+                                     id="form-group-projectAssociation-tasks-{{$index}}">
+                                    <label for="devEnvironments" class="control-label col-md-4">${i18n('profile.projects.tasks')}</label>
+
+                                    <div class="col-md-8">
+                                        <input type="text"
+                                               name="projectAssociations-tasks-{{$index}}"
+                                               id="projectAssociations-tasks-{{$index}}"
+                                               class="form-control"
+                                               ng-model="projectAssociation.tasks"
+                                               ng-change="change('form-group-projectAssociation-tasks-'+$index)"
+                                                >
+                                    </div>
+                                </div>
+                                <div class="form-group"
                                      id="form-group-projectAssociation-delete-button-{{$index}}">
                                     <div class="col-md-4 pull-right">
-                                    	<button ng-click="deleteProjectAssociation($index)"
-                                    			id="delete-project-association-button-{{$index}}"
+                                        <button ng-click="deleteProjectAssociation($index)"
+                                                id="delete-project-association-button-{{$index}}"
                                                 class="btn btn-block btn-danger">
                                             ${i18n('profile.button.delete')}
-                    					</button>
-                    				</div>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -386,5 +449,5 @@
                 </div>
             </div>
         </div>
-	</div>
+    </div>
 </section>

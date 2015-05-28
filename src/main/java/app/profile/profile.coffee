@@ -56,8 +56,17 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     workingProfile.qualifications = profile.qualifications.map toList
     workingProfile.summary = profile.summary
     workingProfile.image = profile.image
-    workingProfile.projectAssociations = profile.projectAssociations
-
+    workingProfile.projectAssociations = _.map profile.projectAssociations, (project) ->
+      workingProject = {}
+      workingProject.id = project.id
+      workingProject.project = project.project
+      workingProject.end = project.end if project.end?
+      workingProject.start = project.start if project.end?
+      workingProject.locations = project.locations.map toList
+      workingProject.positions = project.positions.map toList
+      workingProject.technologies = project.technologies.map toList
+      return workingProject
+    console.log(workingProfile)
     Restangular.one('profile', profile.id).customPUT(workingProfile);
 
   $scope.save = ->

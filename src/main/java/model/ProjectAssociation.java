@@ -26,7 +26,7 @@ public class ProjectAssociation extends BaseModel {
   @Tag
   private List<String> locations;
   @Tag
-  private List<String> position;
+  private List<String> positions;
   private String tasks;
   @Tag
   private List<String> technologies;
@@ -71,12 +71,12 @@ public class ProjectAssociation extends BaseModel {
     this.locations = locations;
   }
 
-  public List<String> getPosition() {
-    return position;
+  public List<String> getPositions() {
+    return positions;
   }
 
-  public void setPosition(List<String> position) {
-    this.position = position;
+  public void setPositions(List<String> positions) {
+    this.positions = positions;
   }
 
   public String getTasks() {
