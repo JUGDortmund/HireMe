@@ -1,10 +1,11 @@
 <section id="projectlist-page-section" class="content module projectlist-page">
-	 <div class="alert alert-danger alert-dismissible" role="alert" ng-show="error">
+	 <div class="alert alert-danger alert-dismissible" role="alert" ng-show="errorp">
                     <strong>${i18n('message.error.header')}</strong>
-                   <div ng-repeat="profile in profiles">
-                  <a ng-href="/profile/{{profile.id}}"><span>test</span></a></div>
+                    ${i18n('message.error.reference')}
+                   <div ng-repeat="profile in profiles">  
+                  <a ng-href="/profile/{{profile.id}}"><span>{{profile.firstname}} {{profile.lastname}}</span></a></div>
                 </div>
-                 <div class="alert alert-danger alert-dismissible" role="alert" ng-show="errorprofile">
+                 <div class="alert alert-danger alert-dismissible" role="alert" ng-show="error">
                     <strong>${i18n('message.error.header')}</strong>
                     ${i18n('message.error.content')}
                 </div>
@@ -16,7 +17,7 @@
 		<button class="btn bg-blue" ng-click="add()" id="add-project" type="button">
 								<i class="glyphicon glyphicon-plus"></i>
 		</button>
-		<h3 class="box-title">${i18n("projectview.title")}</h3>
+		<h3 class="box-title">${i18n("projectview.title")}</h3>(<span id="filter-count">{{filteredProjects.length}}</span> / <span id="project-count">{{projects.length}}</span>)
 			<div class="box-tools">
 				<div class="input-group">
 					<input class="form-control input-sm pull-right" type="text" placeholder=${i18n("sidebar.search.placeholder")} style="width: 150px;" name="table_search" ng-model="search">
@@ -38,12 +39,12 @@
 						<th>${i18n("project.summary")}</th>
 						<th>${i18n("project.button.edit")}/${i18n("project.button.delete")}</th>
 					</tr>
-					<tr ng-repeat="project in (filteredProjects = (projects | filter:search))">			
+					<tr class="project" ng-repeat="project in (filteredProjects = (projects | filter:search))">			
 					 		<td>{{project.title}} </td>
 					 		<td>{{project.start | date : 'dd.MM.yyyy'}}</td>
 					 		<td>{{project.end | date : 'dd.MM.yyyy'}} </td>
 					 		<td>{{project.summary}}</td>
-					 		<td><a ng-href="/project/{{project.id}}"><button class="fa fa-edit" type="button"> </button></a><button class="fa fa-times" type="button" ng-click="remove(project.id)"></button>
+					 		<td><a ng-href="/project/{{project.id}}"><button id={{$index}} class="fa fa-edit" type="button"> </button></a><button id={{$index}}  class="fa fa-times" type="button" ng-click="remove(project.id)"></button>
 					 		</td>
 						</tr>
 				</tbody>

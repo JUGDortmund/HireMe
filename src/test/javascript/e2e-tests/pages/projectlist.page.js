@@ -39,6 +39,23 @@ ProjectlistPage.prototype = Object.create({}, {
       });
     }
   },
+  projectCount: {
+	    get: function () {
+	      return element(by.id('project-count')).getText().then(function (text) {
+	        return parseInt(text);
+	      });
+	    }
+	  }, 
+  filteredProjectCount: {
+	    get: function () {
+	      return element.all(by.className('project')).count();
+	    }
+	  },
+  removeProject: {
+		 get: function () {
+		    return element.all(by.className('fa fa-times')).last();
+		    }
+		  },
   searchProject: {
     value: function (searchKeyword) {
       this.searchInputField.clear();
