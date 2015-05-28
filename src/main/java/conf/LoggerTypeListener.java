@@ -4,7 +4,7 @@ import com.google.inject.TypeLiteral;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
 
 import java.util.Arrays;
 
