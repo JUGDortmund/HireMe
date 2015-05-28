@@ -5,13 +5,13 @@
     <artifactId>hireme</artifactId>
     <packaging>war</packaging>
     <groupId>de.maredit</groupId>
-    <version>0.3.0</version>
+    <version>0.4.0-SNAPSHOT</version>
     <scm>
         <connection>scm:git:ssh://git@stash.maredit.net:7999/com/hireme.git</connection>
         <developerConnection>scm:git:ssh://git@stash.maredit.net:7999/com/hireme.git
         </developerConnection>
         <url>http://stash.maredit.net/projects/COM/repos/hireme/browse</url>
-        <tag>TaR-0.3.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <properties>
