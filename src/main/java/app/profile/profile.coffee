@@ -101,12 +101,15 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   $scope.addProjectAssociation = ->
     if !$scope.profile.projectAssociations? then $scope.profile.projectAssociations = []
     $scope.profile.projectAssociations.push({});
+    $scope.change()
+    return
 
   $scope.deleteProjectAssociation = (index) ->
     $scope.profile.projectAssociations.splice(index, 1);
-    $scope.change();
+    $scope.change()
+    return
 
-    $scope.$watch 'files', ->
+  $scope.$watch 'files', ->
     $scope.upload $scope.files
     return
 
@@ -139,5 +142,3 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
         $scope.files = []
         showMessage('uploaderror', true)
     return
-  	
-  	

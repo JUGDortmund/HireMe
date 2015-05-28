@@ -171,7 +171,6 @@ describe('profile page', function () {
   }); 
   it('should successfully upload a profile picture and set it after save', function () {
     var oldThumbnailPath = profilePage.thumbnailPath;
-
     profilePage.uploadImage(getFileName());
     profilePage.save();
     expect(profilePage.thumbnailPath).not.toBe(oldThumbnailPath);

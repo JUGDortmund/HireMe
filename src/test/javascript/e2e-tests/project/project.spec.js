@@ -3,7 +3,7 @@
 var SearchPage = require('../pages/projectlist.page.js');
 var ProfilePage = require('../pages/project.page');
 
-describe('profile page', function () {
+xdescribe('profile page', function () {
 	
 	  var searchPage;
 	  var profilePage;

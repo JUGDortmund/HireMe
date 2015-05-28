@@ -281,11 +281,12 @@
 
                 <div class="box box-purple">
                     <div class="box-header">
-                        <h3 class="box-title">${i18n('project.section')}</h3>
+                        <h3 class="box-title">${i18n('profile.projects.section')}</h3>
                         <a class="btn btn-default pull-right"
                            id="add-project-association"
                            ng-click="addProjectAssociation()"><span
-                                class="glyphicon glyphicon-plus"></span> Einsatz hinzufügen</a>
+                                class="glyphicon glyphicon-plus"></span>
+                            ${i18n('profile.projects.addProject')}</a>
                     </div>
                     <div class="box-body form-horizontal">
 
@@ -296,7 +297,7 @@
                             <div class="box-body form-horizontal">
                                 <div class="form-group"
                                      id="form-group-projectAssociation-project-{{$index}}">
-                                    <label for="project-{{$index}}" class="control-label col-md-4">${i18n('project.subsection')}</label>
+                                    <label for="project-{{$index}}" class="control-label col-md-4">${i18n('profile.project.project')}</label>
 
                                     <div class="col-md-8">
                                         <select class="form-control"
@@ -308,7 +309,7 @@
                                         </select>
 
                                         <div ng-hide="projects && projects.length > 0">
-                                            Keine Project vorhanden
+                                            ${i18n('profile.projects.noProjects')}
                                         </div>
                                     </div>
                                 </div>
@@ -374,7 +375,8 @@
                                     <div class="col-md-4 pull-right">
                                     	<button ng-click="deleteProjectAssociation($index)"
                                     			id="delete-project-association-button-{{$index}}"
-                            					class="btn btn-block btn-danger">${i18n('project.button.delete')}
+                                                class="btn btn-block btn-danger">
+                                            ${i18n('profile.button.delete')}
                     					</button>
                     				</div>
                                 </div>
