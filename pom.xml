@@ -428,7 +428,7 @@
                             <goal>copy</goal>
                         </goals>
                         <configuration>
-                            <sourceFile>src/confs/application.${env.name}.conf</sourceFile>
+                            <sourceFile>src/env/${env.name}/conf/application.conf</sourceFile>
                             <destinationFile>target/classes/conf/application.conf</destinationFile>
                         </configuration>
                     </execution>
@@ -439,13 +439,64 @@
                             <goal>copy</goal>
                         </goals>
                         <configuration>
-                            <sourceFile>src/confs/logback.${env.name}.xml
-                            </sourceFile>
+                            <sourceFile>src/env/${env.name}/logback.xml</sourceFile>
                             <destinationFile>target/classes/logback.xml</destinationFile>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
+            <!-- Plugin for building environment specific deployment artifacts -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<classifier>dev</classifier>
+					<webappDirectory>${project.build.directory}/${project.build.finalName}-dev</webappDirectory>
+					<webResources>
+						<resource>
+							<directory>src/env/dev</directory>
+							<targetPath>WEB-INF/classes</targetPath>
+						</resource>
+					</webResources>
+				</configuration>
+				<executions>
+					<execution>
+						<id>package-build</id>
+						<phase>package</phase>
+						<configuration>
+							<classifier>build</classifier>
+							<webappDirectory>${project.build.directory}/${project.build.finalName}-build</webappDirectory>
+							<webResources>
+								<resource>
+									<directory>src/env/build</directory>
+									<targetPath>WEB-INF/classes</targetPath>
+								</resource>
+							</webResources>
+						</configuration>
+						<goals>
+							<goal>war</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>package-prod</id>
+						<phase>package</phase>
+						<configuration>
+							<classifier>prod</classifier>
+							<webappDirectory>${project.build.directory}/${project.build.finalName}-prod</webappDirectory>
+							<webResources>
+								<resource>
+									<directory>src/env/prod</directory>
+									<targetPath>WEB-INF/classes</targetPath>
+								</resource>
+							</webResources>
+						</configuration>
+						<goals>
+							<goal>war</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>            
         </plugins>
         <resources>
             <resource>
@@ -660,6 +711,7 @@
             <properties>
                 <build.profile.id>dev</build.profile.id>
                 <env.name>dev</env.name>
+                <skip.create.deploy.artefacts>true</skip.create.deploy.artefacts>
                 <skip.protractor.tests>true</skip.protractor.tests>
                 <skip.integration.tests>true</skip.integration.tests>
                 <skip.unit.tests>false</skip.unit.tests>
