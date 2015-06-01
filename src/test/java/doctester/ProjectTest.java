@@ -19,8 +19,8 @@ public class ProjectTest extends NinjaDocTester {
 
   TypeReference<List<Project>> PROJECT_LIST_TYPE = new TypeReference<List<Project>>() {};
 
-  private static final String PROJECT_BASE_URL = "/api/project";
-  private static final String PROJECT_URL = PROJECT_BASE_URL + "/{id}";
+  private static final String PROJECT_CONTROLLER_BASE_URL = "/api/project";
+  private static final String SINGLE_PROJECT_URL = PROJECT_CONTROLLER_BASE_URL + "/{id}";
 
   @Test
   public void addProjectReturns201() throws Exception {
@@ -114,7 +114,7 @@ public class ProjectTest extends NinjaDocTester {
   @Test
   public void deleteWithoutProjectReturns400() throws Exception {
     Response response =
-        sayAndMakeRequest(Request.DELETE().url(testServerUrl().path(PROJECT_BASE_URL)));
+        sayAndMakeRequest(Request.DELETE().url(testServerUrl().path(PROJECT_CONTROLLER_BASE_URL)));
     assertThat(response.httpStatus).isEqualTo(400);
   }
 
@@ -126,32 +126,32 @@ public class ProjectTest extends NinjaDocTester {
 
   private Response getSingleProject(final String id) {
     return sayAndMakeRequest(Request.GET().url(
-        testServerUrl().path(PROJECT_URL.replace("{id}", id))));
+        testServerUrl().path(SINGLE_PROJECT_URL.replace("{id}", id))));
   }
 
   private Response getAllProjects() {
-    return sayAndMakeRequest(Request.GET().url(testServerUrl().path(PROJECT_BASE_URL)));
+    return sayAndMakeRequest(Request.GET().url(testServerUrl().path(PROJECT_CONTROLLER_BASE_URL)));
   }
 
   private Response addNewProject() {
-    return sayAndMakeRequest(Request.POST().url(testServerUrl().path(PROJECT_BASE_URL)));
+    return sayAndMakeRequest(Request.POST().url(testServerUrl().path(PROJECT_CONTROLLER_BASE_URL)));
   }
 
   private Response saveProject(Project project) {
     if (project == null) {
       return sayAndMakeRequest(Request.PUT()
-          .url(testServerUrl().path(PROJECT_URL.replace("{id}", "null"))).payload(project)
+          .url(testServerUrl().path(SINGLE_PROJECT_URL.replace("{id}", "null"))).payload(project)
           .contentTypeApplicationJson());
     }
     String projectId = project.getId() != null ? project.getId().toString() : "";
     return sayAndMakeRequest(Request.PUT()
-        .url(testServerUrl().path(PROJECT_URL.replace("{id}", projectId))).payload(project)
+        .url(testServerUrl().path(SINGLE_PROJECT_URL.replace("{id}", projectId))).payload(project)
         .contentTypeApplicationJson());
 
   }
 
   private Response removeProject(ObjectId id) {
     return sayAndMakeRequest(Request.DELETE().url(
-        testServerUrl().path(PROJECT_URL.replace("{id}", id.toString()))));
+        testServerUrl().path(SINGLE_PROJECT_URL.replace("{id}", id.toString()))));
   }
 }
