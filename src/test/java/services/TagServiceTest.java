@@ -1,24 +1,26 @@
 package services;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
+import conf.Module;
+import dtos.TagList;
+
 import org.bson.types.ObjectId;
 import org.junit.Before;
 import org.junit.Test;
 
+import util.TestModule;
+
 import java.util.List;
 
-import conf.Module;
-import dtos.TagList;
 import model.Profile;
 import model.events.EntityChangedEvent;
 import model.events.EntityRemovedEvent;
-import util.TestModule;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Lukas Eichler
@@ -40,7 +42,7 @@ public class TagServiceTest {
 
   @Test(expected = NullPointerException.class)
   public void addNullThrowsException() throws Exception {
-    service.remove(null);
+    service.add(null);
   }
 
   @Test
