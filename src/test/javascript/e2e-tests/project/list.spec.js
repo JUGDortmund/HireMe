@@ -29,20 +29,14 @@ describe('projectList page', function () {
     expect(projectListPage.filteredProjectCount).toBe(projectCount);
   });
 
-  it('should search for \"blub\" if search page was called with request parameter \"/search?q=blub\"', function () {
-    browser.get('/search?q=blub');
-    expect(projectListPage.searchInputField.getAttribute('value')).toBe('blub');
-  });
-
-  it('should remove a project', function () {
+  it('should remove a project if \"project remove button\" is pressed', function () {
     var projectCount = projectListPage.projectCount;
     projectListPage.removeLastProject();
     expect(projectListPage.projectCount).toBeLessThan(projectCount);
   });
 
-  it('should not remove a referenced project', function () {
-
-    var projectCount = projectListPage.projectCount;
+  it('should not remove a referenced project if \"project remove button\" is pressed', function () {
+    var oldProjectCount = projectListPage.projectCount;
     var searchPage = new SearchPage();
     searchPage.addProfile();
     searchPage.openLastProfile();
@@ -52,10 +46,10 @@ describe('projectList page', function () {
     profilePage.save();
     projectListPage = new ProjectListPage();
     projectListPage.removeLastProject();
-    expect(projectListPage.projectCount).toBe(projectCount);
+    expect(projectListPage.projectCount).toBe(oldProjectCount);
   });
 
-  it('should add a new project', function () {
+  it('should add a new project if \"add project button\" is pressed', function () {
     var projectCount = projectListPage.projectCount;
     projectListPage.addProject();
     expect(projectListPage.projectCount).toBeGreaterThan(projectCount);
