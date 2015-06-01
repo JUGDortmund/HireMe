@@ -20,7 +20,7 @@
         <button class="btn bg-blue" ng-click="add()" id="add-project" type="button">
             <i class="glyphicon glyphicon-plus"></i>
         </button>
-        <h3 class="box-title">${i18n("project.list.title")}</h3>(<span id="filter-count">{{filteredProjects.length}}</span>
+        <h3 class="box-title">${i18n("project.list.title")}</h3> (<span id="filter-count">{{filteredProjects.length}}</span>
         / <span id="project-count">{{projects.length}}</span>)
         <div class="box-tools">
             <div class="input-group">
@@ -44,7 +44,7 @@
                 <th>${i18n("project.start")}</th>
                 <th>${i18n("project.end")}</th>
                 <th>${i18n("project.summary")}</th>
-                <th>${i18n("project.list.button.edit")}/${i18n("project.list.button.delete")}</th>
+                <th>${i18n("project.list.editProject")}/${i18n("project.list.deleteProject")}</th>
             </tr>
             <tr class="project"
                 ng-repeat="project in (filteredProjects = (projects | filter:search))">
