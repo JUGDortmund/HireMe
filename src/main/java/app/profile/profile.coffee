@@ -65,6 +65,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
       workingProject.locations = project.locations.map toList
       workingProject.positions = project.positions.map toList
       workingProject.technologies = project.technologies.map toList
+      workingProject.tasks = project.tasks if project.tasks?
       return workingProject
     Restangular.one('profile', profile.id).customPUT(workingProfile);
 
