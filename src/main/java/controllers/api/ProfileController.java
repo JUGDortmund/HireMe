@@ -6,12 +6,14 @@ import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
+import exception.ElementNotFoundException;
+
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 
-import exception.ElementNotFoundException;
 import model.Profile;
 import model.events.EntityChangedEvent;
+
 import ninja.Result;
 import ninja.Results;
 import ninja.exceptions.BadRequestException;
@@ -64,7 +66,7 @@ public class ProfileController {
     profile.setLastname("Mustermann");
     profile.setCareerLevel(Lists.newArrayList("Manager"));
     datastore.save(profile);
-    return Results.status(201).json().render(profile);
+    return Results.status(Result.SC_201_CREATED).json().render(profile);
   }
 
   @PUT
