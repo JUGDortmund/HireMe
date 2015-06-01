@@ -1,5 +1,7 @@
 package doctester;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 
 import org.bson.types.ObjectId;
@@ -10,15 +12,15 @@ import org.junit.Test;
 import java.util.List;
 
 import model.Project;
-import ninja.NinjaDocTester;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import ninja.NinjaDocTester;
 
 public class ProjectTest extends NinjaDocTester {
 
-  TypeReference<List<Project>> PROJECT_LIST_TYPE = new TypeReference<List<Project>>() {
-  };
+  TypeReference<List<Project>> PROJECT_LIST_TYPE = new TypeReference<List<Project>>() {};
 
+  private static final String PROJECT_CONTROLLER_BASE_URL = "/api/project";
+  private static final String SINGLE_PROJECT_URL = PROJECT_CONTROLLER_BASE_URL + "/{id}";
 
   @Test
   public void addProjectReturns201() throws Exception {
@@ -58,8 +60,8 @@ public class ProjectTest extends NinjaDocTester {
   @Test
   public void getSingleProject() throws Exception {
     Project createdProject = addNewProject().payloadJsonAs(Project.class);
-    Project singleProject = getSingleProject(createdProject.getId()
-                                                 .toString()).payloadJsonAs(Project.class);
+    Project singleProject =
+        getSingleProject(createdProject.getId().toString()).payloadJsonAs(Project.class);
     assertThat(singleProject).isEqualTo(createdProject);
   }
 
@@ -110,9 +112,9 @@ public class ProjectTest extends NinjaDocTester {
   }
 
   @Test
-  public void deleteWithoutReturns400() throws Exception {
-    Response response = sayAndMakeRequest(Request.DELETE()
-                                              .url(testServerUrl().path("/api/project")));
+  public void deleteWithoutProjectReturns400() throws Exception {
+    Response response =
+        sayAndMakeRequest(Request.DELETE().url(testServerUrl().path(PROJECT_CONTROLLER_BASE_URL)));
     assertThat(response.httpStatus).isEqualTo(400);
   }
 
@@ -123,33 +125,33 @@ public class ProjectTest extends NinjaDocTester {
   }
 
   private Response getSingleProject(final String id) {
-    return sayAndMakeRequest(Request.GET().url(testServerUrl().path("/api/project/" + id)));
+    return sayAndMakeRequest(Request.GET().url(
+        testServerUrl().path(SINGLE_PROJECT_URL.replace("{id}", id))));
   }
 
   private Response getAllProjects() {
-    return sayAndMakeRequest(Request.GET().url(testServerUrl().path("/api/project")));
+    return sayAndMakeRequest(Request.GET().url(testServerUrl().path(PROJECT_CONTROLLER_BASE_URL)));
   }
 
   private Response addNewProject() {
-    return sayAndMakeRequest(Request.POST().url(testServerUrl().path("/api/project")));
+    return sayAndMakeRequest(Request.POST().url(testServerUrl().path(PROJECT_CONTROLLER_BASE_URL)));
   }
 
   private Response saveProject(Project project) {
     if (project == null) {
       return sayAndMakeRequest(Request.PUT()
-                                   .url(testServerUrl().path("/api/project/null"))
-                                   .payload(project)
-                                   .contentTypeApplicationJson());
+          .url(testServerUrl().path(SINGLE_PROJECT_URL.replace("{id}", "null"))).payload(project)
+          .contentTypeApplicationJson());
     }
+    String projectId = project.getId() != null ? project.getId().toString() : "";
     return sayAndMakeRequest(Request.PUT()
-                                 .url(testServerUrl().path("/api/project/" + project.getId()))
-                                 .payload(project)
-                                 .contentTypeApplicationJson());
+        .url(testServerUrl().path(SINGLE_PROJECT_URL.replace("{id}", projectId))).payload(project)
+        .contentTypeApplicationJson());
 
   }
 
   private Response removeProject(ObjectId id) {
-    return sayAndMakeRequest(Request.DELETE().url(testServerUrl().path("/api/project/"
-                                                                       + id.toString())));
+    return sayAndMakeRequest(Request.DELETE().url(
+        testServerUrl().path(SINGLE_PROJECT_URL.replace("{id}", id.toString()))));
   }
 }

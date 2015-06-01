@@ -19,28 +19,41 @@ import model.annotations.Tag;
 public class Profile extends BaseModel {
 
   private String firstname;
+
   private String lastname;
+
   @Tag
   private List<String> careerLevel;
+
   @Tag
   private List<String> degrees;
+
   private Date workExperience;
+
   @Tag
   private List<String> languages;
+
   @Tag
   private List<String> industries;
+
   @Tag
   private List<String> platforms;
+
   @Tag
   private List<String> opSystems;
+
   @Tag
   private List<String> progLanguages;
+
   @Tag
   private List<String> webTechnologies;
+
   @Tag
   private List<String> devEnvironments;
+
   @Tag
   private List<String> qualifications;
+
   private String summary;
 
   @Embedded

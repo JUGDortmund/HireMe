@@ -18,10 +18,13 @@ public class Project extends BaseModel {
 
   @Tag
   private List<String> companies;
+
   @Tag
   private List<String> locations;
+
   @Tag
   private List<String> industries;
+
   private String title;
   private String summary;
   private Date start;
