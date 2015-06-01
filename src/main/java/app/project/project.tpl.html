@@ -13,8 +13,10 @@
                 <div class="box border-box">
                     <div class="header-text">
                         <h2 class="headline">{{project.title}}</h2>
+
                         <p class="description" ng-show="project.start && project.end">
-                           ${i18n('date.from.header')} {{project.start}} ${i18n('date.to.header')} {{project.end}}
+                            ${i18n('date.from.header')} {{project.start}} ${i18n('date.to.header')}
+                            {{project.end}}
                         </p>
                     </div>
                 </div>
@@ -37,7 +39,8 @@
                             <div class="col-md-8">
                                 <input type="text" name="title" id="title"
                                        class="form-control"
-                                       ng-model="project.title" ng-click="enableEditMode()"
+                                       ng-model="project.title"
+                                       ng-click="change('form-group-title')"
                                        ng-change="change('form-group-title')"/>
                             </div>
                         </div>
@@ -45,27 +48,27 @@
                             <label for="companies" class="control-label col-md-4">${i18n('project.companies')}</label>
 
                             <div class="col-md-8">
-                                <tags-input type="text" name="companies" id="companies"
-                                       placeholder="${i18n('form.addTag')}"
+                                <tags-input type="text" id="companies"
+                                            placeholder="${i18n('form.addTag')}"
                                             class="ng-tags-custom" ng-model="project.companies"
-                                       on-tag-added="change('form-group-companies')"
+                                            on-tag-added="change('form-group-companies')"
                                             on-tag-removed="change('form-group-companies')">
-                                       
-                                 <auto-complete source="getTags('companies')|filter:$query"
+                                    <auto-complete source="getTags('companies')|filter:$query"
                                             ></auto-complete>
-                                </tags-input>      
-
+                                </tags-input>
                             </div>
                         </div>
                         <div class="form-group" id="form-group-locations">
                             <label for="locations" class="control-label col-md-4">${i18n('project.locations')}</label>
 
                             <div class="col-md-8">
-                                <tags-input type="text" name="locations" id="locations" placeholder="${i18n('form.addTag')}"
+                                <tags-input type="text" id="locations"
+                                            placeholder="${i18n('form.addTag')}"
                                             class="ng-tags-custom"
-                                       ng-model="project.locations" on-tag-added="change('form-group-locations')"
+                                            ng-model="project.locations"
+                                            on-tag-added="change('form-group-locations')"
                                             on-tag-removed="change('form-group-locations')">
-                                       <auto-complete source="getTags('locations')|filter:$query"
+                                    <auto-complete source="getTags('locations')|filter:$query"
                                             ></auto-complete>
                                 </tags-input>
                             </div>
@@ -74,25 +77,24 @@
                             <label for="industries" class="control-label col-md-4">${i18n('project.industries')}</label>
 
                             <div class="col-md-8">
-                                <tags-input type="text" name="industries" id="industries"
-                                       placeholder="${i18n('form.addTag')}"
+                                <tags-input type="text" id="industries"
+                                            placeholder="${i18n('form.addTag')}"
                                             class="ng-tags-custom" ng-model="project.industries"
-                                       on-tag-added="change('form-group-industries')"
+                                            on-tag-added="change('form-group-industries')"
                                             on-tag-removed="change('form-group-industries')">
-                                       <auto-complete source="getTags('industies')|filter:$query"
+                                    <auto-complete source="getTags('industries')|filter:$query"
                                             ></auto-complete>
                                 </tags-input>
                             </div>
                         </div>
-                        
                         <div class="form-group" id="form-group-start">
                             <label for="start" class="control-label col-md-4">${i18n('project.start')}</label>
 
                             <div class="col-md-8">
                                 <input type="text"
-                                       class="form-control datepicker"
-                                       data-provide="datepicker"
-                                       data-date-format=${dateformat}
+                                       class="form-control datePicker"
+                                       data-provide="datePicker"
+                                       data-date-format=${dateFormat}
                                        data-date-autoclose="true"
                                        data-date-language=${language}
                                        name="start"
@@ -100,15 +102,16 @@
                                        ng-model="project.start"
                                        ng-change="change('form-group-start')"/>
                             </div>
-                          </div>
-						 <div class="form-group" id="form-group-end">
-                            <label for="end" class="control-label col-md-4">${i18n('project.end')}</label>
+                        </div>
+                        <div class="form-group" id="form-group-end">
+                            <label for="end"
+                                   class="control-label col-md-4">${i18n('project.end')}</label>
 
                             <div class="col-md-8">
                                 <input type="text"
-                                       class="form-control datepicker"
-                                       data-provide="datepicker"
-                                       data-date-format=${dateformat}
+                                       class="form-control datePicker"
+                                       data-provide="datePicker"
+                                       data-date-format=${dateFormat}
                                        data-date-autoclose="true"
                                        data-date-language=${language}
                                        name="end"
@@ -116,8 +119,6 @@
                                        ng-model="project.end"
                                        ng-change="change('form-group-end')"/>
                             </div>
-
-
                         </div>
                         <div class="form-group" id="form-group-summary">
                             <label for="summary" class="control-label col-md-4">${i18n('project.summary')}</label>
@@ -130,7 +131,7 @@
                         </div>
                     </div>
                 </div>
-                </div>
             </div>
         </div>
+    </div>
 </section>

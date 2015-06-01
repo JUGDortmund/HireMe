@@ -71,7 +71,6 @@
                                        ng-change="change('form-group-lastName')"/>
                             </div>
                         </div>
-
                         <div class="form-group" id="form-group-firstname">
                             <label for="firstName" class="control-label col-md-4">${i18n('profile.personal.firstName')}</label>
 
@@ -79,7 +78,6 @@
                                 <input type="text" name="firstName" id="firstName"
                                        class="form-control" ng-model="profile.firstname"
                                        ng-change="change('form-group-firstname')"/>
-
                             </div>
                         </div>
                         <div class="form-group" id="form-group-degree">
@@ -89,7 +87,6 @@
                                 <tags-input type="text" name="degrees" id="degrees"
                                             placeholder="${i18n('form.addTag')}"
                                             class="ng-tags-custom" ng-model="profile.degrees"
-
                                             on-tag-added="change('form-group-degree')"
                                             on-tag-removed="change('form-group-degree')">
                                     <auto-complete source="getTags('degrees')|filter:$query"
@@ -104,7 +101,6 @@
                                 <tags-input type="text" name="careerLevel" id="careerLevel"
                                             placeholder="${i18n('form.addTag')}"
                                             class="ng-tags-custom" ng-model="profile.careerLevel"
-
                                             on-tag-added="change('form-group-careerLevel')"
                                             on-tag-removed="change('form-group-careerLevel')">
                                     <auto-complete source="getTags('careerLevel')|filter:$query"
@@ -125,7 +121,6 @@
                                        name="workExperience"
                                        id="workExperience"
                                        ng-model="profile.workExperience"
-
                                        ng-change="change('form-group-workExperience')"/>
                             </div>
                         </div>
@@ -136,7 +131,6 @@
                                 <tags-input type="text" name="languages" id="languages"
                                             placeholder="${i18n('form.addTag')}"
                                             class="ng-tags-custom" ng-model="profile.languages"
-
                                             on-tag-added="change('form-group-languages')"
                                             on-tag-removed="change('form-group-languages')">
                                     <auto-complete source="getTags('languages')|filter:$query"
@@ -146,7 +140,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="box box-green">
                     <div class="box-header">
                         <h3 class="box-title">${i18n('profile.experience.section')}</h3>
@@ -159,7 +152,6 @@
                                 <tags-input type="text" name="industries" id="industries"
                                             placeholder="${i18n('form.addTag')}"
                                             class="ng-tags-custom" ng-model="profile.industries"
-
                                             on-tag-added="change('form-group-industries')"
                                             on-tag-removed="change('form-group-industries')">
                                     <auto-complete source="getTags('industries')|filter:$query"
@@ -169,13 +161,11 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="box box-orange">
                     <div class="box-header">
                         <h3 class="box-title">${i18n('profile.skills.section')}</h3>
                     </div>
                     <div class="box-body form-horizontal">
-
                         <div class="form-group" id="form-group-platforms">
                             <label for="platforms" class="control-label col-md-4">${i18n('profile.skills.platforms')}</label>
 
@@ -183,7 +173,6 @@
                                 <tags-input type="text" name="platforms" id="platforms"
                                             placeholder="${i18n('form.addTag')}"
                                             class="ng-tags-custom" ng-model="profile.platforms"
-
                                             on-tag-added="change('form-group-platforms')"
                                             on-tag-removed="change('form-group-platforms')">
                                     <auto-complete source="getTags('platforms')|filter:$query"
@@ -198,7 +187,6 @@
                                 <tags-input type="text" name="opSystems" id="opSystems"
                                             placeholder="${i18n('form.addTag')}"
                                             class="ng-tags-custom" ng-model="profile.opSystems"
-
                                             on-tag-added="change('form-group-opSystems')"
                                             on-tag-removed="change('form-group-opSystems')">
                                     <auto-complete source="getTags('opSystems')|filter:$query"
@@ -213,7 +201,6 @@
                                 <tags-input type="text" name="progLanguages" id="progLanguages"
                                             placeholder="${i18n('form.addTag')}"
                                             class="ng-tags-custom" ng-model="profile.progLanguages"
-
                                             on-tag-added="change('form-group-progLanguages')"
                                             on-tag-removed="change('form-group-progLanguages')">
                                     <auto-complete
@@ -230,7 +217,6 @@
                                             placeholder="${i18n('form.addTag')}"
                                             class="ng-tags-custom"
                                             ng-model="profile.webTechnologies"
-
                                             on-tag-added="change('form-group-webTechnologies')"
                                             on-tag-removed="change('form-group-webTechnologies')">
                                     <auto-complete
@@ -239,7 +225,6 @@
                                 </tags-input>
                             </div>
                         </div>
-
                         <div class="form-group" id="form-group-devEnvironments">
                             <label for="devEnvironments" class="control-label col-md-4">${i18n('profile.skills.devEnvironments')}</label>
 
@@ -248,7 +233,6 @@
                                             placeholder="${i18n('form.addTag')}"
                                             class="ng-tags-custom"
                                             ng-model="profile.devEnvironments"
-
                                             on-tag-added="change('form-group-devEnvironments')"
                                             on-tag-removed="change('form-group-devEnvironments')">
                                     <auto-complete
@@ -257,7 +241,6 @@
                                 </tags-input>
                             </div>
                         </div>
-
                         <div class="form-group" id="form-group-qualifications">
                             <label for="qualifications" class="control-label col-md-4">${i18n('profile.skills.qualifications')}</label>
 
@@ -265,7 +248,6 @@
                                 <tags-input type="text" name="qualifications" id="qualifications"
                                             placeholder="${i18n('form.addTag')}"
                                             class="ng-tags-custom" ng-model="profile.qualifications"
-
                                             on-tag-added="change('form-group-qualifications')"
                                             on-tag-removed="change('form-group-qualifications')">
                                     <auto-complete source="getTags('qualifications')|filter:$query"
@@ -273,7 +255,6 @@
                                 </tags-input>
                             </div>
                         </div>
-
                         <div class="form-group" id="form-group-summary">
                             <label for="summary" class="control-label col-md-4">${i18n('profile.skills.summary')}</label>
 
@@ -283,11 +264,8 @@
                                        ng-change="change('form-group-summary')"/>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
-
                 <div class="box box-purple">
                     <div class="box-header">
                         <h3 class="box-title">${i18n('profile.projects.section')}</h3>
@@ -298,15 +276,14 @@
                             ${i18n('profile.projects.addProject')}</a>
                     </div>
                     <div class="box-body form-horizontal">
-
                         <div class="box box-purple project-association"
                              ng-repeat="projectAssociation in profile.projectAssociations">
                             <div class="box-header">
                             </div>
                             <div class="box-body form-horizontal">
                                 <div class="form-group"
-                                     id="form-group-projectAssociation-project-{{$index}}">
-                                    <label for="project-{{$index}}" class="control-label col-md-4">${i18n('profile.project.project')}</label>
+                                     id="form-group-projectAssociation-associatedProject-{{$index}}">
+                                    <label for="project-{{$index}}" class="control-label col-md-4">${i18n('profile.projects.associatedProject')}</label>
 
                                     <div class="col-md-8">
                                         <select class="form-control"
@@ -314,7 +291,7 @@
                                                 id="project-{{$index}}"
                                                 ng-options="project.title for project in projects track by project.id"
                                                 ng-show="projects && projects.length > 0"
-                                                ng-change="change('form-group-projectAssociation-project-' + $index)">
+                                                ng-change="change('form-group-projectAssociation-associatedProject-' + $index)">
                                         </select>
 
                                         <div ng-hide="projects && projects.length > 0">
@@ -324,7 +301,7 @@
                                 </div>
                                 <div class="form-group"
                                      id="form-group-projectAssociation-start-{{$index}}">
-                                    <label for="start-{{$index}}" class="control-label col-md-4">${i18n('project.start')}</label>
+                                    <label for="start-{{$index}}" class="control-label col-md-4">${i18n('profile.projects.start')}</label>
 
                                     <div class="col-md-8">
                                         <input type="text"
@@ -336,14 +313,13 @@
                                                name="start"
                                                id="start-{{$index}}"
                                                ng-model="projectAssociation.start"
-
                                                ng-change="change('form-group-projectAssociation-start-' + $index)"/>
                                     </div>
                                 </div>
                                 <div class="form-group"
                                      id="form-group-projectAssocation-end-{{$index}}">
                                     <label for="end-{{$index}}"
-                                           class="control-label col-md-4">${i18n('project.end')}</label>
+                                           class="control-label col-md-4">${i18n('profile.projects.end')}</label>
 
                                     <div class="col-md-8">
                                         <input type="text"
@@ -355,13 +331,12 @@
                                                name="end"
                                                id="end-{{$index}}"
                                                ng-model="projectAssociation.end"
-
                                                ng-change="change('form-group-projectAssocation-end-' + $index)"/>
                                     </div>
                                 </div>
                                 <div class="form-group"
                                      id="form-group-projectAssociation-locations-{{$index}}">
-                                    <label for="devEnvironments" class="control-label col-md-4">${i18n('project.locations')}</label>
+                                    <label for="devEnvironments" class="control-label col-md-4">${i18n('profile.project.locations')}</label>
 
                                     <div class="col-md-8">
                                         <tags-input type="text"
@@ -370,7 +345,6 @@
                                                     placeholder="${i18n('form.addTag')}"
                                                     class="ng-tags-custom"
                                                     ng-model="projectAssociation.locations"
-
                                                     on-tag-added="change('form-group-projectAssociation-locations-'+$index)"
                                                     on-tag-removed="change('form-group-projectAssociation-locations-'+$index)">
                                             <auto-complete
@@ -390,7 +364,6 @@
                                                     placeholder="${i18n('form.addTag')}"
                                                     class="ng-tags-custom"
                                                     ng-model="projectAssociation.positions"
-
                                                     on-tag-added="change('form-group-projectAssociation-positions-'+$index)"
                                                     on-tag-removed="change('form-group-projectAssociation-positions-'+$index)">
                                             <auto-complete
@@ -410,7 +383,6 @@
                                                     placeholder="${i18n('form.addTag')}"
                                                     class="ng-tags-custom"
                                                     ng-model="projectAssociation.technologies"
-
                                                     on-tag-added="change('form-group-projectAssociation-technologies-'+$index)"
                                                     on-tag-removed="change('form-group-projectAssociation-technologies-'+$index)">
                                             <auto-complete
@@ -424,13 +396,13 @@
                                     <label for="devEnvironments" class="control-label col-md-4">${i18n('profile.projects.tasks')}</label>
 
                                     <div class="col-md-8">
-                                        <input type="text"
+                                        <textarea
                                                name="projectAssociations-tasks-{{$index}}"
                                                id="projectAssociations-tasks-{{$index}}"
                                                class="form-control"
                                                ng-model="projectAssociation.tasks"
                                                ng-change="change('form-group-projectAssociation-tasks-'+$index)"
-                                                >
+                                                />
                                     </div>
                                 </div>
                                 <div class="form-group"

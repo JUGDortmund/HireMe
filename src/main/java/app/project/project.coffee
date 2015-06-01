@@ -10,7 +10,7 @@ angular.module( 'project', ['duScroll'])
       project: (Restangular, $route) ->
         Restangular.one('project', $route.current.params.projectId).get()
 .controller 'ProjectCtrl', ($scope, $timeout, Restangular, project, $document, $parse, tagService) ->
-  dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
+  dateFormat = $('.datePicker').attr("data-date-format").toUpperCase()
   $scope.project = project 
   if moment(project.start).isValid()
     $scope.project.start = moment(project.start).format(dateFormat)
@@ -52,7 +52,7 @@ angular.module( 'project', ['duScroll'])
     Restangular.one('project', project.id).customPUT(workingProject);
 
   $scope.save = ->
-    dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
+    dateFormat = $('.datePicker').attr("data-date-format").toUpperCase()
     dateString = moment($scope.project.start, dateFormat).toDate();
     $scope.project.start = dateString
     dateString = moment($scope.project.end, dateFormat).toDate();
@@ -82,9 +82,6 @@ angular.module( 'project', ['duScroll'])
     $('#' + id).addClass('has-warning')
     $scope.showEditModeButtons = true
     return
-
-  $scope.tagsToList = (tags) ->
-    if tags? then tags.map toList else []
 
   $scope.getTags = (name) ->
     tagService.getTag(name)

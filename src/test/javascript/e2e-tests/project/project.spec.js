@@ -2,6 +2,7 @@
 
 var ProjectListPage = require('../pages/projectlist.page.js');
 var ProjectPage = require('../pages/project.page.js');
+var SearchPage = require('../pages/search.page.js');
 
 describe('project page', function () {
 	
@@ -10,7 +11,7 @@ describe('project page', function () {
 	  
 	  
 	  beforeEach(function () {
-	    projectListPage = new ProjectlistPage();
+			projectListPage = new ProjectListPage();
 	    projectListPage.addProject();
 	    projectListPage.openLastProject();
 	    projectPage = new ProjectPage();
@@ -106,9 +107,9 @@ describe('project page', function () {
 
 		    projectPage.save();
 
-		    searchPage = new SearchPage();
-		    searchPage.addProject();
-		    searchPage.openLastProject();
+			var newProjectListPage = new ProjectListPage();
+			newProjectListPage.addProject();
+			newProjectListPage.openLastProject();
 
 		    locations = projectPage.locations;
 		    locations.click();

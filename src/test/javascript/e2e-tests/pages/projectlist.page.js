@@ -7,7 +7,7 @@ var ProjectListPage = function () {
 ProjectListPage.prototype = Object.create({}, {
   searchInputField: {
     get: function () {
-      return element(by.model('projectList'));
+      return element(by.model('search'));
     }
   },
   addProjectButton: {
@@ -22,7 +22,7 @@ ProjectListPage.prototype = Object.create({}, {
   },
   openLastProject: {
     value: function () {
-      this.lastProject.element(by.css('fa fa-edit')).click();
+      this.lastProject.element(by.css('.fa.fa-edit')).click();
       browser.wait(function () {
         return browser.getCurrentUrl().then(function (url) {
           return url.indexOf('/project/') > -1;
@@ -31,34 +31,34 @@ ProjectListPage.prototype = Object.create({}, {
     }
   },
   addProject: {
-	value: function () {
-		var page = this;
-		  page.addProjectButton.click().then(function () {
-		     browser.wait(function () {
-		       return page.projectCount.then(function (count) {
-		        return count > 0;
-		     });
-		 }, 500);
+    value: function () {
+      var page = this;
+      page.addProjectButton.click().then(function () {
+        browser.wait(function () {
+          return page.projectCount.then(function (count) {
+            return count > 0;
+          });
+        }, 500);
       });
     }
   },
   projectCount: {
-	    get: function () {
-	      return element(by.id('project-count')).getText().then(function (text) {
-	        return parseInt(text);
-	      });
-	    }
-	  }, 
+    get: function () {
+      return element(by.id('project-count')).getText().then(function (text) {
+        return parseInt(text);
+      });
+    }
+  },
   filteredProjectCount: {
-	    get: function () {
-	      return element.all(by.className('project')).count();
-	    }
-	  },
-  removeProject: {
-		 get: function () {
-		    return element.all(by.className('fa fa-times')).last();
-		    }
-		  },
+    get: function () {
+      return element.all(by.className('project')).count();
+    }
+  },
+  removeLastProject: {
+    value: function () {
+      return element.all(by.css('.fa.fa-times')).last().click();
+    }
+  },
   searchProject: {
     value: function (searchKeyword) {
       this.searchInputField.clear();
