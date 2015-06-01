@@ -24,6 +24,11 @@ ProjectPage.prototype = Object.create({}, {
       return element.all(by.css('#locations ti-tag-item')).count();
     }
   },
+  locations: {
+    get: function () {
+      return element(by.css('#locations input[type="text"]'));
+    }
+  },
   save: {
     value: function () {
       element(by.id('save-button')).click();

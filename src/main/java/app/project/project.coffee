@@ -8,10 +8,9 @@ angular.module( 'project', ['duScroll'])
     controller: 'ProjectCtrl',
     resolve:
       project: (Restangular, $route) ->
-#noinspection JSUnresolvedVariable
         Restangular.one('project', $route.current.params.projectId).get()
 .controller 'ProjectCtrl', ($scope, $timeout, Restangular, project, $document, $parse, tagService) ->
-  dateFormat = $('.datePicker').attr("data-date-format").toUpperCase()
+  dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
   $scope.project = project 
   if moment(project.start).isValid()
     $scope.project.start = moment(project.start).format(dateFormat)
@@ -53,7 +52,7 @@ angular.module( 'project', ['duScroll'])
     Restangular.one('project', project.id).customPUT(workingProject);
 
   $scope.save = ->
-    dateFormat = $('.datePicker').attr("data-date-format").toUpperCase()
+    dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
     dateString = moment($scope.project.start, dateFormat).toDate();
     $scope.project.start = dateString
     dateString = moment($scope.project.end, dateFormat).toDate();

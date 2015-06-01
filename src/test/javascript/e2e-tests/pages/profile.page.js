@@ -56,10 +56,17 @@ ProfilePage.prototype = Object.create({}, {
       element(by.id('add-project-association')).click();
     }
   },
+  selectLastProjectInLastProjectAssociation: {
+    value: function () {
+      var projectAssociation = element.all(by.css('.project-association')).last();
+      var project = projectAssociation.element(by.model('projectAssociation.project'));
+      project.element(by.css('select option:last-child')).click();
+    }
+  },
   deleteProjectAssociation: {
-	  value: function () {
-		  element(by.id('delete-project-association-button-0')).click();
-	  }
+    value: function () {
+      element(by.id('delete-project-association-button-0')).click();
+    }
   }
 
 });

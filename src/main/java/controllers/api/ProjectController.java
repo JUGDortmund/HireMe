@@ -5,16 +5,18 @@ import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
-import exception.ElementNotFoundException;
-
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.validation.constraints.NotNull;
 
+import exception.ElementNotFoundException;
+import model.Profile;
 import model.Project;
 import model.events.EntityChangedEvent;
-
 import ninja.Result;
 import ninja.Results;
 import ninja.exceptions.BadRequestException;
@@ -88,6 +90,19 @@ public class ProjectController {
     final Project project = datastore.get(Project.class, new ObjectId(id));
     if (project == null) {
       throw new ElementNotFoundException();
+    }
+    List<Profile> referencedProfiles = datastore.find(Profile.class)
+                                           .asList()
+                                           .stream()
+                                           .filter(x -> x.getProjectAssociations() != null
+                                                        && x.getProjectAssociations()
+                                                               .stream()
+                                                               .anyMatch(y -> y.getProject() != null
+                                                                              && y.getProject()
+                                                                                     .equals(project)))
+                                           .collect(Collectors.toList());
+    if (referencedProfiles.size() > 0) {
+      return Results.status(450).json().render(referencedProfiles);
     }
     datastore.delete(project);
     return Results.ok().json();

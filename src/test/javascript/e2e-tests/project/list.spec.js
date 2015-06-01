@@ -10,7 +10,6 @@ describe('projectList page', function () {
   beforeEach(function () {
     projectListPage = new ProjectListPage();
     projectListPage.addProject();
-    projectListPage.addProject();
   });
 
   it('should show all projects if search keyword is empty', function () {
@@ -49,6 +48,7 @@ describe('projectList page', function () {
     searchPage.openLastProfile();
     var profilePage = new ProfilePage;
     profilePage.addProjectAssociation();
+    profilePage.selectLastProjectInLastProjectAssociation();
     profilePage.save();
     projectListPage = new ProjectListPage();
     projectListPage.removeLastProject();
