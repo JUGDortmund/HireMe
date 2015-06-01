@@ -17,13 +17,10 @@
         ${i18n('message.success.content')}
     </div>
     <div class="box-header">
-        <button class="btn bg-blue" ng-click="add()" id="add-project" type="button">
-            <i class="glyphicon glyphicon-plus"></i>
-        </button>
-        <h3 class="box-title">${i18n("project.list.title")}</h3> (<span id="filter-count">{{filteredProjects.length}}</span>
-        / <span id="project-count">{{projects.length}}</span>)
+    	<h3 class="box-title">${i18n("project.list.title")}</h3> (<span id="filter-count">{{filteredProjects.length}}</span>
+        	/ <span id="project-count">{{projects.length}}</span>)
         <div class="box-tools">
-            <div class="input-group">
+            <div class="input-group">            
                 <input class="form-control input-sm pull-right" type="text"
                        placeholder=${i18n("sidebar.search.placeholder")} style="width: 150px;"
                        name="table_search" ng-model="search" autofocus="autofocus">
@@ -32,8 +29,13 @@
                     <button class="btn btn-sm btn-default">
                         <i class="fa fa-search"></i>
                     </button>
+                </div>            
+                <div class="input-group-btn">
+                    <button class="btn btn-sm btn-default bg-blue" ng-click="add()" id="add-project" >
+                        <i class="glyphicon glyphicon-plus"></i>
+                    </button>
                 </div>
-            </div>
+            </div>            
         </div>
     </div>
     <div class="box-body table-responsive no-padding">
