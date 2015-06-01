@@ -1,6 +1,8 @@
 @color-blue: #3c8dbc;
 @color-orange: #ff7701;
 @color-green: #00a65a;
+@color-purple: #8064a2;
+
 .profile-page {
 	.button-dialog {
 		position: fixed;
@@ -58,11 +60,14 @@
 		}
 		
 		&.box-purple {
-			border-top-color: #8064a2;
+			border-top-color: @color-purple;
+			.box-title , label {
+				color: @color-purple;
+			}
 
-			.box-title,
-			label {
-				color: #8064a2;
+			tags-input .tags .tag-item {
+				background-color: @color-purple;
+				border-color: @color-purple;
 			}
 		}
 
