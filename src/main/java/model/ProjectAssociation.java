@@ -21,13 +21,18 @@ public class ProjectAssociation extends BaseModel {
 
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.mm.yy")
   private Date start;
+
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.mm.yy")
   private Date end;
+
   @Tag
   private List<String> locations;
+
   @Tag
   private List<String> positions;
+
   private String tasks;
+
   @Tag
   private List<String> technologies;
 
