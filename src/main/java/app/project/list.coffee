@@ -1,4 +1,4 @@
-angular.module('projectList', ['duScroll'])
+angular.module('projectList', ['utils.autofocus', 'duScroll'])
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
 .config ($routeProvider) ->
