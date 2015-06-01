@@ -8,6 +8,7 @@ angular.module( 'project', ['duScroll'])
     controller: 'ProjectCtrl',
     resolve:
       project: (Restangular, $route) ->
+#noinspection JSUnresolvedVariable
         Restangular.one('project', $route.current.params.projectId).get()
 .controller 'ProjectCtrl', ($scope, $timeout, Restangular, project, $document, $parse, tagService) ->
   dateFormat = $('.datePicker').attr("data-date-format").toUpperCase()

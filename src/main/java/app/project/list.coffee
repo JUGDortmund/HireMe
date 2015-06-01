@@ -7,7 +7,7 @@ angular.module('projectList', ['duScroll'])
     controller: 'ProjectListCtrl',
     resolve:
       projects: (Restangular) -> Restangular.all('project').getList()
-.controller 'ProjectListCtrl', ($scope, $timeout, Restangular, projects, $document, $parse, tagService) ->
+.controller 'ProjectListCtrl', ($scope, $timeout, Restangular, projects, $document, $parse) ->
   $scope.projects = projects
   getProjects = -> projects.getList().then (projects) ->
     $scope.projects = projects
