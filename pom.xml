@@ -13,6 +13,23 @@
         <url>http://stash.maredit.net/projects/COM/repos/hireme/browse</url>
         <tag>HEAD</tag>
     </scm>
+    
+	<distributionManagement>
+	  <repository>
+	     <id>nexus</id>
+	     <name>Internal Releases</name>
+	     <url>http://nexus.maredit.net/content/repositories/releases/</url>
+	  </repository>
+	  <snapshotRepository>
+	     <id>nexus</id>
+	     <name>Internal Snapshots</name>
+	     <url>http://nexus.maredit.net/content/repositories/snapshots/</url>
+	  </snapshotRepository>
+	</distributionManagement>
+
+	<prerequisites>
+		<maven>3.1.0</maven>
+	</prerequisites>
 
     <properties>
         <ninja.version>5.1.0</ninja.version>
@@ -198,9 +215,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
                 <version>2.8.2</version>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
             </plugin>
             <!-- Plugin inserted by ninja framework per default. Used for building standalone jar file -->
             <plugin>
