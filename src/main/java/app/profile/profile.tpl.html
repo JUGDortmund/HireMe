@@ -86,10 +86,11 @@
                             <div class="col-md-8">
                                 <tags-input type="text" name="degrees" id="degrees"
                                             placeholder="${i18n('form.addTag')}"
+                                            min-length="1"
                                             class="ng-tags-custom" ng-model="profile.degrees"
                                             on-tag-added="change('form-group-degree')"
                                             on-tag-removed="change('form-group-degree')">
-                                    <auto-complete source="getTags('degrees')|filter:$query"
+                                    <auto-complete source="getTags('degrees')|filter:$query" min-length="1"
                                             ></auto-complete>
                                 </tags-input>
                             </div>
@@ -100,10 +101,11 @@
                             <div class="col-md-8">
                                 <tags-input type="text" name="careerLevel" id="careerLevel"
                                             placeholder="${i18n('form.addTag')}"
+                                            min-length="1"
                                             class="ng-tags-custom" ng-model="profile.careerLevel"
                                             on-tag-added="change('form-group-careerLevel')"
                                             on-tag-removed="change('form-group-careerLevel')">
-                                    <auto-complete source="getTags('careerLevel')|filter:$query"
+                                    <auto-complete source="getTags('careerLevel')|filter:$query" min-length="1"
                                             ></auto-complete>
                                 </tags-input>
                             </div>
@@ -130,10 +132,11 @@
                             <div class="col-md-8">
                                 <tags-input type="text" name="languages" id="languages"
                                             placeholder="${i18n('form.addTag')}"
+                                            min-length="1"
                                             class="ng-tags-custom" ng-model="profile.languages"
                                             on-tag-added="change('form-group-languages')"
                                             on-tag-removed="change('form-group-languages')">
-                                    <auto-complete source="getTags('languages')|filter:$query"
+                                    <auto-complete source="getTags('languages')|filter:$query" min-length="1"
                                             ></auto-complete>
                                 </tags-input>
                             </div>
@@ -151,10 +154,11 @@
                             <div class="col-md-8">
                                 <tags-input type="text" name="industries" id="industries"
                                             placeholder="${i18n('form.addTag')}"
+                                            min-length="1"
                                             class="ng-tags-custom" ng-model="profile.industries"
                                             on-tag-added="change('form-group-industries')"
                                             on-tag-removed="change('form-group-industries')">
-                                    <auto-complete source="getTags('industries')|filter:$query"
+                                    <auto-complete source="getTags('industries')|filter:$query" min-length="1"
                                             ></auto-complete>
                                 </tags-input>
                             </div>
@@ -172,10 +176,11 @@
                             <div class="col-md-8">
                                 <tags-input type="text" name="platforms" id="platforms"
                                             placeholder="${i18n('form.addTag')}"
+                                            min-length="1"
                                             class="ng-tags-custom" ng-model="profile.platforms"
                                             on-tag-added="change('form-group-platforms')"
                                             on-tag-removed="change('form-group-platforms')">
-                                    <auto-complete source="getTags('platforms')|filter:$query"
+                                    <auto-complete source="getTags('platforms')|filter:$query" min-length="1"
                                             ></auto-complete>
                                 </tags-input>
                             </div>
@@ -186,10 +191,11 @@
                             <div class="col-md-8">
                                 <tags-input type="text" name="opSystems" id="opSystems"
                                             placeholder="${i18n('form.addTag')}"
+                                            min-length="1"
                                             class="ng-tags-custom" ng-model="profile.opSystems"
                                             on-tag-added="change('form-group-opSystems')"
                                             on-tag-removed="change('form-group-opSystems')">
-                                    <auto-complete source="getTags('opSystems')|filter:$query"
+                                    <auto-complete source="getTags('opSystems')|filter:$query" min-length="1"
                                             ></auto-complete>
                                 </tags-input>
                             </div>
@@ -200,11 +206,12 @@
                             <div class="col-md-8">
                                 <tags-input type="text" name="progLanguages" id="progLanguages"
                                             placeholder="${i18n('form.addTag')}"
+                                            min-length="1"
                                             class="ng-tags-custom" ng-model="profile.progLanguages"
                                             on-tag-added="change('form-group-progLanguages')"
                                             on-tag-removed="change('form-group-progLanguages')">
                                     <auto-complete
-                                            source="getTags('progLanguages')|filter:$query"
+                                            source="getTags('progLanguages')|filter:$query" min-length="1"
                                             ></auto-complete>
                                 </tags-input>
                             </div>
@@ -215,12 +222,13 @@
                             <div class="col-md-8">
                                 <tags-input type="text" name="webTechnologies" id="webTechnologies"
                                             placeholder="${i18n('form.addTag')}"
+                                            min-length="1"
                                             class="ng-tags-custom"
                                             ng-model="profile.webTechnologies"
                                             on-tag-added="change('form-group-webTechnologies')"
                                             on-tag-removed="change('form-group-webTechnologies')">
                                     <auto-complete
-                                            source="getTags('webTechnologies')|filter:$query"
+                                            source="getTags('webTechnologies')|filter:$query" min-length="1"
                                             ></auto-complete>
                                 </tags-input>
                             </div>
@@ -231,12 +239,13 @@
                             <div class="col-md-8">
                                 <tags-input type="text" name="devEnvironments" id="devEnvironments"
                                             placeholder="${i18n('form.addTag')}"
+                                            min-length="1"
                                             class="ng-tags-custom"
                                             ng-model="profile.devEnvironments"
                                             on-tag-added="change('form-group-devEnvironments')"
                                             on-tag-removed="change('form-group-devEnvironments')">
                                     <auto-complete
-                                            source="getTags('devEnvironments')|filter:$query"
+                                            source="getTags('devEnvironments')|filter:$query" min-length="1"
                                             ></auto-complete>
                                 </tags-input>
                             </div>
@@ -247,10 +256,11 @@
                             <div class="col-md-8">
                                 <tags-input type="text" name="qualifications" id="qualifications"
                                             placeholder="${i18n('form.addTag')}"
+                                            min-length="1"
                                             class="ng-tags-custom" ng-model="profile.qualifications"
                                             on-tag-added="change('form-group-qualifications')"
                                             on-tag-removed="change('form-group-qualifications')">
-                                    <auto-complete source="getTags('qualifications')|filter:$query"
+                                    <auto-complete source="getTags('qualifications')|filter:$query" min-length="1"
                                             ></auto-complete>
                                 </tags-input>
                             </div>
@@ -343,12 +353,13 @@
                                                     name="projectAssociations-locations-{{$index}}"
                                                     id="projectAssociations-locations-{{$index}}"
                                                     placeholder="${i18n('form.addTag')}"
+                                                    min-length="1"
                                                     class="ng-tags-custom"
                                                     ng-model="projectAssociation.locations"
                                                     on-tag-added="change('form-group-projectAssociation-locations-'+$index)"
                                                     on-tag-removed="change('form-group-projectAssociation-locations-'+$index)">
                                             <auto-complete
-                                                    source="getTags('locations')|filter:$query"
+                                                    source="getTags('locations')|filter:$query" min-length="1"
                                                     ></auto-complete>
                                         </tags-input>
                                     </div>
@@ -362,13 +373,14 @@
                                                     name="projectAssociations-positions-{{$index}}"
                                                     id="projectAssociations-positions-{{$index}}"
                                                     placeholder="${i18n('form.addTag')}"
+                                                    min-length="1"
                                                     class="ng-tags-custom"
                                                     ng-model="projectAssociation.positions"
                                                     on-tag-added="change('form-group-projectAssociation-positions-'+$index)"
                                                     on-tag-removed="change('form-group-projectAssociation-positions-'+$index)">
                                             <auto-complete
-                                                    source="getTags('positions')|filter:$query"
-                                                    ></auto-complete>
+                                                    source="getTags('positions')|filter:$query" min-length="1"
+                                                    ></auto-complete> 
                                         </tags-input>
                                     </div>
                                 </div>
@@ -381,12 +393,13 @@
                                                     name="projectAssociations-technologies-{{$index}}"
                                                     id="projectAssociations-technologies-{{$index}}"
                                                     placeholder="${i18n('form.addTag')}"
+                                                    min-length="1"
                                                     class="ng-tags-custom"
                                                     ng-model="projectAssociation.technologies"
                                                     on-tag-added="change('form-group-projectAssociation-technologies-'+$index)"
                                                     on-tag-removed="change('form-group-projectAssociation-technologies-'+$index)">
                                             <auto-complete
-                                                    source="getTags('technologies')|filter:$query"
+                                                    source="getTags('technologies')|filter:$query" min-length="1"
                                                     ></auto-complete>
                                         </tags-input>
                                     </div>
