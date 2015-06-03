@@ -9,11 +9,16 @@ angular.module('app', [
   'project'
   'projectList'
 ])
-.config ($locationProvider, RestangularProvider) ->
+.config ($locationProvider, RestangularProvider, tagsInputConfigProvider) ->
   $locationProvider.html5Mode
     enabled: true
     requireBase: false
   RestangularProvider.setBaseUrl('/api/')
+  tagsInputConfigProvider.setDefaults 'tagsInput',
+  	minLength: 1
+  	replaceSpacesWithDashes: false
+  	allowLeftoverText: true
+  return
 .controller 'NavigationCtrl', ($scope, $location, Restangular) ->
   gitProperties = Restangular.one('gitProperties')
   gitProperties.get().then (data) ->
