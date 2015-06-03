@@ -17,9 +17,9 @@ angular.module('app', [
   RestangularProvider.setBaseUrl('/api/')
   tagsInputConfigProvider.setDefaults 'tagsInput',
   	minLength: 1
-  return
-  tagsInputConfigProovider.setDefaults 'autoComplete',
+  .setDefaults 'autoComplete',
     minLength: 1
+  return
 .controller 'NavigationCtrl', ($scope, $location, Restangular) ->
   gitProperties = Restangular.one('gitProperties')
   gitProperties.get().then (data) ->
