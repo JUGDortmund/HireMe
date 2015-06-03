@@ -87,6 +87,7 @@
                                 <tags-input type="text" name="degrees" id="degrees"
                                             placeholder="${i18n('form.addTag')}"
                                             class="ng-tags-custom" ng-model="profile.degrees"
+                                            replace-spaces-with-dashes="false"
                                             on-tag-added="change('form-group-degree')"
                                             on-tag-removed="change('form-group-degree')">
                                     <auto-complete source="getTags('degrees')|filter:$query"
@@ -101,6 +102,7 @@
                                 <tags-input type="text" name="careerLevel" id="careerLevel"
                                             placeholder="${i18n('form.addTag')}"
                                             class="ng-tags-custom" ng-model="profile.careerLevel"
+                                            replace-spaces-with-dashes="false"
                                             on-tag-added="change('form-group-careerLevel')"
                                             on-tag-removed="change('form-group-careerLevel')">
                                     <auto-complete source="getTags('careerLevel')|filter:$query"
@@ -131,6 +133,7 @@
                                 <tags-input type="text" name="languages" id="languages"
                                             placeholder="${i18n('form.addTag')}"
                                             class="ng-tags-custom" ng-model="profile.languages"
+                                            replace-spaces-with-dashes="false"
                                             on-tag-added="change('form-group-languages')"
                                             on-tag-removed="change('form-group-languages')">
                                     <auto-complete source="getTags('languages')|filter:$query"
@@ -152,6 +155,7 @@
                                 <tags-input type="text" name="industries" id="industries"
                                             placeholder="${i18n('form.addTag')}"
                                             class="ng-tags-custom" ng-model="profile.industries"
+                                            replace-spaces-with-dashes="false"
                                             on-tag-added="change('form-group-industries')"
                                             on-tag-removed="change('form-group-industries')">
                                     <auto-complete source="getTags('industries')|filter:$query"
@@ -173,6 +177,7 @@
                                 <tags-input type="text" name="platforms" id="platforms"
                                             placeholder="${i18n('form.addTag')}"
                                             class="ng-tags-custom" ng-model="profile.platforms"
+                                            replace-spaces-with-dashes="false"
                                             on-tag-added="change('form-group-platforms')"
                                             on-tag-removed="change('form-group-platforms')">
                                     <auto-complete source="getTags('platforms')|filter:$query"
@@ -187,6 +192,7 @@
                                 <tags-input type="text" name="opSystems" id="opSystems"
                                             placeholder="${i18n('form.addTag')}"
                                             class="ng-tags-custom" ng-model="profile.opSystems"
+                                            replace-spaces-with-dashes="false"
                                             on-tag-added="change('form-group-opSystems')"
                                             on-tag-removed="change('form-group-opSystems')">
                                     <auto-complete source="getTags('opSystems')|filter:$query"
@@ -201,6 +207,7 @@
                                 <tags-input type="text" name="progLanguages" id="progLanguages"
                                             placeholder="${i18n('form.addTag')}"
                                             class="ng-tags-custom" ng-model="profile.progLanguages"
+                                            replace-spaces-with-dashes="false"
                                             on-tag-added="change('form-group-progLanguages')"
                                             on-tag-removed="change('form-group-progLanguages')">
                                     <auto-complete
@@ -217,6 +224,7 @@
                                             placeholder="${i18n('form.addTag')}"
                                             class="ng-tags-custom"
                                             ng-model="profile.webTechnologies"
+                                            replace-spaces-with-dashes="false"
                                             on-tag-added="change('form-group-webTechnologies')"
                                             on-tag-removed="change('form-group-webTechnologies')">
                                     <auto-complete
@@ -233,6 +241,7 @@
                                             placeholder="${i18n('form.addTag')}"
                                             class="ng-tags-custom"
                                             ng-model="profile.devEnvironments"
+                                            replace-spaces-with-dashes="false"
                                             on-tag-added="change('form-group-devEnvironments')"
                                             on-tag-removed="change('form-group-devEnvironments')">
                                     <auto-complete
@@ -248,6 +257,7 @@
                                 <tags-input type="text" name="qualifications" id="qualifications"
                                             placeholder="${i18n('form.addTag')}"
                                             class="ng-tags-custom" ng-model="profile.qualifications"
+                                            replace-spaces-with-dashes="false"
                                             on-tag-added="change('form-group-qualifications')"
                                             on-tag-removed="change('form-group-qualifications')">
                                     <auto-complete source="getTags('qualifications')|filter:$query"
@@ -345,6 +355,7 @@
                                                     placeholder="${i18n('form.addTag')}"
                                                     class="ng-tags-custom"
                                                     ng-model="projectAssociation.locations"
+                                                    replace-spaces-with-dashes="false"
                                                     on-tag-added="change('form-group-projectAssociation-locations-'+$index)"
                                                     on-tag-removed="change('form-group-projectAssociation-locations-'+$index)">
                                             <auto-complete
@@ -364,6 +375,7 @@
                                                     placeholder="${i18n('form.addTag')}"
                                                     class="ng-tags-custom"
                                                     ng-model="projectAssociation.positions"
+                                                    replace-spaces-with-dashes="false"
                                                     on-tag-added="change('form-group-projectAssociation-positions-'+$index)"
                                                     on-tag-removed="change('form-group-projectAssociation-positions-'+$index)">
                                             <auto-complete
@@ -382,6 +394,7 @@
                                                     id="projectAssociations-technologies-{{$index}}"
                                                     placeholder="${i18n('form.addTag')}"
                                                     class="ng-tags-custom"
+                                                    replace-spaces-with-dashes="false"
                                                     ng-model="projectAssociation.technologies"
                                                     on-tag-added="change('form-group-projectAssociation-technologies-'+$index)"
                                                     on-tag-removed="change('form-group-projectAssociation-technologies-'+$index)">
