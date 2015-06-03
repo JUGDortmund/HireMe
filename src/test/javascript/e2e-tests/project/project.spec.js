@@ -64,6 +64,14 @@ describe('project page', function () {
 		    expect(projectPage.locationsTagCount).toBe(1);
 		  });
 	  
+	  it('should be able to create a new tag with length one', function () {
+		    var locations = projectPage.locations;
+		    locations.click();
+		    locations.sendKeys("T");
+		    locations.sendKeys(protractor.Key.ENTER);
+		    expect(projectPage.locationsTagCount).toBe(1);
+		  });
+	  
 	  it('should set an invalid date and persist it after correcting it', function() {
 		    var incorrectInputDate = '01.0x.01';
 		    var inputStart = projectPage.start;

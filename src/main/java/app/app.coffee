@@ -8,6 +8,7 @@ angular.module('app', [
   'restangular'
   'project'
   'projectList'
+  'ngTagsInput'
 ])
 .config ($locationProvider, RestangularProvider, tagsInputConfigProvider) ->
   $locationProvider.html5Mode
@@ -18,6 +19,8 @@ angular.module('app', [
   	minLength: 1
   	replaceSpacesWithDashes: false
   	allowLeftoverText: true
+  .setDefaults 'autoComplete',
+    minLength: 1
   return
 .controller 'NavigationCtrl', ($scope, $location, Restangular) ->
   gitProperties = Restangular.one('gitProperties')

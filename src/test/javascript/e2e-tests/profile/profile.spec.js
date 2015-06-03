@@ -64,6 +64,15 @@ describe('profile page', function () {
     degrees.sendKeys(protractor.Key.ENTER);
     expect(profilePage.degreeTagCount).toBe(1);
   });
+  
+  it('should be able to create a new tag with length one', function () {
+	    var degrees = profilePage.degrees;
+	    degrees.click();
+	    degrees.sendKeys("T");
+	    degrees.sendKeys(protractor.Key.ENTER);
+	    expect(profilePage.degreeTagCount).toBe(1);
+	  });
+
 
   it('should set an invalid date and persist it after correcting it', function () {
     var incorrectInputDate = '01.0x.01';

@@ -103,7 +103,7 @@
                                             class="ng-tags-custom" ng-model="profile.careerLevel"
                                             on-tag-added="change('form-group-careerLevel')"
                                             on-tag-removed="change('form-group-careerLevel')">
-                                    <auto-complete source="getTags('careerLevel')|filter:$query"
+                                    <auto-complete source="getTags('careerLevel')|filter:$query" 
                                             ></auto-complete>
                                 </tags-input>
                             </div>
@@ -368,7 +368,7 @@
                                                     on-tag-removed="change('form-group-projectAssociation-positions-'+$index)">
                                             <auto-complete
                                                     source="getTags('positions')|filter:$query"
-                                                    ></auto-complete>
+                                                    ></auto-complete> 
                                         </tags-input>
                                     </div>
                                 </div>
