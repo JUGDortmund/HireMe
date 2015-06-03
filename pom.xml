@@ -37,6 +37,10 @@
         <doxia-markdown.version>1.6</doxia-markdown.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <usermanual.sourceDirectory>${basedir}/src/usermanual</usermanual.sourceDirectory>
+        <operationmanual.sourceDirectory>${basedir}/src/operationmanual</operationmanual.sourceDirectory>
+        <operationmanual.filename>operationmanual</operationmanual.filename>
+        <operationmanual.outputDirectory>${project.build.outputDirectory}/assets/operationmanual</operationmanual.outputDirectory>
     </properties>
 
     <build>
@@ -391,36 +395,26 @@
                 <configuration>
                     <generateReports>false</generateReports>
                     <generateProjectInfo>false</generateProjectInfo>
-                    <siteDirectory>${basedir}/src/usermanual</siteDirectory>
-                    <templateDirectory>${basedir}/src/usermanual</templateDirectory>
-                    <outputDirectory>${project.build.outputDirectory}/assets/usermanual
-                    </outputDirectory>
+                    <siteDirectory>${usermanual.sourceDirectory}</siteDirectory>
+                    <templateDirectory>${usermanual.sourceDirectory}</templateDirectory>
+                    <outputDirectory>${project.build.outputDirectory}/assets/usermanual</outputDirectory>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>package-usermanual</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>site</goal>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
-            <!-- Plugin for generation of operation documentation as pdf-->
+            <!-- Plugin for generation of operation documentation as pdf -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pdf-plugin</artifactId>
                 <version>1.3</version>
-                <executions>
-                    <execution>
-                        <id>pdf</id>
-                        <phase>site</phase>
-                        <goals>
-                            <goal>pdf</goal>
-                        </goals>
-                        <configuration>
-                            <generateReports>false</generateReports>
-                            <generateProjectInfo>false</generateProjectInfo>
-                            <siteDirectory>${basedir}/src/operationmanual</siteDirectory>
-                            <templateDirectory>${basedir}/src/operationmanual</templateDirectory>
-                            <outputDirectory>
-                                ${project.build.outputDirectory}/assets/operationmanual
-                            </outputDirectory>
-                            <docDescriptor>${basedir}/src/operationmanual/pdf.xml</docDescriptor>
-                        </configuration>
-                    </execution>
-                </executions>
                 <dependencies>
                     <dependency>
                         <groupId>org.apache.maven.doxia</groupId>
@@ -428,7 +422,48 @@
                         <version>${doxia-markdown.version}</version>
                     </dependency>
                 </dependencies>
+                <configuration>
+                    <generateReports>false</generateReports>
+                    <generateProjectInfo>false</generateProjectInfo>
+                    <siteDirectory>${operationmanual.sourceDirectory}</siteDirectory>
+                    <templateDirectory>${operationmanual.sourceDirectory}</templateDirectory>
+                    <outputDirectory>${operationmanual.outputDirectory}</outputDirectory>
+                    <docDescriptor>${operationmanual.sourceDirectory}/pdf.xml</docDescriptor>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>package-operationmanual</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>pdf</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
+            
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.9.1</version>
+				<executions>
+					<execution>
+						<id>attach-operationmanual</id>
+						<phase>package</phase>
+						<goals>
+							<goal>attach-artifact</goal>
+						</goals>
+						<configuration>
+							<artifacts>
+								<artifact>
+									<file>${operationmanual.outputDirectory}/${operationmanual.filename}.pdf</file>
+									<type>pdf</type>
+									<classifier>operationmanual</classifier>
+								</artifact>
+							</artifacts>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
             <!-- Plugin for copying environment specific application and logging configuration to target directory -->
             <plugin>
                 <groupId>com.coderplus.maven.plugins</groupId>
@@ -510,7 +545,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>            
+			</plugin>         
         </plugins>
         <resources>
             <resource>
