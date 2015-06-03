@@ -41,6 +41,7 @@
         <operationmanual.sourceDirectory>${basedir}/src/operationmanual</operationmanual.sourceDirectory>
         <operationmanual.filename>operationmanual</operationmanual.filename>
         <operationmanual.outputDirectory>${project.build.outputDirectory}/assets/operationmanual</operationmanual.outputDirectory>
+        <environment.config.sourceDirectory>${basedir}/src/env</environment.config.sourceDirectory>
     </properties>
 
     <build>
@@ -151,7 +152,7 @@
                     <contextPath>/</contextPath>
                     <scanTargetPatterns>
                         <scanTargetPattern>
-                            <directory>target/classes</directory>
+                            <directory>${project.build.outputDirectory}</directory>
                             <includes>
                                 <include>**/*</include>
                             </includes>
@@ -276,7 +277,7 @@
                             <goal>karma</goal>
                         </goals>
                         <configuration>
-                            <karmaConfPath>src/test/javascript/conf/karma.ci.conf.js</karmaConfPath>
+                            <karmaConfPath>${basedir}/src/test/javascript/conf/karma.ci.conf.js</karmaConfPath>
                             <skip>${skip.protractor.tests}</skip>
                         </configuration>
                     </execution>
@@ -440,7 +441,7 @@
                     </execution>
                 </executions>
             </plugin>
-            
+            <!-- Plugin for attaching operation manual as separate artifact during deployment -->
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
@@ -477,8 +478,8 @@
                             <goal>copy</goal>
                         </goals>
                         <configuration>
-                            <sourceFile>src/env/${env.name}/conf/application.conf</sourceFile>
-                            <destinationFile>target/classes/conf/application.conf</destinationFile>
+                            <sourceFile>${environment.config.sourceDirectory}/${env.name}/conf/application.conf</sourceFile>
+                            <destinationFile>${project.build.outputDirectory}/conf/application.conf</destinationFile>
                         </configuration>
                     </execution>
                     <execution>
@@ -488,8 +489,8 @@
                             <goal>copy</goal>
                         </goals>
                         <configuration>
-                            <sourceFile>src/env/${env.name}/logback.xml</sourceFile>
-                            <destinationFile>target/classes/logback.xml</destinationFile>
+                            <sourceFile>${environment.config.sourceDirectory}/${env.name}/logback.xml</sourceFile>
+                            <destinationFile>${project.build.outputDirectory}/logback.xml</destinationFile>
                         </configuration>
                     </execution>
                 </executions>
@@ -504,7 +505,7 @@
 					<webappDirectory>${project.build.directory}/${project.build.finalName}-dev</webappDirectory>
 					<webResources>
 						<resource>
-							<directory>src/env/dev</directory>
+							<directory>${environment.config.sourceDirectory}/dev</directory>
 							<targetPath>WEB-INF/classes</targetPath>
 						</resource>
 					</webResources>
@@ -518,7 +519,7 @@
 							<webappDirectory>${project.build.directory}/${project.build.finalName}-build</webappDirectory>
 							<webResources>
 								<resource>
-									<directory>src/env/build</directory>
+									<directory>${environment.config.sourceDirectory}/build</directory>
 									<targetPath>WEB-INF/classes</targetPath>
 								</resource>
 							</webResources>
@@ -535,7 +536,7 @@
 							<webappDirectory>${project.build.directory}/${project.build.finalName}-prod</webappDirectory>
 							<webResources>
 								<resource>
-									<directory>src/env/prod</directory>
+									<directory>${environment.config.sourceDirectory}/prod</directory>
 									<targetPath>WEB-INF/classes</targetPath>
 								</resource>
 							</webResources>
