@@ -177,6 +177,7 @@ mvn clean deploy -Penv-jenkins,build-manuals,build-deployment-artifacts
 ```
 
 Resulting artifacts pushed to nexus:
+
 * **hireme-[version]-dev.war** - war file for development
 * **hireme-[version]-build.war** - war file for build system
 * **hireme-[version]-prod.war** - war file for prod system
