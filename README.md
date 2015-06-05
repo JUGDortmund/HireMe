@@ -75,7 +75,6 @@ Official W3C Spec on how to use the HTTP-methods
 |	env-jenkins				|	YES					|	YES							|	YES
 |	env-build				|	NO					|	NO							|	NO
 |	env-prod				|	NO					|	NO							|	NO
------------------------------------------------------------------------------------------------------
 |	tests-none				|	NO					|	NO							|	NO
 |	tests-unit				|	YES					|	NO							|	NO
 |	tests-integration		|	YES					|	YES							|	NO  
@@ -194,7 +193,7 @@ Resulting artifacts pushed to nexus:
 7. merge *release* branch to *master* branch and push changes
 
 ### Deploy a release
-1. `mvn clean install -Denv.name=[environment]`
+1. `mvn clean install -P[environment]`
 2. deploy release to desired system (see commands below)
 
 ### Deploy commands
