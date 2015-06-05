@@ -71,25 +71,44 @@ Official W3C Spec on how to use the HTTP-methods
 
 | Profile                   | unit tests executed	|	integration tests executed	| protractor tests executed
 --------------------------:	| :-------------------:	| :---------------------------:	| :-------------:
-| tests-none				|   NO					|	NO							|	NO
-| tests-unit				|	YES					|	NO							|	NO
-| tests-integration			|   YES					|	YES							|	NO  
-| tests-protractor			|   YES					|	NO							|	YES  
-| tests-all					|   YES					|	YES							|	YES
+|	env-dev *(default)*		|	YES					|	NO							|	NO
+|	env-jenkins				|	YES					|	YES							|	YES
+|	env-build				|	NO					|	NO							|	NO
+|	env-prod				|	NO					|	NO							|	NO
+-----------------------------------------------------------------------------------------------------
+|	tests-none				|	NO					|	NO							|	NO
+|	tests-unit				|	YES					|	NO							|	NO
+|	tests-integration		|	YES					|	YES							|	NO  
+|	tests-protractor		|	YES					|	NO							|	YES  
+|	tests-all				|	YES					|	YES							|	YES
 
 ##### Usage
 
-General:
+Execute reasonable tests for a given environment:
 
 ```
-mvn integration-test -P [profile]
+mvn integration-test -P [env-profile]
 ```
 
-Example:
+Example (execute reasonable tests for develop environment):
 
 ```
-mvn integration-test -P dev
+mvn integration-test -P env-dev
 ```
+
+Run other tests than reasonable for a given environment
+
+```
+mvn integration-test -P [env-profile],[test-override-profile]
+```
+
+Example (execute all tests in develop environment, instead of just unit tests):
+
+```
+mvn integration-test -P env-dev,tests-all
+```
+
+*Important*: Never try to override test executions for environments `env-build` and `env-prod` as the tests would be executed on the db connection of the build or prod system!
 
 *Note*: Protractor tests per default are executed on the [mercus grid](http://mercus-selenium-grid.maredit.net:4444/wd/hub) using the ip-address that the integration tests were started from as server. If you start the integration tests locally be sure to deactivate your firewall, so that the grid can access http://[your-ip-address]:8080/`.
 
@@ -122,31 +141,48 @@ To change how protractor is run locally, you could change the config file: `/hir
 
 ## Building and deploying a release
 
-### Build environment-specific deployment artifact
+### Environment-specific build
 
 The environment determines which configuration properties the application should be build with.
 
 * Existing environments
-	* **dev** - environment for local development (active by default)
-	* **jenkins**  - environment for jenkins/tests
-	* **build** - environment for build system
-	* **prod** - environment for prod system
+	* **env-dev** - environment for local development (active by default)
+	* **env-jenkins**  - environment for jenkins/tests
+	* **env-build** - environment for build system
+	* **env-prod** - environment for prod system
 	
-The configuration files for the different environments are located at: `/hireme/src/confs/application.[environment].conf`.
+The configuration files for the different environments are located at: `/hireme/src/env/[environment]`
 During the build of the application with an environment parameter, the environment-specific configuration is copied to `target/classes/conf/application.conf`,
-so the resulting jar/war is in a form that the application will be using the environment-specific configuration by default.
+so the resulting target directory is in a form that the application will be using the environment-specific configuration by default.
 
-Command for building environment-specific deployment artifact:
+Command for building environment-specific:
 
-``
-mvn clean install -Denv.name=[environment]
-``
+```
+mvn clean install -P [environment]
+```
 
 Example:
 
-``
-mvn clean install -Denv.name=build
-``
+```
+mvn clean install -P env-build
+```
+
+### Deploy environment specific artifacts to nexus
+
+The following command will build with the jenkins environment configuration,
+runs all tests, build user and operation manual and creates deployment artifacts
+for use in development, build and production systems.
+
+```
+mvn clean deploy -Penv-jenkins,build-manuals,build-deployment-artifacts
+```
+
+Resulting artifacts pushed to nexus:
+* **hireme-[version]-dev.war** - war file for development
+* **hireme-[version]-build.war** - war file for build system
+* **hireme-[version]-prod.war** - war file for prod system
+* **hireme-[version]-site.jar** - usermanual
+* **hireme-[version]-operationmanual.pdf** - operational manual
 
 ### Create and tag a release
 1. create a release branch (e.g. *hireme-0.1*) from develop branch
@@ -257,7 +293,13 @@ All pages that should be included in the operation manual need to be specified i
 The user manual and the operation manual can be build via
 
 ```
-mvn site
+mvn package -P [environment],build-manuals
+```
+
+Example:
+
+```
+mvn package -P env-dev,build-manuals
 ```
 
 The user manual will be compiled to
