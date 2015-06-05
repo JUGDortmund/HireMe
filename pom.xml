@@ -351,7 +351,7 @@
                     <forkCount>3</forkCount>
                     <reuseForks>true</reuseForks>
                     <includes>
-                        <include>/unit/**.java</include>
+                        <include>/unit/**</include>
                     </includes>
                     <excludes>
                         <exclude>/doctester/**</exclude>
@@ -371,6 +371,9 @@
                         <include>/doctester/**</include>
                         <include>/integration/**</include>
                     </includes>
+                    <excludes>
+                        <exclude>/unit/**</exclude>
+                    </excludes>
                 </configuration>
                 <executions>
                     <execution>
