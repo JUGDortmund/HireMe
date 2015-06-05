@@ -69,13 +69,13 @@ Official W3C Spec on how to use the HTTP-methods
 
 #### Overview profile `(x)` to testCase `(y)` mapping
 
-| Profile					| unit		|	integration		| protractor
---------------------------:	| :-------:	| :---------------:	| :-------------:
-| tests-none				|   NO		|	NO				|	NO
-| tests-unit				|	YES		|	NO				|	NO
-| tests-integration			|   YES		|	YES				|	NO  
-| tests-protractor			|   YES		|	NO				|	YES  
-| tests-all					|   YES		|	YES				|	YES
+| Profile                   | unit tests executed	|	integration tests executed	| protractor tests executed
+--------------------------:	| :-------------------:	| :---------------------------:	| :-------------:
+| tests-none				|   NO					|	NO							|	NO
+| tests-unit				|	YES					|	NO							|	NO
+| tests-integration			|   YES					|	YES							|	NO  
+| tests-protractor			|   YES					|	NO							|	YES  
+| tests-all					|   YES					|	YES							|	YES
 
 ##### Usage
 
