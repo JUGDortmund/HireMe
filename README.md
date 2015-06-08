@@ -203,12 +203,12 @@ Resulting artifacts pushed to nexus:
 	* **deploy** - deploys the application to the system
 	* **undeploy**  - undeploy the application from the system
 	* **redeploy** - Undeploy and deploy the application to the system again. If the application was not deployed before calling cargo:redeploy it will simply be deployed.
-* Systems
-	* **build** - deploy to build system
-	* **prod** - deploy to prod system  
+* Deploy system profiles
+	* **system-build** - deploy to build system
+	* **system-prod** - deploy to prod system  
 * Examples:
-	* Deploy build system: `mvn cargo:deploy -P build`
-	* Redeploy prod system: `mvn cargo:redeploy -P prod`
+	* Deploy build system: `mvn cargo:deploy -P system-build`
+	* Redeploy prod system: `mvn cargo:redeploy -P system-prod`
 
 ******************************************************
 

@@ -334,6 +334,8 @@
                         <deployable>
                             <groupId>de.maredit</groupId>
                             <artifactId>hireme</artifactId>
+                            <classifier>${cargo.artifact.classifier}</classifier>
+                            <pingURL>http://${cargo.hostname}:8080</pingURL>
                             <type>war</type>
                             <properties>
                                 <context>/</context>
@@ -739,16 +741,18 @@
         </profile>
         <!-- Profile for deployment on build system via cargo plugin -->
         <profile>
-            <id>build</id>
+            <id>system-build</id>
             <properties>
                 <cargo.hostname>hireme-build.maredit.net</cargo.hostname>
+                <cargo.artifact.classifier>build</cargo.artifact.classifier>
             </properties>
         </profile>
         <!-- Profile for deployment on prod system via cargo plugin -->
         <profile>
-            <id>prod</id>
+            <id>system-prod</id>
             <properties>
                 <cargo.hostname>hireme-prod.maredit.net</cargo.hostname>
+                <cargo.artifact.classifier>prod</cargo.artifact.classifier>
             </properties>
         </profile>
         <!-- Profile for building manuals -->
