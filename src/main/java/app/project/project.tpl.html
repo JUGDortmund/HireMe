@@ -1,0 +1,133 @@
+<section id="project-page-section" class="content module project-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2" style="padding-bottom: 80px;">
+                <div class="alert alert-danger alert-dismissible" role="alert" ng-show="error">
+                    <strong>${i18n('message.error.header')}</strong>
+                    ${i18n('message.error.content')}
+                </div>
+                <div class="alert alert-success alert-dismissible" role="alert" ng-show="success">
+                    <strong>${i18n('message.success.header')}</strong>
+                    ${i18n('message.success.content')}
+                </div>
+                <div class="box border-box">
+                    <div class="header-text">
+                        <h2 class="headline">{{project.title}}</h2>
+                        <p class="description" ng-show="project.start && project.end">{{project.start}} - {{project.end}}</p>
+                    </div>
+                </div>
+                <div ng-show="showEditModeButtons" class="no-print button-dialog">
+                    <button ng-click="save()" id="save-button"
+                            class="btn btn-block btn-success">${i18n('buttonDialog.save')}
+                    </button>
+                    <button ng-click="cancel()" id="cancel-button"
+                            class="btn btn-block btn-danger">${i18n('buttonDialog.cancel')}
+                    </button>
+                </div>
+                <div class="box box-purple">
+                    <div class="box-header">
+                        <h3 class="box-title">${i18n('project.projectdata.section')}</h3>
+                    </div>
+                    <div class="box-body form-horizontal">
+                        <div class="form-group" id="form-group-title">
+                            <label for="title" class="control-label col-md-4">${i18n('project.title')}</label>
+
+                            <div class="col-md-8">
+                                <input type="text" name="title" id="title"
+                                       class="form-control"
+                                       ng-model="project.title"
+                                       ng-click="change('form-group-title')"
+                                       ng-change="change('form-group-title')"/>
+                            </div>
+                        </div>
+                        <div class="form-group" id="form-group-companies">
+                            <label for="companies" class="control-label col-md-4">${i18n('project.companies')}</label>
+
+                            <div class="col-md-8">
+                                <tags-input type="text" id="companies"
+                                            placeholder="${i18n('form.addTag')}"
+                                            class="ng-tags-custom" ng-model="project.companies"
+                                            on-tag-added="change('form-group-companies')"
+                                            on-tag-removed="change('form-group-companies')">
+                                    <auto-complete source="getTags('companies')|filter:$query"
+                                            ></auto-complete>
+                                </tags-input>
+                            </div>
+                        </div>
+                        <div class="form-group" id="form-group-industries">
+                            <label for="industries" class="control-label col-md-4">${i18n('project.industries')}</label>
+
+                            <div class="col-md-8">
+                                <tags-input type="text" id="industries"
+                                            placeholder="${i18n('form.addTag')}"
+                                            class="ng-tags-custom" ng-model="project.industries"
+                                            on-tag-added="change('form-group-industries')"
+                                            on-tag-removed="change('form-group-industries')">
+                                    <auto-complete source="getTags('industries')|filter:$query"
+                                            ></auto-complete>
+                                </tags-input>
+                            </div>
+                        </div>
+                        <div class="form-group" id="form-group-start">
+                            <label for="start" class="control-label col-md-4">${i18n('project.start')}</label>
+
+                            <div class="col-md-8">
+                                <input type="text"
+                                       class="form-control datepicker"
+                                       data-provide="datepicker"
+                                       data-date-format=${dateFormat}
+                                       data-date-autoclose="true"
+                                       data-date-language=${language}
+                                       name="start"
+                                       id="start"
+                                       ng-model="project.start"
+                                       ng-change="change('form-group-start')"/>
+                            </div>
+                        </div>
+                        <div class="form-group" id="form-group-end">
+                            <label for="end"
+                                   class="control-label col-md-4">${i18n('project.end')}</label>
+
+                            <div class="col-md-8">
+                                <input type="text"
+                                       class="form-control datepicker"
+                                       data-provide="datepicker"
+                                       data-date-format=${dateFormat}
+                                       data-date-autoclose="true"
+                                       data-date-language=${language}
+                                       name="end"
+                                       id="end"
+                                       ng-model="project.end"
+                                       ng-change="change('form-group-end')"/>
+                            </div>
+                        </div>
+                        <div class="form-group" id="form-group-locations">
+                            <label for="locations" class="control-label col-md-4">${i18n('project.locations')}</label>
+
+                            <div class="col-md-8">
+                                <tags-input type="text" id="locations"
+                                            placeholder="${i18n('form.addTag')}"
+                                            class="ng-tags-custom"
+                                            ng-model="project.locations"
+                                            on-tag-added="change('form-group-locations')"
+                                            on-tag-removed="change('form-group-locations')">
+                                    <auto-complete source="getTags('locations')|filter:$query"
+                                            ></auto-complete>
+                                </tags-input>
+                            </div>
+                        </div>
+                        <div class="form-group" id="form-group-summary">
+                            <label for="summary" class="control-label col-md-4">${i18n('project.summary')}</label>
+
+                            <div class="col-md-8">
+                                <textarea type="text" name="summary" id="summary"
+                                       class="form-control" ng-model="project.summary"
+                                       ng-change="change('form-group-summary')"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

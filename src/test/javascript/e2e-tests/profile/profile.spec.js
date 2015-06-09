@@ -3,7 +3,7 @@
 var pathUtil = require('path');
 
 var SearchPage = require('../pages/search.page.js');
-var ProfilePage = require('../pages/profile.page');
+var ProfilePage = require('../pages/profile.page.js');
 
 require('../../conf/capabilities.js');
 
@@ -64,6 +64,15 @@ describe('profile page', function () {
     degrees.sendKeys(protractor.Key.ENTER);
     expect(profilePage.degreeTagCount).toBe(1);
   });
+  
+  it('should be able to create a new tag with length one', function () {
+	    var degrees = profilePage.degrees;
+	    degrees.click();
+	    degrees.sendKeys("T");
+	    degrees.sendKeys(protractor.Key.ENTER);
+	    expect(profilePage.degreeTagCount).toBe(1);
+	  });
+
 
   it('should set an invalid date and persist it after correcting it', function () {
     var incorrectInputDate = '01.0x.01';
@@ -120,9 +129,58 @@ describe('profile page', function () {
     expect(suggestionsCount).toBe(3);
   });
 
+  it('should be able to add a project association', function () {
+    var oldProjectAssociationCount = profilePage.projectAssociationCount;
+    profilePage.addProjectAssociation();
+    expect(profilePage.projectAssociationCount).toBeGreaterThan(oldProjectAssociationCount);
+  });
+
+  it("should save changes inside the project associations", function () {
+    profilePage.addProjectAssociation();
+    var startField = element(by.id('start-0'));
+    startField.click();
+    startField.clear();
+    startField.sendKeys("01.01.2012");
+    profilePage.save();
+    expect(startField.getAttribute('value')).toContain('01.01.12');
+  });
+  
+  it('should be able to delete a project association', function() {
+	  profilePage.addProjectAssociation();
+	  var startField = element(by.id('start-0'));
+	  startField.click();
+	  startField.clear();
+	  startField.sendKeys("01.01.2012");
+	  profilePage.deleteProjectAssociation();
+	  expect(profilePage.projectAssociationCount).toEqual(0);
+  });
+  
+  it('should be able to delete a project association, after it was saved persistent', function() {
+	  profilePage.addProjectAssociation();
+	  var startField = element(by.id('start-0'));
+	  startField.click();
+	  startField.clear();
+	  startField.sendKeys("01.01.2012");
+	  profilePage.save();
+	  profilePage.deleteProjectAssociation();
+	  profilePage.save();
+	  expect(profilePage.projectAssociationCount).toEqual(0);
+  });
+
+  it('project associations should not be deleted, when cancel button is pressed', function () {
+	  profilePage.addProjectAssociation();
+	  var startField = element(by.id('start-0'));
+	  startField.click();
+	  startField.clear();
+	  startField.sendKeys("01.01.2012");
+	  profilePage.save();
+	  profilePage.deleteProjectAssociation();
+	  profilePage.cancel();
+	  expect(profilePage.projectAssociationCount).toEqual(1)
+  });
+  
   it('should successfully upload a profile picture and set it after save', function () {
     var oldThumbnailPath = profilePage.thumbnailPath;
-
     profilePage.uploadImage(getFileName());
     profilePage.save();
     expect(profilePage.thumbnailPath).not.toBe(oldThumbnailPath);
@@ -140,7 +198,7 @@ describe('profile page', function () {
       return "C:\\Users\\Public\\Pictures\\Sample Pictures\\flagge.gif";
     } else {
       var defaultImage = "../../../resources/fileupload.png";
-      path = pathUtil.resolve(__dirname, defaultImage);
+      return pathUtil.resolve(__dirname, defaultImage);
     }
   }
 });

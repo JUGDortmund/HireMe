@@ -6,12 +6,20 @@ angular.module('app', [
   'errors'
   'tags'
   'restangular'
+  'project'
+  'projectList'
+  'ngTagsInput'
 ])
-.config ($locationProvider, RestangularProvider) ->
+.config ($locationProvider, RestangularProvider, tagsInputConfigProvider) ->
   $locationProvider.html5Mode
     enabled: true
     requireBase: false
   RestangularProvider.setBaseUrl('/api/')
+  tagsInputConfigProvider.setDefaults 'tagsInput',
+  	minLength: 1
+  .setDefaults 'autoComplete',
+    minLength: 1
+  return
 .controller 'NavigationCtrl', ($scope, $location, Restangular) ->
   buildProperties = Restangular.one('buildProperties')
   buildProperties.get().then (data) ->

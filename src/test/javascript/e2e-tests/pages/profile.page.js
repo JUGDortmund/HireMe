@@ -29,6 +29,11 @@ ProfilePage.prototype = Object.create({}, {
       return element.all(by.css('#degrees ti-tag-item')).count();
     }
   },
+  projectAssociationCount: {
+    get: function () {
+      return element.all(by.css('.project-association')).count();
+    }
+  },
   save: {
     value: function () {
       element(by.id('save-button')).click();
@@ -44,6 +49,23 @@ ProfilePage.prototype = Object.create({}, {
       element(by.model('files')).click();
       browser.executeScript('$(\'input[type="file"]\').css(\'visibility\', \'visible\');');
       element(by.css('input[type="file"]')).sendKeys(path);
+    }
+  },
+  addProjectAssociation: {
+    value: function () {
+      element(by.id('add-project-association')).click();
+    }
+  },
+  selectLastProjectInLastProjectAssociation: {
+    value: function () {
+      var projectAssociation = element.all(by.css('.project-association')).last();
+      var project = projectAssociation.element(by.model('projectAssociation.project'));
+      project.element(by.css('select option:last-child')).click();
+    }
+  },
+  deleteProjectAssociation: {
+    value: function () {
+      element(by.id('delete-project-association-button-0')).click();
     }
   }
 

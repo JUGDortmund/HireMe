@@ -1,0 +1,69 @@
+<section id="project-list-page-section" class="content module project-list-page">
+    <div class="alert alert-danger alert-dismissible" role="alert" ng-show="errorReferenceProfiles">
+        <strong>${i18n('message.error.referencedProfiles.header')}</strong>
+        ${i18n('message.error.referencedProfiles.content')}
+        <div ng-repeat="profile in profiles">
+            <a ng-href="/profile/{{profile.id}}">
+                <span>{{profile.firstname}} {{profile.lastname}}</span>
+            </a>
+        </div>
+    </div>
+    <div class="alert alert-danger alert-dismissible" role="alert" ng-show="error">
+        <strong>${i18n('message.error.header')}</strong>
+        ${i18n('message.error.content')}
+    </div>
+    <div class="alert alert-success alert-dismissible" role="alert" ng-show="success">
+        <strong>${i18n('message.success.header')}</strong>
+        ${i18n('message.success.content')}
+    </div>
+    <div class="box-header">
+    	<h3 class="box-title">${i18n("project.list.title")}</h3> (<span id="filter-count">{{filteredProjects.length}}</span>
+        	/ <span id="project-count">{{projects.length}}</span>)
+        <div class="box-tools">
+            <div class="input-group">            
+                <input class="form-control input-sm pull-right" type="text"
+                       placeholder=${i18n("sidebar.search.placeholder")} style="width: 150px;"
+                       name="table_search" ng-model="search" autofocus="autofocus">
+
+                <div class="input-group-btn">
+                    <button class="btn btn-sm btn-default">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>            
+                <div class="input-group-btn">
+                    <button class="btn btn-sm btn-default bg-blue" ng-click="add()" id="add-project" >
+                        <i class="glyphicon glyphicon-plus"></i>
+                    </button>
+                </div>
+            </div>            
+        </div>
+    </div>
+    <div class="box-body table-responsive no-padding">
+        <table class="table table-striped">
+            <tbody>
+            <tr>
+                <th>${i18n("project.title")}</th>
+                <th>${i18n("project.start")}</th>
+                <th>${i18n("project.end")}</th>
+                <th>${i18n("project.summary")}</th>
+                <th>${i18n("project.list.editProject")}/${i18n("project.list.deleteProject")}</th>
+            </tr>
+            <tr class="project"
+                ng-repeat="project in (filteredProjects = (projects | filter:search))">
+                <td><a ng-href="/project/{{project.id}}">{{project.title}}</a></td>
+                <td><a ng-href="/project/{{project.id}}">{{project.start | date : 'dd.MM.yyyy'}}</a></td>
+                <td><a ng-href="/project/{{project.id}}">{{project.end | date : 'dd.MM.yyyy'}}</a></td>
+                <td><a ng-href="/project/{{project.id}}">{{project.summary}}</a></td>
+                <td>
+                    <a ng-href="/project/{{project.id}}">
+                        <div class="btn btn-default"><i class="fa fa-edit"></i></div>
+                    </a>
+                    <a class="btn btn-default" ng-click="remove(project.id)"><i
+                            class="fa fa-times"></i>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
