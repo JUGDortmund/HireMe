@@ -21,9 +21,9 @@ angular.module('app', [
     minLength: 1
   return
 .controller 'NavigationCtrl', ($scope, $location, Restangular) ->
-  gitProperties = Restangular.one('gitProperties')
-  gitProperties.get().then (data) ->
-    $scope.gitPropertyDTO = data.getGitPropertyDTO
+  buildProperties = Restangular.one('buildProperties')
+  buildProperties.get().then (data) ->
+    $scope.buildProperties = data.buildProperties
   $scope.isActive = (route) ->
     route is $location.path()
   $scope.triggerBuildInformation = ->

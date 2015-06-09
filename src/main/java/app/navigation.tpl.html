@@ -10,23 +10,29 @@
             </li>
             <li ng-class="{active:isActive('/projectlist')}"><a href="/projectlist"><span>${i18n("sidebar.navigation.searchprojects")}</span></a>
             </li>
-            <li ng-if="gitPropertyDTO.showGitProperties" id="li-build-information" class="treeview">
+            <li ng-if="buildProperties.showBuildProperties" id="li-build-information" class="treeview">
                 <a id="a-build-information" href="#" ng-click="triggerBuildInformation()">
                     <i class="fa fa-bar-chart"></i> <span id="span-build-information">Build information</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul id="ul-build-information" class="treeview-menu bg-info">
-                    <li><span class="small bg-warning"> Commit: {{gitPropertyDTO.abbrev}}</span>
+                    <li>
+                    	<span class="small bg-warning"> Commit: {{buildProperties.abbrev}}</span>
                     </li>
-                    <li><span
-                            class="small bg-info">Commit-User: {{gitPropertyDTO.commitUserName}}</span>
+                    <li>
+                    	<span class="small bg-info">Commit-User: {{buildProperties.commitUserName}}</span>
                     </li>
-                    <li><span class="small bg-warning">Branch: {{gitPropertyDTO.branch}}</span></li>
-                    <li><span
-                            class="small bg-info">Commit-Time: {{gitPropertyDTO.commitTime}}</span>
+                    <li>
+                    	<span class="small bg-warning">Branch: {{buildProperties.branch}}</span>
                     </li>
-                    <li><span
-                            class="small bg-warning">Build-Time: {{gitPropertyDTO.buildTime}}</span>
+                    <li>
+                    	<span class="small bg-info">Commit-Time: {{buildProperties.commitTime}}</span>
+                    </li>
+                    <li>
+                    	<span class="small bg-warning">Build-Time: {{buildProperties.buildTime}}</span>
+                    </li>
+                    <li>
+                    	<span class="small bg-info">Environment: {{buildProperties.environment}}</span>
                     </li>
                 </ul>
             </li>

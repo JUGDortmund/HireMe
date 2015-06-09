@@ -1,21 +1,21 @@
 package dtos;
 
-public class GitProperties {
+public class BuildProperties {
 
-  private boolean showGitProperties;
+  private boolean showBuildProperties;
   private String abbrev;
   private String commitUserName;
   private String branch;
   private String commitTime;
   private String buildTime;
+  private String environment;
 
-  public boolean isShowGitProperties() {
-    return showGitProperties;
+  public boolean isShowBuildProperties() {
+    return showBuildProperties;
   }
 
-  public void setShowGitProperties(
-      boolean showGitProperties) {
-    this.showGitProperties = showGitProperties;
+  public void setShowBuildProperties(boolean showBuildProperties) {
+    this.showBuildProperties = showBuildProperties;
   }
 
   public String getAbbrev() {
@@ -58,4 +58,11 @@ public class GitProperties {
     this.buildTime = buildTime;
   }
 
+  public String getEnvironment() {
+    return environment;
+  }
+
+  public void setEnvironment(String environment) {
+    this.environment = environment;
+  }
 }

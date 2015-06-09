@@ -4,7 +4,7 @@ describe('dashboard', function () {
     'use strict';
 
     beforeEach(function () {
-        mock(['gitPropertiesMock']);
+        mock(['buildPropertiesMock']);
     });
 
     it('redirect to \"/search?q=blub\" if \"blub\" is entered in search-form and button \"btn-success\" is clicked',
