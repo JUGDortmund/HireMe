@@ -40,7 +40,7 @@ public class IndexController {
 
   @GET
   @Path("/api/buildProperties")
-  public Result getBuildPropertyDTO() {
+  public Result getBuildProperties() {
     return Results.ok().json().render("buildProperties", propertyService.getBuildProperties());
   }
 
