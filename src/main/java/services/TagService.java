@@ -5,31 +5,20 @@ import com.google.common.collect.ListMultimap;
 import com.google.common.collect.MultimapBuilder;
 import com.google.common.eventbus.Subscribe;
 import com.google.inject.Singleton;
-
-import org.bson.types.ObjectId;
-import org.slf4j.Logger;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.stream.Collectors;
-
-import javax.validation.constraints.NotNull;
-
 import dtos.TagList;
 import model.BaseModel;
 import model.annotations.InjectLogger;
 import model.annotations.Tag;
 import model.events.EntityChangedEvent;
 import model.events.EntityRemovedEvent;
+import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import util.ReflectionUtil;
+
+import javax.validation.constraints.NotNull;
+import java.lang.reflect.Field;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static org.reflections.ReflectionUtils.getAllFields;
 import static org.reflections.ReflectionUtils.withAnnotation;
@@ -85,7 +74,7 @@ public class TagService {
       if (value == null) {
         continue;
       }
-      if (isStringList(field)) {
+      if (ReflectionUtil.isStringList(field)) {
         final Collection<String> values = (Collection<String>) value;
         values.forEach(x -> tagAssociations.put(model.getId(), new TagAssociation<>(field.getName(),
                                                                                        x)));
@@ -114,17 +103,6 @@ public class TagService {
       fieldCache.put(modelClass.getName(), getAllFields(modelClass, withAnnotation(Tag.class)));
     }
     return fieldCache.get(modelClass.getName());
-  }
-
-  private boolean isStringList(@NotNull final Field field) {
-    final Type[]
-        actualTypeArguments =
-        ((ParameterizedType) field.getGenericType()).getActualTypeArguments();
-    return actualTypeArguments.length == 1 &&
-           field.getType().isAssignableFrom(List.class) &&
-           Arrays.stream(actualTypeArguments)
-               .filter(x -> ((Class<?>) x).isAssignableFrom(String.class))
-               .collect(Collectors.counting()) == 1;
   }
 
   /**

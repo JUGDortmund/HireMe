@@ -1,0 +1,5 @@
+{
+  "name": "TestTemplate",
+  "templatePath": "template.ftl.xhtml",
+  "fileNamePattern": "maredit_${firstname}_${lastname}_$today.pdf"
+}

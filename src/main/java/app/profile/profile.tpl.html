@@ -21,18 +21,18 @@
                     ${i18n('message.upload.error.content')}
                 </div>
                 <div class="box border-box">
-                    <div class="header-text"
-                         ngf-drop
-                         ngf-select
-                         ng-model="files"
-                         ng-model-rejected="rejectedFiles"
-                         ngf-drag-over-class="dragover"
-                         ngf-multiple="false"
-                         ngf-allow-dir="false"
-                         ngf-accept="'image/*'"
-                         ngf-min-size='10'
-                         ngf-max-size='15728640'>
-                        <div id="image-wrapper">
+                    <div class="header-text">
+                        <div id="image-wrapper"
+                             ngf-drop
+                             ngf-select
+                             ng-model="files"
+                             ng-model-rejected="rejectedFiles"
+                             ngf-drag-over-class="dragover"
+                             ngf-multiple="false"
+                             ngf-allow-dir="false"
+                             ngf-accept="'image/*'"
+                             ngf-min-size='10'
+                             ngf-max-size='15728640'>
                             <img ngf-src="files[0]"
                                  ngf-default-src="{{profile.image|toThumbnailUrl}}" id="image"/>
                         </div>
@@ -41,11 +41,16 @@
                         <span><i class="fa fa-cloud-upload"></i></br>
                             ${i18n('profile.image.change')}</br>${i18n('profile.image.acceptfiles')}</span>
 
-                        <h2 class="headline">{{profile.firstname}} {{profile.lastname}}</h2>
+                        <div class="header-info" style="">
+                            <h2 class="headline">{{profile.firstname}} {{profile.lastname}}</h2>
 
-                        <p class="description">
-                            {{tagsToList(profile.careerLevel).join(', ')}}
-                        </p>
+                            <p class="description">
+                                {{tagsToList(profile.careerLevel).join(', ')}}
+                            </p>
+                        </div>
+                        <a id="download-button" class="btn btn-primary"
+                           href="/api/exportProfile/{{profile.id}}" target="_blank"><i class="fa fa-download"></i>
+                            Download</a>
                     </div>
                 </div>
                 <div ng-show="showEditModeButtons" class="no-print button-dialog">
@@ -62,7 +67,8 @@
                     </div>
                     <div class="box-body form-horizontal">
                         <div class="form-group" id="form-group-lastName">
-                            <label for="lastName" class="control-label col-md-4">${i18n('profile.personal.lastName')}</label>
+                            <label for="lastName"
+                                   class="control-label col-md-4">${i18n('profile.personal.lastName')}</label>
 
                             <div class="col-md-8">
                                 <input type="text" name="lastName" id="lastName"
@@ -72,7 +78,8 @@
                             </div>
                         </div>
                         <div class="form-group" id="form-group-firstname">
-                            <label for="firstName" class="control-label col-md-4">${i18n('profile.personal.firstName')}</label>
+                            <label for="firstName"
+                                   class="control-label col-md-4">${i18n('profile.personal.firstName')}</label>
 
                             <div class="col-md-8">
                                 <input type="text" name="firstName" id="firstName"
@@ -81,7 +88,8 @@
                             </div>
                         </div>
                         <div class="form-group" id="form-group-degree">
-                            <label for="degrees" class="control-label col-md-4">${i18n('profile.personal.degree')}</label>
+                            <label for="degrees"
+                                   class="control-label col-md-4">${i18n('profile.personal.degree')}</label>
 
                             <div class="col-md-8">
                                 <tags-input type="text" name="degrees" id="degrees"
@@ -103,7 +111,7 @@
                                             class="ng-tags-custom" ng-model="profile.careerLevel"
                                             on-tag-added="change('form-group-careerLevel')"
                                             on-tag-removed="change('form-group-careerLevel')">
-                                    <auto-complete source="getTags('careerLevel')|filter:$query" 
+                                    <auto-complete source="getTags('careerLevel')|filter:$query"
                                             ></auto-complete>
                                 </tags-input>
                             </div>
@@ -125,7 +133,8 @@
                             </div>
                         </div>
                         <div class="form-group" id="form-group-languages">
-                            <label for="languages" class="control-label col-md-4">${i18n('profile.personal.languages')}</label>
+                            <label for="languages"
+                                   class="control-label col-md-4">${i18n('profile.personal.languages')}</label>
 
                             <div class="col-md-8">
                                 <tags-input type="text" name="languages" id="languages"
@@ -167,7 +176,8 @@
                     </div>
                     <div class="box-body form-horizontal">
                         <div class="form-group" id="form-group-platforms">
-                            <label for="platforms" class="control-label col-md-4">${i18n('profile.skills.platforms')}</label>
+                            <label for="platforms"
+                                   class="control-label col-md-4">${i18n('profile.skills.platforms')}</label>
 
                             <div class="col-md-8">
                                 <tags-input type="text" name="platforms" id="platforms"
@@ -181,7 +191,8 @@
                             </div>
                         </div>
                         <div class="form-group" id="form-group-opSystems">
-                            <label for="opSystems" class="control-label col-md-4">${i18n('profile.skills.opSystems')}</label>
+                            <label for="opSystems"
+                                   class="control-label col-md-4">${i18n('profile.skills.opSystems')}</label>
 
                             <div class="col-md-8">
                                 <tags-input type="text" name="opSystems" id="opSystems"
@@ -256,12 +267,13 @@
                             </div>
                         </div>
                         <div class="form-group" id="form-group-summary">
-                            <label for="summary" class="control-label col-md-4">${i18n('profile.skills.summary')}</label>
+                            <label for="summary"
+                                   class="control-label col-md-4">${i18n('profile.skills.summary')}</label>
 
                             <div class="col-md-8">
                                 <textarea type="text" name="summary" id="summary" class="form-control"
-                                       ng-model="profile.summary"
-                                       ng-change="change('form-group-summary')"/>
+                                          ng-model="profile.summary"
+                                          ng-change="change('form-group-summary')"/>
                             </div>
                         </div>
                     </div>
@@ -368,7 +380,7 @@
                                                     on-tag-removed="change('form-group-projectAssociation-positions-'+$index)">
                                             <auto-complete
                                                     source="getTags('positions')|filter:$query"
-                                                    ></auto-complete> 
+                                                    ></auto-complete>
                                         </tags-input>
                                     </div>
                                 </div>
@@ -397,11 +409,11 @@
 
                                     <div class="col-md-8">
                                         <textarea
-                                               name="projectAssociations-tasks-{{$index}}"
-                                               id="projectAssociations-tasks-{{$index}}"
-                                               class="form-control"
-                                               ng-model="projectAssociation.tasks"
-                                               ng-change="change('form-group-projectAssociation-tasks-'+$index)"
+                                                name="projectAssociations-tasks-{{$index}}"
+                                                id="projectAssociations-tasks-{{$index}}"
+                                                class="form-control"
+                                                ng-model="projectAssociation.tasks"
+                                                ng-change="change('form-group-projectAssociation-tasks-'+$index)"
                                                 />
                                     </div>
                                 </div>
