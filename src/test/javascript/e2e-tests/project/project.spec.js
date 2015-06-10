@@ -72,7 +72,7 @@ describe('project page', function () {
 		    expect(projectPage.locationsTagCount).toBe(1);
 		  });
 	  
-	  fit('should be able to create a new tag without replace spaces with dashes', function () {
+	  it('should be able to create a new tag without replace spaces with dashes', function () {
 		    var locations = projectPage.locations;
 		    var inputLocation = 'Test without dashes';
 		    locations.click();
