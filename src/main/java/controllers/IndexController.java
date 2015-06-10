@@ -3,14 +3,15 @@ package controllers;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
+import services.LocalizationService;
+import services.PropertyService;
+
 import ninja.Context;
 import ninja.Result;
 import ninja.Results;
 import ninja.jaxy.GET;
 import ninja.jaxy.Path;
 import ninja.params.PathParam;
-import services.LocalizationService;
-import services.PropertyService;
 
 @Singleton
 @Path("")
@@ -25,7 +26,7 @@ public class IndexController {
   @Path("^((?!(\\/api\\/|tpl)).)*$")
   public Result index() {
     return Results.ok().html().template("/app/index.html")
-                  .render("showMinifiedVersion", propertyService.showMinifiedVersion());
+        .render("showMinifiedVersion", propertyService.showMinifiedVersion());
   }
 
   @GET
@@ -38,9 +39,9 @@ public class IndexController {
   }
 
   @GET
-  @Path("/api/gitProperties")
-  public Result getGitPropertyDTO() {
-    return Results.ok().json().render("getGitPropertyDTO", propertyService.getGitProperties());
+  @Path("/api/buildProperties")
+  public Result getBuildProperties() {
+    return Results.ok().json().render("buildProperties", propertyService.getBuildProperties());
   }
 
   @GET

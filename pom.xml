@@ -5,21 +5,44 @@
     <artifactId>hireme</artifactId>
     <packaging>war</packaging>
     <groupId>de.maredit</groupId>
-    <version>0.4.1-SNAPSHOT</version>
+    <version>1.1.0-SNAPSHOT</version>
     <scm>
         <connection>scm:git:ssh://git@stash.maredit.net:7999/com/hireme.git</connection>
         <developerConnection>scm:git:ssh://git@stash.maredit.net:7999/com/hireme.git
         </developerConnection>
         <url>http://stash.maredit.net/projects/COM/repos/hireme/browse</url>
-        <tag>HEAD</tag>
+        <tag>hireme-1.0.0</tag>
     </scm>
+    
+	<distributionManagement>
+	  <repository>
+	     <id>nexus</id>
+	     <name>Internal Releases</name>
+	     <url>http://nexus.maredit.net/content/repositories/releases/</url>
+	  </repository>
+	  <snapshotRepository>
+	     <id>nexus</id>
+	     <name>Internal Snapshots</name>
+	     <url>http://nexus.maredit.net/content/repositories/snapshots/</url>
+	  </snapshotRepository>
+	</distributionManagement>
+
+	<prerequisites>
+		<maven>3.1.0</maven>
+	</prerequisites>
 
     <properties>
         <ninja.version>5.1.0</ninja.version>
         <jetty.version>9.2.10.v20150310</jetty.version>
         <doxia-markdown.version>1.6</doxia-markdown.version>
+        <maven-war-plugin.version>2.6</maven-war-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <usermanual.sourceDirectory>${basedir}/src/usermanual</usermanual.sourceDirectory>
+        <operationmanual.sourceDirectory>${basedir}/src/operationmanual</operationmanual.sourceDirectory>
+        <operationmanual.filename>operationmanual</operationmanual.filename>
+        <operationmanual.outputDirectory>${project.build.outputDirectory}/assets/operationmanual</operationmanual.outputDirectory>
+        <environment.config.sourceDirectory>${basedir}/src/env</environment.config.sourceDirectory>
     </properties>
 
     <build>
@@ -130,7 +153,7 @@
                     <contextPath>/</contextPath>
                     <scanTargetPatterns>
                         <scanTargetPattern>
-                            <directory>target/classes</directory>
+                            <directory>${project.build.outputDirectory}</directory>
                             <includes>
                                 <include>**/*</include>
                             </includes>
@@ -198,9 +221,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
                 <version>2.8.2</version>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
             </plugin>
             <!-- Plugin inserted by ninja framework per default. Used for building standalone jar file -->
             <plugin>
@@ -258,7 +278,7 @@
                             <goal>karma</goal>
                         </goals>
                         <configuration>
-                            <karmaConfPath>src/test/javascript/conf/karma.ci.conf.js</karmaConfPath>
+                            <karmaConfPath>${basedir}/src/test/javascript/conf/karma.ci.conf.js</karmaConfPath>
                             <skip>${skip.protractor.tests}</skip>
                         </configuration>
                     </execution>
@@ -314,6 +334,8 @@
                         <deployable>
                             <groupId>de.maredit</groupId>
                             <artifactId>hireme</artifactId>
+                            <classifier>${cargo.artifact.classifier}</classifier>
+                            <pingURL>http://${cargo.hostname}:8080</pingURL>
                             <type>war</type>
                             <properties>
                                 <context>/</context>
@@ -332,7 +354,7 @@
                     <forkCount>3</forkCount>
                     <reuseForks>true</reuseForks>
                     <includes>
-                        <include>/unit/**.java</include>
+                        <include>/unit/**</include>
                     </includes>
                     <excludes>
                         <exclude>/doctester/**</exclude>
@@ -352,6 +374,9 @@
                         <include>/doctester/**</include>
                         <include>/integration/**</include>
                     </includes>
+                    <excludes>
+                        <exclude>/unit/**</exclude>
+                    </excludes>
                 </configuration>
                 <executions>
                     <execution>
@@ -361,59 +386,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <!-- Plugin for generation of user manual as website -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-                <version>3.4</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.maven.doxia</groupId>
-                        <artifactId>doxia-module-markdown</artifactId>
-                        <version>${doxia-markdown.version}</version>
-                    </dependency>
-                </dependencies>
-                <configuration>
-                    <generateReports>false</generateReports>
-                    <generateProjectInfo>false</generateProjectInfo>
-                    <siteDirectory>${basedir}/src/usermanual</siteDirectory>
-                    <templateDirectory>${basedir}/src/usermanual</templateDirectory>
-                    <outputDirectory>${project.build.outputDirectory}/assets/usermanual
-                    </outputDirectory>
-                </configuration>
-            </plugin>
-            <!-- Plugin for generation of operation documentation as pdf-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pdf-plugin</artifactId>
-                <version>1.3</version>
-                <executions>
-                    <execution>
-                        <id>pdf</id>
-                        <phase>site</phase>
-                        <goals>
-                            <goal>pdf</goal>
-                        </goals>
-                        <configuration>
-                            <generateReports>false</generateReports>
-                            <generateProjectInfo>false</generateProjectInfo>
-                            <siteDirectory>${basedir}/src/operationmanual</siteDirectory>
-                            <templateDirectory>${basedir}/src/operationmanual</templateDirectory>
-                            <outputDirectory>
-                                ${project.build.outputDirectory}/assets/operationmanual
-                            </outputDirectory>
-                            <docDescriptor>${basedir}/src/operationmanual/pdf.xml</docDescriptor>
-                        </configuration>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.apache.maven.doxia</groupId>
-                        <artifactId>doxia-module-markdown</artifactId>
-                        <version>${doxia-markdown.version}</version>
-                    </dependency>
-                </dependencies>
             </plugin>
             <!-- Plugin for copying environment specific application and logging configuration to target directory -->
             <plugin>
@@ -428,8 +400,8 @@
                             <goal>copy</goal>
                         </goals>
                         <configuration>
-                            <sourceFile>src/confs/application.${env.name}.conf</sourceFile>
-                            <destinationFile>target/classes/conf/application.conf</destinationFile>
+                            <sourceFile>${environment.config.sourceDirectory}/${env.name}/conf/application.conf</sourceFile>
+                            <destinationFile>${project.build.outputDirectory}/conf/application.conf</destinationFile>
                         </configuration>
                     </execution>
                     <execution>
@@ -439,13 +411,28 @@
                             <goal>copy</goal>
                         </goals>
                         <configuration>
-                            <sourceFile>src/confs/logback.${env.name}.xml
-                            </sourceFile>
-                            <destinationFile>target/classes/logback.xml</destinationFile>
+                            <sourceFile>${environment.config.sourceDirectory}/${env.name}/logback.xml</sourceFile>
+                            <destinationFile>${project.build.outputDirectory}/logback.xml</destinationFile>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
+            <!-- Plugin for building environment specific deployment artifacts -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${maven-war-plugin.version}</version>
+				<configuration>
+					<classifier>dev</classifier>
+					<webappDirectory>${project.build.directory}/${project.build.finalName}-dev</webappDirectory>
+					<webResources>
+						<resource>
+							<directory>${environment.config.sourceDirectory}/dev</directory>
+							<targetPath>WEB-INF/classes</targetPath>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>         
         </plugins>
         <resources>
             <resource>
@@ -651,15 +638,72 @@
 		</dependency>
     </dependencies>
     <profiles>
-        <!-- Test profile for development -->
+        <!--Environment profile for development -->
         <profile>
-            <id>dev</id>
+            <id>env-dev</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <build.profile.id>dev</build.profile.id>
+                <build.profile.id>env-dev</build.profile.id>
                 <env.name>dev</env.name>
+                <!-- only run unit tests to speed up building during development -->
+                <skip.protractor.tests>true</skip.protractor.tests>
+                <skip.integration.tests>true</skip.integration.tests>
+                <skip.unit.tests>false</skip.unit.tests>
+            </properties>
+        </profile>
+        <!--Environment profile for jenkins -->
+        <profile>
+            <id>env-jenkins</id>
+            <properties>
+                <build.profile.id>env-jenkins</build.profile.id>
+                <env.name>jenkins</env.name>
+                <!-- ensure all tests are run as we use this on ci jobs -->
+                <skip.protractor.tests>false</skip.protractor.tests>
+                <skip.integration.tests>false</skip.integration.tests>
+                <skip.unit.tests>false</skip.unit.tests>
+            </properties>
+        </profile>
+        <!--Environment profile for build -->
+        <profile>
+            <id>env-build</id>
+            <properties>
+                <build.profile.id>env-build</build.profile.id>
+                <env.name>build</env.name>
+                <!-- ensure all tests are skipped as they would run on build database -->
+                <skip.protractor.tests>true</skip.protractor.tests>
+                <skip.integration.tests>true</skip.integration.tests>
+                <skip.unit.tests>true</skip.unit.tests>
+            </properties>
+        </profile>
+        <!--Environment profile for prod -->
+        <profile>
+            <id>env-prod</id>
+            <properties>
+                <build.profile.id>env-prod</build.profile.id>
+                <env.name>prod</env.name>
+                <!-- ensure all tests are skipped as they would run on prod database -->
+                <skip.protractor.tests>true</skip.protractor.tests>
+                <skip.integration.tests>true</skip.integration.tests>
+                <skip.unit.tests>true</skip.unit.tests>
+            </properties>
+        </profile>
+        <!-- Test profile for running no tests -->
+        <profile>
+            <id>tests-none</id>
+            <properties>
+                <build.profile.id>tests-none</build.profile.id>
+                <skip.protractor.tests>true</skip.protractor.tests>
+                <skip.integration.tests>true</skip.integration.tests>
+                <skip.unit.tests>true</skip.unit.tests>
+            </properties>
+        </profile>
+        <!-- Test profile for unit tests -->
+        <profile>
+            <id>tests-unit</id>
+            <properties>
+                <build.profile.id>tests-unit</build.profile.id>
                 <skip.protractor.tests>true</skip.protractor.tests>
                 <skip.integration.tests>true</skip.integration.tests>
                 <skip.unit.tests>false</skip.unit.tests>
@@ -667,9 +711,9 @@
         </profile>
         <!-- Test profile for integration tests -->
         <profile>
-            <id>integration</id>
+            <id>tests-integration</id>
             <properties>
-                <build.profile.id>integration</build.profile.id>
+                <build.profile.id>tests-integration</build.profile.id>
                 <skip.protractor.tests>true</skip.protractor.tests>
                 <skip.integration.tests>false</skip.integration.tests>
                 <skip.unit.tests>false</skip.unit.tests>
@@ -677,9 +721,9 @@
         </profile>
         <!-- Test profile for protractor/selenium tests -->
         <profile>
-            <id>protractor</id>
+            <id>tests-protractor</id>
             <properties>
-                <build.profile.id>protractor</build.profile.id>
+                <build.profile.id>tests-protractor</build.profile.id>
                 <skip.protractor.tests>false</skip.protractor.tests>
                 <skip.integration.tests>true</skip.integration.tests>
                 <skip.unit.tests>false</skip.unit.tests>
@@ -687,9 +731,9 @@
         </profile>
         <!-- Test profile for running all tests -->
         <profile>
-            <id>all</id>
+            <id>tests-all</id>
             <properties>
-                <build.profile.id>all</build.profile.id>
+                <build.profile.id>tests-all</build.profile.id>
                 <skip.protractor.tests>false</skip.protractor.tests>
                 <skip.integration.tests>false</skip.integration.tests>
                 <skip.unit.tests>false</skip.unit.tests>
@@ -697,17 +741,168 @@
         </profile>
         <!-- Profile for deployment on build system via cargo plugin -->
         <profile>
-            <id>build</id>
+            <id>system-build</id>
             <properties>
                 <cargo.hostname>hireme-build.maredit.net</cargo.hostname>
+                <cargo.artifact.classifier>build</cargo.artifact.classifier>
             </properties>
         </profile>
         <!-- Profile for deployment on prod system via cargo plugin -->
         <profile>
-            <id>prod</id>
+            <id>system-prod</id>
             <properties>
                 <cargo.hostname>hireme-prod.maredit.net</cargo.hostname>
+                <cargo.artifact.classifier>prod</cargo.artifact.classifier>
             </properties>
         </profile>
+        <!-- Profile for building manuals -->
+		<profile>
+			<id>build-manuals</id>
+            <properties>
+                <build.profile.id>build-manuals</build.profile.id>
+            </properties>
+			<build>
+				<plugins>
+					<!-- Plugin for generation of user manual as website -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-site-plugin</artifactId>
+						<version>3.4</version>
+						<dependencies>
+							<dependency>
+								<groupId>org.apache.maven.doxia</groupId>
+								<artifactId>doxia-module-markdown</artifactId>
+								<version>${doxia-markdown.version}</version>
+							</dependency>
+						</dependencies>
+						<configuration>
+							<generateReports>false</generateReports>
+							<generateProjectInfo>false</generateProjectInfo>
+							<siteDirectory>${usermanual.sourceDirectory}</siteDirectory>
+							<templateDirectory>${usermanual.sourceDirectory}</templateDirectory>
+							<outputDirectory>${project.build.outputDirectory}/assets/usermanual</outputDirectory>
+						</configuration>
+						<executions>
+							<execution>
+								<id>package-usermanual</id>
+								<phase>package</phase>
+								<goals>
+									<goal>site</goal>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<!-- Plugin for generation of operation documentation as pdf -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-pdf-plugin</artifactId>
+						<version>1.3</version>
+						<dependencies>
+							<dependency>
+								<groupId>org.apache.maven.doxia</groupId>
+								<artifactId>doxia-module-markdown</artifactId>
+								<version>${doxia-markdown.version}</version>
+							</dependency>
+						</dependencies>
+						<configuration>
+							<generateReports>false</generateReports>
+							<generateProjectInfo>false</generateProjectInfo>
+							<siteDirectory>${operationmanual.sourceDirectory}</siteDirectory>
+							<templateDirectory>${operationmanual.sourceDirectory}</templateDirectory>
+							<outputDirectory>${operationmanual.outputDirectory}</outputDirectory>
+							<docDescriptor>${operationmanual.sourceDirectory}/pdf.xml</docDescriptor>
+						</configuration>
+						<executions>
+							<execution>
+								<id>package-operationmanual</id>
+								<phase>package</phase>
+								<goals>
+									<goal>pdf</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<!-- Plugin for attaching operation manual as separate artifact during 
+						deployment -->
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<version>1.9.1</version>
+						<executions>
+							<execution>
+								<id>attach-operationmanual</id>
+								<phase>package</phase>
+								<goals>
+									<goal>attach-artifact</goal>
+								</goals>
+								<configuration>
+									<artifacts>
+										<artifact>
+											<file>${operationmanual.outputDirectory}/${operationmanual.filename}.pdf</file>
+											<type>pdf</type>
+											<classifier>operationmanual</classifier>
+										</artifact>
+									</artifacts>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+        <!-- Profile for building environment specific deployment artifacts -->
+		<profile>
+			<id>build-deployment-artifacts</id>
+            <properties>
+                <build.profile.id>build-deployment-artifacts</build.profile.id>
+            </properties>
+			<build>
+				<plugins>
+					<!-- Plugin for building environment specific deployment artifacts -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<version>${maven-war-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>package-build</id>
+								<phase>package</phase>
+								<configuration>
+									<classifier>build</classifier>
+									<webappDirectory>${project.build.directory}/${project.build.finalName}-build</webappDirectory>
+									<webResources>
+										<resource>
+											<directory>${environment.config.sourceDirectory}/build</directory>
+											<targetPath>WEB-INF/classes</targetPath>
+										</resource>
+									</webResources>
+								</configuration>
+								<goals>
+									<goal>war</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>package-prod</id>
+								<phase>package</phase>
+								<configuration>
+									<classifier>prod</classifier>
+									<webappDirectory>${project.build.directory}/${project.build.finalName}-prod</webappDirectory>
+									<webResources>
+										<resource>
+											<directory>${environment.config.sourceDirectory}/prod</directory>
+											<targetPath>WEB-INF/classes</targetPath>
+										</resource>
+									</webResources>
+								</configuration>
+								<goals>
+									<goal>war</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
     </profiles>
 </project>
