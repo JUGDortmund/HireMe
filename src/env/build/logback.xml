@@ -12,7 +12,8 @@
     <appender name="SYSLOG" class="ch.qos.logback.classic.net.SyslogAppender">
 		<syslogHost>logstash.maredit.net</syslogHost>
 		<facility>LOCAL0</facility>
-        <suffixPattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</suffixPattern>
+		<port>1600</port>
+        <suffixPattern>[%thread] %-5level %logger{36} - %msg</suffixPattern>
     </appender>
 
     <root level="DEBUG">
