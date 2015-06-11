@@ -291,7 +291,7 @@
                                                 id="project-{{$index}}"
                                                 ng-options="project.title for project in projects track by project.id"
                                                 ng-show="projects && projects.length > 0"
-                                                ng-change="change('form-group-projectAssociation-associatedProject-' + $index)">
+                                                ng-change="change('form-group-projectAssociation-associatedProject-' + $index);loadDefaults($index)">
                                         </select>
 
                                         <div ng-hide="projects && projects.length > 0">
@@ -354,25 +354,6 @@
                                     </div>
                                 </div>
                                 <div class="form-group"
-                                     id="form-group-projectAssociation-positions-{{$index}}">
-                                    <label for="devEnvironments" class="control-label col-md-4">${i18n('profile.projects.positions')}</label>
-
-                                    <div class="col-md-8">
-                                        <tags-input type="text"
-                                                    name="projectAssociations-positions-{{$index}}"
-                                                    id="projectAssociations-positions-{{$index}}"
-                                                    placeholder="${i18n('form.addTag')}"
-                                                    class="ng-tags-custom"
-                                                    ng-model="projectAssociation.positions"
-                                                    on-tag-added="change('form-group-projectAssociation-positions-'+$index)"
-                                                    on-tag-removed="change('form-group-projectAssociation-positions-'+$index)">
-                                            <auto-complete
-                                                    source="getTags('positions')|filter:$query"
-                                                    ></auto-complete> 
-                                        </tags-input>
-                                    </div>
-                                </div>
-                                <div class="form-group"
                                      id="form-group-projectAssociation-technologies-{{$index}}">
                                     <label for="devEnvironments" class="control-label col-md-4">${i18n('profile.projects.technologies')}</label>
 
@@ -388,6 +369,25 @@
                                             <auto-complete
                                                     source="getTags('technologies')|filter:$query"
                                                     ></auto-complete>
+                                        </tags-input>
+                                    </div>
+                                </div>
+                                <div class="form-group"
+                                     id="form-group-projectAssociation-positions-{{$index}}">
+                                    <label for="devEnvironments" class="control-label col-md-4">${i18n('profile.projects.positions')}</label>
+
+                                    <div class="col-md-8">
+                                        <tags-input type="text"
+                                                    name="projectAssociations-positions-{{$index}}"
+                                                    id="projectAssociations-positions-{{$index}}"
+                                                    placeholder="${i18n('form.addTag')}"
+                                                    class="ng-tags-custom"
+                                                    ng-model="projectAssociation.positions"
+                                                    on-tag-added="change('form-group-projectAssociation-positions-'+$index)"
+                                                    on-tag-removed="change('form-group-projectAssociation-positions-'+$index)">
+                                            <auto-complete
+                                                    source="getTags('positions')|filter:$query"
+                                                    ></auto-complete> 
                                         </tags-input>
                                     </div>
                                 </div>
