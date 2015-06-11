@@ -409,7 +409,7 @@
                                 </div>
                                 <div class="form-group"
                                      id="form-group-projectAssociation-tasks-{{$index}}">
-                                    <label for="devEnvironments" class="control-label col-md-4">${i18n('profile.projects.tasks')}</label>
+                                    <label for="projectAssociations-tasks-{{$index}}" class="control-label col-md-4">${i18n('profile.projects.tasks')}</label>
 
                                     <div class="col-md-8">
                                         <textarea
@@ -418,7 +418,7 @@
                                                 class="form-control"
                                                 ng-model="projectAssociation.tasks"
                                                 ng-change="change('form-group-projectAssociation-tasks-'+$index)"
-                                                >
+                                                ></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group"
