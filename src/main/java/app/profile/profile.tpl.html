@@ -10,15 +10,19 @@
                     <strong>${i18n('message.success.header')}</strong>
                     ${i18n('message.success.content')}
                 </div>
-                <div class="alert alert-warning alert-dismissible" role="alert"
+                <div class="alert alert-advice alert-dismissible" role="alert"
                      ng-show="uploadreject">
                     <strong>${i18n('message.upload.reject.header')}</strong>
                     ${i18n('message.upload.reject.content')} ${i18n('profile.image.acceptfiles')}
                 </div>
-                <div class="alert alert-warning alert-dismissible" role="alert"
+                <div class="alert alert-advice alert-dismissible" role="alert"
                      ng-show="uploaderror">
                     <strong>${i18n('message.upload.error.header')}</strong>
                     ${i18n('message.upload.error.content')}
+                </div>
+                <div class="alert alert-advice alert-dismissible" role="alert" ng-show="errorDublicat">
+                    <strong>${i18n('message.error.dublicat.header')}</strong>
+                    <strong> '{{ textTag }}' </strong> ${i18n('message.error.dublicat.content')}  
                 </div>
                 <div class="box border-box">
                     <div class="header-text"
@@ -85,7 +89,9 @@
 
                             <div class="col-md-8">
                                 <tags-input type="text" name="degrees" id="degrees"
+                                			text="dagreesText"
                                             placeholder="${i18n('form.addTag')}"
+                                            on-invalid-tag="valid('dagreesText', $tag)"
                                             class="ng-tags-custom" ng-model="profile.degrees"
                                             on-tag-added="change('form-group-degree')"
                                             on-tag-removed="change('form-group-degree')">
@@ -99,7 +105,9 @@
 
                             <div class="col-md-8">
                                 <tags-input type="text" name="careerLevel" id="careerLevel"
+                                			text="careerLevelText"
                                             placeholder="${i18n('form.addTag')}"
+                                            on-invalid-tag="valid('careerLevelText', $tag)"
                                             class="ng-tags-custom" ng-model="profile.careerLevel"
                                             on-tag-added="change('form-group-careerLevel')"
                                             on-tag-removed="change('form-group-careerLevel')">
@@ -129,7 +137,9 @@
 
                             <div class="col-md-8">
                                 <tags-input type="text" name="languages" id="languages"
+                                			text="languagesText"
                                             placeholder="${i18n('form.addTag')}"
+                                            on-invalid-tag="valid('languagesText', $tag)"
                                             class="ng-tags-custom" ng-model="profile.languages"
                                             on-tag-added="change('form-group-languages')"
                                             on-tag-removed="change('form-group-languages')">
@@ -150,7 +160,9 @@
 
                             <div class="col-md-8">
                                 <tags-input type="text" name="industries" id="industries"
+                                			text="industriesText"
                                             placeholder="${i18n('form.addTag')}"
+                                            on-invalid-tag="valid('industriesText', $tag)"
                                             class="ng-tags-custom" ng-model="profile.industries"
                                             on-tag-added="change('form-group-industries')"
                                             on-tag-removed="change('form-group-industries')">
@@ -171,7 +183,9 @@
 
                             <div class="col-md-8">
                                 <tags-input type="text" name="platforms" id="platforms"
+                                			text="platformsText"
                                             placeholder="${i18n('form.addTag')}"
+                                            on-invalid-tag="valid('platformsText', $tag)"
                                             class="ng-tags-custom" ng-model="profile.platforms"
                                             on-tag-added="change('form-group-platforms')"
                                             on-tag-removed="change('form-group-platforms')">
@@ -185,7 +199,9 @@
 
                             <div class="col-md-8">
                                 <tags-input type="text" name="opSystems" id="opSystems"
+                                			text="opSystemsText"
                                             placeholder="${i18n('form.addTag')}"
+                                            on-invalid-tag="valid('opSystemsText', $tag)"
                                             class="ng-tags-custom" ng-model="profile.opSystems"
                                             on-tag-added="change('form-group-opSystems')"
                                             on-tag-removed="change('form-group-opSystems')">
@@ -199,7 +215,9 @@
 
                             <div class="col-md-8">
                                 <tags-input type="text" name="progLanguages" id="progLanguages"
+                                			text="progLanguagesText"
                                             placeholder="${i18n('form.addTag')}"
+                                            on-invalid-tag="valid('progLanguagesText', $tag)"
                                             class="ng-tags-custom" ng-model="profile.progLanguages"
                                             on-tag-added="change('form-group-progLanguages')"
                                             on-tag-removed="change('form-group-progLanguages')">
@@ -214,7 +232,9 @@
 
                             <div class="col-md-8">
                                 <tags-input type="text" name="webTechnologies" id="webTechnologies"
+                                			text="webTechnologiesText"
                                             placeholder="${i18n('form.addTag')}"
+                                            on-invalid-tag="valid('webTechnologiesText', $tag)"
                                             class="ng-tags-custom"
                                             ng-model="profile.webTechnologies"
                                             on-tag-added="change('form-group-webTechnologies')"
@@ -230,7 +250,9 @@
 
                             <div class="col-md-8">
                                 <tags-input type="text" name="devEnvironments" id="devEnvironments"
+                                			text="devEnviromentsText"
                                             placeholder="${i18n('form.addTag')}"
+                                            on-invalid-tag="valid('devEnviromentsText', $tag)"
                                             class="ng-tags-custom"
                                             ng-model="profile.devEnvironments"
                                             on-tag-added="change('form-group-devEnvironments')"
@@ -246,7 +268,9 @@
 
                             <div class="col-md-8">
                                 <tags-input type="text" name="qualifications" id="qualifications"
+                                			text="qualificationsText"
                                             placeholder="${i18n('form.addTag')}"
+                                            on-invalid-tag="valid('qualificationsText', $tag)"
                                             class="ng-tags-custom" ng-model="profile.qualifications"
                                             on-tag-added="change('form-group-qualifications')"
                                             on-tag-removed="change('form-group-qualifications')">
@@ -342,7 +366,9 @@
                                         <tags-input type="text"
                                                     name="projectAssociations-locations-{{$index}}"
                                                     id="projectAssociations-locations-{{$index}}"
+                                                    text="projectAssociationsLocationsText"
                                                     placeholder="${i18n('form.addTag')}"
+                                                    on-invalid-tag="valid('projectAssociationsLocationsText', $tag)"
                                                     class="ng-tags-custom"
                                                     ng-model="projectAssociation.locations"
                                                     on-tag-added="change('form-group-projectAssociation-locations-'+$index)"
@@ -361,7 +387,9 @@
                                         <tags-input type="text"
                                                     name="projectAssociations-positions-{{$index}}"
                                                     id="projectAssociations-positions-{{$index}}"
+                                                    text="projectAssociationsPositionsText"
                                                     placeholder="${i18n('form.addTag')}"
+                                                    on-invalid-tag="valid('projectAssociationsPostionsText', $tag)"
                                                     class="ng-tags-custom"
                                                     ng-model="projectAssociation.positions"
                                                     on-tag-added="change('form-group-projectAssociation-positions-'+$index)"
@@ -380,7 +408,9 @@
                                         <tags-input type="text"
                                                     name="projectAssociations-technologies-{{$index}}"
                                                     id="projectAssociations-technologies-{{$index}}"
+                                                    text="projectAssociationsTechnologiesText[$index]"
                                                     placeholder="${i18n('form.addTag')}"
+                                                    on-invalid-tag="valid('projectAssociationsTechnologiesText['+ $index + ']', $tag)"
                                                     class="ng-tags-custom"
                                                     ng-model="projectAssociation.technologies"
                                                     on-tag-added="change('form-group-projectAssociation-technologies-'+$index)"

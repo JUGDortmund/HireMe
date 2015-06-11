@@ -151,3 +151,11 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
         $scope.files = []
         showMessage('uploaderror', true)
     return
+    
+  $scope.valid = (variableName,tag) ->
+  	showMessage('errorDublicat')
+  	console.log(variableName)
+  	$scope.textTag = tag.text
+  	console.log($scope.$eval(variableName))
+  	parseText = $parse(variableName)
+  	parseText.assign($scope,'')

@@ -1,4 +1,4 @@
-angular.module( 'project', ['duScroll'])
+angular.module( 'project', ['duScroll', 'ngTagsInput'])
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
 .config ($routeProvider) ->
@@ -85,4 +85,9 @@ angular.module( 'project', ['duScroll'])
 
   $scope.getTags = (name) ->
     tagService.getTag(name)
-  
+    
+  $scope.valid = (variableName,tag) ->
+  	showMessage('errorDublicat')
+  	$scope.textTag = tag.text
+  	text = $parse(variableName)
+  	text.assign($scope,'')

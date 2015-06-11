@@ -10,6 +10,10 @@
                     <strong>${i18n('message.success.header')}</strong>
                     ${i18n('message.success.content')}
                 </div>
+                <div class="alert alert-advice alert-dismissible" role="alert" ng-show="errorDublicat">
+                    <strong>${i18n('message.error.dublicat.header')}</strong>
+                    <strong> "{{textTag}}"  </strong> ${i18n('message.error.dublicat.content')}  
+                </div>
                 <div class="box border-box">
                     <div class="header-text">
                         <h2 class="headline">{{project.title}}</h2>
@@ -17,7 +21,7 @@
                     </div>
                 </div>
                 <div ng-show="showEditModeButtons" class="no-print button-dialog">
-                    <button ng-click="save()" id="save-button"
+                    <button  ng-click="save()" id="save-button"
                             class="btn btn-block btn-success">${i18n('buttonDialog.save')}
                     </button>
                     <button ng-click="cancel()" id="cancel-button"
@@ -45,13 +49,16 @@
 
                             <div class="col-md-8">
                                 <tags-input type="text" id="companies"
+                                			text="companiesText"
                                             placeholder="${i18n('form.addTag')}"
+                                            on-invalid-tag="valid('companiesText', $tag)"
                                             class="ng-tags-custom" ng-model="project.companies"
                                             on-tag-added="change('form-group-companies')"
                                             on-tag-removed="change('form-group-companies')">
                                     <auto-complete source="getTags('companies')|filter:$query"
                                             ></auto-complete>
                                 </tags-input>
+                                {{text}}
                             </div>
                         </div>
                         <div class="form-group" id="form-group-industries">
@@ -59,7 +66,9 @@
 
                             <div class="col-md-8">
                                 <tags-input type="text" id="industries"
+                                			text="industriesText"
                                             placeholder="${i18n('form.addTag')}"
+                                            on-invalid-tag="valid('industriesText',$tag)"
                                             class="ng-tags-custom" ng-model="project.industries"
                                             on-tag-added="change('form-group-industries')"
                                             on-tag-removed="change('form-group-industries')">
@@ -106,7 +115,9 @@
 
                             <div class="col-md-8">
                                 <tags-input type="text" id="locations"
+                                			text="locationsText"
                                             placeholder="${i18n('form.addTag')}"
+                                            on-invalid-tag="valid('locationsText',$tag)"
                                             class="ng-tags-custom"
                                             ng-model="project.locations"
                                             on-tag-added="change('form-group-locations')"
