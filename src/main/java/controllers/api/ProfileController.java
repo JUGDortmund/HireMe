@@ -5,15 +5,9 @@ import com.google.common.collect.Lists;
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
 import exception.ElementNotFoundException;
-
-import org.bson.types.ObjectId;
-import org.mongodb.morphia.Datastore;
-
 import model.Profile;
 import model.events.EntityChangedEvent;
-
 import ninja.Result;
 import ninja.Results;
 import ninja.exceptions.BadRequestException;
@@ -22,6 +16,8 @@ import ninja.jaxy.POST;
 import ninja.jaxy.PUT;
 import ninja.jaxy.Path;
 import ninja.params.PathParam;
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.Datastore;
 
 @Singleton
 @Path("/api/profile")

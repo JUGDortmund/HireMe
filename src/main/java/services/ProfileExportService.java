@@ -1,6 +1,7 @@
 package services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.google.common.base.Preconditions;
 import com.google.common.reflect.ClassPath;
 import com.google.inject.Inject;
@@ -8,26 +9,29 @@ import com.google.inject.Singleton;
 import com.lowagie.text.DocumentException;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
+import model.BaseModel;
 import model.Profile;
+import model.Resource;
 import model.Template;
-import org.apache.commons.codec.binary.Base64;
+import model.annotations.Tag;
 import org.apache.commons.io.output.StringBuilderWriter;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.apache.commons.lang3.StringUtils;
 import org.xhtmlrenderer.pdf.ITextOutputDevice;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 import org.xhtmlrenderer.pdf.ITextUserAgent;
 import util.ReflectionUtil;
 
 import javax.validation.constraints.NotNull;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -37,6 +41,7 @@ import static org.reflections.ReflectionUtils.getFields;
 public class ProfileExportService {
   
   public static final String TEMPLATES_PATH = "exportTemplates";
+  public static final SimpleDateFormat FORMAT = new SimpleDateFormat("MMMM yyyy", Locale.GERMAN);
   private final ObjectMapper mapper;
   private final Configuration configuration;
   private List<Template> loadedTemplates;
@@ -45,6 +50,10 @@ public class ProfileExportService {
   public ProfileExportService(final ObjectMapper mapper, final Configuration configuration) {
     this.mapper = mapper;
     this.configuration = configuration;
+
+    SimpleModule module = new SimpleModule();
+    module.addSerializer(Resource.class, null);
+    mapper.registerModule(module);
   }
 
   @NotNull
@@ -64,38 +73,80 @@ public class ProfileExportService {
       .getTemplatePath());
 
     final StringBuilderWriter writer = new StringBuilderWriter();
-    template.process(profileToMap(profile), writer);
-    return createPDFAsBytes(writer.toString());
+    template.process(transformModelToTemplateValues(profile), writer);
+    return createPDFAsBytes(writer.toString(), profile);
   }
 
   @SuppressWarnings("unchecked")
-  private Map profileToMap(@NotNull Profile profile) throws IllegalAccessException {
-    final Map dataModel = mapper.convertValue(profile, Map.class);
-    for (final Field field : getFields(profile.getClass())) {
-      field.setAccessible(true);
-      final Object value = field.get(profile);
-      if (value == null) {
-        dataModel.put(field.getName(), "");
-      } else if (ReflectionUtil.isStringList(field)) {
-        dataModel.put(field.getName(), ((List<String>) value).stream().reduce("", (acc, e) -> {
-          if (acc.equals("")) {
-            return e;
-          } else {
-            return acc + ", " + e;
-          }
-        }));
+  private <T extends BaseModel> Map transformModelToTemplateValues(final @NotNull T model) {
+    try {
+      final Map dataModel = mapper.convertValue(model, Map.class);
+      for (final Field field : getFields(model.getClass())) {
+        field.setAccessible(true);
+        Optional<Object> result = handleField(field, model);
+        if (result.isPresent()) {
+          dataModel.put(field.getName(), result.get());
+        }
       }
+      return dataModel;
+    } catch (final IllegalAccessException e) {
+      throw new RuntimeException(e);
     }
-    return dataModel;
+  }
+
+  @SuppressWarnings("unchecked")
+  private <T extends BaseModel> Optional<Object> handleField(final @NotNull Field field, T model) throws IllegalAccessException {
+    Object result = null;
+    final Object value = field.get(model);
+    if (value == null) {
+      result = handleNullValue(field);
+    } else if (field.getType().isAssignableFrom(Date.class)) {
+      result = FORMAT.format(value);
+    } else if (BaseModel.class.isAssignableFrom(field.getType())) {
+      result = transformModelToTemplateValues((T) value);
+    } else if (ReflectionUtil.isModelList(field)) {
+      result =
+        ((List<T>) value)
+          .stream()
+          .map(this::transformModelToTemplateValues)
+          .collect(Collectors.toList());
+    } else if (field.getType().isAssignableFrom(BaseModel.class)) {
+      result = transformModelToTemplateValues((T) value);
+    } else if (ReflectionUtil.isStringList(field) &&
+      (field.getAnnotation(Tag.class) == null || !field.getAnnotation(Tag.class).excludeFromStringConcatenation())) {
+      result = ((List<String>) value)
+        .stream()
+        .reduce((acc, e) -> acc + ", " + e)
+        .orElse("");
+    }
+    return Optional.ofNullable(result);
+  }
+
+  private Object handleNullValue(@NotNull final Field field) {
+    if (List.class.isAssignableFrom(field.getType()) && field.getAnnotation(Tag.class) != null && field.getAnnotation(Tag.class).excludeFromStringConcatenation()) {
+      return new ArrayList<>();
+    }
+    return StringUtils.EMPTY;
   }
 
   @NotNull
-  private byte[] createPDFAsBytes(@NotNull final String source) throws DocumentException, IOException, URISyntaxException {
+  private byte[] createPDFAsBytes(@NotNull final String source, @NotNull final Profile profile) throws DocumentException, IOException, URISyntaxException {
     final ITextRenderer renderer = new ITextRenderer();
     class PackageUserAgentCallback extends ITextUserAgent {
 
-      public PackageUserAgentCallback(final ITextOutputDevice outputDevice) {
+      private final Profile profile;
+
+      public PackageUserAgentCallback(@NotNull final ITextOutputDevice outputDevice, @NotNull final Profile profile) {
         super(outputDevice);
+        this.profile = profile;
+      }
+
+      @Override
+      protected InputStream resolveAndOpenStream(String uri) {
+        if (uri.equals("/exportTemplates/profileImage.png") && profile.getImage() != null) {
+          return new ByteArrayInputStream(profile.getImage().getContent());
+        }
+        return getClass().getResourceAsStream(uri);
       }
 
       @Override
@@ -108,18 +159,12 @@ public class ProfileExportService {
       }
 
     }
+    PackageUserAgentCallback callback = new PackageUserAgentCallback(renderer.getOutputDevice(), profile);
+    callback.setSharedContext(renderer.getSharedContext());
+    renderer.getSharedContext().setUserAgentCallback(callback);
 
-    renderer.getSharedContext().setUserAgentCallback(new PackageUserAgentCallback(renderer.getOutputDevice()));
-    renderer.getSharedContext().setBaseURL("/exportTemplates/");
     try (final ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
       renderer.setDocumentFromString(source, "/exportTemplates/");
-      NodeList images = renderer.getDocument().getElementsByTagName("img");
-      for (int i = 0; i < images.getLength(); i++) {
-        final Node image = images.item(i);
-        image.getAttributes().getNamedItem("src").setNodeValue("data:image/png;base64," + Base64.encodeBase64String(Files.readAllBytes(Paths.get(getClass().getResource("/exportTemplates/" + image.getAttributes().getNamedItem("src").getNodeValue()).toURI()))));
-        int u = 0;
-        u++;
-      }
       renderer.layout();
       renderer.createPDF(stream, false);
       renderer.finishPDF();

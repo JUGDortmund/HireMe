@@ -1,3 +1,4 @@
+<#-- @ftlvariable name="" type="model.Profile" -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -9,14 +10,8 @@
 
         }
 
-        .header {
-            margin-bottom: 50px;
-            text-transform: uppercase;
-            font-size: 14px;
-            position: running(header);
-        }
-
         #intro img {
+            margin-top: 20px;
             width: 175px;
             height: 175px;
         }
@@ -98,8 +93,20 @@
             background: #333 linear-gradient(to right, #ccc, #333, #ccc);
         }
 
-        div.footer {
+        .header {
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            font-size: 14px;
+            position: running(header);
+        }
+
+        .footer {
             position: running(footer);
+        }
+
+        .footer img {
+            width: 175px;
+            max-height: 100%;
         }
 
         @media print {
@@ -113,7 +120,10 @@
             @top-left {
                 content: element(header);
             }
-            @bottom-right-corner {
+        }
+
+        @page {
+            @bottom-right {
                 content: element(footer);
             }
         }
@@ -125,18 +135,21 @@
     <h2>Mitarbeiterprofil.</h2>
     _____
 </div>
+<div class="footer">
+    <img class="right" src="maredit-logo.png" alt="maredit-logo"/>
+</div>
 <div id="content">
     <div id="intro">
-        <img class="left" src="image.png" alt="ffs"/>
+        <img class="left" src="profileImage.png" alt="ffs"/>
 
         <div class="right text-right">
             <p id="careerLevel" class="blue">
-                ${careerLevel}
+            ${careerLevel}
             </p>
 
             <h1>
-                ${firstname}<br/>
-                ${lastname}
+            ${firstname}<br/>
+            ${lastname}
             </h1>
 
             <p id="maredit-address">maredit GmbH • Sebrathweg 20 • 44149 Dortmund • www.maredit.de</p>
@@ -167,12 +180,14 @@
 
         <p>
             <label>Berufserfahrung seit: </label>
-            <span>März 2013</span>
+            <span>
+            ${workExperience?string}
+            </span>
         </p>
 
         <p>
             <label>Fremdsprachen: </label>
-            <span>Englisch</span>
+            <span>${languages}</span>
         </p>
     </div>
     <div id="experiences" class="block left green">
@@ -180,7 +195,7 @@
 
         <p>
             <label>Branchen:</label>
-            <span>Versandhandel, E-Commerce</span>
+            <span>${industries}</span>
         </p>
 
     </div>
@@ -189,77 +204,72 @@
 
         <p>
             <label>Platformen:</label>
-            <span>hybris 4.x / 5.x, Typo3</span>
+            <span>${platforms}</span>
         </p>
 
         <p>
             <label>Betriebssysteme:</label>
-            <span>LOREM IPSUM</span>
+            <span>${platforms}</span>
         </p>
 
         <p>
             <label>Programmiersprachen:</label>
-            <span>LOREM IPSUM</span>
+            <span>${platforms}</span>
         </p>
 
         <p>
             <label>Web-Technologien:</label>
-            <span>LOREM IPSUM</span>
+            <span>${platforms}</span>
         </p>
 
         <p>
             <label>Entwicklungswerkzeuge:</label>
-            <span>LOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUM</span>
+            <span>${platforms}</span>
         </p>
 
         <p>
-            <label>Datenbanken:</label>
-            <span>LOREM IPSUM</span>
-        </p>
-
-        <p>
-            <label>Zertifikate</label>
-            <span>LOREM IPSUM</span>
+            <label>Qualifikationen</label>
+            <span>${platforms}</span>
         </p>
         <hr style="margin-top: 20px"/>
     </div>
     <div id="summary" class="block">
         <h3>Zusammenfassung</h3>
-        LOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM
-        IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUM
+    ${summary}
     </div>
+<#list projectAssociations as projectAssociation>
     <div class="page-break"></div>
     <div class="block left purple project">
         <h3>KLIENT.</h3>
 
         <p>
             <label>Firma:</label>
-            <span>hybris 4.x / 5.x, Typo3</span>
+            <span>${projectAssociation.project.companies}</span>
         </p>
 
         <p>
             <label>Standort:</label>
-            <span>LOREM IPSUM</span>
+            <span>${projectAssociation.project.locations}</span>
         </p>
 
         <p>
             <label>Branche:</label>
-            <span>LOREM IPSUM</span>
+            <span>${projectAssociation.project.industries}</span>
         </p>
 
         <p>
             <label>Projekttitel: </label>
-            <span>LOREM IPSUM</span>
+            <span>${projectAssociation.project.title}</span>
         </p>
 
         <p>
             <label>Einsatzorte:</label>
-            <span>LOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUMLOREM IPSUM</span>
+            <span>${projectAssociation.locations}</span>
         </p>
 
         <p>
             <label>Zeitraum:</label>
-            <span>LOREM IPSUM</span>
+            <span>${projectAssociation.start} - ${projectAssociation.end}</span>
         </p>
 
         <hr style="margin-top: 20px"/>
@@ -267,25 +277,26 @@
     <div class="block">
         <h3>Projektbeschreibung:</h3>
 
-        <p>LOREM IPSUM</p>
+        <p>${projectAssociation.project.summary}</p>
 
         <h3>Position:</h3>
         <ul>
-            <li>Software Developer</li>
+            <#list projectAssociation.positions as position>
+                <li>${position}</li>
+            </#list>
         </ul>
         <h3>Aufgaben:</h3>
-        <ul>
-            <li>Software Developer</li>
-        </ul>
+
+        <p>${projectAssociation.tasks}</p>
         <h3>Technologien:</h3>
         <ul>
-            <li>Software Developer</li>
+            <#list projectAssociation.technologies as technology>
+                <li>${technology}</li>
+            </#list>
         </ul>
     </div>
 </div>
-<div class="footer">
-    test123
-    <img class="right" src="maredit-logo.png" alt="maredit-logo"/>
-</div>
+</#list>
+
 </body>
 </html>

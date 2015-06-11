@@ -1,5 +1,7 @@
 package unit.util;
 
+import model.BaseModel;
+import model.Profile;
 import org.junit.Test;
 import util.ReflectionUtil;
 
@@ -14,34 +16,30 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class ReflectionUtilTest {
 
-  private static class TestClass {
-    List<String> stringList;
-    List<Integer> anotherList;
-    boolean notAList;
-  }
-
   @Test
-  public void successfullyFindStringList() throws Exception {
+  public void isStringList() throws Exception {
     assertThat(ReflectionUtil.isStringList(getField("stringList"))).isTrue();
-  }
-  
-  @Test
-  public void doNotFindOtherTypesOfList() throws Exception {
     assertThat(ReflectionUtil.isStringList(getField("anotherList"))).isFalse();
-  }
-  
-  @Test
-  public void doNotFindOtherFieldTypes() throws Exception {
     assertThat(ReflectionUtil.isStringList(getField("notAList"))).isFalse();
   }
   
-  private static class TestClass {
-    List<String> stringList;
-    List<Integer> anotherList;
-    boolean notAList;
+  @Test
+  public void isModelList() throws Exception {
+    assertThat(ReflectionUtil.isModelList(getField("modelList"))).isTrue();
+    assertThat(ReflectionUtil.isModelList(getField("anotherModelList"))).isTrue();
+    assertThat(ReflectionUtil.isModelList(getField("anotherList"))).isFalse();
+    assertThat(ReflectionUtil.isModelList(getField("notAList"))).isFalse();
   }
-
+  
   private Field getField(final @NotNull String fieldName) throws NoSuchFieldException {
     return TestClass.class.getDeclaredField(fieldName);
+  }
+
+  private static class TestClass {
+    List<String> stringList;
+    List<BaseModel> modelList;
+    List<Profile> anotherModelList;
+    List<Integer> anotherList;
+    boolean notAList;
   }
 }
