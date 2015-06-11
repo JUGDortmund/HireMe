@@ -1,16 +1,16 @@
 package model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import org.mongodb.morphia.annotations.Entity;
-
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
 import model.annotations.Tag;
+
+import org.mongodb.morphia.annotations.Entity;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -24,6 +24,9 @@ public class Project extends BaseModel {
 
   @Tag
   private List<String> industries;
+
+  @Tag
+  private List<String> technologies;
 
   private String title;
   private String summary;
@@ -60,6 +63,15 @@ public class Project extends BaseModel {
 
   public void setIndustries(List<String> industries) {
     this.industries = industries;
+  }
+
+
+  public List<String> getTechnologies() {
+    return technologies;
+  }
+
+  public void setTechnologies(List<String> technologies) {
+    this.technologies = technologies;
   }
 
   public String getTitle() {
