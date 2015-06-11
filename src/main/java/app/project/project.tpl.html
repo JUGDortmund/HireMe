@@ -47,8 +47,6 @@
                                 <tags-input type="text" id="companies"
                                             placeholder="${i18n('form.addTag')}"
                                             class="ng-tags-custom" ng-model="project.companies"
-                                            replace-spaces-with-dashes="false"
-                                   
                                             on-tag-added="change('form-group-companies')"
                                             on-tag-removed="change('form-group-companies')">
                                     <auto-complete source="getTags('companies')|filter:$query"
@@ -63,7 +61,6 @@
                                 <tags-input type="text" id="industries"
                                             placeholder="${i18n('form.addTag')}"
                                             class="ng-tags-custom" ng-model="project.industries"
-                                            replace-spaces-with-dashes="false"
                                             on-tag-added="change('form-group-industries')"
                                             on-tag-removed="change('form-group-industries')">
                                     <auto-complete source="getTags('industries')|filter:$query"
