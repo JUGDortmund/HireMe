@@ -4,6 +4,7 @@ var pathUtil = require('path');
 
 var SearchPage = require('../pages/search.page.js');
 var ProfilePage = require('../pages/profile.page.js');
+var ProjectListPage = require('../pages/projectlist.page.js');
 
 require('../../conf/capabilities.js');
 
@@ -177,6 +178,33 @@ describe('profile page', function () {
 	  profilePage.deleteProjectAssociation();
 	  profilePage.cancel();
 	  expect(profilePage.projectAssociationCount).toEqual(1)
+  });
+  
+  it('should save profile if start date in project association is edited, cancel button is pressed, date edited again, and save button is pressed', function () {
+    var searchPage = new SearchPage();
+    searchPage.addProfile();
+    searchPage.openLastProfile();
+    profilePage.addProjectAssociation();
+    var startField = profilePage.lastProjectAssociation.element(by.css('input[id^=start-]'));
+    startField.click();
+    startField.clear();
+    startField.sendKeys("01.01.1000");
+    profilePage.save();
+    
+    var startField = profilePage.lastProjectAssociation.element(by.css('input[id^=start-]'));
+    startField.click();
+    startField.clear();
+    startField.sendKeys("01.01.2000");
+    profilePage.cancel();
+    
+    var startField = profilePage.lastProjectAssociation.element(by.css('input[id^=start-]'));
+    startField.click();
+    startField.clear();
+    startField.sendKeys("01.01.3000");
+    profilePage.save();
+
+    expect(element(by.id('profile-msg-success')).isDisplayed()).toBeTruthy();
+    expect(element(by.id('profile-msg-error')).isDisplayed()).toBeFalsy();
   });
   
   it('should successfully upload a profile picture and set it after save', function () {

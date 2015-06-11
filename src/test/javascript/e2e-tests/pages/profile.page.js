@@ -31,7 +31,7 @@ ProfilePage.prototype = Object.create({}, {
   },
   projectAssociationCount: {
     get: function () {
-      return element.all(by.css('.project-association')).count();
+      return this.projectAssociations.count();
     }
   },
   save: {
@@ -56,10 +56,19 @@ ProfilePage.prototype = Object.create({}, {
       element(by.id('add-project-association')).click();
     }
   },
+  projectAssociations: {
+    get : function () {
+      return element.all(by.css('.project-association'));
+    }
+  },
+  lastProjectAssociation: {
+    get : function () {
+      return this.projectAssociations.last();
+    }
+  },
   selectLastProjectInLastProjectAssociation: {
     value: function () {
-      var projectAssociation = element.all(by.css('.project-association')).last();
-      var project = projectAssociation.element(by.model('projectAssociation.project'));
+      var project = this.lastProjectAssociation.element(by.model('projectAssociation.project'));
       project.element(by.css('select option:last-child')).click();
     }
   },

@@ -11,7 +11,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
         Restangular.one('profile', $route.current.params.profileId).get()
       projects: (Restangular) ->
         Restangular.all('project').getList()
-.controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, Upload, projects, $document, $parse, tagService) ->
+.controller 'ProfileCtrl', ($scope, $timeout, $interval, Restangular, profile, Upload, projects, $document, $parse, tagService) ->
   dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
   $scope.profile = profile
   $scope.projects = projects
@@ -28,10 +28,11 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     $document.duScrollTopAnimated(0)
     $('.form-group').removeClass('has-warning') unless keepChangeIndicators?
     $('#image-wrapper').removeClass('has-warning') unless keepChangeIndicators?
-    $timeout (->
+    intervalCanceller = $interval(->
       target.assign($scope, false)
+      $interval.cancel(intervalCanceller);
       return
-    ), 6000
+    , 6000)
     return
 
   toList = (x) ->

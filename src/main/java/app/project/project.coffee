@@ -9,7 +9,7 @@ angular.module( 'project', ['duScroll'])
     resolve:
       project: (Restangular, $route) ->
         Restangular.one('project', $route.current.params.projectId).get()
-.controller 'ProjectCtrl', ($scope, $timeout, Restangular, project, $document, $parse, tagService) ->
+.controller 'ProjectCtrl', ($scope, $timeout, $interval, Restangular, project, $document, $parse, tagService) ->
   dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
   $scope.project = project 
   if moment(project.start).isValid()
@@ -28,10 +28,11 @@ angular.module( 'project', ['duScroll'])
     target.assign($scope, true)
     $document.duScrollTopAnimated(0)
     $('.form-group').removeClass('has-warning')
-    $timeout (->
+    intervalCanceller = $interval(->
       target.assign($scope, false)
+      $interval.cancel(intervalCanceller);
       return
-    ), 6000
+    , 6000)
     return
 
   toList = (x) ->
