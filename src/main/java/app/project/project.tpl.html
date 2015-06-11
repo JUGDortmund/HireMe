@@ -108,7 +108,6 @@
                                             placeholder="${i18n('form.addTag')}"
                                             class="ng-tags-custom"
                                             ng-model="project.locations"
-                                            replace-spaces-with-dashes="false"
                                             on-tag-added="change('form-group-locations')"
                                             on-tag-removed="change('form-group-locations')">
                                     <auto-complete source="getTags('locations')|filter:$query"
