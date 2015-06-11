@@ -17,13 +17,15 @@ angular.module('app', [
   RestangularProvider.setBaseUrl('/api/')
   tagsInputConfigProvider.setDefaults 'tagsInput',
   	minLength: 1
+  	replaceSpacesWithDashes: false
+  	allowLeftoverText: true
   .setDefaults 'autoComplete',
     minLength: 1
   return
 .controller 'NavigationCtrl', ($scope, $location, Restangular) ->
-  gitProperties = Restangular.one('gitProperties')
-  gitProperties.get().then (data) ->
-    $scope.gitPropertyDTO = data.getGitPropertyDTO
+  buildProperties = Restangular.one('buildProperties')
+  buildProperties.get().then (data) ->
+    $scope.buildProperties = data.buildProperties
   $scope.isActive = (route) ->
     route is $location.path()
   $scope.triggerBuildInformation = ->

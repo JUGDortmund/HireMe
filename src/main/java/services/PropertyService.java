@@ -3,9 +3,10 @@ package services;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
+import dtos.BuildProperties;
+
 import org.apache.commons.configuration.PropertiesConfiguration;
 
-import dtos.GitProperties;
 import ninja.utils.NinjaProperties;
 import ninja.utils.SwissKnife;
 
@@ -13,42 +14,45 @@ import ninja.utils.SwissKnife;
 public class PropertyService {
 
   public static final String SHOW_BUILD_INFO = "hireMe.showBuildInfo";
+  public static final String ENVIRONMENT = "hireMe.env.name";
   private static final String GIT_PROPERTY_ABBREV = "git.commit.id.abbrev";
   private static final String GIT_PROPERTY_BRANCH = "git.branch";
   private static final String GIT_PROPERY_BUILD_TIME = "git.build.time";
   private static final String GIT_PROPERTY_COMMIT_TIME = "git.commit.time";
   private static final String GIT_PROPERTY_COMMIT_USER = "git.commit.user.name";
+
   @Inject
   private NinjaProperties ninjaProperties;
 
-  private GitProperties gitProperties;
+  private BuildProperties buildProperties;
 
-  public GitProperties getGitProperties() {
-    if (gitProperties == null) {
-      gitProperties = createGitProperties();
+  public BuildProperties getBuildProperties() {
+    if (buildProperties == null) {
+      buildProperties = createBuildProperties();
     }
-    return gitProperties;
+    return buildProperties;
   }
 
-  private GitProperties createGitProperties() {
-    GitProperties gitProperties = new GitProperties();
-    gitProperties.setShowGitProperties(renderGitProperties());
-    if (gitProperties.isShowGitProperties()) {
-      gitProperties.setAbbrev(getString(GIT_PROPERTY_ABBREV));
-      gitProperties.setBranch(getString(GIT_PROPERTY_BRANCH));
-      gitProperties.setBuildTime(getString(GIT_PROPERY_BUILD_TIME));
-      gitProperties.setCommitTime(getString(GIT_PROPERTY_COMMIT_TIME));
-      gitProperties.setCommitUserName(getString(GIT_PROPERTY_COMMIT_USER));
+  private BuildProperties createBuildProperties() {
+    BuildProperties buildProperties = new BuildProperties();
+    buildProperties.setShowBuildProperties(renderBuildProperties());
+    if (buildProperties.isShowBuildProperties()) {
+      buildProperties.setAbbrev(getString(GIT_PROPERTY_ABBREV));
+      buildProperties.setBranch(getString(GIT_PROPERTY_BRANCH));
+      buildProperties.setBuildTime(getString(GIT_PROPERY_BUILD_TIME));
+      buildProperties.setCommitTime(getString(GIT_PROPERTY_COMMIT_TIME));
+      buildProperties.setCommitUserName(getString(GIT_PROPERTY_COMMIT_USER));
+      buildProperties.setEnvironment(ninjaProperties.get(ENVIRONMENT));
     }
-    return gitProperties;
+    return buildProperties;
   }
 
-  public boolean renderGitProperties() {
+  public boolean renderBuildProperties() {
     return ninjaProperties.getBooleanWithDefault(SHOW_BUILD_INFO, true);
   }
 
   private String getString(String key) {
-    if (!renderGitProperties()) {
+    if (!renderBuildProperties()) {
       return null;
     }
     return getPropertiesFile().getString(key);
