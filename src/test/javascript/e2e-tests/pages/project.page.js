@@ -24,7 +24,12 @@ ProjectPage.prototype = Object.create({}, {
       return element(by.css('#locations input[type="text"]'));
     }
   },
-  save: {
+  getLastLocationText: {
+	get: function () {
+	  return element.all(by.css('#locations .tag-item span')).last().getText();
+    }
+  },
+  save: { 
     value: function () {
       element(by.id('save-button')).click();
     }
