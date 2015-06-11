@@ -18,7 +18,7 @@ exports.config = {
         showColors: true,
         defaultTimeoutInterval: 30000,
         isVerbose: true,
-        includeStackTrace: true,
+        includeStackTrace: false,
         // deactivate protractor dot reporter because we use jasmine spec reporter
         print: function() {}
     },
@@ -39,7 +39,7 @@ exports.config = {
         var SpecReporter = require('jasmine-spec-reporter');
         jasmine.getEnv().addReporter(
           new SpecReporter({
-              displayStacktrace: 'all',
+              displayStacktrace: 'summary',
               displayPendingSpec: true,
               displaySpecDuration: true,
               displaySuiteNumber: true
