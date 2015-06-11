@@ -76,8 +76,17 @@ ProfilePage.prototype = Object.create({}, {
     value: function () {
       element(by.id('delete-project-association-button-0')).click();
     }
+  },
+  msgSuccess : {
+    get: function () {
+      return element(by.id('profile-msg-success'));
+    }
+  },
+  msgError : {
+    get: function () {
+      return element(by.id('profile-msg-error'));
+    }
   }
-
 });
 
 module.exports = ProfilePage;

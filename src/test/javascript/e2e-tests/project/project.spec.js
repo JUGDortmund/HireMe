@@ -127,4 +127,24 @@ describe('project page', function () {
 		    expect(suggestionsCount).toBe(3);
 		  });
 	  
+	  it('should save project if start date is edited, cancel button is pressed, date edited again, and save button is pressed', function () {
+	    var startField = projectPage.start
+	    startField.click();
+	    startField.clear();
+	    startField.sendKeys("01.01.1000");
+	    projectPage.save();
+	    
+	    startField.click();
+	    startField.clear();
+	    startField.sendKeys("01.01.2000");
+	    projectPage.cancel();
+	    
+	    startField.click();
+	    startField.clear();
+	    startField.sendKeys("01.01.3000");
+	    projectPage.save();
+
+	    expect(projectPage.msgSuccess.isDisplayed()).toBeTruthy();
+	    expect(projectPage.msgError.isDisplayed()).toBeFalsy();
+	  });
 });	  

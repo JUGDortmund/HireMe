@@ -33,7 +33,17 @@ ProjectPage.prototype = Object.create({}, {
     value: function () {
       element(by.id('cancel-button')).click();
     }
-  }
+  },
+  msgSuccess : {
+    get: function () {
+      return element(by.id('project-msg-success'));
+    }
+  },
+  msgError : {
+    get: function () {
+      return element(by.id('project-msg-error'));
+    }
+  }  
 });
 
 module.exports = ProjectPage;

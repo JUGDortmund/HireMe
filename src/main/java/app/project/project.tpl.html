@@ -2,11 +2,11 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2" style="padding-bottom: 80px;">
-                <div class="alert alert-danger alert-dismissible" role="alert" ng-show="error">
+                <div class="alert alert-danger alert-dismissible" role="alert" ng-show="error" id="project-msg-error">
                     <strong>${i18n('message.error.header')}</strong>
                     ${i18n('message.error.content')}
                 </div>
-                <div class="alert alert-success alert-dismissible" role="alert" ng-show="success">
+                <div class="alert alert-success alert-dismissible" role="alert" ng-show="success" id="project-msg-success">
                     <strong>${i18n('message.success.header')}</strong>
                     ${i18n('message.success.content')}
                 </div>

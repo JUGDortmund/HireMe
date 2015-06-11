@@ -191,20 +191,18 @@ describe('profile page', function () {
     startField.sendKeys("01.01.1000");
     profilePage.save();
     
-    var startField = profilePage.lastProjectAssociation.element(by.css('input[id^=start-]'));
     startField.click();
     startField.clear();
     startField.sendKeys("01.01.2000");
     profilePage.cancel();
     
-    var startField = profilePage.lastProjectAssociation.element(by.css('input[id^=start-]'));
     startField.click();
     startField.clear();
     startField.sendKeys("01.01.3000");
     profilePage.save();
 
-    expect(element(by.id('profile-msg-success')).isDisplayed()).toBeTruthy();
-    expect(element(by.id('profile-msg-error')).isDisplayed()).toBeFalsy();
+    expect(profilePage.msgSuccess.isDisplayed()).toBeTruthy();
+    expect(profilePage.msgError.isDisplayed()).toBeFalsy();
   });
   
   it('should successfully upload a profile picture and set it after save', function () {
