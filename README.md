@@ -215,6 +215,9 @@ Resulting artifacts pushed to nexus:
 
 ## Creating Export-Templates
 
+All Templates must be located in /exportTemplates/` within the classpath. 
+A template consists of a json file that contains the metadata and a template file. 
+
 ### Variables
 
 - All variables that can be used are fro `model.Profile`
@@ -223,7 +226,7 @@ Resulting artifacts pushed to nexus:
 
 ### ProfileImage
 
-- `<img src="profileImage.png>` will result in print the profile image. 
+- `<img src="profileImage.png>` will print the profile image. 
 - If no image in set inside the profile the default profile image will be printed
 
 ### Print all available variables
