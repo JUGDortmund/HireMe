@@ -7,6 +7,7 @@ import org.apache.pdfbox.util.PDFTextStripper;
 import org.bson.types.ObjectId;
 import org.doctester.testbrowser.Request;
 import org.doctester.testbrowser.Response;
+import org.junit.Before;
 import org.junit.Test;
 import org.mongodb.morphia.Datastore;
 
@@ -18,13 +19,19 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Lukas Eichler
  */
 public class ProfileExportControllerTest extends NinjaDocTester {
+  
+  private Profile profile;
+
+  @Before
+  public void setUp() throws Exception {
+    profile = new Profile();
+    profile.setFirstname("Klaus");
+    profile.setLastname("Mustermann");
+    getInjector().getInstance(Datastore.class).save(profile);
+  }
 
   @Test
   public void exportProfileReturnsPDFDownload() throws Exception {
-    final Profile profile = new Profile();
-    profile.setFirstname("Klaus");
-    getInjector().getInstance(Datastore.class).save(profile);
-
     final Response response = sayAndMakeRequest(Request.GET().url(testServerUrl().path("/api/exportProfile/" + profile.getId())));
 
     PDFParser
@@ -32,15 +39,11 @@ public class ProfileExportControllerTest extends NinjaDocTester {
       new PDFParser(new ByteArrayInputStream(response.payload.getBytes("ISO-8859-1")));
     parser.parse();
     PDFTextStripper stripper = new PDFTextStripper();
-    assertThat(stripper.getText(parser.getPDDocument())).contains("Firstname: Klaus");
+    assertThat(stripper.getText(parser.getPDDocument())).contains("Klaus").contains("Mustermann");
   }
 
   @Test
   public void exportProfileHasStatus200() throws Exception {
-    final Profile profile = new Profile();
-    profile.setFirstname("Klaus");
-    getInjector().getInstance(Datastore.class).save(profile);
-
     final Response response = sayAndMakeRequest(Request.GET().url(testServerUrl().path("/api/exportProfile/" + profile.getId())));
 
     assertThat(response.httpStatus).isEqualTo(200);

@@ -68,7 +68,7 @@ public class ProfileExportServiceTest {
 
   @Test
   public void exportReturnsPdfWithProfileData() throws Exception {
-    assertThat(generatePDFAndGetText(profile)).contains("Max", "Mustermann");
+    assertThat(generatePDFAndGetText()).contains("Max", "Mustermann");
   }
 
   @Test(expected = NullPointerException.class)
@@ -79,7 +79,7 @@ public class ProfileExportServiceTest {
   
   @Test
   public void listOfTagsAreCommaSeparated() throws Exception {
-    assertThat(generatePDFAndGetText(profile)).contains("Manager, Consultant");
+    assertThat(generatePDFAndGetText()).contains("Manager, Consultant");
   }
 
   @Test
@@ -120,19 +120,19 @@ public class ProfileExportServiceTest {
 
   @Test
   public void templateContainsProjectAssociations() throws Exception {
-    assertThat(generatePDFAndGetText(profile)).contains("Test Project");
+    assertThat(generatePDFAndGetText()).contains("Test Project");
   }
   
   @Test
   public void excludeTagsFromStringConcatenations() throws Exception {
-    assertThat(generatePDFAndGetText(profile))
+    assertThat(generatePDFAndGetText())
       .contains("Developer", "Project Manager")
       .doesNotContain("Developer, Project Manager");
   }
 
   @Test
   public void useGermanDateFormat() throws Exception {
-    assertThat(generatePDFAndGetText(profile))
+    assertThat(generatePDFAndGetText())
       .contains(new SimpleDateFormat("MMMM yyyy", Locale.GERMAN).format(new Date()));
   }
 
@@ -144,7 +144,7 @@ public class ProfileExportServiceTest {
       .getTemplatePath()).isEqualTo("template.ftl");
   }
 
-  private String generatePDFAndGetText(@NotNull final Profile profile) throws IOException {
+  private String generatePDFAndGetText() throws IOException {
     Preconditions.checkNotNull(profile);
     PDFParser
       parser =
@@ -156,8 +156,7 @@ public class ProfileExportServiceTest {
 
   @SuppressWarnings("unchecked")
   private List<byte[]> getImages() throws IOException {
-    return getPDFImages()
-      .stream()
+    return getPDFImages().stream()
       .map(x -> x.content)
       .collect(Collectors.toList());
   }
@@ -172,24 +171,23 @@ public class ProfileExportServiceTest {
 
     Function<Object, Stream<PDFImage>> function = o -> {
       final Map<String, PDXObject> xObjects = ((PDPage) o).getResources().getXObjects();
-      return xObjects
-        .keySet()
+      return xObjects.keySet()
         .stream()
         .filter(x -> xObjects.get(x) instanceof PDXObjectImage)
         .map(ele -> {
           try {
             final PDXObjectImage image = ((PDXObjectImage) xObjects.get(ele));
-            final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            ImageIO.write(image.getRGBImage(), image.getSuffix(), outputStream);
-            return new PDFImage(Arrays.hashCode(outputStream.toByteArray()) + "." + image.getSuffix(), outputStream.toByteArray());
+            try (final ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+              ImageIO.write(image.getRGBImage(), image.getSuffix(), outputStream);
+              return new PDFImage(Arrays.hashCode(outputStream.toByteArray()) + "." + image.getSuffix(), outputStream.toByteArray());
+            }
           } catch (final IOException e) {
             throw new RuntimeException(e);
           }
         });
     };
 
-    return (List<PDFImage>) parser
-      .getPDDocument()
+    return (List<PDFImage>) parser.getPDDocument()
       .getDocumentCatalog()
       .getAllPages()
       .stream()

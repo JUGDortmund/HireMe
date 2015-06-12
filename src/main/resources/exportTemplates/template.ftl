@@ -288,6 +288,7 @@
         <h3>Aufgaben:</h3>
 
         <p>${projectAssociation.tasks}</p>
+
         <h3>Technologien:</h3>
         <ul>
             <#list projectAssociation.technologies as technology>
@@ -295,8 +296,8 @@
             </#list>
         </ul>
     </div>
-</div>
 </#list>
+</div>
 
 </body>
 </html>

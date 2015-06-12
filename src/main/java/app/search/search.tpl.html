@@ -21,14 +21,15 @@
                         <div>
                             <div class="profile info-box bg-green"
                                  ng-repeat="profile in (filteredProfiles = (profiles | filter:search))">
-                                <div style="display: inline-block">
+                                <div>
                                     <div class="image-wrapper">
                                         <img ng-src="{{profile.image|toThumbnailUrl}}"/>
                                     </div>
                                     <a id="download-button" class="btn btn-primary"
-                                       href="/api/exportProfile/{{profile.id}}" target="_blank"><i
-                                            class="fa fa-download"></i>
-                                        Download</a>
+                                       href="/api/exportProfile/{{profile.id}}" target="_blank">
+                                        <i class="fa fa-download"></i>
+                                        Download
+                                    </a>
                                 </div>
                                 <a class="profile-link" ng-href="/profile/{{profile.id}}">
                                     <div class="info-box-content">

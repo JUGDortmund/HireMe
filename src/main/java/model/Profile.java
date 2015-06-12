@@ -2,6 +2,7 @@ package model;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import model.annotations.ExcludeFromStringConcatenation;
 import model.annotations.Tag;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
@@ -55,6 +56,7 @@ public class Profile extends BaseModel {
   private String summary;
 
   @Embedded
+  @ExcludeFromStringConcatenation
   private List<ProjectAssociation> projectAssociations;
 
   @JsonSerialize(using = ResourceSerializer.class)

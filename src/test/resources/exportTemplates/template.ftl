@@ -131,6 +131,9 @@
     <h2>Mitarbeiterprofil.</h2>
     _____
 </div>
+<div class="footer">
+    <img class="right" src="maredit-logo.png" alt="maredit-logo"/>
+</div>
 <div id="content">
     <div id="intro">
         <img class="left" src="profileImage.png" alt="ffs"/>
@@ -288,10 +291,8 @@
             </#list>
         </ul>
     </div>
-</div>
 </#list>
-<div class="footer">
-    <img class="right" src="maredit-logo.png" alt="maredit-logo"/>
 </div>
+
 </body>
 </html>

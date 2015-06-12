@@ -69,17 +69,17 @@ Official W3C Spec on how to use the HTTP-methods
 
 #### Overview profile `(x)` to testCase `(y)` mapping
 
-| Profile                   | unit tests executed	|	integration tests executed	| protractor tests executed
---------------------------:	| :-------------------:	| :---------------------------:	| :-------------:
-|	env-dev *(default)*		|	YES					|	NO							|	NO
-|	env-jenkins				|	YES					|	YES							|	YES
-|	env-build				|	NO					|	NO							|	NO
-|	env-prod				|	NO					|	NO							|	NO
-|	tests-none				|	NO					|	NO							|	NO
-|	tests-unit				|	YES					|	NO							|	NO
-|	tests-integration		|	YES					|	YES							|	NO  
-|	tests-protractor		|	YES					|	NO							|	YES  
-|	tests-all				|	YES					|	YES							|	YES
+| Profile                   | unit tests executed  |  integration tests executed  | protractor tests executed
+--------------------------:  | :-------------------:  | :---------------------------:  | :-------------:
+|  env-dev *(default)*    |  YES          |  NO              |  NO
+|  env-jenkins        |  YES          |  YES              |  YES
+|  env-build        |  NO          |  NO              |  NO
+|  env-prod        |  NO          |  NO              |  NO
+|  tests-none        |  NO          |  NO              |  NO
+|  tests-unit        |  YES          |  NO              |  NO
+|  tests-integration    |  YES          |  YES              |  NO  
+|  tests-protractor    |  YES          |  NO              |  YES  
+|  tests-all        |  YES          |  YES              |  YES
 
 ##### Usage
 
@@ -145,11 +145,11 @@ To change how protractor is run locally, you could change the config file: `/hir
 The environment determines which configuration properties the application should be build with.
 
 * Existing environments
-	* **env-dev** - environment for local development (active by default)
-	* **env-jenkins**  - environment for jenkins/tests
-	* **env-build** - environment for build system
-	* **env-prod** - environment for prod system
-	
+  * **env-dev** - environment for local development (active by default)
+  * **env-jenkins**  - environment for jenkins/tests
+  * **env-build** - environment for build system
+  * **env-prod** - environment for prod system
+  
 The configuration files for the different environments are located at: `/hireme/src/env/[environment]`
 During the build of the application with an environment parameter, the environment-specific configuration is copied to `target/classes`,
 so the resulting target directory is in a form that the application will be using the environment-specific configuration by default.
@@ -200,15 +200,53 @@ Resulting artifacts pushed to nexus:
 ### Deploy commands
 * General deploy command: `mvn cargo:[command] -P [system]`
 * Commands
-	* **deploy** - deploys the application to the system
-	* **undeploy**  - undeploy the application from the system
-	* **redeploy** - Undeploy and deploy the application to the system again. If the application was not deployed before calling cargo:redeploy it will simply be deployed.
+  * **deploy** - deploys the application to the system
+  * **undeploy**  - undeploy the application from the system
+  * **redeploy** - Undeploy and deploy the application to the system again. If the application was not deployed before calling cargo:redeploy it will simply be deployed.
 * Deploy system profiles
-	* **system-build** - deploy to build system
-	* **system-prod** - deploy to prod system  
+  * **system-build** - deploy to build system
+  * **system-prod** - deploy to prod system  
 * Examples:
-	* Deploy build system: `mvn cargo:deploy -P system-build`
-	* Redeploy prod system: `mvn cargo:redeploy -P system-prod`
+  * Deploy build system: `mvn cargo:deploy -P system-build`
+  * Redeploy prod system: `mvn cargo:redeploy -P system-prod`
+
+******************************************************
+
+
+## Creating Export-Templates
+
+### Variables
+
+- All variables that can be used are fro `model.Profile`
+- Lists of String that are annotated are concatenated by default to a String like  `value1, value2, ...`
+- If a List of Strings is annotated by `@ExcludeFromStringConcatenation` the list will not be concatenated into a string
+
+### ProfileImage
+
+- `<img src="profileImage.png>` will result in print the profile image. 
+- If no image in set inside the profile the default profile image will be printed
+
+### Print all available variables
+
+1. Add macro inside template
+`<#macro dump var>
+   <#if var?is_hash>
+   {
+     <#foreach key in var?keys>
+        ${key}:<@dump var[key]/>,
+     </#foreach>
+   }
+   <#elseif var?is_sequence>
+   [
+     <#foreach elem in sequence>
+       <@dump elem/>,
+     </#foreach>
+   ]
+   <#elseif var?is_scalar>
+     ${var}
+   </#if>
+</#macro>`
+2. use macro `<@dump .root/>`
 
 ******************************************************
 
@@ -220,7 +258,7 @@ To get familiar with the syntax see [Markdown Basics](http://daringfireball.net/
 
 ### Developer documentation
 
-All developer documentation should be integrated in this readme file.	
+All developer documentation should be integrated in this readme file.  
 
 ### User manual
 
@@ -251,7 +289,7 @@ All pages that should be included in the user manual need to be specified in thi
 ```
 <menu name="Anwenderdokumentation">
 ...
-	<item href="myPage.html" name="My Page Title" />
+  <item href="myPage.html" name="My Page Title" />
 ...
 </menu>
 ```
@@ -283,7 +321,7 @@ All pages that should be included in the operation manual need to be specified i
 ```
 <toc name="Inhaltsverzeichnis">
 ...
-	<item ref="myPage.md" name="My Page Title" />
+  <item ref="myPage.md" name="My Page Title" />
 ...
 </toc>
 ```

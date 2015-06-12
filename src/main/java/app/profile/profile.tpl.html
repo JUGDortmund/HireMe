@@ -45,7 +45,7 @@
                                 ${i18n('profile.image.acceptedFileTypes')}
                              </span>
                         </div>
-                        <div class="header-info" style="">
+                        <div class="header-info">
                             <h2 class="headline">{{profile.firstname}} {{profile.lastname}}</h2>
 
                             <p class="description">
@@ -53,8 +53,10 @@
                             </p>
                         </div>
                         <a id="download-button" class="btn btn-primary"
-                           href="/api/exportProfile/{{profile.id}}" target="_blank"><i class="fa fa-download"></i>
-                            Download</a>
+                           href="/api/exportProfile/{{profile.id}}" target="_blank">
+                            <i class="fa fa-download"></i>
+                            Download
+                        </a>
                     </div>
                 </div>
                 <div ng-show="showEditModeButtons" class="no-print button-dialog">
@@ -413,12 +415,12 @@
 
                                     <div class="col-md-8">
                                         <textarea
-                                                name="projectAssociations-tasks-{{$index}}"
-                                                id="projectAssociations-tasks-{{$index}}"
-                                                class="form-control"
-                                                ng-model="projectAssociation.tasks"
-                                                ng-change="change('form-group-projectAssociation-tasks-'+$index)"
-                                                ></textarea>
+                                               name="projectAssociations-tasks-{{$index}}"
+                                               id="projectAssociations-tasks-{{$index}}"
+                                               class="form-control"
+                                               ng-model="projectAssociation.tasks"
+                                               ng-change="change('form-group-projectAssociation-tasks-'+$index)"
+                                                />
                                     </div>
                                 </div>
                                 <div class="form-group"

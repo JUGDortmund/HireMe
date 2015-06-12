@@ -1,6 +1,7 @@
 package model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import model.annotations.ExcludeFromStringConcatenation;
 import model.annotations.Tag;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Reference;
@@ -26,12 +27,14 @@ public class ProjectAssociation extends BaseModel {
 
   private List<String> locations = new ArrayList<>();
 
-  @Tag(excludeFromStringConcatenation = true)
+  @Tag
+  @ExcludeFromStringConcatenation
   private List<String> positions = new ArrayList<>();
 
   private String tasks;
 
-  @Tag(excludeFromStringConcatenation = true)
+  @Tag
+  @ExcludeFromStringConcatenation
   private List<String> technologies = new ArrayList<>();
 
   public Project getProject() {

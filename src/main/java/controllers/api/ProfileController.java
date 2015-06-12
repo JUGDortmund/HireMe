@@ -39,7 +39,7 @@ public class ProfileController {
   @GET
   public Result getSingleProfileById(@PathParam("id") String id) {
 
-    if (Strings.isNullOrEmpty(id)) {
+    if (Strings.isNullOrEmpty(id) || !ObjectId.isValid(id)) {
       throw new BadRequestException();
     }
     if (!ObjectId.isValid(id)) {
