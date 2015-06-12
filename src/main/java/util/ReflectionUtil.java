@@ -12,15 +12,15 @@ import java.util.stream.Collectors;
 
 public class ReflectionUtil {
 
-  public static boolean isStringList(final @NotNull Field field) {
+  public static boolean isStringList(@NotNull final Field field) {
     return isListOfType(field, String.class);
   }
 
-  public static boolean isModelList(final @NotNull Field field) {
+  public static boolean isModelList(@NotNull final Field field) {
     return isListOfType(field, BaseModel.class);
   }
 
-  private static boolean isListOfType(final @NotNull Field field, final @NotNull Class<?> clazz) {
+  private static boolean isListOfType(@NotNull final Field field, @NotNull final Class<?> clazz) {
     if (!(field.getGenericType() instanceof ParameterizedType)) {
       return false;
     }

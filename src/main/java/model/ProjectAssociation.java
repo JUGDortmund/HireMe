@@ -25,6 +25,7 @@ public class ProjectAssociation extends BaseModel {
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.mm.yy")
   private Date end;
 
+  @Tag
   private List<String> locations = new ArrayList<>();
 
   @Tag
