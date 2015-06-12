@@ -7,7 +7,7 @@ angular.module('projectList', ['utils.autofocus', 'duScroll'])
     controller: 'ProjectListCtrl',
     resolve:
       projects: (Restangular) -> Restangular.all('project').getList()
-.controller 'ProjectListCtrl', ($scope, $timeout, Restangular, projects, $document, $parse) ->
+.controller 'ProjectListCtrl', ($scope, $timeout, $location, $window, Restangular, projects, $document, $parse) ->
   $scope.projects = projects
   getProjects = -> projects.getList().then (projects) ->
     $scope.projects = projects
@@ -24,7 +24,9 @@ angular.module('projectList', ['utils.autofocus', 'duScroll'])
     return
 
   $scope.add = ->
-    Restangular.one('project').post().then ->
+    Restangular.one('project').post().then (createdProject)->
+      console.log($location.url('/project/' + createdProject.id))
+      $window.location.href = '/project/' + createdProject.id
       getProjects()
     return
 

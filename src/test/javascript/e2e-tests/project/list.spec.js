@@ -9,7 +9,17 @@ describe('projectList page', function () {
 
   beforeEach(function () {
     projectListPage = new ProjectListPage();
+    projectListPage.addProjectAndReturnToProjectList();
+  });
+
+  it('should go the project edit page after creation', function () {
     projectListPage.addProject();
+
+    browser.wait(function () {
+      return browser.getCurrentUrl().then(function (url) {
+        return /\/project\//.test(url)
+      }, 1000);
+    });
   });
 
   it('should show all projects if search keyword is empty', function () {
@@ -51,7 +61,7 @@ describe('projectList page', function () {
 
   it('should add a new project if \"add project button\" is pressed', function () {
     var projectCount = projectListPage.projectCount;
-    projectListPage.addProject();
+    projectListPage.addProjectAndReturnToProjectList();
     expect(projectListPage.projectCount).toBeGreaterThan(projectCount);
   });
 
