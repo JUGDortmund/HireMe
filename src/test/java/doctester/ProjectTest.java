@@ -1,9 +1,8 @@
 package doctester;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import com.fasterxml.jackson.core.type.TypeReference;
-
+import model.Project;
+import ninja.NinjaDocTester;
 import org.bson.types.ObjectId;
 import org.doctester.testbrowser.Request;
 import org.doctester.testbrowser.Response;
@@ -11,16 +10,14 @@ import org.junit.Test;
 
 import java.util.List;
 
-import model.Project;
-
-import ninja.NinjaDocTester;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ProjectTest extends NinjaDocTester {
 
-  TypeReference<List<Project>> PROJECT_LIST_TYPE = new TypeReference<List<Project>>() {};
-
   private static final String PROJECT_CONTROLLER_BASE_URL = "/api/project";
   private static final String SINGLE_PROJECT_URL = PROJECT_CONTROLLER_BASE_URL + "/{id}";
+  TypeReference<List<Project>> PROJECT_LIST_TYPE = new TypeReference<List<Project>>() {
+  };
 
   @Test
   public void addProjectReturns201() throws Exception {
@@ -72,9 +69,9 @@ public class ProjectTest extends NinjaDocTester {
   }
 
   @Test
-  public void getSingleProjectWithInvalidIdReturns404() throws Exception {
+  public void getSingleProjectWithInvalidIdReturns400() throws Exception {
     Response response = getSingleProject("test");
-    assertThat(response.httpStatus).isEqualTo(404);
+    assertThat(response.httpStatus).isEqualTo(400);
   }
 
   @Test
