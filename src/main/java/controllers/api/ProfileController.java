@@ -29,8 +29,8 @@ public class ProfileController {
   @Inject
   private EventBus eventBus;
 
-  @GET
   @Path("")
+  @GET
   public Result getProfiles() {
     return Results.json().render(datastore.find(Profile.class).asList());
   }
@@ -42,9 +42,6 @@ public class ProfileController {
     if (Strings.isNullOrEmpty(id) || !ObjectId.isValid(id)) {
       throw new BadRequestException();
     }
-    if (!ObjectId.isValid(id)) {
-      throw new ElementNotFoundException();
-    }
 
     final Profile profile = datastore.get(Profile.class, new ObjectId(id));
     if (profile == null) {
@@ -54,8 +51,8 @@ public class ProfileController {
   }
 
 
-  @POST
   @Path("")
+  @POST
   public Result addProfile() {
     Profile profile = new Profile();
     profile.setFirstname("Max");
@@ -65,8 +62,8 @@ public class ProfileController {
     return Results.status(Result.SC_201_CREATED).json().render(profile);
   }
 
-  @PUT
   @Path("/{id}")
+  @PUT
   public Result saveProfile(Profile profile) {
     if (profile == null) {
       throw new BadRequestException();

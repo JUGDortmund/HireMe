@@ -51,6 +51,10 @@
             float: left;
         }
 
+        .text-left {
+            text-align: left;
+        }
+
         .right {
             float: right;
         }
@@ -240,22 +244,22 @@
 
         <p>
             <label>Firma:</label>
-            <span>${projectAssociation.project.companies}</span>
+            <span><#if projectAssociation.project??>${projectAssociation.project.companies}</#if></span>
         </p>
 
         <p>
             <label>Standort:</label>
-            <span>${projectAssociation.project.locations}</span>
+            <span><#if projectAssociation.project??>${projectAssociation.project.locations}</#if></span>
         </p>
 
         <p>
             <label>Branche:</label>
-            <span>${projectAssociation.project.industries}</span>
+            <span><#if projectAssociation.project??>${projectAssociation.project.industries}</#if></span>
         </p>
 
         <p>
             <label>Projekttitel: </label>
-            <span>${projectAssociation.project.title}</span>
+            <span><#if projectAssociation.project??>${projectAssociation.project.title}</#if></span>
         </p>
 
         <p>
@@ -273,7 +277,7 @@
     <div class="block">
         <h3>Projektbeschreibung:</h3>
 
-        <p>${projectAssociation.project.summary}</p>
+        <p><#if projectAssociation.project??>${projectAssociation.project.summary}</#if></p>
 
         <h3>Position:</h3>
         <ul>
@@ -284,6 +288,7 @@
         <h3>Aufgaben:</h3>
 
         <p>${projectAssociation.tasks}</p>
+
         <h3>Technologien:</h3>
         <ul>
             <#list projectAssociation.technologies as technology>

@@ -34,7 +34,7 @@ public class Module extends AbstractModule {
 
   protected void configure() {
     bind(Datastore.class).toProvider(DatastoreProvider.class);
-    bind(Configuration.class).toProvider(ConfigurationProvider.class);
+    bind(Configuration.class).toProvider(FreemarkerConfigurationProvider.class);
     bind(EventBus.class).toInstance(eventBus);
     bind(TagService.class).asEagerSingleton();
     bind(ScheduledResourceCleanUp.class);

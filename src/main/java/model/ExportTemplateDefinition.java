@@ -6,16 +6,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * @author Lukas Eichler
  */
-public class Template {
+public class ExportTemplateDefinition {
 
   private final String name;
   private final String templatePath;
   private final String fileNamePattern;
 
   @JsonCreator
-  public Template(@JsonProperty("name") final String name,
-                  @JsonProperty("templatePath") final String templatePath,
-                  @JsonProperty("fileNamePattern") final String fileNamePattern) {
+  public ExportTemplateDefinition(@JsonProperty("name") final String name,
+                                  @JsonProperty("templatePath") final String templatePath,
+                                  @JsonProperty("fileNamePattern") final String fileNamePattern) {
     this.name = name;
     this.templatePath = templatePath;
     this.fileNamePattern = fileNamePattern;

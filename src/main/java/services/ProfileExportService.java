@@ -9,8 +9,8 @@ import com.lowagie.text.DocumentException;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
 import model.BaseModel;
+import model.ExportTemplateDefinition;
 import model.Profile;
-import model.Template;
 import model.annotations.ExcludeFromStringConcatenation;
 import org.apache.commons.io.output.StringBuilderWriter;
 import org.apache.commons.lang3.StringUtils;
@@ -27,6 +27,7 @@ import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -42,7 +43,7 @@ public class ProfileExportService {
   public static final SimpleDateFormat FORMAT = new SimpleDateFormat("MMMM yyyy", Locale.GERMAN);
   private final ObjectMapper mapper;
   private final Configuration configuration;
-  private List<Template> loadedTemplates;
+  private List<ExportTemplateDefinition> loadedExportTemplateDefinitions;
 
   @Inject
   public ProfileExportService(@NotNull final ObjectMapper mapper, @NotNull final Configuration configuration) {
@@ -66,7 +67,7 @@ public class ProfileExportService {
   @NotNull
   private byte[] tryExportToPDF(@NotNull final Profile profile) throws IOException, TemplateException, DocumentException, IllegalAccessException, URISyntaxException {
 
-    final freemarker.template.Template template = configuration.getTemplate(getTemplates().get(0)
+    final freemarker.template.Template template = configuration.getTemplate(getTemplateDefinitions().get(0)
       .getTemplatePath());
 
     final StringBuilderWriter writer = new StringBuilderWriter();
@@ -129,7 +130,7 @@ public class ProfileExportService {
     renderer.getSharedContext().setUserAgentCallback(callback);
 
     try (final ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
-      renderer.setDocumentFromString(source, "/exportTemplates/");
+      renderer.setDocumentFromString(source, "/" + TEMPLATES_PATH + "/");
       renderer.layout();
       renderer.createPDF(stream);
       renderer.finishPDF();
@@ -139,17 +140,17 @@ public class ProfileExportService {
   }
 
   @NotNull
-  public List<Template> getTemplates() {
-    if (loadedTemplates == null) {
+  public List<ExportTemplateDefinition> getTemplateDefinitions() {
+    if (loadedExportTemplateDefinitions == null) {
       loadTemplates();
     }
-    return loadedTemplates;
+    return loadedExportTemplateDefinitions;
   }
 
   @NotNull
   private void loadTemplates() {
     try {
-      loadedTemplates =
+      loadedExportTemplateDefinitions =
         ClassPath.from(Thread.currentThread().getContextClassLoader())
           .getResources()
           .stream()
@@ -164,11 +165,11 @@ public class ProfileExportService {
   }
 
   @NotNull
-  private <T extends ClassPath.ResourceInfo> Function<T, Template> getTransformer() {
+  private <T extends ClassPath.ResourceInfo> Function<T, ExportTemplateDefinition> getTransformer() {
     return t -> {
       try {
-        return mapper.readValue(new String(Files.readAllBytes(Paths.get(t.url().toURI()))),
-          Template.class);
+        final Path pathToResource = Paths.get(t.url().toURI());
+        return mapper.readValue(new String(Files.readAllBytes(pathToResource)), ExportTemplateDefinition.class);
       } catch (final IOException | URISyntaxException e) {
         throw new RuntimeException(e);
       }
@@ -186,7 +187,7 @@ public class ProfileExportService {
 
     @Override
     protected InputStream resolveAndOpenStream(@NotNull final String uri) {
-      if (uri.equals("/exportTemplates/profileImage.png") && profile.getImage() != null) {
+      if (uri.equals("/" + TEMPLATES_PATH + "/profileImage.png") && profile.getImage() != null) {
         return new ByteArrayInputStream(profile.getImage().getContent());
       }
       return getClass().getResourceAsStream(uri);

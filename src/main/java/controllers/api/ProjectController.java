@@ -43,10 +43,6 @@ public class ProjectController {
     if (Strings.isNullOrEmpty(id) || !ObjectId.isValid(id)) {
       throw new BadRequestException();
     }
-    if (!ObjectId.isValid(id)) {
-      throw new ElementNotFoundException();
-    }
-
     final Project project = datastore.get(Project.class, new ObjectId(id));
     if (project == null) {
       throw new ElementNotFoundException();
@@ -77,7 +73,7 @@ public class ProjectController {
   @Path({"/{id}", ""})
   @DELETE
   public Result deleteProject(@NotNull @PathParam("id") final String id) {
-    if (Strings.isNullOrEmpty(id)) {
+    if (Strings.isNullOrEmpty(id) || !ObjectId.isValid(id)) {
       throw new BadRequestException();
     }
     final Project project = datastore.get(Project.class, new ObjectId(id));

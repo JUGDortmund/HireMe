@@ -9,7 +9,7 @@ import services.ProfileExportService;
  * @author Lukas Eichler
  */
 @Singleton
-public class ConfigurationProvider implements Provider<Configuration> {
+public class FreemarkerConfigurationProvider implements Provider<Configuration> {
 
   @Override
   public Configuration get() {

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.io.Files;
-import conf.ConfigurationProvider;
+import conf.FreemarkerConfigurationProvider;
 import model.Profile;
 import model.Project;
 import model.ProjectAssociation;
@@ -43,7 +43,7 @@ public class ProfileExportServiceTest {
   public void setUp() throws Exception {
     ObjectMapper mapper = new ObjectMapper();
     mapper.configure(JsonParser.Feature.AUTO_CLOSE_SOURCE, true);
-    profileExportService = new ProfileExportService(mapper, new ConfigurationProvider().get());
+    profileExportService = new ProfileExportService(mapper, new FreemarkerConfigurationProvider().get());
     profile = new Profile();
     profile.setFirstname("Max");
     profile.setLastname("Mustermann");
@@ -115,7 +115,7 @@ public class ProfileExportServiceTest {
   
   @Test
   public void loadTemplates() throws Exception {
-    assertThat(profileExportService.getTemplates()).hasSize(1);
+    assertThat(profileExportService.getTemplateDefinitions()).hasSize(1);
   }
 
   @Test
@@ -138,8 +138,8 @@ public class ProfileExportServiceTest {
 
   @Test
   public void getNameFromTemplate() throws Exception {
-    assertThat(profileExportService.getTemplates().get(0).getName()).isEqualTo("TestTemplate");
-    assertThat(profileExportService.getTemplates()
+    assertThat(profileExportService.getTemplateDefinitions().get(0).getName()).isEqualTo("TestTemplate");
+    assertThat(profileExportService.getTemplateDefinitions()
       .get(0)
       .getTemplatePath()).isEqualTo("template.ftl");
   }

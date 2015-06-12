@@ -10,6 +10,10 @@
 
         }
 
+        #intro {
+            position: relative;
+        }
+
         #intro img {
             margin-top: 20px;
             width: 175px;
@@ -17,14 +21,16 @@
         }
 
         #careerLevel {
-            margin-top: 0;
         }
 
         #maredit-address {
+            display: table-cell;
+            vertical-align: bottom;
             color: #A6A6A6;
         }
 
         .block {
+            width: 100%;
             margin-top: 20px;
             clear: left;
         }
@@ -81,19 +87,24 @@
 
         body {
             font-family: 'Didact Gothic', sans-serif;
-            font-size: 10px;
-            margin-left: 30px;
-            margin-right: 30px;
+            font-size: 12px;
+
+        }
+
+        h1 {
+            font-size: 42px;
         }
 
         hr {
-            margin-top: 10px;
+            margin-top: 30px;
+            margin-bottom: 30px;
             border: 0;
             height: 1px;
             background: #333 linear-gradient(to right, #ccc, #333, #ccc);
         }
 
         .header {
+            margin-top: 10px;
             margin-bottom: 50px;
             text-transform: uppercase;
             font-size: 14px;
@@ -101,6 +112,7 @@
         }
 
         .footer {
+            margin-bottom: 10px;
             position: running(footer);
         }
 
@@ -117,16 +129,17 @@
         }
 
         @page {
+            margin: 25mm 25mm 25mm 25mm;
+
             @top-left {
                 content: element(header);
             }
-        }
 
-        @page {
             @bottom-right {
                 content: element(footer);
             }
         }
+
     </style>
 </head>
 
@@ -231,7 +244,7 @@
             <label>Qualifikationen</label>
             <span>${platforms}</span>
         </p>
-        <hr style="margin-top: 20px"/>
+        <hr/>
     </div>
     <div id="summary" class="block">
         <h3>Zusammenfassung</h3>
@@ -244,22 +257,22 @@
 
         <p>
             <label>Firma:</label>
-            <span>${projectAssociation.project.companies}</span>
+            <span><#if projectAssociation.project??>${projectAssociation.project.companies}</#if></span>
         </p>
 
         <p>
             <label>Standort:</label>
-            <span>${projectAssociation.project.locations}</span>
+            <span><#if projectAssociation.project??>${projectAssociation.project.locations}</#if></span>
         </p>
 
         <p>
             <label>Branche:</label>
-            <span>${projectAssociation.project.industries}</span>
+            <span><#if projectAssociation.project??>${projectAssociation.project.industries}</#if></span>
         </p>
 
         <p>
             <label>Projekttitel: </label>
-            <span>${projectAssociation.project.title}</span>
+            <span><#if projectAssociation.project??>${projectAssociation.project.title}</#if></span>
         </p>
 
         <p>
@@ -271,13 +284,13 @@
             <label>Zeitraum:</label>
             <span>${projectAssociation.start} - ${projectAssociation.end}</span>
         </p>
-
-        <hr style="margin-top: 20px"/>
+        <hr/>
+        <div style="margin-bottom: 30px"
     </div>
     <div class="block">
         <h3>Projektbeschreibung:</h3>
 
-        <p>${projectAssociation.project.summary}</p>
+        <p><#if projectAssociation.project??>${projectAssociation.project.summary}</#if></p>
 
         <h3>Position:</h3>
         <ul>
