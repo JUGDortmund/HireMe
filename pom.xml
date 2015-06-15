@@ -809,7 +809,7 @@
                         <executions>
                             <execution>
                                 <id>package-usermanual</id>
-                                <phase>package</phase>
+                                <phase>prepare-package</phase>
                                 <goals>
                                     <goal>site</goal>
                                     <goal>jar</goal>
@@ -840,7 +840,7 @@
                         <executions>
                             <execution>
                                 <id>package-operationmanual</id>
-                                <phase>package</phase>
+                                <phase>prepare-package</phase>
                                 <goals>
                                     <goal>pdf</goal>
                                 </goals>
