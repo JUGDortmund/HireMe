@@ -290,7 +290,7 @@
                 <span>${projectAssociation.project.industries}</span>
             </p>
         </#if>
-        <#if (projectAssociation.project)?has_content && projectAssociation.project.title>
+        <#if (projectAssociation.project)?has_content && projectAssociation.project.title?has_content>
             <p>
                 <label>Projekttitel: </label>
                 <span>${projectAssociation.project.title}</span>
