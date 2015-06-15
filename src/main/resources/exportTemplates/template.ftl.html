@@ -229,17 +229,16 @@
     </div>
     <div id="knowledge" class="block left orange">
         <p class="h3">Kenntnisse.</p>
-    <#if industries?has_content>
-
+    <#if platforms?has_content>
         <p>
             <label>Platformen:</label>
             <span>${platforms}</span>
         </p>
     </#if>
-    <#if platforms?has_content>
+    <#if opSystems?has_content>
         <p>
             <label>Betriebssysteme:</label>
-            <span>${platforms}</span>
+            <span>${opSystems}</span>
         </p>
     </#if>
     <#if progLanguages?has_content>
