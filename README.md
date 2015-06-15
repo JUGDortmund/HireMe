@@ -220,7 +220,7 @@ A template consists of a json file that contains the metadata and a template fil
 
 ### Variables
 
-- All variables that can be used are fro `model.Profile`
+- All variables that can be used are from `model.Profile`
 - Lists of String that are annotated are concatenated by default to a String like  `value1, value2, ...`
 - If a List of Strings is annotated by `@ExcludeFromStringConcatenation` the list will not be concatenated into a string
 
@@ -231,25 +231,10 @@ A template consists of a json file that contains the metadata and a template fil
 
 ### Print all available variables
 
-1. Add macro inside template
-`<#macro dump var>
-   <#if var?is_hash>
-   {
-     <#foreach key in var?keys>
-        ${key}:<@dump var[key]/>,
-     </#foreach>
-   }
-   <#elseif var?is_sequence>
-   [
-     <#foreach elem in sequence>
-       <@dump elem/>,
-     </#foreach>
-   ]
-   <#elseif var?is_scalar>
-     ${var}
-   </#if>
-</#macro>`
-2. use macro `<@dump .root/>`
+ Add macro inside template
+`<#list .data_model?keys as var>
+  ${var}
+  </#list>`
 
 ******************************************************
 

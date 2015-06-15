@@ -35,7 +35,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 
 public class ProfileExportServiceTest {
-
+  
+  public static final String PDF_PROFILE_IMAGE = "/exportTemplates/pdf-profileImage.png";
+  public static final String PDF_MAREDIT_LOGO = "/exportTemplates/pdf-maredit-logo.png";
   private ProfileExportService profileExportService;
   private Profile profile;
 
@@ -84,7 +86,7 @@ public class ProfileExportServiceTest {
 
   @Test
   public void documentContainsFooterLogo() throws Exception {
-    final byte[] expected = Files.toByteArray(new File(getClass().getResource("/exportTemplates/pdf-maredit-logo.png").toURI()));
+    final byte[] expected = Files.toByteArray(new File(getClass().getResource(PDF_MAREDIT_LOGO).toURI()));
 
     assertThat(getImages()).contains(expected);
   }
@@ -96,9 +98,9 @@ public class ProfileExportServiceTest {
     resource.setContent(Files.toByteArray(new File(getClass().getResource("/exportTemplates/maredit-logo.png").toURI())));
     profile.setImage(resource);
 
-    final byte[] logo = Files.toByteArray(new File(getClass().getResource("/exportTemplates/pdf-maredit-logo.png").toURI()));
+    final byte[] logo = Files.toByteArray(new File(getClass().getResource(PDF_MAREDIT_LOGO).toURI()));
 
-    final byte[] profileImage = Files.toByteArray(new File(getClass().getResource("/exportTemplates/pdf-profileImage.png").toURI()));
+    final byte[] profileImage = Files.toByteArray(new File(getClass().getResource(PDF_PROFILE_IMAGE).toURI()));
 
     assertThat(getImages())
       .contains(logo)
@@ -107,7 +109,7 @@ public class ProfileExportServiceTest {
   
   @Test
   public void useDefaultProfileImageIfNoImageWasSet() throws Exception {
-    final byte[] profileImage = Files.toByteArray(new File(getClass().getResource("/exportTemplates/pdf-profileImage.png").toURI()));
+    final byte[] profileImage = Files.toByteArray(new File(getClass().getResource(PDF_PROFILE_IMAGE).toURI()));
 
     assertThat(getImages())
       .contains(profileImage);

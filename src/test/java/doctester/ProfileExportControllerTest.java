@@ -20,6 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class ProfileExportControllerTest extends NinjaDocTester {
   
+  public static final String API_REQUEST_PATH = "/api/exportProfile/";
   private Profile profile;
 
   @Before
@@ -32,7 +33,7 @@ public class ProfileExportControllerTest extends NinjaDocTester {
 
   @Test
   public void exportProfileReturnsPDFDownload() throws Exception {
-    final Response response = sayAndMakeRequest(Request.GET().url(testServerUrl().path("/api/exportProfile/" + profile.getId())));
+    final Response response = sayAndMakeRequest(Request.GET().url(testServerUrl().path(API_REQUEST_PATH + profile.getId())));
 
     PDFParser
       parser =
@@ -44,26 +45,26 @@ public class ProfileExportControllerTest extends NinjaDocTester {
 
   @Test
   public void exportProfileHasStatus200() throws Exception {
-    final Response response = sayAndMakeRequest(Request.GET().url(testServerUrl().path("/api/exportProfile/" + profile.getId())));
+    final Response response = sayAndMakeRequest(Request.GET().url(testServerUrl().path(API_REQUEST_PATH + profile.getId())));
 
     assertThat(response.httpStatus).isEqualTo(200);
   }
   
   @Test
   public void exportProfileWithoutIdHasStatus400() throws Exception {
-    final Response response = sayAndMakeRequest(Request.GET().url(testServerUrl().path("/api/exportProfile/")));
+    final Response response = sayAndMakeRequest(Request.GET().url(testServerUrl().path(API_REQUEST_PATH)));
     assertThat(response.httpStatus).isEqualTo(400);
   }
   
   @Test
   public void exportProfileWithInvalidIdHasStatus400() throws Exception {
-    final Response response = sayAndMakeRequest(Request.GET().url(testServerUrl().path("/api/exportProfile/" + 400)));
+    final Response response = sayAndMakeRequest(Request.GET().url(testServerUrl().path(API_REQUEST_PATH + 400)));
     assertThat(response.httpStatus).isEqualTo(400);
   }
 
   @Test
   public void exportProfileWithValidButNotUsedIdHasStatus404() throws Exception {
-    final Response response = sayAndMakeRequest(Request.GET().url(testServerUrl().path("/api/exportProfile/" + new ObjectId().toString())));
+    final Response response = sayAndMakeRequest(Request.GET().url(testServerUrl().path(API_REQUEST_PATH + new ObjectId().toString())));
     assertThat(response.httpStatus).isEqualTo(404);
   }
 }

@@ -145,7 +145,7 @@ describe('profile page', function () {
     expect(startField.getAttribute('value')).toContain('01.01.12');
   });
 
-  fit('should be able to delete a project association', function () {
+  it('should be able to delete a project association', function () {
 	  profilePage.addProjectAssociation();
 	  var startField = element(by.id('start-0'));
 	  startField.click();
@@ -155,7 +155,7 @@ describe('profile page', function () {
 	  expect(profilePage.projectAssociationCount).toEqual(0);
   });
 
-  fit('should be able to delete a project association, after it was saved persistent', function () {
+  it('should be able to delete a project association, after it was saved persistent', function () {
 	  profilePage.addProjectAssociation();
 	  var startField = element(by.id('start-0'));
 	  startField.click();
@@ -167,7 +167,7 @@ describe('profile page', function () {
 	  expect(profilePage.projectAssociationCount).toEqual(0);
   });
 
-  fit('project associations should not be deleted, when cancel button is pressed', function () {
+  it('project associations should not be deleted, when cancel button is pressed', function () {
 	  profilePage.addProjectAssociation();
 	  var startField = element(by.id('start-0'));
 	  startField.click();
