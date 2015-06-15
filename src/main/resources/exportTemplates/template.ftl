@@ -318,7 +318,7 @@
 
             <p>${projectAssociation.project.summary}</p>
         </#if>
-        <#if projectAssociation.positions?has_content && projectAssociation.positions.size() > 0>
+        <#if projectAssociation.positions?has_content>
             <h3>Position:</h3>
             <ul>
                 <#list projectAssociation.positions as position>
@@ -331,7 +331,7 @@
 
             <p>${projectAssociation.tasks}</p>
         </#if>
-        <#if projectAssociation.technologies?has_content && projectAssociation.technologies.size() > 0>
+        <#if projectAssociation.technologies?has_content>
             <h3>Technologien:</h3>
             <ul>
                 <#list projectAssociation.technologies as technology>
