@@ -4,8 +4,21 @@
 <#-- @ftlvariable name="" type="model.Profile" -->
 <head>
     <title>${firstname} ${lastname}</title>
-    <link href='http://fonts.googleapis.com/css?family=Didact+Gothic' rel='stylesheet' type='text/css'/>
     <style type="text/css">
+        @font-face {
+          font-family: 'brandon';
+          font-style: normal;
+          font-weight: 100;
+          src: url('BrandonText-Bold.otf');
+          -fs-pdf-font-embed: embed;
+          -fs-pdf-font-encoding: Identity-H;
+        }
+        
+        * {
+           font-family: 'brandon';
+           font-size: 12px;
+        }
+    
         #content {
 
         }
@@ -35,7 +48,7 @@
             clear: left;
         }
 
-        .block h3 {
+        .block .h3 {
             text-transform: uppercase;
         }
 
@@ -85,13 +98,7 @@
             color: #8064a2;
         }
 
-        body {
-            font-family: 'Didact Gothic', sans-serif;
-            font-size: 12px;
-
-        }
-
-        h1 {
+        .h1 {
             font-size: 42px;
         }
 
@@ -145,8 +152,8 @@
 
 <body>
 <div class="header">
-    <h2>Mitarbeiterprofil.</h2>
-    _____
+    <p class="h2">Mitarbeiterprofil.</p>
+    <hr/> 
 </div>
 <div class="footer">
     <img class="right" src="maredit-logo.png" alt="maredit-logo"/>
@@ -161,16 +168,16 @@
             ${careerLevel}
             </p>
 
-            <h1>
+            <p class="h1">
             ${firstname}<br/>
             ${lastname}
-            </h1>
+            </p>
 
-            <p id="maredit-address">maredit GmbH • Sebrathweg 20 • 44149 Dortmund • www.maredit.de</p>
+            <p id="maredit-address">maredit GmbH &middot; Sebrathweg 20 &middot; 44149 Dortmund &middot; www.maredit.de</p>
         </div>
     </div>
     <div id="personal" class="block left blue">
-        <h3>Person.</h3>
+        <p class="h3">Person.</p>
 
     <#if (firstname)?has_content>
         <p>
@@ -212,7 +219,7 @@
     </#if>
     </div>
     <div id="experiences" class="block left green">
-        <h3>Erfahrungen.</h3>
+        <p class="h3">Erfahrungen.</p>
     <#if industries?has_content>
         <p>
             <label>Branchen:</label>
@@ -221,7 +228,7 @@
     </#if>
     </div>
     <div id="knowledge" class="block left orange">
-        <h3>Kenntnisse.</h3>
+        <p class="h3">Kenntnisse.</p>
     <#if industries?has_content>
 
         <p>
@@ -262,7 +269,7 @@
         <hr/>
     </div>
     <div id="summary" class="block">
-        <h3>Zusammenfassung</h3>
+        <p class="h3">Zusammenfassung</p>
     <#if summary?has_content>
     ${summary}
     </#if>
@@ -270,7 +277,7 @@
 <#list projectAssociations as projectAssociation>
     <div class="page-break"></div>
     <div class="block left purple project">
-        <h3>KLIENT.</h3>
+        <p class="h3">KLIENT.</p>
         <#if projectAssociation.project?has_content &&
         projectAssociation.project.companies?has_content>
             <p>
@@ -313,12 +320,12 @@
     </div>
     <div class="block">
         <#if (projectAssociation.project)?has_content && projectAssociation.project.summary?has_content>
-            <h3>Projektbeschreibung:</h3>
+            <p class="h3">Projektbeschreibung:</p>
 
             <p>${projectAssociation.project.summary}</p>
         </#if>
         <#if projectAssociation.positions?has_content>
-            <h3>Position:</h3>
+            <p class="h3">Position:</p>
             <ul>
                 <#list projectAssociation.positions as position>
                     <li>${position}</li>
@@ -326,12 +333,12 @@
             </ul>
         </#if>
         <#if projectAssociation.tasks?has_content>
-            <h3>Aufgaben:</h3>
+            <p class="h3">Aufgaben:</p>
 
             <p>${projectAssociation.tasks}</p>
         </#if>
         <#if projectAssociation.technologies?has_content>
-            <h3>Technologien:</h3>
+            <p class="h3">Technologien:</p>
             <ul>
                 <#list projectAssociation.technologies as technology>
                     <li>${technology}</li>
