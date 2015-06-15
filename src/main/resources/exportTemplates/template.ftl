@@ -1,7 +1,7 @@
-<#-- @ftlvariable name="" type="model.Profile" -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+<#-- @ftlvariable name="" type="model.Profile" -->
 <head>
     <title>${firstname} ${lastname}</title>
     <link href='http://fonts.googleapis.com/css?family=Didact+Gothic' rel='stylesheet' type='text/css'/>
@@ -310,7 +310,6 @@
             </p>
         </#if>
         <hr/>
-        <div style="margin-bottom: 30px"></div>
     </div>
     <div class="block">
         <#if (projectAssociation.project)?has_content && projectAssociation.project.summary?has_content>
