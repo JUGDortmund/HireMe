@@ -153,7 +153,7 @@
 </div>
 <div id="content">
 
-<div id="intro">
+    <div id="intro">
         <img class="left" src="defaultProfileImage.png" alt="ffs"/>
 
         <div class="right text-right">
@@ -172,143 +172,173 @@
     <div id="personal" class="block left blue">
         <h3>Person.</h3>
 
+    <#if (firstname)?has_content>
         <p>
             <label>Name:</label>
             <span>${firstname}</span>
         </p>
-
+    </#if>
+    <#if (lastname)?has_content>
         <p>
             <label>Vorname: </label>
             <span>${lastname}</span>
         </p>
-
+    </#if>
+    <#if (degrees)?has_content>
         <p>
             <label>Abschluss: </label>
             <span>${degrees}</span>
         </p>
-
+    </#if>
+    <#if (careerLevel)?has_content>
         <p>
             <label>Karrierestufe: </label>
             <span>${careerLevel}</span>
         </p>
-
+    </#if>
+    <#if (workExperience)?has_content>
         <p>
             <label>Berufserfahrung seit: </label>
             <span>
-            ${workExperience?string}
+            ${workExperience}
             </span>
         </p>
-
+    </#if>
+    <#if (languages)?has_content>
         <p>
             <label>Fremdsprachen: </label>
             <span>${languages}</span>
         </p>
+    </#if>
     </div>
     <div id="experiences" class="block left green">
         <h3>Erfahrungen.</h3>
-
+    <#if industries?has_content>
         <p>
             <label>Branchen:</label>
             <span>${industries}</span>
         </p>
-
+    </#if>
     </div>
     <div id="knowledge" class="block left orange">
         <h3>Kenntnisse.</h3>
+    <#if industries?has_content>
 
         <p>
             <label>Platformen:</label>
             <span>${platforms}</span>
         </p>
-
+    </#if>
+    <#if platforms?has_content>
         <p>
             <label>Betriebssysteme:</label>
             <span>${platforms}</span>
         </p>
-
+    </#if>
+    <#if progLanguages?has_content>
         <p>
             <label>Programmiersprachen:</label>
-            <span>${platforms}</span>
+            <span>${progLanguages}</span>
         </p>
-
+    </#if>
+    <#if webTechnologies?has_content>
         <p>
             <label>Web-Technologien:</label>
-            <span>${platforms}</span>
+            <span>${webTechnologies}</span>
         </p>
-
+    </#if>
+    <#if devEnvironments?has_content>
         <p>
             <label>Entwicklungswerkzeuge:</label>
-            <span>${platforms}</span>
+            <span>${devEnvironments}</span>
         </p>
-
+    </#if>
+    <#if qualifications?has_content>
         <p>
             <label>Qualifikationen</label>
-            <span>${platforms}</span>
+            <span>${qualifications}</span>
         </p>
+    </#if>
         <hr/>
     </div>
     <div id="summary" class="block">
         <h3>Zusammenfassung</h3>
+    <#if summary?has_content>
     ${summary}
+    </#if>
     </div>
 <#list projectAssociations as projectAssociation>
     <div class="page-break"></div>
     <div class="block left purple project">
         <h3>KLIENT.</h3>
-
-        <p>
-            <label>Firma:</label>
-            <span><#if projectAssociation.project??>${projectAssociation.project.companies}</#if></span>
-        </p>
-
-        <p>
-            <label>Standort:</label>
-            <span><#if projectAssociation.project??>${projectAssociation.project.locations}</#if></span>
-        </p>
-
-        <p>
-            <label>Branche:</label>
-            <span><#if projectAssociation.project??>${projectAssociation.project.industries}</#if></span>
-        </p>
-
-        <p>
-            <label>Projekttitel: </label>
-            <span><#if projectAssociation.project??>${projectAssociation.project.title}</#if></span>
-        </p>
-
-        <p>
-            <label>Einsatzorte:</label>
-            <span>${projectAssociation.locations}</span>
-        </p>
-
-        <p>
-            <label>Zeitraum:</label>
-            <span>${projectAssociation.start} - ${projectAssociation.end}</span>
-        </p>
+        <#if projectAssociation.project?has_content &&
+        projectAssociation.project.companies?has_content>
+            <p>
+                <label>Firma:</label>
+                <span>${projectAssociation.project.companies}</span>
+            </p>
+        </#if>
+        <#if (projectAssociation.project)?has_content && projectAssociation.project.locations?has_content>
+            <p>
+                <label>Standort:</label>
+                <span>${projectAssociation.project.locations}</span>
+            </p>
+        </#if>
+        <#if (projectAssociation.project)?has_content && projectAssociation.project.industries?has_content>
+            <p>
+                <label>Branche:</label>
+                <span>${projectAssociation.project.industries}</span>
+            </p>
+        </#if>
+        <#if (projectAssociation.project)?has_content && projectAssociation.project.title>
+            <p>
+                <label>Projekttitel: </label>
+                <span>${projectAssociation.project.title}</span>
+            </p>
+        </#if>
+        <#if projectAssociation.locations?has_content>
+            <p>
+                <label>Einsatzorte:</label>
+                <span>${projectAssociation.locations}</span>
+            </p>
+        </#if>
+        <#if projectAssociation.start?has_content || projectAssociation.end?has_content>
+            <p>
+                <label>Zeitraum:</label>
+            <span><#if projectAssociation.start?has_content>${projectAssociation.start}</#if> <#if projectAssociation.end?has_content>
+                - ${projectAssociation.end}</#if></span>
+            </p>
+        </#if>
         <hr/>
-        <div style="margin-bottom: 30px"
+        <div style="margin-bottom: 30px"></div>
     </div>
     <div class="block">
-        <h3>Projektbeschreibung:</h3>
+        <#if (projectAssociation.project)?has_content && projectAssociation.project.summary?has_content>
+            <h3>Projektbeschreibung:</h3>
 
-        <p><#if projectAssociation.project??>${projectAssociation.project.summary}</#if></p>
+            <p>${projectAssociation.project.summary}</p>
+        </#if>
+        <#if projectAssociation.positions?has_content && projectAssociation.positions.size() > 0>
+            <h3>Position:</h3>
+            <ul>
+                <#list projectAssociation.positions as position>
+                    <li>${position}</li>
+                </#list>
+            </ul>
+        </#if>
+        <#if projectAssociation.tasks?has_content>
+            <h3>Aufgaben:</h3>
 
-        <h3>Position:</h3>
-        <ul>
-            <#list projectAssociation.positions as position>
-                <li>${position}</li>
-            </#list>
-        </ul>
-        <h3>Aufgaben:</h3>
-
-        <p>${projectAssociation.tasks}</p>
-
-        <h3>Technologien:</h3>
-        <ul>
-            <#list projectAssociation.technologies as technology>
-                <li>${technology}</li>
-            </#list>
-        </ul>
+            <p>${projectAssociation.tasks}</p>
+        </#if>
+        <#if projectAssociation.technologies?has_content && projectAssociation.technologies.size() > 0>
+            <h3>Technologien:</h3>
+            <ul>
+                <#list projectAssociation.technologies as technology>
+                    <li>${technology}</li>
+                </#list>
+            </ul>
+        </#if>
     </div>
 </#list>
 </div>

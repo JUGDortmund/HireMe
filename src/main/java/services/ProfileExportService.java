@@ -187,7 +187,7 @@ public class ProfileExportService {
 
     @Override
     protected InputStream resolveAndOpenStream(@NotNull final String uri) {
-      if (uri.equals("/" + TEMPLATES_PATH + "/profileImage.png") && profile.getImage() != null) {
+      if (uri.equals("/" + TEMPLATES_PATH + "/defaultProfileImage.png") && profile.getImage() != null) {
         return new ByteArrayInputStream(profile.getImage().getContent());
       }
       return getClass().getResourceAsStream(uri);

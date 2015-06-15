@@ -226,7 +226,7 @@ A template consists of a json file that contains the metadata and a template fil
 
 ### ProfileImage
 
-- `<img src="profileImage.png>` will print the profile image. 
+- `<img src="defaultProfileImage.png>` will print the profile image. 
 - If no image in set inside the profile the default profile image will be printed
 
 ### Print all available variables
