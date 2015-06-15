@@ -152,10 +152,8 @@
     <img class="right" src="maredit-logo.png" alt="maredit-logo"/>
 </div>
 <div id="content">
-<#list .data_model?keys as var>
-${var}
-</#list>
-    <div id="intro">
+
+<div id="intro">
         <img class="left" src="defaultProfileImage.png" alt="ffs"/>
 
         <div class="right text-right">
