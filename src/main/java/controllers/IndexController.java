@@ -2,16 +2,14 @@ package controllers;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
-import services.LocalizationService;
-import services.PropertyService;
-
 import ninja.Context;
 import ninja.Result;
 import ninja.Results;
 import ninja.jaxy.GET;
 import ninja.jaxy.Path;
 import ninja.params.PathParam;
+import services.LocalizationService;
+import services.PropertyService;
 
 @Singleton
 @Path("")
@@ -26,7 +24,7 @@ public class IndexController {
   @Path("^((?!(\\/api\\/|tpl)).)*$")
   public Result index() {
     return Results.ok().html().template("/app/index.html")
-        .render("showMinifiedVersion", propertyService.showMinifiedVersion());
+      .render("showMinifiedVersion", propertyService.showMinifiedVersion());
   }
 
   @GET
