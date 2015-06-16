@@ -22,26 +22,29 @@
                 </div>
                 <div class="box border-box">
                     <div class="header-text">
-                        <div id="image-wrapper" ngf-drop
-                         ngf-select
-                         ng-model="files"
-                         ng-model-rejected="rejectedFiles"
-                         ngf-drag-over-class="dragover"
-                         ngf-multiple="false"
-                         ngf-allow-dir="false"
-                         ngf-accept="'image/png,image/jpeg,image/gif'"
-                         ngf-min-size='10'
-                         ngf-max-size='15728640'>
-                            <img ngf-src="files[0]"
-                                 ngf-default-src="{{profile.image|toThumbnailUrl}}" id="image"/>
+                        <div id="upload"
+                             ngf-drop
+                             ngf-select
+                             ng-model="files"
+                             ng-model-rejected="rejectedFiles"
+                             ngf-drag-over-class="dragover"
+                             ngf-multiple="false"
+                             ngf-allow-dir="false"
+                             ngf-accept="'image/png,image/jpeg,image/gif'"
+                             ngf-min-size='10'
+                             ngf-max-size='15728640'>
+                            <div id="image-wrapper">
+                                <img ngf-src="files[0]"
+                                     ngf-default-src="{{profile.image|toThumbnailUrl}}" id="image"/>
+                            </div>
+                            <input type="hidden" name="image" id="image-hidden" class="form-control"
+                                   ng-model="profile.image"/>
+                            <span id="upload-description">
+                                <i class="fa fa-cloud-upload"></i><br/>
+                                ${i18n('profile.image.change')}<br/>
+                                ${i18n('profile.image.acceptedFileTypes')}
+                             </span>
                         </div>
-                        <input type="hidden" name="image" id="image-hidden" class="form-control"
-                               ng-model="profile.image"/>
-                        <span id="upload-description">
-                            <i class="fa fa-cloud-upload"></i><br/>
-                            ${i18n('profile.image.change')}<br/>
-                            ${i18n('profile.image.acceptedFileTypes')}
-                         </span>
                         <div class="header-info">
                             <h2 class="headline">{{profile.firstname}} {{profile.lastname}}</h2>
 
