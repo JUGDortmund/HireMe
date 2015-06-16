@@ -37,7 +37,7 @@
         }
 
         #maredit-address {
-            display: table-cell;
+            clear: right;
             vertical-align: bottom;
             color: #A6A6A6;
         }
@@ -61,7 +61,7 @@
 
         .block span {
             display: inline-block;
-            max-width: 450px;
+            max-width: 380px;
             padding-left: 15px;
             color: black;
         }
@@ -100,6 +100,10 @@
 
         .h1 {
             font-size: 42px;
+            width: 380px;
+            float: right;
+            margin-bottom: 20px;
+            margin-top: 5px;
         }
 
         hr {
@@ -229,17 +233,16 @@
     </div>
     <div id="knowledge" class="block left orange">
         <p class="h3">Kenntnisse.</p>
-    <#if industries?has_content>
-
+    <#if platforms?has_content>
         <p>
             <label>Platformen:</label>
             <span>${platforms}</span>
         </p>
     </#if>
-    <#if platforms?has_content>
+    <#if opSystems?has_content>
         <p>
             <label>Betriebssysteme:</label>
-            <span>${platforms}</span>
+            <span>${opSystems}</span>
         </p>
     </#if>
     <#if progLanguages?has_content>
