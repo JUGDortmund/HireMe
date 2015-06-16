@@ -123,10 +123,10 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     	$scope.profile.projectAssociations[index].locations = $scope.profile.projectAssociations[index].project.locations.slice()
     if($scope.profile.projectAssociations[index].project.technologies != null && $scope.profile.projectAssociations[index].technologies.length == 0)
     	$scope.profile.projectAssociations[index].technologies = $scope.profile.projectAssociations[index].project.technologies.slice()
-    if(typeof $scope.profile.projectAssociations[index].start == 'undefined')
-    	$scope.profile.projectAssociations[index].start = $scope.profile.projectAssociations[index].project.start
-    if(typeof $scope.profile.projectAssociations[index].end == 'undefined') 
-    	$scope.profile.projectAssociations[index].end = $scope.profile.projectAssociations[index].project.end
+    if(typeof $scope.profile.projectAssociations[index].start == 'undefined' || $scope.profile.projectAssociations[index].start== "")
+    	$scope.profile.projectAssociations[index].start = moment($scope.profile.projectAssociations[index].project.start).format(dateFormat)
+    if(typeof $scope.profile.projectAssociations[index].end == 'undefined' || $scope.profile.projectAssociations[index].end== "") 
+    	$scope.profile.projectAssociations[index].end = moment($scope.profile.projectAssociations[index].project.end).format(dateFormat)
     return
 
   $scope.$watch 'files', ->
