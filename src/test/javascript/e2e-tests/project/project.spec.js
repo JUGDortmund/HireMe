@@ -71,16 +71,16 @@ describe('project page', function () {
 		    locations.sendKeys(protractor.Key.ENTER);
 		    expect(projectPage.locationsTagCount).toBe(1);
 		  });
-	  
-	  it('should be able to create a new tag without replace spaces with dashes', function () {
-		    var locations = projectPage.locations;
-		    var inputLocation = 'Test without dashes';
-		    locations.click();
-		    locations.sendKeys(inputLocation);
-		    locations.sendKeys(protractor.Key.ENTER);
-		    expect(projectPage.getLastLocationText).toBe(inputLocation);
-		    expect(projectPage.locationsTagCount).toBe(1);
-		  });
+
+	it('should be able to create a new tag without replace spaces with dashes', function () {
+		var locations = projectPage.locations;
+		var inputLocation = 'Test without dashes';
+		locations.click();
+		locations.sendKeys(inputLocation);
+		locations.sendKeys(protractor.Key.ENTER);
+		expect(projectPage.getLastLocationText).toBe(inputLocation);
+		expect(projectPage.locationsTagCount).toBe(1);
+	});
 	  
 	  it('should set an invalid date and persist it after correcting it', function() {
 		    var incorrectInputDate = '01.0x.01';

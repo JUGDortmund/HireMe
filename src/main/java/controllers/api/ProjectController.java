@@ -4,15 +4,6 @@ import com.google.common.base.Strings;
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
-import org.bson.types.ObjectId;
-import org.mongodb.morphia.Datastore;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.validation.constraints.NotNull;
-
 import exception.ElementNotFoundException;
 import model.Profile;
 import model.Project;
@@ -20,12 +11,14 @@ import model.events.EntityChangedEvent;
 import ninja.Result;
 import ninja.Results;
 import ninja.exceptions.BadRequestException;
-import ninja.jaxy.DELETE;
-import ninja.jaxy.GET;
-import ninja.jaxy.POST;
-import ninja.jaxy.PUT;
-import ninja.jaxy.Path;
+import ninja.jaxy.*;
 import ninja.params.PathParam;
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.Datastore;
+
+import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Singleton
 @Path("/api/project")
@@ -47,13 +40,9 @@ public class ProjectController {
   @GET
   public Result getSingleProjectById(@NotNull @PathParam("id") final String id) {
 
-    if (Strings.isNullOrEmpty(id)) {
+    if (Strings.isNullOrEmpty(id) || !ObjectId.isValid(id)) {
       throw new BadRequestException();
     }
-    if (!ObjectId.isValid(id)) {
-      throw new ElementNotFoundException();
-    }
-
     final Project project = datastore.get(Project.class, new ObjectId(id));
     if (project == null) {
       throw new ElementNotFoundException();
@@ -84,7 +73,7 @@ public class ProjectController {
   @Path({"/{id}", ""})
   @DELETE
   public Result deleteProject(@NotNull @PathParam("id") final String id) {
-    if (Strings.isNullOrEmpty(id)) {
+    if (Strings.isNullOrEmpty(id) || !ObjectId.isValid(id)) {
       throw new BadRequestException();
     }
     final Project project = datastore.get(Project.class, new ObjectId(id));

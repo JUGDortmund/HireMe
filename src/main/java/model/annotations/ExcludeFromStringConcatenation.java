@@ -3,10 +3,10 @@ package model.annotations;
 import java.lang.annotation.*;
 
 /**
- * Annotation to mark values that should be treated as tags
+ * Annotation to mark values to NOT be transformed into a String during the PDF-Export
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 @Documented
-public @interface Tag {
+public @interface ExcludeFromStringConcatenation {
 }

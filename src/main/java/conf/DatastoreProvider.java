@@ -6,17 +6,14 @@ import com.google.inject.Singleton;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
-
+import ninja.utils.NinjaProperties;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
+import javax.inject.Inject;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.UUID;
-
-import javax.inject.Inject;
-
-import ninja.utils.NinjaProperties;
 
 @Singleton
 public class DatastoreProvider implements Provider<Datastore> {
@@ -30,6 +27,7 @@ public class DatastoreProvider implements Provider<Datastore> {
   private static final String MONGODB_AUTHDB = "ninja.mongodb.authdb";
   private static final String MONGODB_USE_IN_MEMORY = "ninja.mongodb.useInMemory";
   private static final String MONGODB_INITIALIZE_DB = "ninja.mongodb.initializedb";
+  private static final String DEFAULT_MORPHIA_PACKAGE = "model";
 
   private NinjaProperties properties;
   private MongoClient mongoClient;
@@ -46,7 +44,7 @@ public class DatastoreProvider implements Provider<Datastore> {
     } else {
       createMongoDBConnection();
     }
-    String packageName = properties.get(MORPHIA_PACKAGE);
+    String packageName = properties.getWithDefault(MORPHIA_PACKAGE, DEFAULT_MORPHIA_PACKAGE);
 
     morphia = new Morphia().mapPackage(packageName);
     datastore = morphia.createDatastore(mongoClient, databaseName);
