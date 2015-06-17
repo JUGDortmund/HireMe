@@ -20,9 +20,9 @@
                     <strong>${i18n('message.upload.error.header')}</strong>
                     ${i18n('message.upload.error.content')}
                 </div>
-                <div class="alert alert-advice alert-dismissible" role="alert" ng-show="errorDublicat">
-                    <strong>${i18n('message.error.dublicat.header')}</strong>
-                    <strong> '{{ textTag }}' </strong> ${i18n('message.error.dublicat.content')}  
+                <div class="alert alert-advice alert-dismissible" role="alert" ng-show="errorDuplicate">
+                    <strong>${i18n('message.error.duplicate.header')}</strong>
+                    <strong> '{{ textTag }}' </strong> ${i18n('message.error.duplicate.content')}  <p ng-show = "errorDuplicateUndefined">${i18n('message.error.duplicate.undefined')} </p>
                 </div>
                 <div class="box border-box">
                     <div class="header-text">
@@ -384,9 +384,9 @@
                                         <tags-input type="text"
                                                     name="projectAssociations-locations-{{$index}}"
                                                     id="projectAssociations-locations-{{$index}}"
-                                                    text="projectAssociationsLocationsText"
+                                                    text="projectAssociationsLocationsText[$index]"
                                                     placeholder="${i18n('form.addTag')}"
-                                                    on-invalid-tag="valid('projectAssociationsLocationsText', $tag)"
+                                                    on-invalid-tag="valid('projectAssociationsLocationsText['+ $index + ']', $tag)"
                                                     class="ng-tags-custom"
                                                     ng-model="projectAssociation.locations"
                                                     on-tag-added="change('form-group-projectAssociation-locations-'+$index)"
@@ -405,9 +405,9 @@
                                         <tags-input type="text"
                                                     name="projectAssociations-positions-{{$index}}"
                                                     id="projectAssociations-positions-{{$index}}"
-                                                    text="projectAssociationsPositionsText"
+                                                    text="projectAssociationsPositionsText[$index]"
                                                     placeholder="${i18n('form.addTag')}"
-                                                    on-invalid-tag="valid('projectAssociationsPostionsText', $tag)"
+                                                    on-invalid-tag="valid('projectAssociationsPositionsText['+ $index + ']', $tag)"
                                                     class="ng-tags-custom"
                                                     ng-model="projectAssociation.positions"
                                                     on-tag-added="change('form-group-projectAssociation-positions-'+$index)"
