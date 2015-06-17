@@ -22,11 +22,9 @@ import com.google.inject.matcher.Matchers;
 import com.google.inject.spi.InjectionListener;
 import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
-
 import cronjobs.ScheduledResourceCleanUp;
-
+import freemarker.template.Configuration;
 import org.mongodb.morphia.Datastore;
-
 import services.TagService;
 
 @Singleton
@@ -36,6 +34,7 @@ public class Module extends AbstractModule {
 
   protected void configure() {
     bind(Datastore.class).toProvider(DatastoreProvider.class);
+    bind(Configuration.class).toProvider(FreemarkerConfigurationProvider.class);
     bind(EventBus.class).toInstance(eventBus);
     bind(TagService.class).asEagerSingleton();
     bind(ScheduledResourceCleanUp.class);

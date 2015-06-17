@@ -2,13 +2,10 @@ package services;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
 import dtos.BuildProperties;
-
-import org.apache.commons.configuration.PropertiesConfiguration;
-
 import ninja.utils.NinjaProperties;
 import ninja.utils.SwissKnife;
+import org.apache.commons.configuration.PropertiesConfiguration;
 
 @Singleton
 public class PropertyService {

@@ -1,129 +1,144 @@
 .profile-page {
-	.button-dialog {
-		position: fixed;
-		top: 120px;
-		right: 0px;
-		background-color: white;
-		border-radius: 5px 0px 0px 5px;
-		padding: 10px 15px;
-		z-index: 99999;
-		box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-	}
+  .button-dialog {
+    position: fixed;
+    top: 120px;
+    right: 0;
+    background-color: white;
+    border-radius: 5px 0 0 5px;
+    padding: 10px 15px;
+    z-index: 99999;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
 
-	@media (max-width: 480px) {
-		.button-dialog {
-			top: auto;
-			bottom: 0px;
-			left: 0px;
-		}
-	}
+  @media (max-width: 480px) {
+    .button-dialog {
+      top: auto;
+      bottom: 0;
+      left: 0;
+    }
+  }
 
-	.box {
-		&.box-primary {
-			.box-title , label {
-				color: @color-blue;
-			}
+  .box {
+    &.box-primary {
+      .box-title, label {
+        color: @color-blue;
+      }
 
-			tags-input .tags .tag-item {
-				background-color: @color-blue;
-				border-color: @color-blue;
-			}
-		}
+      tags-input .tags .tag-item {
+        background-color: @color-blue;
+        border-color: @color-blue;
+      }
+    }
 
-		&.box-orange {
-			border-top-color: @color-orange;
-			.box-title , label {
-				color: @color-orange;
-			}
+    &.box-orange {
+      border-top-color: @color-orange;
+      .box-title, label {
+        color: @color-orange;
+      }
 
-			tags-input .tags .tag-item {
-				background-color: @color-orange;
-				border-color: @color-orange;
-			}
-		}
+      tags-input .tags .tag-item {
+        background-color: @color-orange;
+        border-color: @color-orange;
+      }
+    }
 
-		&.box-green {
-			border-top-color: @color-green;
-			.box-title , label {
-				color: @color-green;
-			}
+    &.box-green {
+      border-top-color: @color-green;
+      .box-title, label {
+        color: @color-green;
+      }
 
-			tags-input .tags .tag-item {
-				background-color: @color-green;
-				border-color: @color-green;
-			}
-		}
-		
-		&.box-purple {
-			border-top-color: @color-purple;
-			.box-title , label {
-				color: @color-purple;
-			}
+      tags-input .tags .tag-item {
+        background-color: @color-green;
+        border-color: @color-green;
+      }
+    }
 
-			tags-input .tags .tag-item {
-				background-color: @color-purple;
-				border-color: @color-purple;
-			}
-		}
+    &.box-purple {
+      border-top-color: @color-purple;
+      .box-title, label {
+        color: @color-purple;
+      }
 
-		.header-text {
-			position: relative;
-			padding: 10px 10px 10px 120px;
-			min-height: 100px;
-			.headline {
-				margin-top: 0;
-			}
+      tags-input .tags .tag-item {
+        background-color: @color-purple;
+        border-color: @color-purple;
+      }
+    }
 
-			#image-wrapper {
-				background: #d2d6de;
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 100px;
-				height: 100px;
-				line-height: 100px;
-				text-align: center;
-				&.has-warning {
-					border: 1px @color-warning solid;
-				}
+    .header-text {
+      position: relative;
+      padding: 10px 10px 10px 120px;
+      min-height: 100px;
+      .headline {
+        margin-top: 0;
+      }
 
-				img {
-					max-width: 100%;
-					max-height: 100%;
-					vertical-align: baseline;
-				}
-			}
+      #upload {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100px;
+          height: 100px;
+        #image-wrapper {
+          background: #d2d6de;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100px;
+          height: 100px;
+          line-height: 100px;
+          text-align: center;
+          &.has-warning {
+            border: 1px @color-warning solid;
+          }
 
-			.description {
-				color: #777;
-			}
+          img {
+            max-width: 100%;
+            max-height: 100%;
+            vertical-align: baseline;
+          }
+        }
 
-			span {
-				position: absolute;
-				top: 0;
-				left: 0;
-				width: 100px;
-				height: 100px;
-				display: none;
-				text-align: center;
-				background: none repeat scroll 0 0 rgba(0, 0, 0, 0.5);
-				color: rgba(255, 255, 255, 1.0);
-			}
+        .description {
+          color: #777;
+        }
 
-			&:hover , &.dragover {
-				span {
-					display: block;
-				}
-			}
-		}
+        span {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100px;
+          height: 100px;
+          display: none;
+          text-align: center;
+          background: none repeat scroll 0 0 rgba(0, 0, 0, 0.5);
+          color: rgba(255, 255, 255, 1.0);
+        }
 
-		input[readonly] {
-			background-color: #fff;
-			border-color: #fff;
-			&:focus , &:active {
-				border-color: #fff ! important;
-			}
-		}
-	}
+        &:hover, &.dragover {
+          span {
+            display: block;
+          }
+        }
+      }
+      .header-info {
+        display: inline-block;
+      }
+
+      #download-button {
+        display: inline-block;
+        float: right;
+      }
+    }
+
+    input[readonly] {
+      background-color: #fff;
+      border-color: #fff;
+      &:focus, &:active {
+        border-color: #fff ! important;
+      }
+    }
+  }
 }
 

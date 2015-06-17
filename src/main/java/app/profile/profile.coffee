@@ -15,7 +15,6 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
   $scope.profile = profile
   $scope.projects = projects
-  console.log($scope.profile.projectAssociations)
   if $scope.profile.projectAssociations?
 		    $scope.projectData = $scope.profile.projectAssociations.map (project) ->
 		      data = {}

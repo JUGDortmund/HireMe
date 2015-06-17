@@ -18,6 +18,8 @@ angular.module('app', [
   tagsInputConfigProvider.setDefaults 'tagsInput',
   	placeholder: ''
   	minLength: 1
+  	replaceSpacesWithDashes: false
+  	allowLeftoverText: true
   .setDefaults 'autoComplete',
     minLength: 1
   return

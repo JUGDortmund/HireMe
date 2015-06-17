@@ -1,6 +1,7 @@
 package model;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,16 +18,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class Project extends BaseModel {
 
   @Tag
-  private List<String> companies;
+  private List<String> companies = new ArrayList<>();
 
   @Tag
-  private List<String> locations;
+  private List<String> locations = new ArrayList<>();
 
   @Tag
-  private List<String> industries;
+  private List<String> industries = new ArrayList<>();
 
   @Tag
-  private List<String> technologies;
+  private List<String> technologies = new ArrayList<>();
 
   private String title;
   private String summary;
@@ -64,7 +65,6 @@ public class Project extends BaseModel {
   public void setIndustries(List<String> industries) {
     this.industries = industries;
   }
-
 
   public List<String> getTechnologies() {
     return technologies;
