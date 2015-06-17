@@ -159,3 +159,4 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
       showMessage('errorDuplicateUndefined')  
     $scope.textTag = tag.text
     $parse(variableName).assign($scope,'')
+    return

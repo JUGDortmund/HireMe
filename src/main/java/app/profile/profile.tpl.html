@@ -10,21 +10,21 @@
                     <strong>${i18n('message.success.header')}</strong>
                     ${i18n('message.success.content')}
                 </div>
-                <div class="alert alert-advice alert-dismissible" role="alert"
+                <div class="alert alert-warning alert-dismissible" role="alert"
                      ng-show="uploadreject">
                     <strong>${i18n('message.upload.reject.header')}</strong>
                     ${i18n('message.upload.reject.content')} ${i18n('profile.image.acceptedFileTypes')}
                 </div>
-                <div class="alert alert-advice alert-dismissible" role="alert"
+                <div class="alert alert-warning alert-dismissible" role="alert"
                      ng-show="uploaderror">
                     <strong>${i18n('message.upload.error.header')}</strong>
                     ${i18n('message.upload.error.content')}
                 </div>
-                <div class="alert alert-advice alert-dismissible" role="alert" ng-show="errorDuplicate">
+                <div class="alert alert-warning alert-dismissible" role="alert" ng-show="errorDuplicate">
                     <strong>${i18n('message.error.duplicate.header')}</strong>
                     <strong> '{{ textTag }}' </strong> ${i18n('message.error.duplicate.content')}
                 </div>
-                <div class="alert alert-advice alert-dismissible" role="alert" ng-show = "errorDuplicateUndefined">
+                <div class="alert alert-warning alert-dismissible" role="alert" ng-show = "errorDuplicateUndefined">
                     <strong>${i18n('message.error.duplicate.header')}</strong>
                     <strong> '{{ textTag }}' </strong> ${i18n('message.error.duplicate.content')} <p>${i18n('message.error.duplicate.undefined')} </p>
                 </div>
