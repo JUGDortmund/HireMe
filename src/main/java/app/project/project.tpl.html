@@ -50,7 +50,7 @@
                                 <tags-input type="text" id="companies"
                                 			text="companiesText"
                                             placeholder="${i18n('form.addTag')}"
-                                            on-invalid-tag="valid('companiesText', $tag)"
+                                            on-invalid-tag="removeDuplicate('companiesText', $tag)"
                                             class="ng-tags-custom" ng-model="project.companies"
                                             on-tag-added="change('form-group-companies')"
                                             on-tag-removed="change('form-group-companies')">
@@ -67,7 +67,7 @@
                                 <tags-input type="text" id="industries"
                                 			text="industriesText"
                                             placeholder="${i18n('form.addTag')}"
-                                            on-invalid-tag="valid('industriesText',$tag)"
+                                            on-invalid-tag="removeDuplicate('industriesText',$tag)"
                                             class="ng-tags-custom" ng-model="project.industries"
                                             on-tag-added="change('form-group-industries')"
                                             on-tag-removed="change('form-group-industries')">
@@ -116,7 +116,7 @@
                                 <tags-input type="text" id="locations"
                                 			text="locationsText"
                                             placeholder="${i18n('form.addTag')}"
-                                            on-invalid-tag="valid('locationsText',$tag)"
+                                            on-invalid-tag="removeDuplicate('locationsText',$tag)"
                                             class="ng-tags-custom"
                                             ng-model="project.locations"
                                             on-tag-added="change('form-group-locations')"

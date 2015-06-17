@@ -86,8 +86,7 @@ angular.module( 'project', ['duScroll', 'ngTagsInput'])
   $scope.getTags = (name) ->
     tagService.getTag(name)
     
-  $scope.valid = (variableName,tag) ->
+  $scope.removeDuplicate = (variableName,tag) ->
   	showMessage('errorDuplicate')
   	$scope.textTag = tag.text
-  	text = $parse(variableName)
-  	text.assign($scope,'')
+  	$parse(variableName).assign($scope,'')

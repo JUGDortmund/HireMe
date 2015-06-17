@@ -152,13 +152,10 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
         showMessage('uploaderror', true)
     return
     
-  $scope.valid = (variableName,tag) ->
-  	if angular.isDefined($scope.$eval(variableName))
-  	  $scope.errorDuplicateUndefined = false
-  	  showMessage('errorDuplicate')
-  	else
-  	  $scope.errorDuplicateUndefined = true
-  	  showMessage('errorDuplicate')  
-  	$scope.textTag = tag.text
-  	parseText = $parse(variableName)
-  	parseText.assign($scope,'')
+  $scope.removeDuplicate = (variableName,tag) ->
+    if angular.isDefined($scope.$eval(variableName))
+      showMessage('errorDuplicate')
+    else
+      showMessage('errorDuplicateUndefined')  
+    $scope.textTag = tag.text
+    $parse(variableName).assign($scope,'')
