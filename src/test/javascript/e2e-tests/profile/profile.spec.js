@@ -4,6 +4,9 @@ var pathUtil = require('path');
 
 var SearchPage = require('../pages/search.page.js');
 var ProfilePage = require('../pages/profile.page.js');
+var ProjectListPage = require('../pages/projectlist.page.js');
+var ProjectListPage = require('../pages/projectlist.page.js');
+var ProjectPage = require('../pages/project.page.js');
 
 require('../../conf/capabilities.js');
 
@@ -11,6 +14,8 @@ describe('profile page', function () {
 
   var searchPage;
   var profilePage;
+  var projectListPage;
+  var projectPage;
   beforeEach(function () {
     searchPage = new SearchPage();
     searchPage.addProfile();
@@ -192,7 +197,38 @@ describe('profile page', function () {
     profilePage.cancel();
     expect(profilePage.thumbnailPath).toBe(oldThumbnailPath);
   });
+  
+  fit('should load default values from project if field are empty', function() {
+  });
 
+  function buildProjectStructure() {
+	  projectListPage = new ProjectListPage();
+	  projectListPage.addProject();
+	  projectListPage.openLastProject();
+	  projectPage = new ProjectPage();
+	  var locations = projectPage.locations;
+	  locations.click();
+	  locations.sendKeys("TestLocation");
+	  locations.sendKeys(protractor.Key.ENTER);
+	  var techonologies = projectPage.technologies;
+	  techonologies.click();
+	  techonologies.sendKeys("TestTechnologies");
+	  techonologies.sendKeys(protractor.Key.ENTER);
+	  var inputDate = '01.03.01';
+	  var inputStart = projectPage.start;
+	  inputStart.click();
+	  inputStart.clear();
+	  inputStart.sendKeys(inputDate);
+	  var inputEnd = projectPage.end;
+	  inputEnd.click();
+	  inputEnd.clear();
+	  inputEnd.sendKeys(inputDate);
+	  projectPage.save();
+	  searchPage = new SearchPage();
+	  searchPage.openLastProfile();
+	  profilePage = new ProfilePage;
+  }
+  
   function getFileName() {
     if (browser.inWindows()) {
       return "C:\\Users\\Public\\Pictures\\Sample Pictures\\flagge.gif";
