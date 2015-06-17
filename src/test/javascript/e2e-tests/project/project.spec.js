@@ -134,7 +134,7 @@ describe('project page', function () {
     locations.sendKeys("Test");
 
     var suggestionsCount = element.all(by.css('.suggestion-item')).count();
-    expect(suggestionsCount).toBe(2);
+    expect(suggestionsCount).toBeGreaterThan(1)
   });
 
 });	  
