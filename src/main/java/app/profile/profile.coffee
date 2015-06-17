@@ -15,13 +15,22 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
   $scope.profile = profile
   $scope.projects = projects
+  if $scope.profile.projectAssociations?
+		    $scope.projectData = $scope.profile.projectAssociations.map (project) ->
+		      data = {}
+		      data.locations = project.locations.slice() if project.locations?
+		      data.technologies = project.technologies.slice() if project.technologies?
+		      data.start = project.start
+		      data.end = project.end
+		      return data
+  else $scope.projectData = []
   if moment(profile.workExperience).isValid()
     $scope.profile.workExperience = moment(profile.workExperience).format(dateFormat)
   else
     $scope.profile.workExperience = ""
   $scope.originProfile = angular.copy($scope.profile)
   tagService.loadTags()
-
+  
   showMessage = (targetName, keepChangeIndicators) ->
     target = $parse(targetName)
     target.assign($scope, true)
@@ -115,20 +124,39 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
 
   $scope.deleteProjectAssociation = (index) ->
     $scope.profile.projectAssociations.splice(index, 1);
+    $scope.projectData.splice(index, 1)
     $scope.change()
     return
     
-  $scope.loadDefaults = (index) ->
-    if($scope.profile.projectAssociations[index].project.locations != null && $scope.profile.projectAssociations[index].locations.length == 0)
+  $scope.loadInitialProjectDefaults = (index) ->
+    # if project.locations == null (no associated projects) or if projectAssociations[index].locations is empty
+    if $scope.profile.projectAssociations[index].project.locations? && $scope.profile.projectAssociations[index].locations.length == 0
     	$scope.profile.projectAssociations[index].locations = $scope.profile.projectAssociations[index].project.locations.slice()
-    if($scope.profile.projectAssociations[index].project.technologies != null && $scope.profile.projectAssociations[index].technologies.length == 0)
+    if $scope.profile.projectAssociations[index].project.technologies? && $scope.profile.projectAssociations[index].technologies.length == 0
     	$scope.profile.projectAssociations[index].technologies = $scope.profile.projectAssociations[index].project.technologies.slice()
-    if(typeof $scope.profile.projectAssociations[index].start == 'undefined' || $scope.profile.projectAssociations[index].start== "")
+    if typeof $scope.profile.projectAssociations[index].start == 'undefined' || $scope.profile.projectAssociations[index].start== ""
     	$scope.profile.projectAssociations[index].start = moment($scope.profile.projectAssociations[index].project.start).format(dateFormat)
-    if(typeof $scope.profile.projectAssociations[index].end == 'undefined' || $scope.profile.projectAssociations[index].end== "") 
+    if typeof $scope.profile.projectAssociations[index].end == 'undefined' || $scope.profile.projectAssociations[index].end== ""
     	$scope.profile.projectAssociations[index].end = moment($scope.profile.projectAssociations[index].project.end).format(dateFormat)
     return
-
+    
+  $scope.loadProjectDefaults = (index) ->
+    data = {}
+    console.log($scope.profile.projectAssociations[index].project.locations)
+    if $scope.profile.projectAssociations[index].project.locations?
+    	data.locations = $scope.profile.projectAssociations[index].project.locations.slice()
+    if $scope.profile.projectAssociations[index].project.technologies?
+    	data.technologies = $scope.profile.projectAssociations[index].project.technologies.slice()
+    if typeof $scope.profile.projectAssociations[index].project.start != 'undefined'
+    	data.start = moment($scope.profile.projectAssociations[index].project.start).format(dateFormat)
+    if typeof $scope.profile.projectAssociations[index].project.end != 'undefined'
+    	data.end = moment($scope.profile.projectAssociations[index].project.end).format(dateFormat)
+    $scope.projectData.splice(index, 1, data)
+    $scope.loadInitialProjectDefaults(index)
+    return
+    
+   
+    
   $scope.$watch 'files', ->
     $scope.upload $scope.files
     return
