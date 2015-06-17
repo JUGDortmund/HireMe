@@ -25,8 +25,8 @@ ProjectPage.prototype = Object.create({}, {
     }
   },
   getLastLocationText: {
-	get: function () {
-	  return element.all(by.css('#locations .tag-item span')).last().getText();
+    get: function () {
+      return element.all(by.css('#locations .tag-item span')).last().getText();
     }
   },
   save: { 

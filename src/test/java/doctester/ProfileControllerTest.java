@@ -1,16 +1,14 @@
 package doctester;
 
 import com.fasterxml.jackson.core.type.TypeReference;
-
+import model.Profile;
+import ninja.NinjaDocTester;
 import org.bson.types.ObjectId;
 import org.doctester.testbrowser.Request;
 import org.doctester.testbrowser.Response;
 import org.junit.Test;
 
 import java.util.List;
-
-import model.Profile;
-import ninja.NinjaDocTester;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -71,9 +69,9 @@ public class ProfileControllerTest extends NinjaDocTester {
   }
 
   @Test
-  public void getSingleProfileWithInvalidIdReturns404() throws Exception {
+  public void getSingleProfileWithInvalidIdReturns400() throws Exception {
     Response response = getSingleProfile("test");
-    assertThat(response.httpStatus).isEqualTo(404);
+    assertThat(response.httpStatus).isEqualTo(400);
   }
 
   @Test
