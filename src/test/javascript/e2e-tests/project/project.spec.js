@@ -136,5 +136,4 @@ describe('project page', function () {
     var suggestionsCount = element.all(by.css('.suggestion-item')).count();
     expect(suggestionsCount).toBeGreaterThan(1)
   });
-
 });	  

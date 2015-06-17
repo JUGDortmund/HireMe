@@ -5,15 +5,9 @@ import com.google.common.collect.Lists;
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-
 import exception.ElementNotFoundException;
-
-import org.bson.types.ObjectId;
-import org.mongodb.morphia.Datastore;
-
 import model.Profile;
 import model.events.EntityChangedEvent;
-
 import ninja.Result;
 import ninja.Results;
 import ninja.exceptions.BadRequestException;
@@ -22,6 +16,8 @@ import ninja.jaxy.POST;
 import ninja.jaxy.PUT;
 import ninja.jaxy.Path;
 import ninja.params.PathParam;
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.Datastore;
 
 @Singleton
 @Path("/api/profile")
@@ -33,8 +29,8 @@ public class ProfileController {
   @Inject
   private EventBus eventBus;
 
-  @GET
   @Path("")
+  @GET
   public Result getProfiles() {
     return Results.json().render(datastore.find(Profile.class).asList());
   }
@@ -43,11 +39,8 @@ public class ProfileController {
   @GET
   public Result getSingleProfileById(@PathParam("id") String id) {
 
-    if (Strings.isNullOrEmpty(id)) {
+    if (Strings.isNullOrEmpty(id) || !ObjectId.isValid(id)) {
       throw new BadRequestException();
-    }
-    if (!ObjectId.isValid(id)) {
-      throw new ElementNotFoundException();
     }
 
     final Profile profile = datastore.get(Profile.class, new ObjectId(id));
@@ -58,8 +51,8 @@ public class ProfileController {
   }
 
 
-  @POST
   @Path("")
+  @POST
   public Result addProfile() {
     Profile profile = new Profile();
     profile.setFirstname("Max");
@@ -69,8 +62,8 @@ public class ProfileController {
     return Results.status(Result.SC_201_CREATED).json().render(profile);
   }
 
-  @PUT
   @Path("/{id}")
+  @PUT
   public Result saveProfile(Profile profile) {
     if (profile == null) {
       throw new BadRequestException();

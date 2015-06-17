@@ -3,27 +3,26 @@ package model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import model.annotations.Tag;
 import org.mongodb.morphia.annotations.Entity;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import model.annotations.Tag;
 
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Project extends BaseModel {
 
   @Tag
-  private List<String> companies;
+  private List<String> companies = new ArrayList<>();
 
   @Tag
-  private List<String> locations;
+  private List<String> locations = new ArrayList<>();
 
   @Tag
-  private List<String> industries;
+  private List<String> industries = new ArrayList<>();
 
   private String title;
   private String summary;

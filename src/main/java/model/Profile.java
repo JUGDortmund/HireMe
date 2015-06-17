@@ -2,18 +2,17 @@ package model;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
+import model.annotations.ExcludeFromStringConcatenation;
+import model.annotations.Tag;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Reference;
-
 import util.serializer.ResourceDeserializer;
 import util.serializer.ResourceSerializer;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import model.annotations.Tag;
 
 @Entity
 public class Profile extends BaseModel {
@@ -21,42 +20,43 @@ public class Profile extends BaseModel {
   private String firstname;
 
   private String lastname;
+  
+  @Tag
+  private List<String> careerLevel = new ArrayList<>();
 
   @Tag
-  private List<String> careerLevel;
-
-  @Tag
-  private List<String> degrees;
+  private List<String> degrees = new ArrayList<>();
 
   private Date workExperience;
 
   @Tag
-  private List<String> languages;
+  private List<String> languages = new ArrayList<>();
 
   @Tag
-  private List<String> industries;
+  private List<String> industries = new ArrayList<>();
 
   @Tag
-  private List<String> platforms;
+  private List<String> platforms = new ArrayList<>();
 
   @Tag
-  private List<String> opSystems;
+  private List<String> opSystems = new ArrayList<>();
 
   @Tag
-  private List<String> progLanguages;
+  private List<String> progLanguages = new ArrayList<>();
 
   @Tag
-  private List<String> webTechnologies;
+  private List<String> webTechnologies = new ArrayList<>();
 
   @Tag
-  private List<String> devEnvironments;
+  private List<String> devEnvironments = new ArrayList<>();
 
   @Tag
-  private List<String> qualifications;
+  private List<String> qualifications = new ArrayList<>();
 
   private String summary;
 
   @Embedded
+  @ExcludeFromStringConcatenation
   private List<ProjectAssociation> projectAssociations;
 
   @JsonSerialize(using = ResourceSerializer.class)
