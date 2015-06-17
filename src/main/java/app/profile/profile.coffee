@@ -15,13 +15,14 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
   $scope.profile = profile
   $scope.projects = projects
+  console.log($scope.profile.projectAssociations)
   if $scope.profile.projectAssociations?
 		    $scope.projectData = $scope.profile.projectAssociations.map (project) ->
 		      data = {}
-		      data.locations = project.locations.slice() if project.locations?
-		      data.technologies = project.technologies.slice() if project.technologies?
-		      data.start = project.start
-		      data.end = project.end
+		      data.locations = project.project.locations.slice() if project.project.locations?
+		      data.technologies = project.project.technologies.slice() if project.project.technologies?
+		      data.start = moment(project.project.start).format(dateFormat)
+		      data.end = moment(project.project.end).format(dateFormat)
 		      return data
   else $scope.projectData = []
   if moment(profile.workExperience).isValid()
@@ -142,7 +143,6 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     
   $scope.loadProjectDefaults = (index) ->
     data = {}
-    console.log($scope.profile.projectAssociations[index].project.locations)
     if $scope.profile.projectAssociations[index].project.locations?
     	data.locations = $scope.profile.projectAssociations[index].project.locations.slice()
     if $scope.profile.projectAssociations[index].project.technologies?
@@ -154,8 +154,6 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     $scope.projectData.splice(index, 1, data)
     $scope.loadInitialProjectDefaults(index)
     return
-    
-   
     
   $scope.$watch 'files', ->
     $scope.upload $scope.files
