@@ -35,8 +35,8 @@ describe('projectList page', function () {
     expect(projectListPage.filteredProjectCount).toBe(0);
   });
 
-  it('should show profiles containing \"New Project\" if search keyword is \"New Project\"', function () {
-    projectListPage.searchProject("New Project");
+  it('should show profiles containing \"neues Projekt\" if search keyword is \"neues Projekt\"', function () {
+    projectListPage.searchProject("neues Projekt");
     var projectCount = projectListPage.projectCount;
     expect(projectListPage.filteredProjectCount).toBe(projectCount);
   });

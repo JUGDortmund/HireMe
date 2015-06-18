@@ -18,7 +18,7 @@ describe('project page', function () {
   });
 
   it('should show the title of the selected project', function () {
-    expect(projectPage.title.getAttribute('value')).toBe('new Project');
+    expect(projectPage.title.getAttribute('value')).toBe('neues Projekt');
   });
 
   it('should redirect if a project with a valid id is called', function () {
