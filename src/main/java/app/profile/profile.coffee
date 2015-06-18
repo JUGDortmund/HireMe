@@ -1,4 +1,4 @@
-angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'ngFileUpload'])
+angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'ngFileUpload', 'ui.bootstrap'])
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
 .config ($routeProvider) ->
@@ -12,13 +12,8 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
       projects: (Restangular) ->
         Restangular.all('project').getList()
 .controller 'ProfileCtrl', ($scope, $timeout, $interval, Restangular, profile, Upload, projects, $document, $parse, tagService) ->
-  dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
   $scope.profile = profile
   $scope.projects = projects
-  if moment(profile.workExperience).isValid()
-    $scope.profile.workExperience = moment(profile.workExperience).format(dateFormat)
-  else
-    $scope.profile.workExperience = ""
   $scope.originProfile = angular.copy($scope.profile)
   tagService.loadTags()
 
@@ -71,12 +66,8 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     Restangular.one('profile', profile.id).customPUT(workingProfile);
 
   $scope.save = ->
-    dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
-    dateString = moment($scope.profile.workExperience, dateFormat).toDate();
-    $scope.profile.workExperience = dateString
     putWithTags(profile).then (->
       $scope.showEditModeButtons = false
-      $scope.profile.workExperience = moment($scope.profile.workExperience).format(dateFormat);
       $scope.originProfile = angular.copy($scope.profile)
       $scope.files = []
       showMessage('success')
@@ -152,3 +143,17 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
         $scope.files = []
         showMessage('uploaderror', true)
     return
+
+  $scope.dateOptions = {
+    startingDay: 1
+    datepickerMode: "'month'",
+    minMode: "month",
+  }
+    
+  $scope.open = ($event) ->
+    $event.preventDefault();
+    $event.stopPropagation();
+    $scope.opened = true;
+    return
+
+  return

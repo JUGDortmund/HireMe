@@ -126,12 +126,13 @@
                             <label for="workExperience" class="control-label col-md-4">${i18n('profile.personal.workExperience')}</label>
 
                             <div class="col-md-8">
+<!-- remove me after testing -->
+{{profile.workExperience}}
+${language}
+<!-- remove me after testing -->
                                 <input type="text"
-                                       class="form-control datepicker"
-                                       data-provide="datepicker"
-                                       data-date-format=${dateFormat}
-                                       data-date-autoclose="true"
-                                       data-date-language=${language}
+                                       class="form-control"
+                                       datepicker-popup="${dateFormat}" datepicker-options="dateOptions" is-open="opened" ng-click="open($event)"
                                        name="workExperience"
                                        id="workExperience"
                                        ng-model="profile.workExperience"

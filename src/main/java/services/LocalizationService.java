@@ -24,7 +24,7 @@ public class LocalizationService {
   private String generatePattern(Optional<String> optionalValue) {
     Locale locale = lang.getLocaleFromStringOrDefault(optionalValue);
     DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, locale);
-    return ((SimpleDateFormat) dateFormat).toPattern().toLowerCase();
+    return ((SimpleDateFormat) dateFormat).toPattern();
   }
 
   public String getPattern(Context context) {

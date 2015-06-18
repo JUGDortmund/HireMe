@@ -1,9 +1,11 @@
 package model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import model.annotations.Tag;
+
+import conf.Constants;
+
 import org.mongodb.morphia.annotations.Entity;
 
 import java.io.IOException;
@@ -11,8 +13,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import model.annotations.Tag;
+
 @Entity
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class Project extends BaseModel {
 
   @Tag
@@ -26,7 +29,11 @@ public class Project extends BaseModel {
 
   private String title;
   private String summary;
+
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_FORMAT)
   private Date start;
+
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_FORMAT)
   private Date end;
 
   @JsonCreator

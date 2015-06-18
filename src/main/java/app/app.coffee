@@ -9,6 +9,7 @@ angular.module('app', [
   'project'
   'projectList'
   'ngTagsInput'
+  'ui.bootstrap'
 ])
 .config ($locationProvider, RestangularProvider, tagsInputConfigProvider) ->
   $locationProvider.html5Mode

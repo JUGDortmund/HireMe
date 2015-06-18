@@ -5,9 +5,17 @@ import com.google.common.collect.Lists;
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+
 import exception.ElementNotFoundException;
+
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.Datastore;
+
+import java.util.Date;
+
 import model.Profile;
 import model.events.EntityChangedEvent;
+
 import ninja.Result;
 import ninja.Results;
 import ninja.exceptions.BadRequestException;
@@ -16,8 +24,6 @@ import ninja.jaxy.POST;
 import ninja.jaxy.PUT;
 import ninja.jaxy.Path;
 import ninja.params.PathParam;
-import org.bson.types.ObjectId;
-import org.mongodb.morphia.Datastore;
 
 @Singleton
 @Path("/api/profile")
@@ -50,7 +56,6 @@ public class ProfileController {
     return Results.json().render(profile);
   }
 
-
   @Path("")
   @POST
   public Result addProfile() {
@@ -58,6 +63,7 @@ public class ProfileController {
     profile.setFirstname("Max");
     profile.setLastname("Mustermann");
     profile.setCareerLevel(Lists.newArrayList("Manager"));
+    profile.setWorkExperience(new Date());
     datastore.save(profile);
     return Results.status(Result.SC_201_CREATED).json().render(profile);
   }
