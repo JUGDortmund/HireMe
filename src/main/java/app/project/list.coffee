@@ -40,4 +40,3 @@ angular.module('projectList', ['utils.autofocus', 'duScroll'])
       else
         showMessage('error')
       return
-    return  

@@ -119,9 +119,9 @@ describe('project page', function () {
 	  it('should provide suggestions for tag fields from other profiles', function () {
 		    var locations = projectPage.locations;
 		    locations.click();
-		    locations.sendKeys("Test123");
+		    locations.sendKeys("OtherProfileTag1");
 		    locations.sendKeys(protractor.Key.ENTER);
-		    locations.sendKeys("Test124");
+		    locations.sendKeys("OtherProfileTag2");
 		    locations.sendKeys(protractor.Key.ENTER);
 
 		    projectPage.save();
@@ -132,10 +132,39 @@ describe('project page', function () {
 
 		    locations = projectPage.locations;
 		    locations.click();
-		    locations.sendKeys("Test");
+		    locations.sendKeys("OtherProfileTag");
 
 		    var suggestionsCount = element.all(by.css('.suggestion-item')).count();
-		    expect(suggestionsCount).toBeGreaterThan(1);
+		    expect(suggestionsCount).toBe(2);
 		  });
+	  
+	  it('schould provide tag without spaces at the front and the back',function(){
+			var locations = projectPage.locations;
+			var inputLocation = '      Test without spaces         ';
+			locations.click();
+			locations.sendKeys(inputLocation);
+			locations.sendKeys(protractor.Key.ENTER);
+			expect(projectPage.getLastLocationText).toBe('Test without spaces');
+	  });
+	  
+	  it('schould provide duplicate tag delete',function(){
+		    var locations = projectPage.locations;
+		    locations.click();
+		    locations.sendKeys("DuplicateTest");
+		    locations.sendKeys(protractor.Key.ENTER);
+		    locations.sendKeys("DuplicateTest");
+		    locations.sendKeys(protractor.Key.ENTER);
+		    expect(projectPage.locationsTagCount).toBe(1);
+	  });
+	  
+	  it('schould provide special character in tag',function(){
+			var locations = projectPage.locations;
+			var inputLocation = '{}[]!#*="&;?';
+			locations.click();
+			locations.sendKeys(inputLocation);
+			locations.sendKeys(protractor.Key.ENTER);
+			expect(projectPage.getLastLocationText).toBe(inputLocation);
+	  });
+	  
 	  
 });	  

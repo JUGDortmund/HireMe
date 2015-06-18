@@ -1,4 +1,4 @@
-angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'ngFileUpload'])
+angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'ngFileUpload','ui.bootstrap'])
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
 .config ($routeProvider) ->
@@ -25,7 +25,8 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   showMessage = (targetName, keepChangeIndicators) ->
     target = $parse(targetName)
     target.assign($scope, true)
-    $document.duScrollTopAnimated(0)
+    if (targetName == 'success' || targetName == 'error')
+      $document.duScrollTopAnimated(0)
     $('.form-group').removeClass('has-warning') unless keepChangeIndicators?
     $('#image-wrapper').removeClass('has-warning') unless keepChangeIndicators?
     $timeout (->
@@ -152,11 +153,11 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
         showMessage('uploaderror', true)
     return
     
-  $scope.removeDuplicate = (variableName,tag) ->
-    if angular.isDefined($scope.$eval(variableName))
-      showMessage('errorDuplicate',true)
-    else
-      showMessage('errorDuplicateUndefined',false)  
+  $scope.removeDuplicate = (variableName, tag, field) ->
+    showMessage('errorDuplicate'+ field, true) 
     $scope.textTag = tag.text
-    $parse(variableName).assign($scope,'')
+    $timeout (->
+      $parse(variableName).assign($scope,'')
+      return
+    )
     return
