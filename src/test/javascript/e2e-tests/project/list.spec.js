@@ -20,6 +20,8 @@ describe('projectList page', function () {
         return /\/project\//.test(url)
       }, 1000);
     });
+    
+    expect(browser.getCurrentUrl()).toContain('/project/');
   });
 
   it('should show all projects if search keyword is empty', function () {
