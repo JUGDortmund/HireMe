@@ -154,9 +154,9 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     
   $scope.removeDuplicate = (variableName,tag) ->
     if angular.isDefined($scope.$eval(variableName))
-      showMessage('errorDuplicate')
+      showMessage('errorDuplicate',true)
     else
-      showMessage('errorDuplicateUndefined')  
+      showMessage('errorDuplicateUndefined',false)  
     $scope.textTag = tag.text
     $parse(variableName).assign($scope,'')
     return
