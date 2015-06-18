@@ -12,7 +12,7 @@ describe('projectList page', function () {
     projectListPage.addProjectAndReturnToProjectList();
   });
 
-  it('should go the project edit page after creation', function () {
+  it('should redirect to the project edit page after creation of a new project', function () {
     projectListPage.addProject();
 
     browser.wait(function () {

@@ -25,7 +25,6 @@ angular.module('projectList', ['utils.autofocus', 'duScroll'])
 
   $scope.add = ->
     Restangular.one('project').post().then (createdProject)->
-      console.log($location.url('/project/' + createdProject.id))
       $window.location.href = '/project/' + createdProject.id
       getProjects()
     return
