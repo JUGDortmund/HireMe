@@ -9,7 +9,19 @@ describe('projectList page', function () {
 
   beforeEach(function () {
     projectListPage = new ProjectListPage();
+    projectListPage.addProjectAndReturnToProjectList();
+  });
+
+  it('should redirect to the project edit page after creation of a new project', function () {
     projectListPage.addProject();
+
+    browser.wait(function () {
+      return browser.getCurrentUrl().then(function (url) {
+        return /\/project\//.test(url)
+      }, 1000);
+    });
+    
+    expect(browser.getCurrentUrl()).toContain('/project/');
   });
 
   it('should show all projects if search keyword is empty', function () {
@@ -23,8 +35,8 @@ describe('projectList page', function () {
     expect(projectListPage.filteredProjectCount).toBe(0);
   });
 
-  it('should show profiles containing \"New Project\" if search keyword is \"New Project\"', function () {
-    projectListPage.searchProject("New Project");
+  it('should show profiles containing \"neues Projekt\" if search keyword is \"neues Projekt\"', function () {
+    projectListPage.searchProject("neues Projekt");
     var projectCount = projectListPage.projectCount;
     expect(projectListPage.filteredProjectCount).toBe(projectCount);
   });
@@ -51,7 +63,7 @@ describe('projectList page', function () {
 
   it('should add a new project if \"add project button\" is pressed', function () {
     var projectCount = projectListPage.projectCount;
-    projectListPage.addProject();
+    projectListPage.addProjectAndReturnToProjectList();
     expect(projectListPage.projectCount).toBeGreaterThan(projectCount);
   });
 

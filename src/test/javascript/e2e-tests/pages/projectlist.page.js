@@ -33,12 +33,15 @@ ProjectListPage.prototype = Object.create({}, {
   addProject: {
     value: function () {
       var page = this;
+      page.addProjectButton.click();
+      browser.waitForAngular();
+    }
+  },
+  addProjectAndReturnToProjectList: {
+    value: function () {
+      var page = this;
       page.addProjectButton.click().then(function () {
-        browser.wait(function () {
-          return page.projectCount.then(function (count) {
-            return count > 0;
-          });
-        }, 500);
+        browser.get('/projectlist');
       });
     }
   },
