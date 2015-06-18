@@ -199,6 +199,17 @@ describe('profile page', function () {
   });
   
   fit('should load default values from project if field are empty', function() {
+	  var startField = element(by.id('start-0'));
+	  var endField = element(by.id('end-0'));
+	  var locationsField = element(by.id('projectAssociations-locations-0'));
+	  var technologiesField = element(by.id('projectAssociations-technologies-0'));
+	  buildProjectStructure();
+	  profilePage.addProjectAssociation();
+	  profilePage.selectLastProjectInLastProjectAssociation();
+	  expect(startField.getAttribute('value')).toContain('01.03.01');
+	  expect(endField.getAttribute('value')).toContain('01.03.01');
+	  expect(profilePage.getLastLocationText).toBe("TestLocation");
+	  expect(profilePage.getLastTechnologieText).toBe("TestTechnologies");	  
   });
 
   function buildProjectStructure() {
