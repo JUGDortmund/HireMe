@@ -145,9 +145,8 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     return
 
   $scope.dateOptions = {
-    startingDay: 1
     datepickerMode: "'month'",
-    minMode: "month",
+    minMode: "month"
   }
     
   $scope.open = ($event) ->

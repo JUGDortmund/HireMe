@@ -63,6 +63,7 @@ public class ProfileController {
     profile.setFirstname("Max");
     profile.setLastname("Mustermann");
     profile.setCareerLevel(Lists.newArrayList("Manager"));
+    // TODO: remove date init and adapt frontent to handle empty dates
     profile.setWorkExperience(new Date());
     datastore.save(profile);
     return Results.status(Result.SC_201_CREATED).json().render(profile);
