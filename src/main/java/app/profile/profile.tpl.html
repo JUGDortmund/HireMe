@@ -132,9 +132,15 @@ ${language}
 <!-- remove me after testing -->
                                 <input type="text"
                                        class="form-control"
-                                       datepicker-popup="${dateFormat}" datepicker-options="dateOptions" is-open="opened" ng-click="open($event)"
+                                       datepicker-popup="${dateFormat}"
+                                       datepicker-options="dateOptions"
+                                       is-open="opened"
+                                       current-text="${i18n('form.datepicker.current')}"
+                                       clear-text="${i18n('form.datepicker.clear')}"
+                                       close-text="${i18n('form.datepicker.close')}"
                                        name="workExperience"
                                        id="workExperience"
+                                       ng-click="open($event)"
                                        ng-model="profile.workExperience"
                                        ng-change="change('form-group-workExperience')"/>
                             </div>
