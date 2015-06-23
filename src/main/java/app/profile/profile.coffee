@@ -15,15 +15,6 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
   $scope.profile = profile
   $scope.projects = projects
-  if $scope.profile.projectAssociations?
-		    $scope.projectData = $scope.profile.projectAssociations.map (project) ->
-		      data = {}
-		      data.locations = project.project.locations.slice() if project.project.locations?
-		      data.technologies = project.project.technologies.slice() if project.project.technologies?
-		      data.start = moment(project.project.start).format(dateFormat)
-		      data.end = moment(project.project.end).format(dateFormat)
-		      return data
-  else $scope.projectData = []
   if moment(profile.workExperience).isValid()
     $scope.profile.workExperience = moment(profile.workExperience).format(dateFormat)
   else
@@ -119,6 +110,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   $scope.addProjectAssociation = ->
     if !$scope.profile.projectAssociations? then $scope.profile.projectAssociations = []
     $scope.profile.projectAssociations.push({});
+    $scope.projectData.push({})
     $scope.change()
     return
 
@@ -127,33 +119,50 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     $scope.projectData.splice(index, 1)
     $scope.change()
     return
-    
-  $scope.loadInitialProjectDefaults = (index) ->
-    # if project.locations == null (no associated projects) or if projectAssociations[index].locations is empty
-    if $scope.profile.projectAssociations[index].project.locations? && $scope.profile.projectAssociations[index].locations.length == 0
-    	$scope.profile.projectAssociations[index].locations = $scope.profile.projectAssociations[index].project.locations.slice()
-    if $scope.profile.projectAssociations[index].project.technologies? && $scope.profile.projectAssociations[index].technologies.length == 0
-    	$scope.profile.projectAssociations[index].technologies = $scope.profile.projectAssociations[index].project.technologies.slice()
-    if typeof $scope.profile.projectAssociations[index].start == 'undefined' || $scope.profile.projectAssociations[index].start== ""
-    	$scope.profile.projectAssociations[index].start = moment($scope.profile.projectAssociations[index].project.start).format(dateFormat)
-    if typeof $scope.profile.projectAssociations[index].end == 'undefined' || $scope.profile.projectAssociations[index].end== ""
-    	$scope.profile.projectAssociations[index].end = moment($scope.profile.projectAssociations[index].project.end).format(dateFormat)
+  
+  #Loads the Default values from the project if the field is empty.
+  $scope.loadProjectDefaultsIfFieldIsEmpty = (index) ->
+    currentProjectData = $scope.projectData[index]
+    if currentProjectData.locations? && currentProjectData.locations.length == 0
+    	currentProjectData.locations = currentProjectAssociation.project.locations.slice()
+    if currentProjectData.technologies? && currentProjectData.technologies.length == 0
+    	currentProjectData.technologies = currentProjectAssociation.project.technologies.slice()
+    if typeof currentProjectData.start == 'undefined' || currentProjectData.start== ""
+    	currentProjectData.start = moment(currentProjectAssociation.project.start).format(dateFormat)
+    if typeof currentProjectData.end == 'undefined' || currentProjectData.end== ""
+    	currentProjectData.end = moment(currentProjectAssociation.project.end).format(dateFormat)
     return
-    
+  
+  #Loads the projectDefaults if the project is changed.
   $scope.loadProjectDefaults = (index) ->
+    currentProjectAssociation = $scope.profile.projectAssociations[index]
     data = {}
-    if $scope.profile.projectAssociations[index].project.locations?
-    	data.locations = $scope.profile.projectAssociations[index].project.locations.slice()
-    if $scope.profile.projectAssociations[index].project.technologies?
-    	data.technologies = $scope.profile.projectAssociations[index].project.technologies.slice()
-    if typeof $scope.profile.projectAssociations[index].project.start != 'undefined'
-    	data.start = moment($scope.profile.projectAssociations[index].project.start).format(dateFormat)
-    if typeof $scope.profile.projectAssociations[index].project.end != 'undefined'
-    	data.end = moment($scope.profile.projectAssociations[index].project.end).format(dateFormat)
-    $scope.projectData.splice(index, 1, data)
-    $scope.loadInitialProjectDefaults(index)
+    data.locations = currentProjectAssociation.project.locations.slice() if currentProjectAssociation.project.locations?
+    data.technologies = currentProjectAssociation.project.technologies.slice() if currentProjectAssociation.project.technologies?
+    data.start = moment(currentProjectAssociation.project.start).format(dateFormat) if typeof currentProjectAssociation.project.start != 'undefined'
+    data.end = moment(currentProjectAssociation.project.end).format(dateFormat) if typeof currentProjectAssociation.project.end != 'undefined'
+    $scope.projectData.splice(index, 1, data) 
+    $scope.loadProjectDefaultsIfFieldIsEmpty(index)
     return
-    
+  
+  #Loads the projectDefaults initial when the side is called.
+  loadInitialProjectDefaults = () ->
+    if $scope.profile.projectAssociations?
+      console.log($scope.profile.projectAssociations)
+      $scope.projectData = $scope.profile.projectAssociations.map (project) ->
+        data = {}
+        data.locations = project.locations.slice() if project.locations?
+        data.technologies = project.technologies.slice() if project.technologies?
+        data.start = moment(project.start).format(dateFormat) if project.start?
+        data.end = moment(project.end).format(dateFormat) if project.end?
+        return data
+      console.log($scope.projectData)
+    else 
+      $scope.projectData = []
+    return
+  
+  loadInitialProjectDefaults()
+  
   $scope.$watch 'files', ->
     $scope.upload $scope.files
     return
