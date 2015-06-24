@@ -1,4 +1,4 @@
-angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'ngFileUpload','ui.bootstrap'])
+angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'ngFileUpload'])
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
 .config ($routeProvider) ->
