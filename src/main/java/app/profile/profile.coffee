@@ -127,9 +127,9 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     	currentProjectAssociation.locations = currentProjectAssociation.project.locations.slice()
     if currentProjectAssociation.technologies? && currentProjectAssociation.technologies.length == 0
     	currentProjectAssociation.technologies = currentProjectAssociation.project.technologies.slice()
-    if typeof currentProjectAssociation.start == 'undefined' || currentProjectAssociation.start== ""
+    if moment(currentProjectAssociation.project.start).isValid() && (typeof currentProjectAssociation.start == 'undefined' || currentProjectAssociation.start== "")
     	currentProjectAssociation.start = moment(currentProjectAssociation.project.start).format(dateFormat)
-    if typeof currentProjectAssociation.end == 'undefined' || currentProjectAssociation.end== ""
+    if moment(currentProjectAssociation.project.end).isValid() && (typeof currentProjectAssociation.end == 'undefined' || currentProjectAssociation.end== "") 
     	currentProjectAssociation.end = moment(currentProjectAssociation.project.end).format(dateFormat)
     return
   
@@ -139,8 +139,8 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     data = {}
     data.locations = currentProjectAssociation.project.locations.slice() if currentProjectAssociation.project.locations?
     data.technologies = currentProjectAssociation.project.technologies.slice() if currentProjectAssociation.project.technologies?
-    data.start = moment(currentProjectAssociation.project.start).format(dateFormat) if typeof currentProjectAssociation.project.start != 'undefined'
-    data.end = moment(currentProjectAssociation.project.end).format(dateFormat) if typeof currentProjectAssociation.project.end != 'undefined'
+    data.start = moment(currentProjectAssociation.project.start).format(dateFormat) if moment(currentProjectAssociation.project.start).isValid()
+    data.end = moment(currentProjectAssociation.project.end).format(dateFormat) if moment(currentProjectAssociation.project.start).isValid()
     $scope.projectData.splice(index, 1, data) 
     $scope.loadProjectDefaultsIfFieldIsEmpty(index)
     return
