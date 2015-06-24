@@ -257,7 +257,7 @@ describe('profile page', function () {
 
   function buildProjectStructure(location, technologie, start, end) {
 	  projectListPage = new ProjectListPage();
-	  projectListPage.addProject();
+	  projectListPage.addProjectAndReturnToProjectList();
 	  projectListPage.openLastProject();
 	  projectPage = new ProjectPage();
 	  var locations = projectPage.locations;
