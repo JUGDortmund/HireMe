@@ -202,7 +202,7 @@ describe('profile page', function () {
 	  var endField = element(by.id('end-0'));
 	  var locationsField = element(by.id('projectAssociations-locations-0'));
 	  var technologiesField = element(by.id('projectAssociations-technologies-0'));
-	  buildProjectStructure();
+	  buildProjectStructure("TestLocation", "TestTechnologies", '01.03.01', '01.03.01');
 	  profilePage.addProjectAssociation();
 	  profilePage.selectLastProjectInLastProjectAssociation();
 	  expect(startField.getAttribute('value')).toContain('01.03.01');
@@ -210,25 +210,70 @@ describe('profile page', function () {
 	  expect(profilePage.getLastLocationText).toBe("TestLocation");
 	  expect(profilePage.getLastTechnologieText).toBe("TestTechnologies");	  
   });
+  it('should display default values from project below if field are empty', function() {
+	  var startField = element(by.id('start-0'));
+	  var endField = element(by.id('end-0'));
+	  var locationsField = element(by.id('projectAssociations-locations-0'));
+	  var technologiesField = element(by.id('projectAssociations-technologies-0'));
+	  buildProjectStructure("TestLocation", "TestTechnologies", '01.03.01', '01.03.01');
+	  profilePage.addProjectAssociation();
+	  profilePage.selectLastProjectInLastProjectAssociation();
+	  expect(startField.getAttribute('value')).toContain('01.03.01');
+	  expect(endField.getAttribute('value')).toContain('01.03.01');
+	  expect(profilePage.getLastLocationText).toBe("TestLocation");
+	  expect(profilePage.getLastTechnologieText).toBe("TestTechnologies");	  
+  });
+  
+  it('should not load default values from project if field are full', function() {
+	  var startField = element(by.id('start-0'));
+	  var endField = element(by.id('end-0'));
+	  var locationsField = element(by.id('projectAssociations-locations-0'));
+	  var technologiesField = element(by.id('projectAssociations-technologies-0'));
+	  buildProjectStructure("TestLocation", "TestTechnologies", '01.03.01', '01.03.01');
+	  profilePage.addProjectAssociation();
+	  profilePage.selectLastProjectInLastProjectAssociation();
+	  profilePage.save();
+	  buildProjectStructure("TestLocation1", "TestTechnologies1", '03.03.01', '05.03.01');
+	  expect(startField.getAttribute('value')).toContain('01.03.01');
+	  expect(endField.getAttribute('value')).toContain('01.03.01');
+	  expect(profilePage.getLastLocationText).toBe("TestLocation");
+	  expect(profilePage.getLastTechnologieText).toBe("TestTechnologies");	  
+  });
 
-  function buildProjectStructure() {
+  fit('should display default values from project below', function() {
+	  buildProjectStructure("TestLocation", "TestTechnologies", '01.03.01', '02.03.01');
+	  var locationsField = element(by.id('projectAssociations-locations-0'));
+	  var technologiesField = element(by.id('projectData-technologies-0'));
+	  var startField = element(by.id('projectData-start-0'));	  
+	  var endField = element(by.id('projectData-end-0'));
+	  profilePage.addProjectAssociation();
+	  profilePage.selectLastProjectInLastProjectAssociation();
+	  profilePage.save();
+	  expect(startField.getAttribute('value')).toContain('01.03.01');
+	  expect(endField.getAttribute('value')).toContain('02.03.01');
+	  expect(profilePage.getLastLocationText).toBe("TestLocation");
+	  expect(profilePage.getLastTechnologieText).toBe("TestTechnologies");	  
+  });
+
+  function buildProjectStructure(location, technologie, start, end) {
 	  projectListPage = new ProjectListPage();
 	  projectListPage.addProject();
 	  projectListPage.openLastProject();
 	  projectPage = new ProjectPage();
 	  var locations = projectPage.locations;
 	  locations.click();
-	  locations.sendKeys("TestLocation");
+	  locations.sendKeys(location);
 	  locations.sendKeys(protractor.Key.ENTER);
 	  var techonologies = projectPage.technologies;
 	  techonologies.click();
-	  techonologies.sendKeys("TestTechnologies");
+	  techonologies.sendKeys(technologie);
 	  techonologies.sendKeys(protractor.Key.ENTER);
-	  var inputDate = '01.03.01';
+	  var inputDate = start;
 	  var inputStart = projectPage.start;
 	  inputStart.click();
 	  inputStart.clear();
 	  inputStart.sendKeys(inputDate);
+	  var inputDate = end;
 	  var inputEnd = projectPage.end;
 	  inputEnd.click();
 	  inputEnd.clear();
