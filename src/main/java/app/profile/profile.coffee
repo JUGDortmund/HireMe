@@ -11,7 +11,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
         Restangular.one('profile', $route.current.params.profileId).get()
       projects: (Restangular) ->
         Restangular.all('project').getList()
-.controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, Upload, projects, $document, $parse, tagService) ->
+.controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, Upload, projects, $document, $parse, tagService, $rootScope) ->
   dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
   $scope.profile = profile
   $scope.projects = projects
@@ -154,4 +154,10 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
         )
         $scope.files = []
         showMessage('uploaderror', true)
+    return
+    
+  $rootScope.$on '$locationChangeStart',(event) ->
+    if($scope.showEditModeButtons == true)
+      event.preventDefault()
+      $scope.cancelChanges = true
     return

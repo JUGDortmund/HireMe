@@ -9,7 +9,7 @@ angular.module( 'project', ['duScroll'])
     resolve:
       project: (Restangular, $route) ->
         Restangular.one('project', $route.current.params.projectId).get()
-.controller 'ProjectCtrl', ($scope, $timeout, Restangular, project, $document, $parse, tagService) ->
+.controller 'ProjectCtrl', ($scope, $timeout, Restangular, project, $document, $parse, tagService, $rootScope) ->
   dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
   $scope.project = project 
   if moment(project.start).isValid()
@@ -90,4 +90,10 @@ angular.module( 'project', ['duScroll'])
 
   $scope.getTags = (name) ->
     tagService.getTag(name)
-  
+    return
+    
+  $rootScope.$on '$locationChangeStart',(event) ->
+    if($scope.showEditModeButtons == true)
+      event.preventDefault()
+      $scope.cancelChanges = true
+    return  
