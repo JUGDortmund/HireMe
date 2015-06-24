@@ -262,10 +262,9 @@
                                             ></auto-complete>
                                 </tags-input>
                                 <div class ="form-control alert-dismissible" ng-show = "errorDuplicateopSystem">
-								<i class ="glyphicon glyphicon-exclamation-sign"> </i>
+									<i class ="glyphicon glyphicon-exclamation-sign"> </i>
 									<strong>${i18n('message.error.duplicate.header')}</strong>
-                    			 	<strong> '{{ textTag }}' </strong> ${i18n('message.error.duplicate.content')}
-                    			
+                    			 	<strong> '{{ textTag }}' </strong> ${i18n('message.error.duplicate.content')}	
                     			 </div>
                             </div>
                         </div>
@@ -311,8 +310,7 @@
                                 <div class ="form-control alert-dismissible" ng-show = "errorDuplicatewebTechnologie">
 								<i class ="glyphicon glyphicon-exclamation-sign"> </i>
 									<strong>${i18n('message.error.duplicate.header')}</strong>
-                    			 	<strong> '{{ textTag }}' </strong> ${i18n('message.error.duplicate.content')}
-                    			
+                    			 	<strong> '{{ textTag }}' </strong> ${i18n('message.error.duplicate.content')}	
                     			 </div>
                             </div>
                         </div>
@@ -452,7 +450,7 @@
                                                     id="projectAssociations-locations-{{$index}}"
                                                     text="$parent.projectAssociationsLocationsText[$index]"
                                                     placeholder="${i18n('form.addTag')}"
-                                                    on-invalid-tag="removeDuplicate('projectAssociationsLocationsText['+ $index +']', $tag)"
+                                                    on-invalid-tag="removeDuplicate('projectAssociationsLocationsText['+ $index +']', $tag, 'projectAssociationsLocations['+ $index +']')"
                                                     class="ng-tags-custom" 
                                                     ng-model="projectAssociation.locations"
                                                     on-tag-added="change('form-group-projectAssociation-locations-'+$index)"
@@ -461,8 +459,12 @@
                                                     source="getTags('locations')|filter:$query"
                                                     ></auto-complete>
                                         </tags-input>
-                    			
-                    			 </div>
+                                    	<div class ="form-control alert-dismissible" ng-show = "errorDuplicateprojectAssociationsLocations[$index]">
+								    		<i class ="glyphicon glyphicon-exclamation-sign"> </i>
+											<strong>${i18n('message.error.duplicate.header')}</strong>
+                    			 			<strong> '{{ textTag }}' </strong> ${i18n('message.error.duplicate.content')}
+                    			   		</div>	
+                    			 	</div>
                                     </div>
                                 </div>
                                 <div class="form-group"
@@ -475,7 +477,7 @@
                                                     id="projectAssociations-positions-{{$index}}"
                                                     text="$parent.projectAssociationsPositionsText[$index]"
                                                     placeholder="${i18n('form.addTag')}"
-                                                    on-invalid-tag="removeDuplicate('projectAssociationsPositionsText['+ $index + ']', $tag)"
+                                                    on-invalid-tag="removeDuplicate('projectAssociationsPositionsText['+ $index + ']', $tag, 'projectAssociationsPositions['+ $index + ']')"
                                                     class="ng-tags-custom"
                                                     ng-model="projectAssociation.positions"
                                                     on-tag-added="change('form-group-projectAssociation-positions-'+$index)"
@@ -484,6 +486,11 @@
                                                     source="getTags('positions')|filter:$query"
                                                     ></auto-complete>
                                         </tags-input>
+                                    <div class ="form-control alert-dismissible" ng-show = "errorDuplicateprojectAssociationsPositions[$index]">
+								    	<i class ="glyphicon glyphicon-exclamation-sign"> </i>
+										<strong>${i18n('message.error.duplicate.header')}</strong>
+                    			 		<strong> '{{ textTag }}' </strong> ${i18n('message.error.duplicate.content')}
+                    			   </div>
                                     </div>
                                 </div>
                                 <div class="form-group"
@@ -496,7 +503,7 @@
                                                     id="projectAssociations-technologies-{{$index}}"
                                                     text="$parent.projectAssociationsTechnologiesText[$index]"
                                                     placeholder="${i18n('form.addTag')}"
-                                                    on-invalid-tag="removeDuplicate('projectAssociationsTechnologiesText['+ $index + ']', $tag)"
+                                                    on-invalid-tag="removeDuplicate('projectAssociationsTechnologiesText['+ $index + ']', $tag, 'projectAssociationsTechnologies['+ $index + ']')"
                                                     class="ng-tags-custom"
                                                     ng-model="projectAssociation.technologies"
                                                     on-tag-added="change('form-group-projectAssociation-technologies-'+$index)"
@@ -505,6 +512,11 @@
                                                     source="getTags('technologies')|filter:$query"
                                                     ></auto-complete>
                                         </tags-input>
+                                    <div class ="form-control alert-dismissible" ng-show = "errorDuplicateprojectAssociationsTechnologies[$index]">
+								    	<i class ="glyphicon glyphicon-exclamation-sign"> </i>
+										<strong>${i18n('message.error.duplicate.header')}</strong>
+                    			 		<strong> '{{ textTag }}' </strong> ${i18n('message.error.duplicate.content')}
+                    			   </div>
                                     </div>
                                 </div>
                                 <div class="form-group"

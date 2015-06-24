@@ -23,11 +23,13 @@ angular.module( 'project', ['duScroll', 'ngTagsInput'])
   $scope.originProject = angular.copy($scope.project)       
   tagService.loadTags()
   
-  showMessage = (targetName) ->
+  showMessage = (targetName, keepChangeIndicators) ->
     target = $parse(targetName)
     target.assign($scope, true)
-    $document.duScrollTopAnimated(0)
-    $('.form-group').removeClass('has-warning')
+    if (targetName == 'success' || targetName == 'error')
+      $document.duScrollTopAnimated(0)
+    $('.form-group').removeClass('has-warning') unless keepChangeIndicators?
+    $('#image-wrapper').removeClass('has-warning') unless keepChangeIndicators?
     $timeout (->
       target.assign($scope, false)
       return
@@ -86,8 +88,11 @@ angular.module( 'project', ['duScroll', 'ngTagsInput'])
   $scope.getTags = (name) ->
     tagService.getTag(name)
     
-  $scope.removeDuplicate = (variableName, tag) ->
-  	showMessage('errorDuplicate', true)
-  	$scope.textTag = tag.text
-  	$parse(variableName).assign($scope,'')
-  	return
+  $scope.removeDuplicate = (variableName, tag, field) ->
+    showMessage('errorDuplicate'+ field, true) 
+    $scope.textTag = tag.text
+    $timeout (->
+      $parse(variableName).assign($scope,'')
+      return
+    )
+    return
