@@ -240,7 +240,7 @@ describe('profile page', function () {
 	  expect(profilePage.getLastTechnologieText).toBe("TestTechnologies");	  
   });
 
-  fit('should display default values from project below', function() {
+  it('should display default values from project below', function() {
 	  buildProjectStructure("TestLocation", "TestTechnologies", '01.03.01', '02.03.01');
 	  var locationsField = element(by.id('projectAssociations-locations-0'));
 	  var technologiesField = element(by.id('projectData-technologies-0'));
