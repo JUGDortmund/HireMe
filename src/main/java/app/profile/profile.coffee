@@ -87,18 +87,22 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
       return
 
   $scope.cancel = ->
-    $scope.profile = angular.copy($scope.originProfile)
-    $scope.showEditModeButtons = false
-    $scope.files = []
-    $('.form-group').removeClass('has-warning')
-    $('#image-wrapper').removeClass('has-warning')
-    $document.duScrollTopAnimated(0)
-    tagService.loadTags()
+  	if($scope.cancelChanges == false)
+  	  $scope.cancelChanges = true
+  	else
+      $scope.profile = angular.copy($scope.originProfile)
+      $scope.showEditModeButtons = false
+      $('.form-group').removeClass('has-warning')
+      $document.duScrollTopAnimated(0)
+      $scope.files = []
+      tagService.loadTags()
+      $scope.cancelChanges = false
     return
 
   $scope.change = (id) ->
     $('#' + id).addClass('has-warning') if id?
     $scope.showEditModeButtons = true
+    $scope.cancelChanges = false
     return
 
   $scope.tagsToList = (tags) ->

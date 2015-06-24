@@ -60,12 +60,17 @@
                     </div>
                 </div>
                 <div ng-show="showEditModeButtons" class="no-print button-dialog">
+
                     <button ng-click="save()" id="save-button"
                             class="btn btn-block btn-success">${i18n('buttonDialog.save')}
                     </button>
                     <button ng-click="cancel()" id="cancel-button"
-                            class="btn btn-block btn-danger">${i18n('buttonDialog.cancel')}
+                            class="btn btn-block btn-danger" ng-show="!cancelChanges">${i18n('buttonDialog.cancel')}
                     </button>
+               <div class="btn-block" ng-show ="cancelChanges">
+					  <p>${i18n('buttonDialog.reject.question')}</p> 
+                <button class="btn btn-block btn-danger" type="button" ng-click = "cancel()" >${i18n('buttonDialog.reject')}</button>
+             </div>
                 </div>
                 <div class="box box-primary">
                     <div class="box-header">
