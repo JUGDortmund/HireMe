@@ -4,25 +4,36 @@ import com.google.common.base.Strings;
 import com.google.common.eventbus.EventBus;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
+
 import exception.ElementNotFoundException;
-import model.Profile;
-import model.Project;
-import model.events.EntityChangedEvent;
-import ninja.Result;
-import ninja.Results;
-import ninja.exceptions.BadRequestException;
-import ninja.jaxy.*;
-import ninja.params.PathParam;
+
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Datastore;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.validation.constraints.NotNull;
+
+import model.Profile;
+import model.Project;
+import model.events.EntityChangedEvent;
+
+import ninja.Result;
+import ninja.Results;
+import ninja.exceptions.BadRequestException;
+import ninja.jaxy.DELETE;
+import ninja.jaxy.GET;
+import ninja.jaxy.POST;
+import ninja.jaxy.PUT;
+import ninja.jaxy.Path;
+import ninja.params.PathParam;
 
 @Singleton
 @Path("/api/project")
 public class ProjectController {
+
+  private static final String DEFAULT_PROJECT_NAME = "neues Projekt";
 
   @Inject
   private Datastore datastore;
@@ -65,7 +76,7 @@ public class ProjectController {
   @POST
   public Result addProject() {
     Project project = new Project();
-    project.setTitle("new Project");
+    project.setTitle(DEFAULT_PROJECT_NAME);
     datastore.save(project);
     return Results.status(Result.SC_201_CREATED).json().render(project);
   }
@@ -80,16 +91,16 @@ public class ProjectController {
     if (project == null) {
       throw new ElementNotFoundException();
     }
-    List<Profile> referencedProfiles = datastore.find(Profile.class)
-                                           .asList()
-                                           .stream()
-                                           .filter(x -> x.getProjectAssociations() != null
-                                                        && x.getProjectAssociations()
-                                                               .stream()
-                                                               .anyMatch(y -> y.getProject() != null
-                                                                              && y.getProject()
-                                                                                     .equals(project)))
-                                           .collect(Collectors.toList());
+    List<Profile> referencedProfiles =
+        datastore
+            .find(Profile.class)
+            .asList()
+            .stream()
+            .filter(
+                x -> x.getProjectAssociations() != null
+                    && x.getProjectAssociations().stream()
+                        .anyMatch(y -> y.getProject() != null && y.getProject().equals(project)))
+            .collect(Collectors.toList());
     if (referencedProfiles.size() > 0) {
       return Results.status(450).json().render(referencedProfiles);
     }
