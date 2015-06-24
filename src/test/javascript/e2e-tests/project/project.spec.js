@@ -165,6 +165,4 @@ describe('project page', function () {
 			locations.sendKeys(protractor.Key.ENTER);
 			expect(projectPage.getLastLocationText).toBe(inputLocation);
 	  });
-	  
-	  
 });	  
