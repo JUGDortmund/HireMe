@@ -2,34 +2,12 @@ package services;
 
 import static org.reflections.ReflectionUtils.getFields;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.Preconditions;
-import com.google.common.io.ByteStreams;
-import com.google.common.reflect.ClassPath;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-import com.lowagie.text.DocumentException;
-
-import freemarker.template.Configuration;
-import freemarker.template.TemplateException;
-
-import org.apache.commons.io.output.StringBuilderWriter;
-import org.apache.commons.lang3.StringUtils;
-import org.xhtmlrenderer.pdf.ITextOutputDevice;
-import org.xhtmlrenderer.pdf.ITextRenderer;
-import org.xhtmlrenderer.pdf.ITextUserAgent;
-
-import util.ReflectionUtil;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -37,7 +15,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotNull;
@@ -47,6 +24,24 @@ import model.ExportTemplateDefinition;
 import model.Profile;
 import model.annotations.ExcludeFromStringConcatenation;
 
+import org.apache.commons.io.output.StringBuilderWriter;
+import org.apache.commons.lang3.StringUtils;
+import org.xhtmlrenderer.pdf.ITextOutputDevice;
+import org.xhtmlrenderer.pdf.ITextRenderer;
+import org.xhtmlrenderer.pdf.ITextUserAgent;
+
+import util.ReflectionUtil;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Preconditions;
+import com.google.common.io.ByteStreams;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+import com.lowagie.text.DocumentException;
+
+import freemarker.template.Configuration;
+import freemarker.template.TemplateException;
+
 @Singleton
 public class ProfileExportService {
 
@@ -54,7 +49,8 @@ public class ProfileExportService {
   public static final SimpleDateFormat FORMAT = new SimpleDateFormat("MMMM yyyy", Locale.GERMAN);
   private final ObjectMapper mapper;
   private final Configuration configuration;
-  private List<ExportTemplateDefinition> loadedExportTemplateDefinitions;
+
+
 
   @Inject
   public ProfileExportService(@NotNull final ObjectMapper mapper,
@@ -67,10 +63,10 @@ public class ProfileExportService {
   }
 
   @NotNull
-  public byte[] exportToPdf(@NotNull final Profile profile) {
+  public byte[] exportToPdf(@NotNull final Profile profile, ExportTemplateDefinition template) {
     Preconditions.checkNotNull(profile);
     try {
-      return tryExportToPDF(profile);
+      return tryExportToPDF(profile, template);
     } catch (final IOException | URISyntaxException | TemplateException | DocumentException
         | IllegalAccessException e) {
       throw new RuntimeException(e);
@@ -78,14 +74,15 @@ public class ProfileExportService {
   }
 
   @NotNull
-  private byte[] tryExportToPDF(@NotNull final Profile profile) throws IOException,
-      TemplateException, DocumentException, IllegalAccessException, URISyntaxException {
+  private byte[] tryExportToPDF(@NotNull final Profile profile, ExportTemplateDefinition template)
+      throws IOException, TemplateException, DocumentException, IllegalAccessException,
+      URISyntaxException {
 
-    final freemarker.template.Template template =
-        configuration.getTemplate(getTemplateDefinitions().get(0).getTemplatePath());
+    final freemarker.template.Template templatePDF =
+        configuration.getTemplate(template.getTemplatePath());
 
     final StringBuilderWriter writer = new StringBuilderWriter();
-    template.process(transformModelToTemplateValues(profile), writer);
+    templatePDF.process(transformModelToTemplateValues(profile), writer);
     return createPDFAsBytes(writer.toString(), profile);
   }
 
@@ -154,44 +151,6 @@ public class ProfileExportService {
 
       return stream.toByteArray();
     }
-  }
-
-  @NotNull
-  public List<ExportTemplateDefinition> getTemplateDefinitions() {
-    if (loadedExportTemplateDefinitions == null) {
-      loadTemplates();
-    }
-    return loadedExportTemplateDefinitions;
-  }
-
-  @NotNull
-  private void loadTemplates() {
-    try {
-      loadedExportTemplateDefinitions =
-          ClassPath
-              .from(Thread.currentThread().getContextClassLoader())
-              .getResources()
-              .stream()
-              .filter(
-                  x -> x.getResourceName().startsWith(TEMPLATES_PATH)
-                      && x.getResourceName().endsWith(".json")).map(getTransformer())
-              .collect(Collectors.toList());
-    } catch (final IOException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
-  @NotNull
-  private <T extends ClassPath.ResourceInfo> Function<T, ExportTemplateDefinition> getTransformer() {
-    return t -> {
-      try {
-        final Path pathToResource = Paths.get(t.url().toURI());
-        return mapper.readValue(new String(Files.readAllBytes(pathToResource)),
-            ExportTemplateDefinition.class);
-      } catch (final IOException | URISyntaxException e) {
-        throw new RuntimeException(e);
-      }
-    };
   }
 
   private static class PackageUserAgentCallback extends ITextUserAgent {

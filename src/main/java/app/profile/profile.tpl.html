@@ -52,12 +52,17 @@
                                 {{tagsToList(profile.careerLevel).join(', ')}}
                             </p>
                         </div>
-                        <a id="download-button" class="btn btn-primary"
-                           href="/api/exportProfile/{{profile.id}}" target="_blank">
-                            <i class="fa fa-download"></i>
-                            Download
-                        </a>
-                    </div>
+                        
+					  
+							<a id="download-button" class="dropdown-toggle btn btn-primary" type="button" target="_blank" data-toggle="dropdown" aria-expanded="false">
+							<i class="fa fa-download"></i>
+							PDF Export</a>
+							<ul class="dropdown-menu" ng-repeat="template in templates">
+								<li>
+									<a href="/api/exportProfile/{{profile.id}}/{{template.name}}">{{template.name}}</a>
+								</li>
+							</ul>
+					</div>
                 </div>
                 <div ng-show="showEditModeButtons" class="no-print button-dialog">
                     <button ng-click="save()" id="save-button"
@@ -118,6 +123,21 @@
                                             on-tag-added="change('form-group-careerLevel')"
                                             on-tag-removed="change('form-group-careerLevel')">
                                     <auto-complete source="getTags('careerLevel')|filter:$query"
+                                            ></auto-complete>
+                                </tags-input>
+                            </div>
+                        </div>
+                        <div class="form-group" id="form-group-mainFocus">
+                            <label for="careerLevel" class="control-label col-md-4">${i18n('profile.personal.mainFocus')}</label>
+
+                            <div class="col-md-8">
+                                <tags-input type="text" name="mainFocus" id="mainFocus"
+                                            placeholder="${i18n('form.addTag')}"
+                                            max-tags="2"
+                                            class="ng-tags-custom" ng-model="profile.mainFocus"
+                                            on-tag-added="change('form-group-mainFocus')"
+                                            on-tag-removed="change('form-group-mainFocus')">
+                                    <auto-complete source="getTags('mainFocus1')|filter:$query"
                                             ></auto-complete>
                                 </tags-input>
                             </div>

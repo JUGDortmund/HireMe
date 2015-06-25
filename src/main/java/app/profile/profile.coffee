@@ -11,10 +11,13 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
         Restangular.one('profile', $route.current.params.profileId).get()
       projects: (Restangular) ->
         Restangular.all('project').getList()
-.controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, Upload, projects, $document, $parse, tagService) ->
+      templates: (Restangular) ->
+        Restangular.all('template').getList()
+.controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, Upload, projects, $document, $parse, tagService,templates) ->
   dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
   $scope.profile = profile
   $scope.projects = projects
+  $scope.templates = templates
   if moment(profile.workExperience).isValid()
     $scope.profile.workExperience = moment(profile.workExperience).format(dateFormat)
   else
