@@ -6,7 +6,7 @@ var ProjectPage = function () {
 ProjectPage.prototype = Object.create({}, {
   title: {
     get: function () {
-      return element(by.id('title'));
+      return element.all(by.id('title')).last();
     }
   },
   start: {
@@ -38,7 +38,17 @@ ProjectPage.prototype = Object.create({}, {
     value: function () {
       element(by.id('cancel-button')).click();
     }
-  }
+  },
+  reject: {
+	value: function () {
+		  element(by.id('reject-button')).click();
+		}
+	  },
+  dashboard: {
+	value: function () {
+	   element(by.id('dashboard')).click();
+	}
+   }
 });
 
 module.exports = ProjectPage;

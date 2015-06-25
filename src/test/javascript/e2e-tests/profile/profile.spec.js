@@ -36,7 +36,7 @@ describe('profile page', function () {
     expect(firstname.getAttribute('value')).toBe(expectedText);
   });
 
-  it('should reset the new name of the selected user after cancel button is pressed', function () {
+  it('should reset the new name of the selected user after cancel button is pressed and reject button', function () {
     var newText = 'newUserFirstName';
     var firstname = profilePage.firstName;
     var oldText = firstname.getAttribute('value');
@@ -44,8 +44,23 @@ describe('profile page', function () {
     firstname.clear();
     firstname.sendKeys(newText);
     profilePage.cancel();
-    expect(firstname.getAttribute('value')).toBe(oldText);
+    expect(firstname.getAttribute('value')).toBe(newText);
+    profilePage.reject();
+    expect(firstname.getAttribute('value')).toBe(oldText);  
   });
+  
+  it('should not leave profile after change until submit reject button', function () {
+	    var newText = 'newUserFirstName';
+	    var firstname = profilePage.firstName;
+	    var oldText = firstname.getAttribute('value');
+	    firstname.click();
+	    firstname.clear();
+	    firstname.sendKeys(newText);
+	    profilePage.dashboard();  
+	    expect(browser.getCurrentUrl()).toContain("/profile/");
+	    profilePage.reject();
+	    expect(firstname.getAttribute('value')).toBe(oldText);  
+	  });
 
   it('should set a date correctly and persist date to profile', function () {
     var inputDate = '01.03.01';
@@ -167,7 +182,7 @@ describe('profile page', function () {
 	  expect(profilePage.projectAssociationCount).toEqual(0);
   });
 
-  it('project associations should not be deleted, when cancel button is pressed', function () {
+  it('project associations should not be deleted, when cancel and reject button button are pressed', function () {
 	  profilePage.addProjectAssociation();
 	  var startField = element(by.id('start-0'));
 	  startField.click();
@@ -176,6 +191,8 @@ describe('profile page', function () {
 	  profilePage.save();
 	  profilePage.deleteProjectAssociation();
 	  profilePage.cancel();
+	  expect(profilePage.projectAssociationCount).toEqual(0)
+	  profilePage.reject();
 	  expect(profilePage.projectAssociationCount).toEqual(1)
   });
   
@@ -190,6 +207,8 @@ describe('profile page', function () {
     var oldThumbnailPath = profilePage.thumbnailPath;
     profilePage.uploadImage(getFileName());
     profilePage.cancel();
+    expect(profilePage.thumbnailPath).not.toBe(oldThumbnailPath);
+    profilePage.reject();
     expect(profilePage.thumbnailPath).toBe(oldThumbnailPath);
   });
 

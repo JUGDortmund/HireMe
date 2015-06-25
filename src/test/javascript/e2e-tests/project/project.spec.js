@@ -43,6 +43,8 @@ describe('project page', function () {
     title.clear();
     title.sendKeys(newText);
     projectPage.cancel();
+    expect(title.getAttribute('value')).toBe(newText);
+    projectPage.reject();
     expect(title.getAttribute('value')).toBe(oldText);
   });
 
@@ -116,12 +118,12 @@ describe('project page', function () {
     expect(projectPage.locationsTagCount).toBe(2);
   });
 
-  it('should provide suggestions for tag fields from other profiles', function () {
+  it('should provide suggestions for tag fields from other project', function () {
     var locations = projectPage.locations;
     locations.click();
-    locations.sendKeys("Test123");
+    locations.sendKeys("OtherProjectTag1");
     locations.sendKeys(protractor.Key.ENTER);
-    locations.sendKeys("Test124");
+    locations.sendKeys("OtherProjectTag2");
     locations.sendKeys(protractor.Key.ENTER);
 
     projectPage.save();
@@ -131,9 +133,9 @@ describe('project page', function () {
 
     locations = projectPage.locations;
     locations.click();
-    locations.sendKeys("Test");
+    locations.sendKeys("OtherProjectTag");
 
     var suggestionsCount = element.all(by.css('.suggestion-item')).count();
-    expect(suggestionsCount).toBeGreaterThan(1)
+    expect(suggestionsCount).toBe(2)
   });
 });	  

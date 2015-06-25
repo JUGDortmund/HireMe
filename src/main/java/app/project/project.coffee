@@ -27,7 +27,8 @@ angular.module( 'project', ['duScroll'])
     target = $parse(targetName)
     target.assign($scope, true)
     $document.duScrollTopAnimated(0)
-    $('.form-group').removeClass('has-warning')
+    $('.form-group').removeClass('has-warning') unless keepChangeIndicators?
+    $('#image-wrapper').removeClass('has-warning') unless keepChangeIndicators?
     $timeout (->
       target.assign($scope, false)
       return
@@ -48,7 +49,6 @@ angular.module( 'project', ['duScroll'])
     workingProject.start = project.start
     workingProject.end = project.end
     workingProject.summary = project.summary
-
     Restangular.one('project', project.id).customPUT(workingProject);
 
   $scope.save = ->
@@ -74,7 +74,7 @@ angular.module( 'project', ['duScroll'])
   	if($scope.cancelChanges == false)
   	  $scope.cancelChanges = true
   	else
-      $scope.profile = angular.copy($scope.originProject)
+      $scope.project = angular.copy($scope.originProject)
       $scope.showEditModeButtons = false
       $('.form-group').removeClass('has-warning')
       $document.duScrollTopAnimated(0)
@@ -88,9 +88,11 @@ angular.module( 'project', ['duScroll'])
     $scope.cancelChanges = false
     return
 
+  $scope.tagsToList = (tags) ->
+    if tags? then tags.map toList else []
+
   $scope.getTags = (name) ->
     tagService.getTag(name)
-    return
     
   $rootScope.$on '$locationChangeStart',(event) ->
     if($scope.showEditModeButtons == true)
