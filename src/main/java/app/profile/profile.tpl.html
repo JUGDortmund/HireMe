@@ -107,7 +107,7 @@
                                 <tags-input type="text" name="degrees" id="degrees"
                                 			text="degreesText"
                                             placeholder="${i18n('form.addTag')}"
-                                            on-invalid-tag="removeDuplicate('degreesText', $tag, 'dagrees')"
+                                            on-invalid-tag="removeDuplicate('degreesText', $tag, 'degrees')"
                                             class="ng-tags-custom" ng-model="profile.degrees"
                                             on-tag-added="change('form-group-degree')"
                                             on-tag-removed="change('form-group-degree')"
@@ -115,7 +115,7 @@
                                     <auto-complete source="getTags('degrees')|filter:$query"
                                             ></auto-complete>
                                 </tags-input>
-                                <div class ="form-control alert-dismissible" ng-show = "errorDuplicatedagrees">
+                                <div class ="form-control alert-dismissible" ng-show = "errorDuplicatedegrees">
 								<i class ="glyphicon glyphicon-exclamation-sign"> </i>
 									<strong>${i18n('message.error.duplicate.header')}</strong>
                     			 	<strong> '{{ textTag }}' </strong> ${i18n('message.error.duplicate.content')}
