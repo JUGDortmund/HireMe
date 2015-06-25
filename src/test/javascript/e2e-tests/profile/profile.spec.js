@@ -111,8 +111,9 @@ describe('profile page', function () {
   it('should provide suggestions for tag fields from other profiles', function () {
     var degrees = profilePage.degrees;
     degrees.click();
-    degrees.sendKeys("Test123");
-    degrees.sendKeys("Test124");
+    degrees.sendKeys("OtherProfileTag1");
+    degrees.sendKeys(protractor.Key.ENTER);
+    degrees.sendKeys("OtherProfileTag2");
     degrees.sendKeys(protractor.Key.ENTER);
 
     profilePage.save();
@@ -123,10 +124,10 @@ describe('profile page', function () {
 
     degrees = profilePage.degrees;
     degrees.click();
-    degrees.sendKeys("Test");
+    degrees.sendKeys("OtherProfileTag");
 
     var suggestionsCount = element.all(by.css('.suggestion-item')).count();
-    expect(suggestionsCount).toBe(3);
+    expect(suggestionsCount).toBe(2);
   });
 
   it('should be able to add a project association', function () {
