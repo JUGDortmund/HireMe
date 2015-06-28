@@ -332,19 +332,7 @@
                                                id="start-{{$index}}"
                                                ng-model="projectAssociation.start"
                                                ng-change="change('form-group-projectAssociation-start-' + $index)"/>
-                                    </div>
-                                </div>
-                                <div class="form-group"
-                                     id="form-group-projectData-start-{{$index}}">
-                                    <label for="devEnvironments" class="control-label col-md-4">${i18n('project.start')}</label>
-                                    <div class="col-md-8">
-                                        <input type="text"
-                                               class="form-control"
-                                               name="projectData-start-{{$index}}"
-                                               id="projectData-start-{{$index}}"
-                                               ng-model="projectData[$index].start"
-                                               ng-disabled="true"
-                                               />
+                                               <p class=description> ${i18n('project.start')}: {{projectData[$index].start}}
                                     </div>
                                 </div>
                                 <div class="form-group"
@@ -363,19 +351,7 @@
                                                id="end-{{$index}}"
                                                ng-model="projectAssociation.end"
                                                ng-change="change('form-group-projectAssocation-end-' + $index)"/>
-                                    </div>
-                                </div>
-                                <div class="form-group"
-                                     id="form-group-projectData-end-{{$index}}">
-                                    <label for="devEnvironments" class="control-label col-md-4">${i18n('project.end')}</label>
-                                    <div class="col-md-8">
-                                        <input type="text"
-                                               class="form-control"
-                                               name="projectData-end-{{$index}}"
-                                               id="projectData-end-{{$index}}"
-                                               ng-model="projectData[$index].end"
-                                               ng-disabled="true"
-                                               />
+                                               <p class=description> ${i18n('project.end')}: {{projectData[$index].end}}
                                     </div>
                                 </div>
                                 <div class="form-group"
@@ -395,20 +371,7 @@
                                                     source="getTags('locations')|filter:$query"
                                                     ></auto-complete>
                                         </tags-input>
-                                    </div>
-                                </div>
-                                <div class="form-group"
-                                     id="form-group-projectData-locations-{{$index}}">
-                                    <label for="devEnvironments" class="control-label col-md-4">${i18n('project.locations')}</label>
-
-                                    <div class="col-md-8">
-                                        <tags-input type="text"
-                                                    name="projectData-locations-{{$index}}"
-                                                    id="projectData-locations-{{$index}}"
-                                                    class="ng-tags-custom"
-                                                    ng-model="projectData[$index].locations"
-                                                    ng-disabled=true>
-										</tags-input>
+                                        <p class=description> ${i18n('project.locations')}: {{projectData[$index].locations.join(', ').toString()}}
                                     </div>
                                 </div>
                                 <div class="form-group"
@@ -427,19 +390,7 @@
                                                     source="getTags('technologies')|filter:$query"
                                                     ></auto-complete>
                                         </tags-input>
-                                    </div>
-                                </div>
-                                    <div class="form-group"
-                                     id="form-group-projectData-technologies-{{$index}}">
-                                    <label for="devEnvironments" class="control-label col-md-4">${i18n('project.technologies')}</label>
-                                    <div class="col-md-8">
-                                        <tags-input type="text"
-                                                    name="projectData-technologies-{{$index}}"
-                                                    id="projectData-technologies-{{$index}}"
-                                                    class="ng-tags-custom"
-                                                    ng-model="projectData[$index].technologies"
-                                                    ng-disabled=true>
-										</tags-input>
+                                        <p class=description> ${i18n('project.technologies')}: {{projectData[$index].technologies.join(', ').toString()}}
                                     </div>
                                 </div>
                                 <div class="form-group"

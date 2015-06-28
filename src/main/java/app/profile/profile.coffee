@@ -148,15 +148,13 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   #Loads the projectDefaults initial when the side is called.
   loadInitialProjectDefaults = () ->
     if $scope.profile.projectAssociations?
-      console.log($scope.profile.projectAssociations)
       $scope.projectData = $scope.profile.projectAssociations.map (project) ->
         data = {}
-        data.locations = project.locations.slice() if project.locations?
-        data.technologies = project.technologies.slice() if project.technologies?
-        data.start = moment(project.start).format(dateFormat) if project.start?
-        data.end = moment(project.end).format(dateFormat) if project.end?
+        data.locations = project.project.locations.slice() if project.project.locations?
+        data.technologies = project.project.technologies.slice() if project.project.technologies?
+        data.start = moment(project.project.start).format(dateFormat) if project.project.start?
+        data.end = moment(project.project.end).format(dateFormat) if project.project.end?
         return data
-      console.log($scope.projectData)
     else 
       $scope.projectData = []
     return
