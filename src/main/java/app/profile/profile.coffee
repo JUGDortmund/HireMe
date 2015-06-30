@@ -141,7 +141,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     data.locations = currentProjectAssociation.project.locations.slice() if currentProjectAssociation.project.locations?
     data.technologies = currentProjectAssociation.project.technologies.slice() if currentProjectAssociation.project.technologies?
     data.start = moment(currentProjectAssociation.project.start).format(dateFormat) if moment(currentProjectAssociation.project.start).isValid()
-    data.end = moment(currentProjectAssociation.project.end).format(dateFormat) if moment(currentProjectAssociation.project.start).isValid()
+    data.end = moment(currentProjectAssociation.project.end).format(dateFormat) if moment(currentProjectAssociation.project.end).isValid()
     $scope.projectData.splice(index, 1, data) 
     $scope.loadProjectDefaultsIfFieldIsEmpty(index)
     return
