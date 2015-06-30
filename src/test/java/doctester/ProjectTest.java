@@ -1,8 +1,9 @@
 package doctester;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import com.fasterxml.jackson.core.type.TypeReference;
-import model.Project;
-import ninja.NinjaDocTester;
+
 import org.bson.types.ObjectId;
 import org.doctester.testbrowser.Request;
 import org.doctester.testbrowser.Response;
@@ -10,14 +11,15 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import model.Project;
+
+import ninja.NinjaDocTester;
 
 public class ProjectTest extends NinjaDocTester {
 
   private static final String PROJECT_CONTROLLER_BASE_URL = "/api/project";
   private static final String SINGLE_PROJECT_URL = PROJECT_CONTROLLER_BASE_URL + "/{id}";
-  TypeReference<List<Project>> PROJECT_LIST_TYPE = new TypeReference<List<Project>>() {
-  };
+  TypeReference<List<Project>> PROJECT_LIST_TYPE = new TypeReference<List<Project>>() {};
 
   @Test
   public void addProjectReturns201() throws Exception {
@@ -28,7 +30,7 @@ public class ProjectTest extends NinjaDocTester {
   @Test
   public void addProjectReturnsProject() throws Exception {
     Response response = addNewProject();
-    assertThat(response.payloadAs(Project.class).getTitle()).isEqualTo("new Project");
+    assertThat(response.payloadAs(Project.class).getTitle()).isEqualTo("neues Projekt");
   }
 
   @Test
