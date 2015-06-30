@@ -25,7 +25,8 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   showMessage = (targetName, keepChangeIndicators) ->
     target = $parse(targetName)
     target.assign($scope, true)
-    $document.duScrollTopAnimated(0)
+    if (targetName == 'success' || targetName == 'error')
+      $document.duScrollTopAnimated(0)
     $('.form-group').removeClass('has-warning') unless keepChangeIndicators?
     $('#image-wrapper').removeClass('has-warning') unless keepChangeIndicators?
     $timeout (->
@@ -62,9 +63,9 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
       workingProject.project = project.project
       workingProject.end = project.end if project.end?
       workingProject.start = project.start if project.start?
-      workingProject.locations = project.locations.map toList
-      workingProject.positions = project.positions.map toList
-      workingProject.technologies = project.technologies.map toList
+      workingProject.locations = project.locations.map toList if project.locations?
+      workingProject.positions = project.positions.map toList if project.positions?
+      workingProject.technologies = project.technologies.map toList if project.technologies?
       workingProject.tasks = project.tasks if project.tasks?
       return workingProject
     Restangular.one('profile', profile.id).customPUT(workingProfile);
@@ -123,9 +124,9 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   #Loads the Default values from the project if the field is empty.
   $scope.loadProjectDefaultsIfFieldIsEmpty = (index) ->
     currentProjectAssociation = $scope.profile.projectAssociations[index]
-    if currentProjectAssociation.locations? && currentProjectAssociation.locations.length == 0
+    if typeof currentProjectAssociation.locations == 'undefined' || currentProjectAssociation.locations.length == 0
     	currentProjectAssociation.locations = currentProjectAssociation.project.locations.slice()
-    if currentProjectAssociation.technologies? && currentProjectAssociation.technologies.length == 0
+    if typeof currentProjectAssociation.technologies == 'undefined' || currentProjectAssociation.technologies.length == 0
     	currentProjectAssociation.technologies = currentProjectAssociation.project.technologies.slice()
     if moment(currentProjectAssociation.project.start).isValid() && (typeof currentProjectAssociation.start == 'undefined' || currentProjectAssociation.start== "")
     	currentProjectAssociation.start = moment(currentProjectAssociation.project.start).format(dateFormat)
@@ -193,4 +194,13 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
         )
         $scope.files = []
         showMessage('uploaderror', true)
+    return
+    
+  $scope.removeDuplicate = (variableName, tag, field) ->
+    showMessage('errorDuplicate'+ field, true) 
+    $scope.textTag = tag.text
+    $timeout (->
+      $parse(variableName).assign($scope,'')
+      return
+    )
     return
