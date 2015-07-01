@@ -1,4 +1,4 @@
-angular.module( 'project', ['duScroll'])
+angular.module( 'project', ['duScroll', 'ngTagsInput'])
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
 .config ($routeProvider) ->
@@ -23,10 +23,11 @@ angular.module( 'project', ['duScroll'])
   $scope.originProject = angular.copy($scope.project)       
   tagService.loadTags()
   
-  showMessage = (targetName) ->
+  showMessage = (targetName, keepChangeIndicators) ->
     target = $parse(targetName)
     target.assign($scope, true)
-    $document.duScrollTopAnimated(0)
+    if (targetName == 'success' || targetName == 'error')
+      $document.duScrollTopAnimated(0)
     $('.form-group').removeClass('has-warning') unless keepChangeIndicators?
     $('#image-wrapper').removeClass('has-warning') unless keepChangeIndicators?
     $timeout (->
@@ -93,7 +94,16 @@ angular.module( 'project', ['duScroll'])
 
   $scope.getTags = (name) ->
     tagService.getTag(name)
-    
+
+  $scope.removeDuplicate = (variableName, tag, field) ->
+    showMessage('errorDuplicate'+ field, true) 
+    $scope.textTag = tag.text
+    $timeout (->
+      $parse(variableName).assign($scope,'')
+      return
+    )
+    return
+
   $rootScope.$on '$locationChangeStart',(event) ->
     if($scope.showEditModeButtons == true)
       event.preventDefault()
