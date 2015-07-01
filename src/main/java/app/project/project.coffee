@@ -10,19 +10,26 @@ angular.module( 'project', ['duScroll', 'ngTagsInput'])
       project: (Restangular, $route) ->
         Restangular.one('project', $route.current.params.projectId).get()
 .controller 'ProjectCtrl', ($scope, $timeout, $interval, Restangular, project, $document, $parse, tagService) ->
-  dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
-  $scope.project = project 
-  if moment(project.start).isValid()
-    $scope.project.start = moment(project.start).format(dateFormat)
+  $scope.project = project
+  $scope.openedWorkexperience = false;
+  $scope.opened = []
+  
+
+  if project.start != undefined
+    $scope.project.start = project.start
   else
     $scope.project.start = ""
-  if moment(project.end).isValid()
-    $scope.project.end = moment(project.end).format(dateFormat)
+  if project.end != undefined
+    $scope.project.end = project.end
   else
     $scope.project.end = ""  
   $scope.originProject = angular.copy($scope.project)       
   tagService.loadTags()
   
+  $scope.opened =
+    start: false
+    end: false
+    
   showMessage = (targetName, keepChangeIndicators) ->
     target = $parse(targetName)
     target.assign($scope, true)
@@ -33,7 +40,6 @@ angular.module( 'project', ['duScroll', 'ngTagsInput'])
     $('#image-wrapper').removeClass('has-warning') unless keepChangeIndicators?
     $timeout (->
       target.assign($scope, false)
-      $interval.cancel(intervalCanceller);
       return
     ), 6000
     return
@@ -56,15 +62,14 @@ angular.module( 'project', ['duScroll', 'ngTagsInput'])
     Restangular.one('project', project.id).customPUT(workingProject);
 
   $scope.save = ->
-    dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
-    dateString = moment($scope.project.start, dateFormat).toDate();
+    dateString = $scope.project.start
     $scope.project.start = dateString
-    dateString = moment($scope.project.end, dateFormat).toDate();
+    dateString = $scope.project.end
     $scope.project.end = dateString
     putWithTags(project).then (->
       $scope.showEditModeButtons = false
-      $scope.project.start = moment($scope.project.start).format(dateFormat);
-      $scope.project.end = moment($scope.project.end).format(dateFormat);
+      $scope.project.start = $scope.project.start
+      $scope.project.end = $scope.project.end
       $scope.originProject = angular.copy($scope.project)
       showMessage('success')
       tagService.loadTags()
@@ -89,6 +94,14 @@ angular.module( 'project', ['duScroll', 'ngTagsInput'])
 
   $scope.getTags = (name) ->
     tagService.getTag(name)
+    
+  $scope.open = ($event, datepicker) ->
+    $event.preventDefault();
+    $event.stopPropagation();
+    $scope.opened[datepicker] = true;
+    return
+
+  return
     
   $scope.removeDuplicate = (variableName, tag, field) ->
     showMessage('errorDuplicate'+ field, true) 

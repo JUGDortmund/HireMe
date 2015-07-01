@@ -144,11 +144,6 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
         $scope.files = []
         showMessage('uploaderror', true)
     return
-
-  $scope.dateOptions = {
-    datepickerMode: "'month'",
-    minMode: "month"
-  }
     
   $scope.open = ($event) ->
     $event.preventDefault();
