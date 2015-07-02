@@ -45,6 +45,16 @@
                                 ${i18n('profile.image.acceptedFileTypes')}
                              </span>
                         </div>
+                                <div class ="dropdown">
+							<a id="download-button" class="dropdown-toggle btn btn-primary" type="button" data-toggle="dropdown" aria-expanded="false">
+							<i class="fa fa-download"></i>
+							PDF Export</a>
+							<ul class="dropdown-menu dropdown-menu-right " ng-repeat="template in templates">
+								<li>
+									<a ng-href="/api/exportProfile/{{profile.id}}/{{template.name}}">{{template.name}}</a>
+								</li>
+							</ul>
+						</div>
                         <div class="header-info">
                             <h2 class="headline">{{profile.firstname}} {{profile.lastname}}</h2>
 
@@ -52,16 +62,7 @@
                                 {{tagsToList(profile.careerLevel).join(', ')}}
                             </p>
                         </div>
-                        
-					  
-							<a id="download-button" class="dropdown-toggle btn btn-primary" type="button" target="_blank" data-toggle="dropdown" aria-expanded="false">
-							<i class="fa fa-download"></i>
-							PDF Export</a>
-							<ul class="dropdown-menu" ng-repeat="template in templates">
-								<li>
-									<a href="/api/exportProfile/{{profile.id}}/{{template.name}}">{{template.name}}</a>
-								</li>
-							</ul>
+                 
 					</div>
                 </div>
                 <div ng-show="showEditModeButtons" class="no-print button-dialog">
