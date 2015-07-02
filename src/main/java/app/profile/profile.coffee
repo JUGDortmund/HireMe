@@ -1,4 +1,4 @@
-angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'ngFileUpload'])
+angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'ngFileUpload','ngDialog'])
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
 .config ($routeProvider) ->
@@ -11,7 +11,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
         Restangular.one('profile', $route.current.params.profileId).get()
       projects: (Restangular) ->
         Restangular.all('project').getList()
-.controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, Upload, projects, $document, $parse, tagService, $rootScope) ->
+.controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, Upload, projects, $document, $parse, tagService, $rootScope, ngDialog) ->
   dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
   $scope.profile = profile
   $scope.projects = projects
@@ -88,16 +88,12 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
       return
 
   $scope.cancel = ->
-  	if($scope.cancelChanges == false)
-  	  $scope.cancelChanges = true
-  	else
-      $scope.profile = angular.copy($scope.originProfile)
-      $scope.showEditModeButtons = false
-      $('.form-group').removeClass('has-warning')
-      $document.duScrollTopAnimated(0)
-      $scope.files = []
-      tagService.loadTags()
-      $scope.cancelChanges = false
+    $scope.profile = angular.copy($scope.originProfile)
+    $scope.showEditModeButtons = false
+    $('.form-group').removeClass('has-warning')
+    $document.duScrollTopAnimated(0)
+    $scope.files = []
+    tagService.loadTags()
     return
 
   $scope.change = (id) ->
@@ -169,6 +165,17 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   $rootScope.$on '$locationChangeStart',(event) ->
     if($scope.showEditModeButtons == true)
       event.preventDefault()
-      $scope.cancelChanges = true
+      $scope.dialog()
     return
 
+  $scope.dialog = () ->
+    ngDialog.open(
+      template:'warningDialog'
+      preCloseCallback: (value) ->
+        if(value == '1')
+          return $scope.save()
+        if(value == '0')
+          return $scope.cancel()  
+      )
+
+    

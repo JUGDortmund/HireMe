@@ -660,6 +660,21 @@
 			<version>1.3</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+  			<groupId>org.webjars</groupId>
+  			<artifactId>angular-ui-bootstrap</artifactId>
+  			<version>0.13.0</version>
+		</dependency>
+		<dependency>
+  			<groupId>org.webjars.bower</groupId>
+  			<artifactId>ngDialog</artifactId>
+  			<version>0.4.0</version>
+		</dependency>
+		<dependency>
+    		<groupId>org.webjars.bower</groupId>
+    		<artifactId>angular-translate</artifactId>
+    		<version>2.7.0</version>
+		</dependency>
     </dependencies>
     <profiles>
         <!--Environment profile for development -->

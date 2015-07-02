@@ -1,4 +1,4 @@
-angular.module( 'project', ['duScroll', 'ngTagsInput'])
+angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
 .config ($routeProvider) ->
@@ -9,7 +9,7 @@ angular.module( 'project', ['duScroll', 'ngTagsInput'])
     resolve:
       project: (Restangular, $route) ->
         Restangular.one('project', $route.current.params.projectId).get()
-.controller 'ProjectCtrl', ($scope, $timeout, Restangular, project, $document, $parse, tagService, $rootScope) ->
+.controller 'ProjectCtrl', ($scope, $timeout, Restangular, project, $document, $parse, tagService, $rootScope, ngDialog) ->
   dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
   $scope.project = project 
   if moment(project.start).isValid()
@@ -72,21 +72,17 @@ angular.module( 'project', ['duScroll', 'ngTagsInput'])
       return
 
   $scope.cancel = ->
-  	if($scope.cancelChanges == false)
-  	  $scope.cancelChanges = true
-  	else
-      $scope.project = angular.copy($scope.originProject)
-      $scope.showEditModeButtons = false
-      $('.form-group').removeClass('has-warning')
-      $document.duScrollTopAnimated(0)
-      tagService.loadTags()
-      $scope.cancelChanges = false
+    $scope.project = angular.copy($scope.originProject)
+    $scope.showEditModeButtons = false
+    $('.form-group').removeClass('has-warning')
+    $document.duScrollTopAnimated(0)
+    tagService.loadTags()
+    $scope.cancelChanges = false
     return
 
   $scope.change = (id) ->
     $('#' + id).addClass('has-warning') if id?
     $scope.showEditModeButtons = true
-    $scope.cancelChanges = false
     return
 
   $scope.tagsToList = (tags) ->
@@ -107,5 +103,15 @@ angular.module( 'project', ['duScroll', 'ngTagsInput'])
   $rootScope.$on '$locationChangeStart',(event) ->
     if($scope.showEditModeButtons == true)
       event.preventDefault()
-      $scope.cancelChanges = true
+      $scope.dialog()
     return  
+
+  $scope.dialog = ->
+    ngDialog.open(
+      template:'warningDialog'
+      preCloseCallback: (value) ->
+        if(value == '1')
+          return $scope.save()
+        if(value == '0')
+          return $scope.cancel()  
+      )
