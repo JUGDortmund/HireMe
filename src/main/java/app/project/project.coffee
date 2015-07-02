@@ -100,8 +100,6 @@ angular.module( 'project', ['duScroll', 'ngTagsInput'])
     $event.stopPropagation();
     $scope.opened[datepicker] = true;
     return
-
-  return
     
   $scope.removeDuplicate = (variableName, tag, field) ->
     showMessage('errorDuplicate'+ field, true) 

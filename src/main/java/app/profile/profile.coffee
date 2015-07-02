@@ -150,8 +150,6 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     $event.stopPropagation();
     $scope.opened = true;
     return
-
-  return
   
   $scope.removeDuplicate = (variableName, tag, field) ->
     showMessage('errorDuplicate'+ field, true) 
