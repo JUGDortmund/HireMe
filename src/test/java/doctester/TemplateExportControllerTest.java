@@ -37,7 +37,7 @@ public class TemplateExportControllerTest extends NinjaDocTester {
   }
 
   private Response getAllTemplates() {
-    return sayAndMakeRequest(Request.GET().url(testServerUrl().path("api/templateExport/")));
+    return sayAndMakeRequest(Request.GET().url(testServerUrl().path("api/templates")));
   }
 
 }

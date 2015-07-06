@@ -1,18 +1,21 @@
 package model;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import model.annotations.ExcludeFromStringConcatenation;
-import model.annotations.Tag;
-import org.mongodb.morphia.annotations.Embedded;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Reference;
-import util.serializer.ResourceDeserializer;
-import util.serializer.ResourceSerializer;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import model.annotations.ExcludeFromStringConcatenation;
+import model.annotations.Tag;
+
+import org.mongodb.morphia.annotations.Embedded;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Reference;
+
+import util.serializer.ResourceDeserializer;
+import util.serializer.ResourceSerializer;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @Entity
 public class Profile extends BaseModel {
@@ -20,12 +23,15 @@ public class Profile extends BaseModel {
   private String firstname;
 
   private String lastname;
-  
+
   @Tag
   private List<String> careerLevel = new ArrayList<>();
 
   @Tag
   private List<String> degrees = new ArrayList<>();
+
+  @Tag
+  private List<String> mainFocus = new ArrayList<>();
 
   private Date workExperience;
 
@@ -93,6 +99,14 @@ public class Profile extends BaseModel {
   }
 
   public void setDegrees(List<String> degrees) {
+    this.degrees = degrees;
+  }
+
+  public List<String> getMainFocus() {
+    return degrees;
+  }
+
+  public void setMainFocus(List<String> mainFocus) {
     this.degrees = degrees;
   }
 

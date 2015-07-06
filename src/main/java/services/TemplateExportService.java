@@ -35,7 +35,7 @@ public class TemplateExportService {
   @NotNull
   public List<ExportTemplateDefinition> getTemplateDefinitions() {
     if (loadedExportTemplateDefinitions == null) {
-      loadTemplates();
+      this.loadTemplates();
     }
     return loadedExportTemplateDefinitions;
   }

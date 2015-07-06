@@ -22,13 +22,19 @@ public class TemplateExportServiceTest {
 
   @Test
   public void loadTemplates() throws Exception {
-    assertThat(templateExportService.getTemplateDefinitions()).hasSize(1);
+    assertThat(templateExportService.getTemplateDefinitions()).hasSize(2);
   }
 
   @Test
   public void getTemplate() {
     assertThat(templateExportService.getTemplate("TestTemplate").getName()).isEqualTo(
         "TestTemplate");
+  }
+
+  @Test
+  public void getAnonymTemplate() {
+    assertThat(templateExportService.getTemplate("AnonymTemplate").getName()).isEqualTo(
+        "AnonymTemplate");
   }
 
 }

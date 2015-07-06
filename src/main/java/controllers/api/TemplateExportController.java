@@ -8,7 +8,7 @@ import ninja.jaxy.GET;
 import ninja.jaxy.Path;
 import services.TemplateExportService;
 
-@Path("(?i)/api/template")
+@Path("/api/templates")
 public class TemplateExportController {
 
   TemplateExportService exportTemplate;

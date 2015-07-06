@@ -26,11 +26,16 @@
                                         <div class="image-wrapper">
                                             <img ng-src="{{profile.image|toThumbnailUrl}}"/>
                                         </div>
-                                        <a id="download-button" class="btn btn-primary"
-                                           href="/api/exportProfile/{{profile.id}}" target="_blank">
-                                            <i class="fa fa-download"></i>
-                                            Download
-                                        </a>
+                                                   <div class ="dropdown">
+							<a id="download-button" class="dropdown-toggle btn btn-primary" type="button" data-toggle="dropdown" aria-expanded="false">
+							<i class="fa fa-download"></i>
+							PDF Export</a>
+							<ul class="dropdown-menu" ng-repeat="template in templates">
+								<li>
+									<a href="/api/exportProfile/{{profile.id}}/{{template.name}}" target="_blank">{{template.name}}</a>
+								</li>
+							</ul>
+						</div>
                                     </div>
                                     <a class="profile-link" ng-href="/profile/{{profile.id}}">
                                         <div class="info-box-content">

@@ -37,6 +37,7 @@ public class ProfileExportController {
   private final Datastore datastore;
   private final ProfileExportService exportService;
   private final TemplateExportService exportTemplate;
+  private final String ANONYM_TEMPLATE = "AnonymTemplate";
 
   @Inject
   public ProfileExportController(Datastore datastore, ProfileExportService exportService,
@@ -50,17 +51,25 @@ public class ProfileExportController {
   @GET
   public Result exportProfile(@NotNull @PathParam("profileId") final String profileId,
       @PathParam("templateName") final String template) throws IOException {
-    if (Strings.isNullOrEmpty(profileId) || !ObjectId.isValid(profileId)) {
+    if (Strings.isNullOrEmpty(profileId) || !ObjectId.isValid(profileId)
+        || Strings.isNullOrEmpty(template)) {
       throw new BadRequestException();
     }
     final Profile profile = datastore.get(Profile.class, new ObjectId(profileId));
-    if (profile == null) {
+    if (profile == null || exportTemplate.getTemplate(template) == null) {
       throw new ElementNotFoundException();
     }
 
-    final String name =
-        "maredit_" + profile.getFirstname() + "_" + profile.getLastname() + "_"
-            + DATE_FORMAT.format(new Date()) + ".pdf";
+    final String name;
+    if (template == ANONYM_TEMPLATE) {
+      name =
+          "maredit_" + profile.getMainFocus().get(0) + "_" + profile.getMainFocus().get(1) + "_"
+              + DATE_FORMAT.format(new Date()) + ".pdf";
+    } else {
+      name =
+          "maredit_" + profile.getFirstname() + "_" + profile.getLastname() + "_"
+              + DATE_FORMAT.format(new Date()) + ".pdf";
+    }
 
     return Results
         .ok()
