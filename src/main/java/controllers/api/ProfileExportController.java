@@ -61,21 +61,23 @@ public class ProfileExportController {
     }
 
     final String name;
-    if (template == ANONYM_TEMPLATE) {
+    if (template.contentEquals(ANONYM_TEMPLATE)) {
       name =
-          "maredit_" + profile.getMainFocus().get(0) + "_" + profile.getMainFocus().get(1) + "_"
+          "maredit_" + profile.getMainFocus().get(0).substring(0, 6) + "_"
+              + profile.getMainFocus().get(1).substring(0, 6) + "_"
               + DATE_FORMAT.format(new Date()) + ".pdf";
     } else {
       name =
           "maredit_" + profile.getFirstname() + "_" + profile.getLastname() + "_"
               + DATE_FORMAT.format(new Date()) + ".pdf";
     }
+    String PDFname = name.replaceAll("\\s", "_");
 
     return Results
         .ok()
         .contentType("application/pdf")
         .charset("ISO-8859-1")
-        .addHeader("Content-Disposition", "attachment; filename=" + name)
+        .addHeader("Content-Disposition", "attachment; filename=" + PDFname)
         .text()
         .render(
             new String(exportService.exportToPdf(profile, exportTemplate.getTemplate(template)),

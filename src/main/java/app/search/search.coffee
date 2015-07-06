@@ -7,8 +7,9 @@ angular.module 'search', ['utils.autofocus', 'utils.customResource']
           Restangular.all('templates').getList()
 .controller 'ListCtrl', ($scope, $location, Restangular) ->
   profiles = Restangular.all('profile')
-  $scope.templates = Restangular.all('templates').getList()
-  console.log $scope.templates
+  templates = Restangular.all('templates')
+  getTemplates = -> templates.getList().then (templates) ->
+    $scope.templates = templates
   getProfiles = -> profiles.getList().then (profiles) ->
     $scope.profiles = profiles
 
@@ -16,6 +17,7 @@ angular.module 'search', ['utils.autofocus', 'utils.customResource']
     getProfiles()
 
   getProfiles()
+  getTemplates()
 
   $scope.init = ->
     $scope.search=$location.search().q

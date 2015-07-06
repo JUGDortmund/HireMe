@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <#-- @ftlvariable name="" type="model.Profile" -->
 <head>
-    <title>${firstname} ${lastname}</title>
+    <title>${mainFocus[0]}</title>
     <style type="text/css">
         @font-face {
           font-family: 'brandon';
@@ -104,7 +104,11 @@
             margin-bottom: 20px;
             margin-top: 5px;
         }
-
+        .h4{
+        	font-size: 22px;
+        	margin-top: 2px;
+          
+		}
         hr {
             margin-top: 30px;
             margin-bottom: 30px;
@@ -170,10 +174,13 @@
             <p id="careerLevel" class="blue">
             ${careerLevel}
             </p>
-
+			
             <p class="h1">
-            N.N<br/>
-            N.N
+            ${mainFocus[0]}     
+            <p class ="h4">
+  			${mainFocus[1]}
+
+            </p>
             </p>
 
             <p id="maredit-address">maredit GmbH &middot; Sebrathweg 20 &middot; 44149 Dortmund &middot; www.maredit.de</p>
@@ -185,13 +192,13 @@
     <#if (firstname)?has_content>
         <p>
             <label>Name:</label>
-            <span>N.N</span>
+            <span>N.N.</span>
         </p>
     </#if>
     <#if (lastname)?has_content>
         <p>
             <label>Vorname: </label>
-            <span>N.N</span>
+            <span>N.N.</span>
         </p>
     </#if>
     <#if (degrees)?has_content>
@@ -210,7 +217,7 @@
         <p>
             <label>Berufserfahrung seit: </label>
             <span>
-            N.N
+            N.N.
             </span>
         </p>
     </#if>
@@ -284,7 +291,7 @@
         projectAssociation.project.companies?has_content>
             <p>
                 <label>Firma:</label>
-                <span>N.N</span>
+                <span>N.N.</span>
             </p>
         </#if>
         <#if (projectAssociation.project)?has_content && projectAssociation.project.locations?has_content>
@@ -302,7 +309,7 @@
         <#if (projectAssociation.project)?has_content && projectAssociation.project.title?has_content>
             <p>
                 <label>Projekttitel: </label>
-                <span>N.N</span>
+                <span>N.N.</span>
             </p>
         </#if>
         <#if projectAssociation.locations?has_content>

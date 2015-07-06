@@ -1,0 +1,5 @@
+{
+  "name": "AnonymTemplate",
+  "templatePath": "anonymTemplate.ftl.html",
+  "fileNamePattern": "maredit_${mainFocus}_${mainFocus}_$today.pdf"
+}

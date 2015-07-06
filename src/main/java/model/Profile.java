@@ -31,6 +31,7 @@ public class Profile extends BaseModel {
   private List<String> degrees = new ArrayList<>();
 
   @Tag
+  @ExcludeFromStringConcatenation
   private List<String> mainFocus = new ArrayList<>();
 
   private Date workExperience;
@@ -103,11 +104,11 @@ public class Profile extends BaseModel {
   }
 
   public List<String> getMainFocus() {
-    return degrees;
+    return mainFocus;
   }
 
   public void setMainFocus(List<String> mainFocus) {
-    this.degrees = degrees;
+    this.mainFocus = mainFocus;
   }
 
   public Date getWorkExperience() {
