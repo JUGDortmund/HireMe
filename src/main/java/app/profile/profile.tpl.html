@@ -70,11 +70,12 @@
 					</div>
                 </div>
                 <div ng-show="showEditModeButtons" class="no-print button-dialog">
+
                     <button ng-click="save()" id="save-button"
                             class="btn btn-block btn-success">${i18n('buttonDialog.save')}
                     </button>
-                    <button ng-click="cancel()" id="cancel-button"
-                            class="btn btn-block btn-danger">${i18n('buttonDialog.cancel')}
+                    <button ng-click="dialog()" id="cancel-button"
+                            class="btn btn-block btn-danger" >${i18n('buttonDialog.cancel')}
                     </button>
                 </div>
                 <div class="box box-primary">
@@ -90,11 +91,10 @@
                                 <input type="text" name="lastName" id="lastName"
                                        class="form-control"
                                        ng-model="profile.lastname"
-                                       ng-change="change('form-group-lastName')"
-                                         
-                                                    />
+                                       ng-change="change('form-group-lastName')"/>
                             </div>
                         </div>
+ 
                         <div class="form-group" id="form-group-firstname">
                             <label for="firstName"
                                    class="control-label col-md-4">${i18n('profile.personal.firstName')}</label>
@@ -577,4 +577,17 @@
             </div>
         </div>
     </div>
+<script type="text/ng-template" id="warningDialog">
+	<div class="ngdialog-message">
+		<h3 class="alert alert-warning alert-dismissible">${i18n('buttonDialog.reject.header')}</h3>
+		<p>${i18n('buttonDialog.reject.question')}</p>
+	</div>
+  	<div class="ngdialog-buttons">
+		<button type="button" class="btn btn-default ngdialog-button ngdialog-button-secondary"
+ 			ng-click="closeThisDialog('1')">${i18n('buttonDialog.save')}</button>
+		<button id="reject-button" type="button" ng-click="closeThisDialog('0')" class="btn btn-primary ngdialog-button">${i18n('buttonDialog.reject')}</button>
+	</div>
+</script>    
 </section>
+
+

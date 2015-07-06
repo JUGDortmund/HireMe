@@ -1,4 +1,4 @@
-angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'ngFileUpload'])
+angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'ngFileUpload','ngDialog'])
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
 .config ($routeProvider) ->
@@ -95,16 +95,16 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   $scope.cancel = ->
     $scope.profile = angular.copy($scope.originProfile)
     $scope.showEditModeButtons = false
-    $scope.files = []
     $('.form-group').removeClass('has-warning')
-    $('#image-wrapper').removeClass('has-warning')
     $document.duScrollTopAnimated(0)
+    $scope.files = []
     tagService.loadTags()
     return
 
   $scope.change = (id) ->
     $('#' + id).addClass('has-warning') if id?
     $scope.showEditModeButtons = true
+    $scope.cancelChanges = false
     return
 
   $scope.tagsToList = (tags) ->
@@ -173,6 +173,19 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
       return false
     else
       return true
+    
+  $rootScope.$on '$locationChangeStart',(event) ->
+    if($scope.showEditModeButtons == true)
+      event.preventDefault()
+      $scope.dialog()
+    return
 
-    
-    
+  $scope.dialog = () ->
+    ngDialog.open(
+      template:'warningDialog'
+      preCloseCallback: (value) ->
+        if(value == '1')
+          return $scope.save()
+        if(value == '0')
+          return $scope.cancel()  
+      )

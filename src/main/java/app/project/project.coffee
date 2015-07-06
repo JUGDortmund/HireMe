@@ -1,4 +1,4 @@
-angular.module( 'project', ['duScroll', 'ngTagsInput'])
+angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
 .config ($routeProvider) ->
@@ -9,7 +9,7 @@ angular.module( 'project', ['duScroll', 'ngTagsInput'])
     resolve:
       project: (Restangular, $route) ->
         Restangular.one('project', $route.current.params.projectId).get()
-.controller 'ProjectCtrl', ($scope, $timeout, Restangular, project, $document, $parse, tagService) ->
+.controller 'ProjectCtrl', ($scope, $timeout, Restangular, project, $document, $parse, tagService, $rootScope, ngDialog) ->
   dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
   $scope.project = project 
   if moment(project.start).isValid()
@@ -50,7 +50,6 @@ angular.module( 'project', ['duScroll', 'ngTagsInput'])
     workingProject.start = project.start
     workingProject.end = project.end
     workingProject.summary = project.summary
-
     Restangular.one('project', project.id).customPUT(workingProject);
 
   $scope.save = ->
@@ -78,16 +77,20 @@ angular.module( 'project', ['duScroll', 'ngTagsInput'])
     $('.form-group').removeClass('has-warning')
     $document.duScrollTopAnimated(0)
     tagService.loadTags()
+    $scope.cancelChanges = false
     return
 
   $scope.change = (id) ->
-    $('#' + id).addClass('has-warning')
+    $('#' + id).addClass('has-warning') if id?
     $scope.showEditModeButtons = true
     return
 
+  $scope.tagsToList = (tags) ->
+    if tags? then tags.map toList else []
+
   $scope.getTags = (name) ->
     tagService.getTag(name)
-    
+
   $scope.removeDuplicate = (variableName, tag, field) ->
     showMessage('errorDuplicate'+ field, true) 
     $scope.textTag = tag.text
@@ -96,3 +99,19 @@ angular.module( 'project', ['duScroll', 'ngTagsInput'])
       return
     )
     return
+
+  $rootScope.$on '$locationChangeStart',(event) ->
+    if($scope.showEditModeButtons == true)
+      event.preventDefault()
+      $scope.dialog()
+    return  
+
+  $scope.dialog = ->
+    ngDialog.open(
+      template:'warningDialog'
+      preCloseCallback: (value) ->
+        if(value == '1')
+          return $scope.save()
+        if(value == '0')
+          return $scope.cancel()  
+      )

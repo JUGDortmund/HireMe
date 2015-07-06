@@ -44,6 +44,17 @@ ProfilePage.prototype = Object.create({}, {
       element(by.id('cancel-button')).click();
     }
   },
+  reject: {
+	value: function () {
+	  element(by.id('reject-button')).click();
+	}
+  },
+  dashboard: {
+	value: function () {
+	   element(by.id('dashboard')).click();
+	}
+  },
+  
   uploadImage: {
     value: function (path) {
       element(by.model('files')).click();

@@ -36,14 +36,16 @@ describe('project page', function () {
 	  });
 
 	  it('should reset the new title of the selected project after cancel button is pressed', function () {
-	    var newText = 'newProjectTitle';
-	    var title = projectPage.title;
-	    var oldText = title.getAttribute('value');
-	    title.click();
-	    title.clear();
-	    title.sendKeys(newText);
-	    projectPage.cancel();
-	    expect(title.getAttribute('value')).toBe(oldText);
+		var newText = 'newProjectTitle';
+		var title = projectPage.title;
+		var oldText = title.getAttribute('value');
+		title.click();
+		title.clear();
+		title.sendKeys(newText);
+		projectPage.cancel();
+		expect(title.getAttribute('value')).toBe(newText);
+		projectPage.reject();
+		expect(title.getAttribute('value')).toBe(oldText);
 	  });
 
 	  it('should set a date correctly and persist date to project', function () {
