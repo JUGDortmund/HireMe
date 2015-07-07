@@ -1,4 +1,4 @@
-angular.module( 'project', ['duScroll', 'ngTagsInput'])
+angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
 .config ($routeProvider) ->
@@ -9,12 +9,12 @@ angular.module( 'project', ['duScroll', 'ngTagsInput'])
     resolve:
       project: (Restangular, $route) ->
         Restangular.one('project', $route.current.params.projectId).get()
-.controller 'ProjectCtrl', ($scope, $timeout, $interval, Restangular, project, $document, $parse, tagService) ->
-  $scope.project = project
+        
+.controller 'ProjectCtrl', ($scope, $timeout, Restangular, project, $document, $parse, tagService, $rootScope, ngDialog) ->
+  $scope.project = project 
   $scope.openedWorkexperience = false;
   $scope.opened = []
   
-
   if project.start != undefined
     $scope.project.start = project.start
   else
@@ -55,21 +55,15 @@ angular.module( 'project', ['duScroll', 'ngTagsInput'])
     workingProject.companies = project.companies.map toList
     workingProject.locations = project.locations.map toList
     workingProject.industries = project.industries.map toList
+    workingProject.technologies = project.technologies.map toList
     workingProject.start = project.start
     workingProject.end = project.end
     workingProject.summary = project.summary
-
     Restangular.one('project', project.id).customPUT(workingProject);
 
   $scope.save = ->
-    dateString = $scope.project.start
-    $scope.project.start = dateString
-    dateString = $scope.project.end
-    $scope.project.end = dateString
     putWithTags(project).then (->
       $scope.showEditModeButtons = false
-      $scope.project.start = $scope.project.start
-      $scope.project.end = $scope.project.end
       $scope.originProject = angular.copy($scope.project)
       showMessage('success')
       tagService.loadTags()
@@ -85,16 +79,20 @@ angular.module( 'project', ['duScroll', 'ngTagsInput'])
     $('.form-group').removeClass('has-warning')
     $document.duScrollTopAnimated(0)
     tagService.loadTags()
+    $scope.cancelChanges = false
     return
 
   $scope.change = (id) ->
-    $('#' + id).addClass('has-warning')
+    $('#' + id).addClass('has-warning') if id?
     $scope.showEditModeButtons = true
     return
 
+  $scope.tagsToList = (tags) ->
+    if tags? then tags.map toList else []
+
   $scope.getTags = (name) ->
     tagService.getTag(name)
-    
+
   $scope.open = ($event, datepicker) ->
     $event.preventDefault();
     $event.stopPropagation();
@@ -109,3 +107,19 @@ angular.module( 'project', ['duScroll', 'ngTagsInput'])
       return
     )
     return
+
+  $rootScope.$on '$locationChangeStart',(event) ->
+    if($scope.showEditModeButtons == true)
+      event.preventDefault()
+      $scope.dialog()
+    return  
+
+  $scope.dialog = ->
+    ngDialog.open(
+      template:'warningDialog'
+      preCloseCallback: (value) ->
+        if(value == '1')
+          return $scope.save()
+        if(value == '0')
+          return $scope.cancel()  
+      )

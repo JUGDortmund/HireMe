@@ -6,7 +6,7 @@ var ProjectPage = function () {
 ProjectPage.prototype = Object.create({}, {
   title: {
     get: function () {
-      return element(by.id('title'));
+      return element.all(by.id('title')).last();
     }
   },
   start: {
@@ -14,6 +14,11 @@ ProjectPage.prototype = Object.create({}, {
       return element(by.id('start'));
     }
   },
+  end: {
+	    get: function () {
+	      return element(by.id('end'));
+	    }
+	  },
   locationsTagCount: {
     get: function () {
       return element.all(by.css('#locations ti-tag-item')).count();
@@ -24,6 +29,11 @@ ProjectPage.prototype = Object.create({}, {
       return element(by.css('#locations input[type="text"]'));
     }
   },
+  technologies: {
+	    get: function () {
+	      return element(by.css('#technologies input[type="text"]'));
+	    }
+	  },
   getLastLocationText: {
     get: function () {
       return element.all(by.css('#locations .tag-item span')).last().getText();
@@ -48,7 +58,17 @@ ProjectPage.prototype = Object.create({}, {
     get: function () {
       return element(by.id('project-msg-error'));
     }
-  }  
+  },
+  reject: {
+	value: function () {
+		  element(by.id('reject-button')).click();
+		}
+	  },
+  dashboard: {
+	value: function () {
+	   element(by.id('dashboard')).click();
+	}
+   }
 });
 
 module.exports = ProjectPage;

@@ -1,4 +1,5 @@
-angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'ngFileUpload', 'ui.bootstrap'])
+
+angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'ngFileUpload', 'ui.bootstrap', 'ngDialog'])
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
 .config ($routeProvider) ->
@@ -11,12 +12,19 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
         Restangular.one('profile', $route.current.params.profileId).get()
       projects: (Restangular) ->
         Restangular.all('project').getList()
-.controller 'ProfileCtrl', ($scope, $timeout, $interval, Restangular, profile, Upload, projects, $document, $parse, tagService) ->
+.controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, Upload, projects, $document, $parse, tagService, $rootScope, ngDialog) ->
   $scope.profile = profile
   $scope.projects = projects
   $scope.originProfile = angular.copy($scope.profile)
   tagService.loadTags()
-
+  
+  $scope.opened = []
+  
+  $scope.opened =
+	    start: false
+	    end: false
+	    workExperience: false
+  
   showMessage = (targetName, keepChangeIndicators) ->
     target = $parse(targetName)
     target.assign($scope, true)
@@ -24,11 +32,10 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
       $document.duScrollTopAnimated(0)
     $('.form-group').removeClass('has-warning') unless keepChangeIndicators?
     $('#image-wrapper').removeClass('has-warning') unless keepChangeIndicators?
-    intervalCanceller = $interval(->
+    $timeout (->
       target.assign($scope, false)
-      $interval.cancel(intervalCanceller);
       return
-    , 6000)
+    ), 6000
     return
 
   toList = (x) ->
@@ -36,7 +43,6 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
 
   putWithTags = (profile) ->
     workingProfile = {}
-
     workingProfile.id = profile.id
     workingProfile.firstname = profile.firstname
     workingProfile.lastname = profile.lastname
@@ -82,16 +88,16 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   $scope.cancel = ->
     $scope.profile = angular.copy($scope.originProfile)
     $scope.showEditModeButtons = false
-    $scope.files = []
     $('.form-group').removeClass('has-warning')
-    $('#image-wrapper').removeClass('has-warning')
     $document.duScrollTopAnimated(0)
+    $scope.files = []
     tagService.loadTags()
     return
 
   $scope.change = (id) ->
     $('#' + id).addClass('has-warning') if id?
     $scope.showEditModeButtons = true
+    $scope.cancelChanges = false
     return
 
   $scope.tagsToList = (tags) ->
@@ -103,14 +109,57 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   $scope.addProjectAssociation = ->
     if !$scope.profile.projectAssociations? then $scope.profile.projectAssociations = []
     $scope.profile.projectAssociations.push({});
+    $scope.projectData.push({})
     $scope.change()
     return
 
   $scope.deleteProjectAssociation = (index) ->
     $scope.profile.projectAssociations.splice(index, 1);
+    $scope.projectData.splice(index, 1)
     $scope.change()
     return
-
+  
+  #Loads the Default values from the project if the field is empty.
+  $scope.loadProjectDefaultsIfFieldIsEmpty = (index) ->
+    currentProjectAssociation = $scope.profile.projectAssociations[index]
+    if typeof currentProjectAssociation.locations == 'undefined' || currentProjectAssociation.locations.length == 0
+    	currentProjectAssociation.locations = currentProjectAssociation.project.locations.slice()
+    if typeof currentProjectAssociation.technologies == 'undefined' || currentProjectAssociation.technologies.length == 0
+    	currentProjectAssociation.technologies = currentProjectAssociation.project.technologies.slice()
+    if currentProjectAssociation.project.start != 'undefined' && (typeof currentProjectAssociation.start == 'undefined' || currentProjectAssociation.start== "")
+    	currentProjectAssociation.start = currentProjectAssociation.project.start
+    if currentProjectAssociation.project.end != 'undefined' && (typeof currentProjectAssociation.end == 'undefined' || currentProjectAssociation.end== "") 
+    	currentProjectAssociation.end = currentProjectAssociation.project.end
+    return
+  
+  #Loads the projectDefaults if the project is changed.
+  $scope.loadProjectDefaults = (index) ->
+    currentProjectAssociation = $scope.profile.projectAssociations[index]
+    data = {}
+    data.locations = currentProjectAssociation.project.locations.slice() if currentProjectAssociation.project.locations?
+    data.technologies = currentProjectAssociation.project.technologies.slice() if currentProjectAssociation.project.technologies?
+    data.start = currentProjectAssociation.project.start if currentProjectAssociation.project.start != 'undefined'
+    data.end = currentProjectAssociation.project.end if currentProjectAssociation.project.end != 'undefined'
+    $scope.projectData.splice(index, 1, data) 
+    $scope.loadProjectDefaultsIfFieldIsEmpty(index)
+    return
+  
+  #Loads the projectDefaults initial when the side is called.
+  loadInitialProjectDefaults = () ->
+    if $scope.profile.projectAssociations?
+      $scope.projectData = $scope.profile.projectAssociations.map (project) ->
+        data = {}
+        data.locations = project.project.locations.slice() if project.project.locations?
+        data.technologies = project.project.technologies.slice() if project.project.technologies?
+        data.start = project.project.start if project.project.start?
+        data.end = project.project.end if project.project.end?
+        return data
+    else 
+      $scope.projectData = []
+    return
+  
+  loadInitialProjectDefaults()
+  
   $scope.$watch 'files', ->
     $scope.upload $scope.files
     return
@@ -145,10 +194,10 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
         showMessage('uploaderror', true)
     return
     
-  $scope.open = ($event) ->
+  $scope.open = ($event, datepicker) ->
     $event.preventDefault();
     $event.stopPropagation();
-    $scope.opened = true;
+    $scope.opened[datepicker] = true;
     return
   
   $scope.removeDuplicate = (variableName, tag, field) ->
@@ -159,3 +208,19 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
       return
     )
     return
+
+  $rootScope.$on '$locationChangeStart',(event) ->
+    if($scope.showEditModeButtons == true)
+      event.preventDefault()
+      $scope.dialog()
+    return
+
+  $scope.dialog = () ->
+    ngDialog.open(
+      template:'warningDialog'
+      preCloseCallback: (value) ->
+        if(value == '1')
+          return $scope.save()
+        if(value == '0')
+          return $scope.cancel()  
+      )

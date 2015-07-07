@@ -5,6 +5,7 @@ var pathUtil = require('path');
 var SearchPage = require('../pages/search.page.js');
 var ProfilePage = require('../pages/profile.page.js');
 var ProjectListPage = require('../pages/projectlist.page.js');
+var ProjectPage = require('../pages/project.page.js');
 
 require('../../conf/capabilities.js');
 
@@ -12,6 +13,8 @@ describe('profile page', function () {
 
   var searchPage;
   var profilePage;
+  var projectListPage;
+  var projectPage;
   beforeEach(function () {
     searchPage = new SearchPage();
     searchPage.addProfile();
@@ -37,7 +40,7 @@ describe('profile page', function () {
     expect(firstname.getAttribute('value')).toBe(expectedText);
   });
 
-  it('should reset the new name of the selected user after cancel button is pressed', function () {
+  it('should reset the new name of the selected user after cancel button is pressed and reject button', function () {
     var newText = 'newUserFirstName';
     var firstname = profilePage.firstName;
     var oldText = firstname.getAttribute('value');
@@ -45,8 +48,23 @@ describe('profile page', function () {
     firstname.clear();
     firstname.sendKeys(newText);
     profilePage.cancel();
-    expect(firstname.getAttribute('value')).toBe(oldText);
+    expect(firstname.getAttribute('value')).toBe(newText);
+    profilePage.reject();
+    expect(firstname.getAttribute('value')).toBe(oldText);  
   });
+  
+  it('should not leave profile after change until submit reject button', function () {
+	    var newText = 'newUserFirstName';
+	    var firstname = profilePage.firstName;
+	    var oldText = firstname.getAttribute('value');
+	    firstname.click();
+	    firstname.clear();
+	    firstname.sendKeys(newText);
+	    profilePage.dashboard();  
+	    expect(browser.getCurrentUrl()).toContain("/profile/");
+	    profilePage.reject();
+	    expect(firstname.getAttribute('value')).toBe(oldText);  
+	  });
 
   it('should set a date correctly and persist date to profile', function () {
     var inputDate = '01.03.01';
@@ -144,7 +162,7 @@ describe('profile page', function () {
     startField.clear();
     startField.sendKeys("01.01.2012");
     profilePage.save();
-    expect(startField.getAttribute('value')).toContain('01.01.12');
+    expect(startField.getAttribute('value')).toContain('01.01.2012');
   });
 
   it('should be able to delete a project association', function () {
@@ -169,7 +187,7 @@ describe('profile page', function () {
 	  expect(profilePage.projectAssociationCount).toEqual(0);
   });
 
-  it('project associations should not be deleted, when cancel button is pressed', function () {
+  it('project associations should not be deleted, when cancel and reject button button are pressed', function () {
 	  profilePage.addProjectAssociation();
 	  var startField = element(by.id('start-0'));
 	  startField.click();
@@ -178,6 +196,8 @@ describe('profile page', function () {
 	  profilePage.save();
 	  profilePage.deleteProjectAssociation();
 	  profilePage.cancel();
+	  expect(profilePage.projectAssociationCount).toEqual(0)
+	  profilePage.reject();
 	  expect(profilePage.projectAssociationCount).toEqual(1)
   });
   
@@ -217,9 +237,77 @@ describe('profile page', function () {
     var oldThumbnailPath = profilePage.thumbnailPath;
     profilePage.uploadImage(getFileName());
     profilePage.cancel();
+    expect(profilePage.thumbnailPath).not.toBe(oldThumbnailPath);
+    profilePage.reject();
     expect(profilePage.thumbnailPath).toBe(oldThumbnailPath);
   });
-
+  
+  fit('should load default values from project if field are empty', function() {
+	  var startField = element(by.id('start-0'));
+	  var endField = element(by.id('end-0'));
+	  var locationsField = element(by.id('projectAssociations-locations-0'));
+	  var technologiesField = element(by.id('projectAssociations-technologies-0'));
+	  buildProjectStructure("TestLocation", "TestTechnologies", '01.03.2001', '01.03.2001');
+	  profilePage.addProjectAssociation();
+	  profilePage.selectLastProjectInLastProjectAssociation();
+	  expect(startField.getAttribute('value')).toContain('01.03.2001');
+	  expect(endField.getAttribute('value')).toContain('01.03.2001');
+	  expect(profilePage.getLastLocationText).toBe("TestLocation");
+	  expect(profilePage.getLastTechnologieText).toBe("TestTechnologies");	  
+  });
+  it('should display default values from project below if field are empty', function() {
+	  var startField = element(by.id('start-0'));
+	  var endField = element(by.id('end-0'));
+	  var locationsField = element(by.id('projectAssociations-locations-0'));
+	  var technologiesField = element(by.id('projectAssociations-technologies-0'));
+	  buildProjectStructure("TestLocation", "TestTechnologies", '01.03.2001', '01.03.2001');
+	  profilePage.addProjectAssociation();
+	  profilePage.selectLastProjectInLastProjectAssociation();
+	  expect(startField.getAttribute('value')).toContain('01.03.2001');
+	  expect(endField.getAttribute('value')).toContain('01.03.2001');
+	  expect(profilePage.getLastLocationText).toBe("TestLocation");
+	  expect(profilePage.getLastTechnologieText).toBe("TestTechnologies");	  
+  });
+  
+  it('should not load default values from project if field are full', function() {
+	  var startField = element(by.id('start-0'));
+	  var endField = element(by.id('end-0'));
+	  var locationsField = element(by.id('projectAssociations-locations-0'));
+	  var technologiesField = element(by.id('projectAssociations-technologies-0'));
+	  buildProjectStructure("TestLocation", "TestTechnologies", '01.03.01', '01.03.01');
+	  profilePage.addProjectAssociation();
+	  profilePage.selectLastProjectInLastProjectAssociation();
+	  profilePage.save();
+	  expect(startField.getAttribute('value')).toContain('01.03.01');
+	  expect(endField.getAttribute('value')).toContain('01.03.01');
+	  expect(profilePage.getLastLocationText).toBe("TestLocation");
+	  expect(profilePage.getLastTechnologieText).toBe("TestTechnologies");	  
+  });
+  
+  function buildProjectStructure(location, technologie, start, end) {
+	  projectListPage = new ProjectListPage();
+	  projectListPage.addProjectAndReturnToProjectList();
+	  projectListPage.openLastProject();
+	  projectPage = new ProjectPage();
+	  var locations = projectPage.locations;
+	  locations.click();
+	  locations.sendKeys(location);
+	  locations.sendKeys(protractor.Key.ENTER);
+	  var techonologies = projectPage.technologies;
+	  techonologies.click();
+	  techonologies.sendKeys(technologie);
+	  techonologies.sendKeys(protractor.Key.ENTER);
+	  var inputDate = start;
+	  var inputStart = projectPage.start;
+	  inputStart.click();
+	  inputStart.clear();
+	  inputStart.sendKeys(inputDate);
+	  projectPage.save();
+	  searchPage = new SearchPage();
+	  searchPage.openLastProfile();
+	  profilePage = new ProfilePage;
+  }
+  
   function getFileName() {
     if (browser.inWindows()) {
       return "C:\\Users\\Public\\Pictures\\Sample Pictures\\flagge.gif";

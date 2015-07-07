@@ -44,6 +44,17 @@ ProfilePage.prototype = Object.create({}, {
       element(by.id('cancel-button')).click();
     }
   },
+  reject: {
+	value: function () {
+	  element(by.id('reject-button')).click();
+	}
+  },
+  dashboard: {
+	value: function () {
+	   element(by.id('dashboard')).click();
+	}
+  },
+  
   uploadImage: {
     value: function (path) {
       element(by.model('files')).click();
@@ -86,7 +97,17 @@ ProfilePage.prototype = Object.create({}, {
     get: function () {
       return element(by.id('profile-msg-error'));
     }
-  }
+  },
+  getLastTechnologieText: {
+	get: function () {
+	  return element.all(by.css('#projectAssociations-technologies-0 .tag-item span')).last().getText();
+	}
+  },
+  getLastLocationText: {
+		get: function () {
+		  return element.all(by.css('#projectAssociations-locations-0 .tag-item span')).last().getText();
+		}
+	  }
 });
 
 module.exports = ProfilePage;
