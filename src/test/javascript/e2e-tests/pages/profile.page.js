@@ -78,8 +78,17 @@ ProfilePage.prototype = Object.create({}, {
     value: function () {
       element(by.id('delete-project-association-button-0')).click();
     }
-  }
-
+  },
+  getLastTechnologieText: {
+	get: function () {
+	  return element.all(by.css('#projectAssociations-technologies-0 .tag-item span')).last().getText();
+	}
+  },
+  getLastLocationText: {
+		get: function () {
+		  return element.all(by.css('#projectAssociations-locations-0 .tag-item span')).last().getText();
+		}
+	  }
 });
 
 module.exports = ProfilePage;

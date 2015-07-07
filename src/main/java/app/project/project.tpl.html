@@ -136,6 +136,21 @@
                     			 </div>
                             </div>
                         </div>
+                        <div class="form-group" id="form-group-technologies">
+                            <label for="technologies" class="control-label col-md-4">${i18n('project.technologies')}</label>
+
+                            <div class="col-md-8">
+                                <tags-input type="text" id="technologies"
+                                            placeholder="${i18n('form.addTag')}"
+                                            class="ng-tags-custom"
+                                            ng-model="project.technologies"
+                                            on-tag-added="change('form-group-technologies')"
+                                            on-tag-removed="change('form-group-technologies')">
+                                    <auto-complete source="getTags('technologies')|filter:$query"
+                                            ></auto-complete>
+                                </tags-input>
+                            </div>
+                        </div>
                         <div class="form-group" id="form-group-summary">
                             <label for="summary" class="control-label col-md-4">${i18n('project.summary')}</label>
 

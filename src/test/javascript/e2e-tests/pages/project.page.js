@@ -14,6 +14,11 @@ ProjectPage.prototype = Object.create({}, {
       return element(by.id('start'));
     }
   },
+  end: {
+	    get: function () {
+	      return element(by.id('end'));
+	    }
+	  },
   locationsTagCount: {
     get: function () {
       return element.all(by.css('#locations ti-tag-item')).count();
@@ -24,6 +29,11 @@ ProjectPage.prototype = Object.create({}, {
       return element(by.css('#locations input[type="text"]'));
     }
   },
+  technologies: {
+	    get: function () {
+	      return element(by.css('#technologies input[type="text"]'));
+	    }
+	  },
   getLastLocationText: {
     get: function () {
       return element.all(by.css('#locations .tag-item span')).last().getText();

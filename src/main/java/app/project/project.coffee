@@ -47,6 +47,7 @@ angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
     workingProject.companies = project.companies.map toList
     workingProject.locations = project.locations.map toList
     workingProject.industries = project.industries.map toList
+    workingProject.technologies = project.technologies.map toList
     workingProject.start = project.start
     workingProject.end = project.end
     workingProject.summary = project.summary

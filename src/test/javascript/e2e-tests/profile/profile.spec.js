@@ -4,6 +4,8 @@ var pathUtil = require('path');
 
 var SearchPage = require('../pages/search.page.js');
 var ProfilePage = require('../pages/profile.page.js');
+var ProjectListPage = require('../pages/projectlist.page.js');
+var ProjectPage = require('../pages/project.page.js');
 
 require('../../conf/capabilities.js');
 
@@ -11,6 +13,8 @@ describe('profile page', function () {
 
   var searchPage;
   var profilePage;
+  var projectListPage;
+  var projectPage;
   beforeEach(function () {
     searchPage = new SearchPage();
     searchPage.addProfile();
@@ -212,7 +216,78 @@ describe('profile page', function () {
     profilePage.reject();
     expect(profilePage.thumbnailPath).toBe(oldThumbnailPath);
   });
-
+  
+  it('should load default values from project if field are empty', function() {
+	  var startField = element(by.id('start-0'));
+	  var endField = element(by.id('end-0'));
+	  var locationsField = element(by.id('projectAssociations-locations-0'));
+	  var technologiesField = element(by.id('projectAssociations-technologies-0'));
+	  buildProjectStructure("TestLocation", "TestTechnologies", '01.03.01', '01.03.01');
+	  profilePage.addProjectAssociation();
+	  profilePage.selectLastProjectInLastProjectAssociation();
+	  expect(startField.getAttribute('value')).toContain('01.03.01');
+	  expect(endField.getAttribute('value')).toContain('01.03.01');
+	  expect(profilePage.getLastLocationText).toBe("TestLocation");
+	  expect(profilePage.getLastTechnologieText).toBe("TestTechnologies");	  
+  });
+  it('should display default values from project below if field are empty', function() {
+	  var startField = element(by.id('start-0'));
+	  var endField = element(by.id('end-0'));
+	  var locationsField = element(by.id('projectAssociations-locations-0'));
+	  var technologiesField = element(by.id('projectAssociations-technologies-0'));
+	  buildProjectStructure("TestLocation", "TestTechnologies", '01.03.01', '01.03.01');
+	  profilePage.addProjectAssociation();
+	  profilePage.selectLastProjectInLastProjectAssociation();
+	  expect(startField.getAttribute('value')).toContain('01.03.01');
+	  expect(endField.getAttribute('value')).toContain('01.03.01');
+	  expect(profilePage.getLastLocationText).toBe("TestLocation");
+	  expect(profilePage.getLastTechnologieText).toBe("TestTechnologies");	  
+  });
+  
+  it('should not load default values from project if field are full', function() {
+	  var startField = element(by.id('start-0'));
+	  var endField = element(by.id('end-0'));
+	  var locationsField = element(by.id('projectAssociations-locations-0'));
+	  var technologiesField = element(by.id('projectAssociations-technologies-0'));
+	  buildProjectStructure("TestLocation", "TestTechnologies", '01.03.01', '01.03.01');
+	  profilePage.addProjectAssociation();
+	  profilePage.selectLastProjectInLastProjectAssociation();
+	  profilePage.save();
+	  expect(startField.getAttribute('value')).toContain('01.03.01');
+	  expect(endField.getAttribute('value')).toContain('01.03.01');
+	  expect(profilePage.getLastLocationText).toBe("TestLocation");
+	  expect(profilePage.getLastTechnologieText).toBe("TestTechnologies");	  
+  });
+  
+  function buildProjectStructure(location, technologie, start, end) {
+	  projectListPage = new ProjectListPage();
+	  projectListPage.addProjectAndReturnToProjectList();
+	  projectListPage.openLastProject();
+	  projectPage = new ProjectPage();
+	  var locations = projectPage.locations;
+	  locations.click();
+	  locations.sendKeys(location);
+	  locations.sendKeys(protractor.Key.ENTER);
+	  var techonologies = projectPage.technologies;
+	  techonologies.click();
+	  techonologies.sendKeys(technologie);
+	  techonologies.sendKeys(protractor.Key.ENTER);
+	  var inputDate = start;
+	  var inputStart = projectPage.start;
+	  inputStart.click();
+	  inputStart.clear();
+	  inputStart.sendKeys(inputDate);
+	  var inputDate = end;
+	  var inputEnd = projectPage.end;
+	  inputEnd.click();
+	  inputEnd.clear();
+	  inputEnd.sendKeys(inputDate);
+	  projectPage.save();
+	  searchPage = new SearchPage();
+	  searchPage.openLastProfile();
+	  profilePage = new ProfilePage;
+  }
+  
   function getFileName() {
     if (browser.inWindows()) {
       return "C:\\Users\\Public\\Pictures\\Sample Pictures\\flagge.gif";

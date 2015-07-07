@@ -16,9 +16,10 @@ angular.module('app', [
     requireBase: false
   RestangularProvider.setBaseUrl('/api/')
   tagsInputConfigProvider.setDefaults 'tagsInput',
-    minLength: 1
-    replaceSpacesWithDashes: false
-    allowLeftoverText: true
+  	placeholder: ''
+  	minLength: 1
+  	replaceSpacesWithDashes: false
+  	allowLeftoverText: true
   .setDefaults 'autoComplete',
     minLength: 1
   return
