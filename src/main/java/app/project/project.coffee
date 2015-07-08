@@ -93,6 +93,7 @@ angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
   $scope.getTags = (name) ->
     tagService.getTag(name)
 
+
   $scope.open = ($event, datepicker) ->
     $event.preventDefault();
     $event.stopPropagation();

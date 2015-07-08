@@ -1,4 +1,3 @@
-
 angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'ngFileUpload', 'ui.bootstrap', 'ngDialog'])
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
@@ -17,9 +16,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   $scope.projects = projects
   $scope.originProfile = angular.copy($scope.profile)
   tagService.loadTags()
-  
-  $scope.opened = []
-  
+  $scope.opened = []  
   $scope.opened =
 	    start: false
 	    end: false
@@ -228,5 +225,6 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
         if(value == '0')
           return $scope.cancel()  
       )
+
   convertDate = (target) ->
     return $filter('date')(target, 'yyyy-MM-dd', 'GMT+0200')
