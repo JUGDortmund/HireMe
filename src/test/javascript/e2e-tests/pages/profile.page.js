@@ -88,7 +88,17 @@ ProfilePage.prototype = Object.create({}, {
 		get: function () {
 		  return element.all(by.css('#projectAssociations-locations-0 .tag-item span')).last().getText();
 		}
-	  }
+  },
+  download:{
+	  value:function(){
+		  element(by.id('download-button')).click();
+         }
+  },
+  getTemplate:{
+	value: function(template){
+		return element(by.id(template)).getText();
+	}  
+  }
 });
 
 module.exports = ProfilePage;

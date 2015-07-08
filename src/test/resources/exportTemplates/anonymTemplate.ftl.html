@@ -1,0 +1,362 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<#-- @ftlvariable name="" type="model.Profile" -->
+<head>
+    <title>${mainFocus[0]}</title>
+    <style type="text/css">
+        @font-face {
+          font-family: 'brandon';
+          font-style: normal;
+          font-weight: 100;
+          src: url('BrandonText-Bold.otf');
+          -fs-pdf-font-embed: embed;
+          -fs-pdf-font-encoding: Identity-H;
+        }
+        
+        * {
+           font-family: 'brandon';
+           font-size: 12px;
+        }
+    
+        #content {
+
+        }
+
+        #intro {
+            position: relative;
+        }
+
+        #profileimage {
+            margin-top: 20px;
+            height: 175px;
+        }
+
+        #careerLevel {
+        }
+
+        #maredit-address {
+            clear: right;
+            vertical-align: bottom;
+            color: #A6A6A6;
+        }
+
+        .block {
+            width: 100%;
+            margin-top: 20px;
+            clear: left;
+        }
+
+        .block .h3 {
+            text-transform: uppercase;
+        }
+
+        .block label {
+            display: inline-block;
+            width: 175px;
+            text-align: right;
+            vertical-align: top;
+        }
+
+        .block span {
+            display: inline-block;
+            max-width: 380px;
+            padding-left: 15px;
+            color: black;
+        }
+
+        .left {
+            float: left;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .right {
+            float: right;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .blue {
+            color: #3c8dbc;
+        }
+
+        .orange {
+            color: #ff7701;
+        }
+
+        .green {
+            color: #00a65a;
+        }
+
+        .purple {
+            color: #8064a2;
+        }
+
+        .h1 {
+            font-size: 42px;
+            width: 380px;
+            float: right;
+            margin-bottom: 20px;
+            margin-top: 5px;
+        }
+        .h4{
+        	font-size: 22px;
+        	margin-top: 2px;
+          
+		}
+        hr {
+            margin-top: 30px;
+            margin-bottom: 30px;
+            border: 0;
+            height: 1px;
+            background: #333 linear-gradient(to right, #ccc, #333, #ccc);
+        }
+
+        .header {
+            margin-top: 10px;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            font-size: 14px;
+            position: running(header);
+        }
+
+        .footer {
+            margin-bottom: 10px;
+            position: running(footer);
+        }
+
+        .footer img {
+            width: 175px;
+            max-height: 100%;
+        }
+
+        @media print {
+            .page-break {
+                display: block;
+                page-break-before: always;
+            }
+        }
+
+        @page {
+            margin: 25mm 25mm 25mm 25mm;
+
+            @top-left {
+                content: element(header);
+            }
+
+            @bottom-right {
+                content: element(footer);
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+<div class="header">
+    <p class="h2">Mitarbeiterprofil.</p>
+    <hr/> 
+</div>
+<div class="footer">
+    <img class="right" src="maredit-logo.png" alt="maredit-logo"/>
+</div>
+<div id="content">
+
+    <div id="intro">
+        <img id="profileimage" src="defaultProfileImage.png" alt="ffs"/>
+
+        <div class="right text-right">
+            <p id="careerLevel" class="blue">
+            ${careerLevel}
+            </p>
+			
+            <p class="h1">
+            ${mainFocus[0]}     
+            <p class ="h4">
+  			${mainFocus[1]}
+
+            </p>
+            </p>
+
+            <p id="maredit-address">maredit GmbH &middot; Sebrathweg 20 &middot; 44149 Dortmund &middot; www.maredit.de</p>
+        </div>
+    </div>
+    <div id="personal" class="block left blue">
+        <p class="h3">Person.</p>
+
+    <#if (firstname)?has_content>
+        <p>
+            <label>Name:</label>
+            <span>N.N.</span>
+        </p>
+    </#if>
+    <#if (lastname)?has_content>
+        <p>
+            <label>Vorname: </label>
+            <span>N.N.</span>
+        </p>
+    </#if>
+    <#if (degrees)?has_content>
+        <p>
+            <label>Abschluss: </label>
+            <span>${degrees}</span>
+        </p>
+    </#if>
+    <#if (careerLevel)?has_content>
+        <p>
+            <label>Karrierestufe: </label>
+            <span>${careerLevel}</span>
+        </p>
+    </#if>
+    <#if (workExperience)?has_content>
+        <p>
+            <label>Berufserfahrung seit: </label>
+            <span>
+            N.N.
+            </span>
+        </p>
+    </#if>
+    <#if (languages)?has_content>
+        <p>
+            <label>Fremdsprachen: </label>
+            <span>${languages}</span>
+        </p>
+    </#if>
+    </div>
+    <div id="experiences" class="block left green">
+        <p class="h3">Erfahrungen.</p>
+    <#if industries?has_content>
+        <p>
+            <label>Branchen:</label>
+            <span>${industries}</span>
+        </p>
+    </#if>
+    </div>
+    <div id="knowledge" class="block left orange">
+        <p class="h3">Kenntnisse.</p>
+    <#if platforms?has_content>
+        <p>
+            <label>Platformen:</label>
+            <span>${platforms}</span>
+        </p>
+    </#if>
+    <#if opSystems?has_content>
+        <p>
+            <label>Betriebssysteme:</label>
+            <span>${opSystems}</span>
+        </p>
+    </#if>
+    <#if progLanguages?has_content>
+        <p>
+            <label>Programmiersprachen:</label>
+            <span>${progLanguages}</span>
+        </p>
+    </#if>
+    <#if webTechnologies?has_content>
+        <p>
+            <label>Web-Technologien:</label>
+            <span>${webTechnologies}</span>
+        </p>
+    </#if>
+    <#if devEnvironments?has_content>
+        <p>
+            <label>Entwicklungswerkzeuge:</label>
+            <span>${devEnvironments}</span>
+        </p>
+    </#if>
+    <#if qualifications?has_content>
+        <p>
+            <label>Qualifikationen</label>
+            <span>${qualifications}</span>
+        </p>
+    </#if>
+        <hr/>
+    </div>
+    <div id="summary" class="block">
+        <p class="h3">Zusammenfassung</p>
+    <#if summary?has_content>
+    ${summary}
+    </#if>
+    </div>
+<#list projectAssociations as projectAssociation>
+    <div class="page-break"></div>
+    <div class="block left purple project">
+        <p class="h3">KLIENT.</p>
+        <#if projectAssociation.project?has_content &&
+        projectAssociation.project.companies?has_content>
+            <p>
+                <label>Firma:</label>
+                <span>N.N.</span>
+            </p>
+        </#if>
+        <#if (projectAssociation.project)?has_content && projectAssociation.project.locations?has_content>
+            <p>
+                <label>Standort:</label>
+                <span>${projectAssociation.project.locations}</span>
+            </p>
+        </#if>
+        <#if (projectAssociation.project)?has_content && projectAssociation.project.industries?has_content>
+            <p>
+                <label>Branche:</label>
+                <span>${projectAssociation.project.industries}</span>
+            </p>
+        </#if>
+        <#if (projectAssociation.project)?has_content && projectAssociation.project.title?has_content>
+            <p>
+                <label>Projekttitel: </label>
+                <span>N.N.</span>
+            </p>
+        </#if>
+        <#if projectAssociation.locations?has_content>
+            <p>
+                <label>Einsatzorte:</label>
+                <span>${projectAssociation.locations}</span>
+            </p>
+        </#if>
+        <#if projectAssociation.start?has_content || projectAssociation.end?has_content>
+            <p>
+                <label>Zeitraum:</label>
+            <span><#if projectAssociation.start?has_content>${projectAssociation.start}</#if> <#if projectAssociation.end?has_content>
+                - ${projectAssociation.end}</#if></span>
+            </p>
+        </#if>
+        <hr/>
+    </div>
+    <div class="block">
+        <#if (projectAssociation.project)?has_content && projectAssociation.project.summary?has_content>
+            <p class="h3">Projektbeschreibung:</p>
+
+            <p>${projectAssociation.project.summary}</p>
+        </#if>
+        <#if projectAssociation.positions?has_content>
+            <p class="h3">Position:</p>
+            <ul>
+                <#list projectAssociation.positions as position>
+                    <li>${position}</li>
+                </#list>
+            </ul>
+        </#if>
+        <#if projectAssociation.tasks?has_content>
+            <p class="h3">Aufgaben:</p>
+
+            <p>${projectAssociation.tasks}</p>
+        </#if>
+        <#if projectAssociation.technologies?has_content>
+            <p class="h3">Technologien:</p>
+            <ul>
+                <#list projectAssociation.technologies as technology>
+                    <li>${technology}</li>
+                </#list>
+            </ul>
+        </#if>
+    </div>
+</#list>
+</div>
+
+</body>
+</html>

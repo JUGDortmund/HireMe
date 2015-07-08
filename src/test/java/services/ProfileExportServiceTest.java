@@ -59,7 +59,7 @@ public class ProfileExportServiceTest {
     profileExportService =
         new ProfileExportService(mapper, new FreemarkerConfigurationProvider().get());
     templateExportService = new TemplateExportService(mapper);
-    template = templateExportService.getTemplate("TestTemplate");
+    template = templateExportService.getTemplate("Standard");
     profile = new Profile();
     profile.setFirstname("Max");
     profile.setLastname("Mustermann");

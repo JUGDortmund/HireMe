@@ -33,7 +33,7 @@ public class ProfileExportControllerTest extends NinjaDocTester {
     profile.setLastname("Mustermann");
     getInjector().getInstance(Datastore.class).save(profile);
     template =
-        new ExportTemplateDefinition("testTemplate", "template.ftl.html",
+        new ExportTemplateDefinition("Standard", "template.ftl.html",
             "maredit_${firstname}_${lastname}_$today.pdf");
   }
 
@@ -60,16 +60,17 @@ public class ProfileExportControllerTest extends NinjaDocTester {
   }
 
   @Test
-  public void exportProfileWithoutIdHasStatus400() throws Exception {
+  public void exportProfileWithoutIdAndTemplateHasStatus400() throws Exception {
     final Response response =
-        sayAndMakeRequest(Request.GET().url(testServerUrl().path(API_REQUEST_PATH)));
+        sayAndMakeRequest(Request.GET().url(testServerUrl().path(API_REQUEST_PATH + "/")));
     assertThat(response.httpStatus).isEqualTo(400);
   }
 
   @Test
-  public void exportProfileWithInvalidIdHasStatus400() throws Exception {
+  public void exportProfileWithInvalidIdAndInvalidTemplateHasStatus400() throws Exception {
     final Response response =
-        sayAndMakeRequest(Request.GET().url(testServerUrl().path(API_REQUEST_PATH + 400)));
+        sayAndMakeRequest(Request.GET().url(
+            testServerUrl().path(API_REQUEST_PATH + 400 + "/" + 400)));
     assertThat(response.httpStatus).isEqualTo(400);
   }
 

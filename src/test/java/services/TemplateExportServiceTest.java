@@ -26,15 +26,13 @@ public class TemplateExportServiceTest {
   }
 
   @Test
-  public void getTemplate() {
-    assertThat(templateExportService.getTemplate("TestTemplate").getName()).isEqualTo(
-        "TestTemplate");
+  public void getStandardTemplate() {
+    assertThat(templateExportService.getTemplate("Standard").getName()).isEqualTo("Standard");
   }
 
   @Test
   public void getAnonymTemplate() {
-    assertThat(templateExportService.getTemplate("AnonymTemplate").getName()).isEqualTo(
-        "AnonymTemplate");
+    assertThat(templateExportService.getTemplate("Anonym").getName()).isEqualTo("Anonym");
   }
 
 }

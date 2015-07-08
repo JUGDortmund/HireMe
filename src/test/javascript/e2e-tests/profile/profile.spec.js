@@ -259,6 +259,12 @@ describe('profile page', function () {
 	  expect(profilePage.getLastTechnologieText).toBe("TestTechnologies");	  
   });
   
+  it('should able to download anonym and standrad pdf ', function(){
+	 profilePage.download(); 
+	 expect(profilePage.getTemplate('Anonym')).toBe("Anonym");
+	 expect(profilePage.getTemplate('Standard')).toBe("Standard");
+  });
+  
   function buildProjectStructure(location, technologie, start, end) {
 	  projectListPage = new ProjectListPage();
 	  projectListPage.addProjectAndReturnToProjectList();
@@ -296,4 +302,5 @@ describe('profile page', function () {
       return pathUtil.resolve(__dirname, defaultImage);
     }
   }
+  
 });

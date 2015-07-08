@@ -29,10 +29,10 @@
                                         <div class ="dropdown">
 											<a id="download-button" class="dropdown-toggle btn btn-primary" type="button" data-toggle="dropdown" aria-expanded="false">
 												<i class="fa fa-download"></i>
-												PDF Export</a>
+												${i18n('profile.pdf.download')}</a>
 											<ul class="dropdown-menu" >
 												<li ng-repeat="template in templates">
-													<a href="/api/exportProfile/{{profile.id}}/{{template.name}}" target="_blank">{{template.name}}</a>
+													<a id ={{template.name}} href="/api/exportProfile/{{profile.id}}/{{template.name}}" target="_blank">{{template.name}}</a>
 												</li>
 											</ul>
 										</div>

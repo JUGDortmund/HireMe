@@ -20,10 +20,6 @@
                     <strong>${i18n('message.upload.error.header')}</strong>
                     ${i18n('message.upload.error.content')}
                 </div>
-                <div class="alert alert-warning alert-dismissible" role="alert" ng-show = "errorDuplicateUndefined">
-                    <strong>${i18n('message.error.duplicate.header')}</strong>
-                    <strong> '{{ textTag }}' </strong> ${i18n('message.error.duplicate.content')} <p>${i18n('message.error.duplicate.undefined')} </p>
-                </div>
                 <div class="box border-box">
                     <div class="header-text">
                         <div id="upload"
@@ -55,7 +51,7 @@
 							${i18n('profile.pdf.download')}</a>
 							<ul class="dropdown-menu dropdown-menu-right " >
 								<li ng-repeat="template in templates">
-									<a target="_blank" ng-href="/api/exportProfile/{{profile.id}}/{{template.name}}">{{template.name}}</a>
+									<a target="_blank" id="{{template.name}}" ng-href="/api/exportProfile/{{profile.id}}/{{template.name}}">{{template.name}}</a>
 								</li>
 							</ul>
 						</div>
