@@ -1,21 +1,7 @@
 package controllers.api;
 
-import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
-import com.google.common.eventbus.EventBus;
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-
-import exception.ElementNotFoundException;
-
-import org.bson.types.ObjectId;
-import org.mongodb.morphia.Datastore;
-
-import java.util.Date;
-
 import model.Profile;
 import model.events.EntityChangedEvent;
-
 import ninja.Result;
 import ninja.Results;
 import ninja.exceptions.BadRequestException;
@@ -24,6 +10,17 @@ import ninja.jaxy.POST;
 import ninja.jaxy.PUT;
 import ninja.jaxy.Path;
 import ninja.params.PathParam;
+
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.Datastore;
+
+import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
+import com.google.common.eventbus.EventBus;
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+
+import exception.ElementNotFoundException;
 
 @Singleton
 @Path("/api/profile")
@@ -63,8 +60,6 @@ public class ProfileController {
     profile.setFirstname("Max");
     profile.setLastname("Mustermann");
     profile.setCareerLevel(Lists.newArrayList("Manager"));
-    // TODO: remove date init and adapt frontent to handle empty dates
-    profile.setWorkExperience(new Date());
     datastore.save(profile);
     return Results.status(Result.SC_201_CREATED).json().render(profile);
   }

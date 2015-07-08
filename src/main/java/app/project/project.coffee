@@ -10,7 +10,7 @@ angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
       project: (Restangular, $route) ->
         Restangular.one('project', $route.current.params.projectId).get()
         
-.controller 'ProjectCtrl', ($scope, $timeout, Restangular, project, $document, $parse, tagService, $rootScope, ngDialog) ->
+.controller 'ProjectCtrl', ($scope, $timeout, Restangular, project, $document, $parse, tagService, $rootScope, ngDialog, $filter) ->
   $scope.project = project 
   $scope.openedWorkexperience = false;
   $scope.opened = []
@@ -56,8 +56,8 @@ angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
     workingProject.locations = project.locations.map toList
     workingProject.industries = project.industries.map toList
     workingProject.technologies = project.technologies.map toList
-    workingProject.start = project.start
-    workingProject.end = project.end
+    workingProject.start = convertDate(project.start)
+    workingProject.end = convertDate(project.end)
     workingProject.summary = project.summary
     Restangular.one('project', project.id).customPUT(workingProject);
 
@@ -123,3 +123,5 @@ angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
         if(value == '0')
           return $scope.cancel()  
       )
+  convertDate = (target) ->
+    return $filter('date')(target, 'yyyy-MM-dd', 'GMT+0200')

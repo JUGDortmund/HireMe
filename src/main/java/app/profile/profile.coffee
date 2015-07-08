@@ -12,7 +12,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
         Restangular.one('profile', $route.current.params.profileId).get()
       projects: (Restangular) ->
         Restangular.all('project').getList()
-.controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, Upload, projects, $document, $parse, tagService, $rootScope, ngDialog) ->
+.controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, Upload, projects, $document, $parse, tagService, $rootScope, ngDialog, $filter) ->
   $scope.profile = profile
   $scope.projects = projects
   $scope.originProfile = angular.copy($scope.profile)
@@ -48,7 +48,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     workingProfile.lastname = profile.lastname
     workingProfile.degrees = profile.degrees.map toList
     workingProfile.careerLevel = profile.careerLevel.map toList
-    workingProfile.workExperience = profile.workExperience
+    workingProfile.workExperience = convertDate(profile.workExperience)
     workingProfile.languages = profile.languages.map toList
     workingProfile.industries = profile.industries.map toList
     workingProfile.platforms = profile.platforms.map toList
@@ -63,8 +63,8 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
       workingProject = {}
       workingProject.id = project.id
       workingProject.project = project.project
-      workingProject.end = project.end if project.end?
-      workingProject.start = project.start if project.start?
+      workingProject.end = convertDate(project.end) if project.end?
+      workingProject.start = convertDate(project.start) if project.start?
       workingProject.locations = project.locations.map toList if project.locations?
       workingProject.positions = project.positions.map toList if project.positions?
       workingProject.technologies = project.technologies.map toList if project.technologies?
@@ -197,6 +197,10 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   $scope.open = ($event, datepicker) ->
     $event.preventDefault();
     $event.stopPropagation();
+    $scope.opened =
+	    start: false
+	    end: false
+	    workExperience: false
     $scope.opened[datepicker] = true;
     return
   
@@ -224,3 +228,5 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
         if(value == '0')
           return $scope.cancel()  
       )
+  convertDate = (target) ->
+    return $filter('date')(target, 'yyyy-MM-dd', 'GMT+0200')
