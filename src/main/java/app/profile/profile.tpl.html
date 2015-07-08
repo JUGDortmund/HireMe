@@ -51,7 +51,7 @@
 							${i18n('profile.pdf.download')}</a>
 							<ul class="dropdown-menu dropdown-menu-right " >
 								<li ng-repeat="template in templates">
-									<a target="_blank" id="{{template.name}}" ng-href="/api/exportProfile/{{profile.id}}/{{template.name}}">{{template.name}}</a>
+									<a target="_self" id="{{template.name}}" ng-href="/api/exportProfile/{{profile.id}}/{{template.name}}">{{template.name}}</a>
 								</li>
 							</ul>
 						</div>
