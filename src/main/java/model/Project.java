@@ -26,6 +26,9 @@ public class Project extends BaseModel {
   @Tag
   private List<String> industries = new ArrayList<>();
 
+  @Tag
+  private List<String> technologies = new ArrayList<>();
+
   private String title;
   private String summary;
   private Date start;
@@ -61,6 +64,14 @@ public class Project extends BaseModel {
 
   public void setIndustries(List<String> industries) {
     this.industries = industries;
+  }
+
+  public List<String> getTechnologies() {
+    return technologies;
+  }
+
+  public void setTechnologies(List<String> technologies) {
+    this.technologies = technologies;
   }
 
   public String getTitle() {

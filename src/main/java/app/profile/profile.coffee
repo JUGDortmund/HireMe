@@ -24,7 +24,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     $scope.profile.workExperience = ""
   $scope.originProfile = angular.copy($scope.profile)
   tagService.loadTags()
-
+  
   showMessage = (targetName, keepChangeIndicators) ->
     target = $parse(targetName)
     target.assign($scope, true)
@@ -115,14 +115,57 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   $scope.addProjectAssociation = ->
     if !$scope.profile.projectAssociations? then $scope.profile.projectAssociations = []
     $scope.profile.projectAssociations.push({});
+    $scope.projectData.push({})
     $scope.change()
     return
 
   $scope.deleteProjectAssociation = (index) ->
     $scope.profile.projectAssociations.splice(index, 1);
+    $scope.projectData.splice(index, 1)
     $scope.change()
     return
-
+  
+  #Loads the Default values from the project if the field is empty.
+  $scope.loadProjectDefaultsIfFieldIsEmpty = (index) ->
+    currentProjectAssociation = $scope.profile.projectAssociations[index]
+    if typeof currentProjectAssociation.locations == 'undefined' || currentProjectAssociation.locations.length == 0
+    	currentProjectAssociation.locations = currentProjectAssociation.project.locations.slice()
+    if typeof currentProjectAssociation.technologies == 'undefined' || currentProjectAssociation.technologies.length == 0
+    	currentProjectAssociation.technologies = currentProjectAssociation.project.technologies.slice()
+    if moment(currentProjectAssociation.project.start).isValid() && (typeof currentProjectAssociation.start == 'undefined' || currentProjectAssociation.start== "")
+    	currentProjectAssociation.start = moment(currentProjectAssociation.project.start).format(dateFormat)
+    if moment(currentProjectAssociation.project.end).isValid() && (typeof currentProjectAssociation.end == 'undefined' || currentProjectAssociation.end== "") 
+    	currentProjectAssociation.end = moment(currentProjectAssociation.project.end).format(dateFormat)
+    return
+  
+  #Loads the projectDefaults if the project is changed.
+  $scope.loadProjectDefaults = (index) ->
+    currentProjectAssociation = $scope.profile.projectAssociations[index]
+    data = {}
+    data.locations = currentProjectAssociation.project.locations.slice() if currentProjectAssociation.project.locations?
+    data.technologies = currentProjectAssociation.project.technologies.slice() if currentProjectAssociation.project.technologies?
+    data.start = moment(currentProjectAssociation.project.start).format(dateFormat) if moment(currentProjectAssociation.project.start).isValid()
+    data.end = moment(currentProjectAssociation.project.end).format(dateFormat) if moment(currentProjectAssociation.project.end).isValid()
+    $scope.projectData.splice(index, 1, data) 
+    $scope.loadProjectDefaultsIfFieldIsEmpty(index)
+    return
+  
+  #Loads the projectDefaults initial when the side is called.
+  loadInitialProjectDefaults = () ->
+    if $scope.profile.projectAssociations?
+      $scope.projectData = $scope.profile.projectAssociations.map (project) ->
+        data = {}
+        data.locations = project.project.locations.slice() if project.project.locations?
+        data.technologies = project.project.technologies.slice() if project.project.technologies?
+        data.start = moment(project.project.start).format(dateFormat) if project.project.start?
+        data.end = moment(project.project.end).format(dateFormat) if project.project.end?
+        return data
+    else 
+      $scope.projectData = []
+    return
+  
+  loadInitialProjectDefaults()
+  
   $scope.$watch 'files', ->
     $scope.upload $scope.files
     return
@@ -188,3 +231,4 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
         if(value == '0')
           return $scope.cancel()  
       )
+
