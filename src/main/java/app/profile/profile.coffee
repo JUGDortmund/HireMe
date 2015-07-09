@@ -16,12 +16,10 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   $scope.projects = projects
   $scope.originProfile = angular.copy($scope.profile)
   tagService.loadTags()
-  $scope.opened = []  
-  $scope.opened =
-	    start: false
-	    end: false
-	    workExperience: false
-  
+  console.log($scope)
+  $scope.workExperience = false
+  $scope.opened = []
+	    
   showMessage = (targetName, keepChangeIndicators) ->
     target = $parse(targetName)
     target.assign($scope, true)
@@ -107,12 +105,14 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     if !$scope.profile.projectAssociations? then $scope.profile.projectAssociations = []
     $scope.profile.projectAssociations.push({});
     $scope.projectData.push({})
+    $scope.projectData.push({start: false, end: false})
     $scope.change()
     return
 
   $scope.deleteProjectAssociation = (index) ->
     $scope.profile.projectAssociations.splice(index, 1);
     $scope.projectData.splice(index, 1)
+    $scope.opened.splice(index, 1)
     $scope.change()
     return
   
@@ -151,6 +151,8 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
         data.start = project.project.start if project.project.start?
         data.end = project.project.end if project.project.end?
         return data
+      $scope.opened = $scope.profile.projectAssociations.map (project) ->
+        return {start: false, end:false}
     else 
       $scope.projectData = []
     return
@@ -191,14 +193,17 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
         showMessage('uploaderror', true)
     return
     
-  $scope.open = ($event, datepicker) ->
-    $event.preventDefault();
-    $event.stopPropagation();
-    $scope.opened =
-	    start: false
-	    end: false
-	    workExperience: false
-    $scope.opened[datepicker] = true;
+  $scope.open = ($event, datepicker, index) ->
+    if(datepicker=='workExperience')
+    	$scope.workExperience = true;
+    else
+    	$event.preventDefault();
+    	$event.stopPropagation();
+    	$scope.workExperience = false;
+    	$scope.opened[index] =
+    		start: false
+    		end: false
+    	$scope.opened[index][datepicker] = true;
     return
   
   $scope.removeDuplicate = (variableName, tag, field) ->
