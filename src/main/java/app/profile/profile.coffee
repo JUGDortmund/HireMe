@@ -229,7 +229,9 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
           return $scope.save()
         if(value == '0')
           return $scope.cancel()  
-      )
+      )  
 
   convertDate = (target) ->
-    return $filter('date')(target, 'yyyy-MM-dd', 'GMT+0200')
+    date = $filter('date')(target, 'yyyy-MM-dd', 'GMT+0200')
+    console.log(date)
+    return date 

@@ -150,7 +150,7 @@
 
                             <div class="col-md-8">
 <!-- remove me after testing -->
-{{profile.workExperience}}
+{{profile.workExperience}} ${language}
 <!-- remove me after testing -->
                                 <input type="text"
                                        class="form-control"
@@ -164,7 +164,8 @@
                                        ng-click="open($event,'workExperience')"
                                        ng-model="profile.workExperience"
                                        ng-change="change('form-group-workExperience')"
-                                      />                                  
+                                       ng-readonly="true"
+                                      />
                             </div>
                            
                         </div>
