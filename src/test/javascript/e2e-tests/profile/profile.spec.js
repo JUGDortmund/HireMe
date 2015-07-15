@@ -242,7 +242,7 @@ describe('profile page', function () {
     expect(profilePage.thumbnailPath).toBe(oldThumbnailPath);
   });
   
-  fit('should load default values from project if field are empty', function() {
+  it('should load default values from project if field are empty', function() {
 	  var startField = element(by.id('start-0'));
 	  var endField = element(by.id('end-0'));
 	  var locationsField = element(by.id('projectAssociations-locations-0'));

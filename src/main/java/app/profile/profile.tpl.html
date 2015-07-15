@@ -427,7 +427,8 @@
                                                id="start-{{$index}}"
                                                ng-click="open($event,'start',$index)"
                                                ng-model="projectAssociation.start"
-                                               ng-change="change('form-group-projectAssociation-start-' + $index)"/>
+                                               ng-change="change('form-group-projectAssociation-start-' + $index)"
+                                               ng-readonly="true"/>
                                                <p class=description id="projectData-start-{{$index}}"> ${i18n('project.start')}: {{projectData[$index].start | date : 'MM/yyyy' }}
                                     </div>
                                 </div>
@@ -448,7 +449,8 @@
                                                id="end-{{$index}}"
                                                ng-click="open($event,'end',$index)"
                                                ng-model="projectAssociation.end"
-                                               ng-change="change('form-group-projectAssociation-end-' + $index)"/>
+                                               ng-change="change('form-group-projectAssociation-end-' + $index)"
+                                               ng-readonly="true"/>
                                                <p class=description id="projectData-end-{{$index}}"> ${i18n('project.end')}: {{projectData[$index].end | date : 'MM/yyyy' }}
                                     </div>
                                 </div>

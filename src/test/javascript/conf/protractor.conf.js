@@ -18,9 +18,9 @@ exports.config = {
         showColors: true,
         defaultTimeoutInterval: 30000,
         isVerbose: true,
-        includeStackTrace: false,
+        includeStackTrace: true,
         // deactivate protractor dot reporter because we use jasmine spec reporter
-        print: function() {}
+//        print: function() {}
     },
     mocks: {
         default: [],
@@ -35,16 +35,16 @@ exports.config = {
                     savePath: 'target/protractor-reports'
                 }
             ));
-        // add jasmine spec reporter
-        var SpecReporter = require('jasmine-spec-reporter');
-        jasmine.getEnv().addReporter(
-          new SpecReporter({
-              displayStacktrace: 'summary',
-              displayPendingSpec: true,
-              displaySpecDuration: true,
-              displaySuiteNumber: true
-            }
-          ));
+//        // add jasmine spec reporter
+//        var SpecReporter = require('jasmine-spec-reporter');
+//        jasmine.getEnv().addReporter(
+//          new SpecReporter({
+//              displayStacktrace: 'summary',
+//              displayPendingSpec: true,
+//              displaySpecDuration: true,
+//              displaySuiteNumber: true
+//            }
+//          ));
         require('protractor-http-mock').config = {
             rootDirectory: __dirname,
             protractorConfig: 'protractor.conf'

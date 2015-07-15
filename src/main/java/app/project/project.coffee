@@ -97,6 +97,8 @@ angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
   $scope.open = ($event, datepicker) ->
     $event.preventDefault();
     $event.stopPropagation();
+    $scope.opened.start = false
+    $scope.opened.end = false
     $scope.opened[datepicker] = true;
     return
     
@@ -124,5 +126,6 @@ angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
         if(value == '0')
           return $scope.cancel()  
       )
+      
   convertDate = (target) ->
     return $filter('date')(target, 'yyyy-MM-dd', 'GMT+0200')
