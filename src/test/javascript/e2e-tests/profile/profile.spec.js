@@ -67,13 +67,12 @@ describe('profile page', function () {
 	  });
 
   it('should set a date correctly and persist date to profile', function () {
-    var inputDate = '01.03.01';
     var inputWorkExperience = profilePage.workExperience;
     inputWorkExperience.click();
-    inputWorkExperience.clear();
-    inputWorkExperience.sendKeys(inputDate);
+    var button = element.all(by.buttonText('akt. Monat')).first();
+    button.click();  
     profilePage.save();
-    expect(inputWorkExperience.getAttribute('value')).toBe(inputDate);
+    expect(inputWorkExperience.getAttribute('value')).toBe(parseTodaysDate());
   });
 
   it('should be able to create a new tag', function () {
@@ -283,6 +282,16 @@ describe('profile page', function () {
 	  expect(profilePage.getLastLocationText).toBe("TestLocation");
 	  expect(profilePage.getLastTechnologieText).toBe("TestTechnologies");	  
   });
+  
+  function parseTodaysDate() {
+	  var date = new Date();
+	  var month = date.getMonth() + 1 ;
+	  if(month< 10) {
+		  month = "0"+month
+	  }
+	  var newdate = month + "." + date.getFullYear();
+	  return newdate;
+  }
   
   function buildProjectStructure(location, technologie, start, end) {
 	  projectListPage = new ProjectListPage();
