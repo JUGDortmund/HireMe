@@ -91,8 +91,8 @@ describe('profile page', function () {
 	    expect(profilePage.degreeTagCount).toBe(1);
 	  });
 
-
-  it('should set an invalid date and persist it after correcting it', function () {
+  // currently its not possible to enter a wrong date.
+  xit('should set an invalid date and persist it after correcting it', function () {
     var incorrectInputDate = '01.0x.01';
     var inputWorkExperience = profilePage.workExperience;
     inputWorkExperience.click();
@@ -158,18 +158,18 @@ describe('profile page', function () {
     profilePage.addProjectAssociation();
     var startField = element(by.id('start-0'));
     startField.click();
-    startField.clear();
-    startField.sendKeys("01.01.2012");
+    var button = element.all(by.buttonText('akt. Monat')).get(1);
+    button.click();  
     profilePage.save();
-    expect(startField.getAttribute('value')).toContain('01.01.2012');
+    expect(startField.getAttribute('value')).toContain(parseTodaysDate());
   });
 
   it('should be able to delete a project association', function () {
 	  profilePage.addProjectAssociation();
 	  var startField = element(by.id('start-0'));
 	  startField.click();
-	  startField.clear();
-	  startField.sendKeys("01.01.2012");
+	  var button = element.all(by.buttonText('akt. Monat')).get(1);
+	  button.click();  
 	  profilePage.deleteProjectAssociation();
 	  expect(profilePage.projectAssociationCount).toEqual(0);
   });
@@ -178,8 +178,8 @@ describe('profile page', function () {
 	  profilePage.addProjectAssociation();
 	  var startField = element(by.id('start-0'));
 	  startField.click();
-	  startField.clear();
-	  startField.sendKeys("01.01.2012");
+	  var button = element.all(by.buttonText('akt. Monat')).get(1);
+	  button.click();
 	  profilePage.save();
 	  profilePage.deleteProjectAssociation();
 	  profilePage.save();
@@ -190,39 +190,14 @@ describe('profile page', function () {
 	  profilePage.addProjectAssociation();
 	  var startField = element(by.id('start-0'));
 	  startField.click();
-	  startField.clear();
-	  startField.sendKeys("01.01.2012");
+	  var button = element.all(by.buttonText('akt. Monat')).get(1);
+	  button.click();
 	  profilePage.save();
 	  profilePage.deleteProjectAssociation();
 	  profilePage.cancel();
 	  expect(profilePage.projectAssociationCount).toEqual(0)
 	  profilePage.reject();
 	  expect(profilePage.projectAssociationCount).toEqual(1)
-  });
-  
-  it('should save profile if start date in project association is edited, cancel button is pressed, date edited again, and save button is pressed', function () {
-    var searchPage = new SearchPage();
-    searchPage.addProfile();
-    searchPage.openLastProfile();
-    profilePage.addProjectAssociation();
-    var startField = profilePage.lastProjectAssociation.element(by.css('input[id^=start-]'));
-    startField.click();
-    startField.clear();
-    startField.sendKeys("01.01.1000");
-    profilePage.save();
-    
-    startField.click();
-    startField.clear();
-    startField.sendKeys("01.01.2000");
-    profilePage.cancel();
-    
-    startField.click();
-    startField.clear();
-    startField.sendKeys("01.01.3000");
-    profilePage.save();
-
-    expect(profilePage.msgSuccess.isDisplayed()).toBeTruthy();
-    expect(profilePage.msgError.isDisplayed()).toBeFalsy();
   });
   
   it('should successfully upload a profile picture and set it after save', function () {
@@ -246,11 +221,11 @@ describe('profile page', function () {
 	  var endField = element(by.id('end-0'));
 	  var locationsField = element(by.id('projectAssociations-locations-0'));
 	  var technologiesField = element(by.id('projectAssociations-technologies-0'));
-	  buildProjectStructure("TestLocation", "TestTechnologies", '01.03.2001', '01.03.2001');
+	  buildProjectStructure("TestLocation", "TestTechnologies");
 	  profilePage.addProjectAssociation();
 	  profilePage.selectLastProjectInLastProjectAssociation();
-	  expect(startField.getAttribute('value')).toContain('01.03.2001');
-	  expect(endField.getAttribute('value')).toContain('01.03.2001');
+	  expect(startField.getAttribute('value')).toContain(parseTodaysDate());
+	  expect(endField.getAttribute('value')).toContain(parseTodaysDate());
 	  expect(profilePage.getLastLocationText).toBe("TestLocation");
 	  expect(profilePage.getLastTechnologieText).toBe("TestTechnologies");	  
   });
@@ -259,11 +234,11 @@ describe('profile page', function () {
 	  var endField = element(by.id('end-0'));
 	  var locationsField = element(by.id('projectAssociations-locations-0'));
 	  var technologiesField = element(by.id('projectAssociations-technologies-0'));
-	  buildProjectStructure("TestLocation", "TestTechnologies", '01.03.2001', '01.03.2001');
+	  buildProjectStructure("TestLocation", "TestTechnologies");
 	  profilePage.addProjectAssociation();
 	  profilePage.selectLastProjectInLastProjectAssociation();
-	  expect(startField.getAttribute('value')).toContain('01.03.2001');
-	  expect(endField.getAttribute('value')).toContain('01.03.2001');
+	  expect(startField.getAttribute('value')).toContain(parseTodaysDate());
+	  expect(endField.getAttribute('value')).toContain(parseTodaysDate());
 	  expect(profilePage.getLastLocationText).toBe("TestLocation");
 	  expect(profilePage.getLastTechnologieText).toBe("TestTechnologies");	  
   });
@@ -273,12 +248,12 @@ describe('profile page', function () {
 	  var endField = element(by.id('end-0'));
 	  var locationsField = element(by.id('projectAssociations-locations-0'));
 	  var technologiesField = element(by.id('projectAssociations-technologies-0'));
-	  buildProjectStructure("TestLocation", "TestTechnologies", '01.03.01', '01.03.01');
+	  buildProjectStructure("TestLocation", "TestTechnologies");
 	  profilePage.addProjectAssociation();
 	  profilePage.selectLastProjectInLastProjectAssociation();
 	  profilePage.save();
-	  expect(startField.getAttribute('value')).toContain('01.03.01');
-	  expect(endField.getAttribute('value')).toContain('01.03.01');
+	  expect(startField.getAttribute('value')).toContain(parseTodaysDate());
+	  expect(endField.getAttribute('value')).toContain(parseTodaysDate());
 	  expect(profilePage.getLastLocationText).toBe("TestLocation");
 	  expect(profilePage.getLastTechnologieText).toBe("TestTechnologies");	  
   });
@@ -293,7 +268,7 @@ describe('profile page', function () {
 	  return newdate;
   }
   
-  function buildProjectStructure(location, technologie, start, end) {
+  function buildProjectStructure(location, technologie) {
 	  projectListPage = new ProjectListPage();
 	  projectListPage.addProjectAndReturnToProjectList();
 	  projectListPage.openLastProject();
@@ -306,11 +281,14 @@ describe('profile page', function () {
 	  techonologies.click();
 	  techonologies.sendKeys(technologie);
 	  techonologies.sendKeys(protractor.Key.ENTER);
-	  var inputDate = start;
-	  var inputStart = projectPage.start;
-	  inputStart.click();
-	  inputStart.clear();
-	  inputStart.sendKeys(inputDate);
+	  var input = projectPage.start;
+	  input.click();
+	  var button = element.all(by.buttonText('akt. Monat')).get(0);
+	  button.click();
+	  input = projectPage.end;
+	  input.click();
+	  button = element.all(by.buttonText('akt. Monat')).get(1);
+	  button.click();
 	  projectPage.save();
 	  searchPage = new SearchPage();
 	  searchPage.openLastProfile();

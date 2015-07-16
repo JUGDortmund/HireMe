@@ -49,13 +49,12 @@ describe('project page', function () {
 	  });
 
 	  it('should set a date correctly and persist date to project', function () {
-	    var inputDate = '01.03.01';
 	    var inputStart = projectPage.start;
 	    inputStart.click();
-	    inputStart.clear();
-	    inputStart.sendKeys(inputDate);
+	    var button = element.all(by.buttonText('akt. Monat')).first();
+		button.click();
 	    projectPage.save();
-	    expect(inputStart.getAttribute('value')).toBe(inputDate);
+	    expect(inputStart.getAttribute('value')).toBe(parseTodaysDate());
 	  });
 
 	  it('should be able to create a new tag', function () {
@@ -83,8 +82,9 @@ describe('project page', function () {
 	    expect(projectPage.getLastLocationText).toBe(inputLocation);
 	    expect(projectPage.locationsTagCount).toBe(1);
 	  });
-
-	  it('should set an invalid date and persist it after correcting it', function () {
+	  
+	  // currently its not possible to enter a wrong date.
+	  xit('should set an invalid date and persist it after correcting it', function () {
 	    var incorrectInputDate = '01.0x.01';
 	    var inputStart = projectPage.start;
 	    inputStart.click();
@@ -138,27 +138,6 @@ describe('project page', function () {
 		    var suggestionsCount = element.all(by.css('.suggestion-item')).count();
 		    expect(suggestionsCount).toBe(2);
 		  });
-	  
-	  it('should save project if start date is edited, cancel button is pressed, date edited again, and save button is pressed', function () {
-	    var startField = projectPage.start
-	    startField.click();
-	    startField.clear();
-	    startField.sendKeys("01.01.1000");
-	    projectPage.save();
-	    
-	    startField.click();
-	    startField.clear();
-	    startField.sendKeys("01.01.2000");
-	    projectPage.cancel();
-	    
-	    startField.click();
-	    startField.clear();
-	    startField.sendKeys("01.01.3000");
-	    projectPage.save();
-
-	    expect(projectPage.msgSuccess.isDisplayed()).toBeTruthy();
-	    expect(projectPage.msgError.isDisplayed()).toBeFalsy();
-	  });
 	    
 	  it('schould provide tag without spaces at the front and the back',function(){
 			var locations = projectPage.locations;
@@ -187,4 +166,14 @@ describe('project page', function () {
 			locations.sendKeys(protractor.Key.ENTER);
 			expect(projectPage.getLastLocationText).toBe(inputLocation);
 	  });
+	  
+	  function parseTodaysDate() {
+		  var date = new Date();
+		  var month = date.getMonth() + 1 ;
+		  if(month< 10) {
+			  month = "0"+month
+		  }
+		  var newdate = month + "." + date.getFullYear();
+		  return newdate;
+	  }
 });	  

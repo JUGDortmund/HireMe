@@ -107,7 +107,27 @@ ProfilePage.prototype = Object.create({}, {
 		get: function () {
 		  return element.all(by.css('#projectAssociations-locations-0 .tag-item span')).last().getText();
 		}
+	  },
+  getStartDateInFirstProject: {
+	  get: function () {
+		  element(by.id('start-0'));
 	  }
+  },
+  clickTodayButtonOnDatepickerPopup: {
+	  value: function (index) {
+		  element.all(by.buttonText('akt. Monat')).get(index).click()
+	  }
+  },
+  clickClearButtonOnDatepickerPopup: {
+	  value: function (index) {
+		  element.all(by.buttonText('leeren')).get(index).click()
+	  }
+  },
+  clickRejectOnWarningPopup: {
+	  value: function () {
+		  element(by.css('button.btn.btn-primary.ngdialog-button')).click();
+	  }
+  }
 });
 
 module.exports = ProfilePage;
