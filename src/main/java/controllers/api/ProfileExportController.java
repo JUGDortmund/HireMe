@@ -3,6 +3,7 @@ package controllers.api;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 import javax.validation.constraints.NotNull;
 
@@ -60,18 +61,24 @@ public class ProfileExportController {
       throw new ElementNotFoundException();
     }
 
-    final String name;
-    if (template.contentEquals(ANONYM_TEMPLATE)) {
-      name =
-          "maredit_" + profile.getMainFocus().get(0).substring(0, 6) + "_"
-              + profile.getMainFocus().get(1).substring(0, 6) + "_"
-              + DATE_FORMAT.format(new Date()) + ".pdf";
-    } else {
-      name =
-          "maredit_" + profile.getFirstname() + "_" + profile.getLastname() + "_"
-              + DATE_FORMAT.format(new Date()) + ".pdf";
+    String[] pattern = exportTemplate.getTemplate(template).getFileNamePattern().split("_");
+    final Map dataModel = exportService.transformModelToTemplateValues(profile);
+    String name = "";
+    for (String element : pattern) {
+      System.out.println(element);
+      if (!element.startsWith("$")) {
+        name += element + "_";
+      } else {
+        if (element.contains("$today.pdf")) {
+          name += DATE_FORMAT.format(new Date()) + ".pdf";
+        } else {
+          name +=
+              dataModel.get(element.substring(element.indexOf("{") + 1, element.lastIndexOf("}")))
+                  + "_";
+        }
+      }
     }
-    String PDFname = name.replaceAll("\\s", "_");
+    final String PDFname = name.replaceAll("\\s", "_");
 
     return Results
         .ok()

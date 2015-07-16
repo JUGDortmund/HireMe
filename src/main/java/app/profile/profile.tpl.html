@@ -146,25 +146,22 @@
                     			 </div>
                             </div>
                         </div>
-                        <div class="form-group" id="form-group-mainFocus">
-                            <label for="careerLevel" class="control-label col-md-4">${i18n('profile.personal.mainFocus')}</label>
+                        <div class="form-group" id="form-group-firstMainFocus">
+                            <label for="firstMainLevel" class="control-label col-md-4">${i18n('profile.personal.firstMainFocus')}</label>
 
                             <div class="col-md-8">
-                                <tags-input type="text" name="mainFocus" id="mainFocus"
-                                            placeholder="${i18n('form.addTag')}"
-                                            text="mainFocusText"
-                                            on-tag-adding="checkTag('mainFocusText', $tag)"
-                                            class="ng-tags-custom" ng-model="profile.mainFocus"
-                                            on-tag-added="change('form-group-mainFocus')"
-                                            on-tag-removed="change('form-group-mainFocus')">
-                                    <auto-complete source="getTags('mainFocus1')|filter:$query"
-                                            ></auto-complete>
-                                </tags-input>
-                                      <div class ="form-control alert-dismissible" ng-if ="tagMaximal">
-										<i class ="glyphicon glyphicon-exclamation-sign"> </i>
-											<strong>${i18n('message.error.duplicate.header')}</strong>
-                    			 			${i18n('message.error.maximalTag')}
-                    			 	 </div>
+                                     <input type="text" name="firstMainFocus" id="firstMainFocus"
+                                       class="form-control" ng-model="profile.firstMainFocus"
+                                       ng-change="change('form-group-firstMainFocus')"/>
+                            </div>
+                        </div>
+                        <div class="form-group" id="form-group-secondMainFocus">
+                            <label for="firstMainLevel" class="control-label col-md-4">${i18n('profile.personal.secondMainFocus')}</label>
+
+                            <div class="col-md-8">
+                                     <input type="text" name="secondMainFocus" id="secondMainFocus"
+                                       class="form-control" ng-model="profile.secondMainFocus"
+                                       ng-change="change('form-group-secondMainFocus')"/>
                             </div>
                         </div>
                         <div class="form-group" id="form-group-workExperience">
@@ -589,7 +586,7 @@
  			ng-click="closeThisDialog('1')">${i18n('buttonDialog.save')}</button>
 		<button id="reject-button" type="button" ng-click="closeThisDialog('0')" class="btn btn-primary ngdialog-button">${i18n('buttonDialog.reject')}</button>
 	</div>
-</script>    
+</script>   
 </section>
 
 

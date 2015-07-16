@@ -1,5 +1,5 @@
 {
   "name": "Anonym",
   "templatePath": "anonymTemplate.ftl.html",
-  "fileNamePattern": "maredit_${mainFocus}_${mainFocus}_$today.pdf"
+  "fileNamePattern": "maredit_${firstMainFocus}_${secondMainFocus}_$today.pdf"
 }

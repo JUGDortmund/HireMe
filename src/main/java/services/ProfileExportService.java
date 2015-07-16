@@ -87,7 +87,7 @@ public class ProfileExportService {
   }
 
   @SuppressWarnings("unchecked")
-  private <T extends BaseModel> Map transformModelToTemplateValues(@NotNull final T model) {
+  public <T extends BaseModel> Map transformModelToTemplateValues(@NotNull final T model) {
     try {
       final Map dataModel = mapper.convertValue(model, Map.class);
       for (final Field field : getFields(model.getClass())) {

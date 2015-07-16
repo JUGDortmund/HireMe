@@ -49,7 +49,8 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     workingProfile.lastname = profile.lastname
     workingProfile.degrees = profile.degrees.map toList
     workingProfile.careerLevel = profile.careerLevel.map toList
-    workingProfile.mainFocus = profile.mainFocus.map toList
+    workingProfile.firstMainFocus = profile.firstMainFocus
+    workingProfile.secondMainFocus = profile.secondMainFocus
     workingProfile.workExperience = profile.workExperience
     workingProfile.languages = profile.languages.map toList
     workingProfile.industries = profile.industries.map toList
@@ -207,14 +208,6 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
       $parse(variableName).assign($scope,'')
       return
     )
-
-  $scope.checkTag = (variableName, tag) ->
-    if($scope.profile.mainFocus.length > 1)
-      showMessage('tagMaximal', true)
-      $parse(variableName).assign($scope,'')
-      return false
-    else
-      return true
     
   $rootScope.$on '$locationChangeStart',(event) ->
     if($scope.showEditModeButtons == true)

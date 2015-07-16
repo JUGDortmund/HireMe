@@ -44,7 +44,7 @@ public class TemplateExportService {
   public ExportTemplateDefinition getTemplate(String template) {
     getTemplateDefinitions();
     for (ExportTemplateDefinition i : loadedExportTemplateDefinitions) {
-      if (i.getName().contains(template)) {
+      if (i.getName().equalsIgnoreCase(template)) {
         PDFTemplate = i;
       }
     }
