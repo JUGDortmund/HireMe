@@ -392,21 +392,32 @@
                             <div class="box-body form-horizontal">
                                 <div class="form-group"
                                      id="form-group-projectAssociation-associatedProject-{{$index}}">
-                                    <label for="project-{{$index}}" class="control-label col-md-4">${i18n('profile.projects.associatedProject')}</label>
-
+                                    <label for="project-{{$index}}" class="control-label col-md-4">${i18n('profile.projects.associatedProject')}</label>                               
                                     <div class="col-md-8">
-                                        <select class="form-control"
-                                                ng-model="projectAssociation.project"
-                                                id="project-{{$index}}"
-                                                ng-options="project.title for project in projects track by project.id"
-                                                ng-show="projects && projects.length > 0"
-                                                ng-change="change('form-group-projectAssociation-associatedProject-' + $index);loadProjectDefaults($index)">
-                                        </select>
-
-                                        <div ng-hide="projects && projects.length > 0">
-                                            ${i18n('profile.projects.noProjects')}
-                                        </div>
-                                    </div>
+                                    	<div class="row">                                      
+                                    		<div class="col-md-8">
+                                        		<select class="form-control"
+                                              		ng-model="projectAssociation.project"
+                                                	id="project-{{$index}}"
+                                                	ng-options="project.title for project in projects track by project.id"
+                                                	ng-show="projects && projects.length > 0"
+                                                	ng-change="change('form-group-projectAssociation-associatedProject-' + $index);loadProjectDefaults($index)">
+                                        		</select>
+                                        	</div>
+                                        	<div class="col-md-8" ng-hide="projects && projects.length > 0">
+                                            		${i18n('profile.projects.noProjects')}
+                                        	</div>
+                                        	<div class="col-md-4">
+                                        		<a class="btn btn-block btn-danger"	
+                                        			id="delete-project-association-button-{{$index}}" 
+                                        			ng-click="deleteProjectAssociation($index)">
+                            					<span
+                                					class="glyphicon glyphicon-trash">
+                                				</span>
+                           						 ${i18n('profile.projects.deleteProject')}</a>               	
+                                    		</div>
+                                    	</div>
+                                	</div>
                                 </div>
                                 <div class="form-group"
                                      id="form-group-projectAssociation-start-{{$index}}">
@@ -547,16 +558,6 @@
                                                ng-model="projectAssociation.tasks"
                                                ng-change="change('form-group-projectAssociation-tasks-'+$index)"
                                                 />
-                                    </div>
-                                </div>
-                                <div class="form-group"
-                                     id="form-group-projectAssociation-delete-button-{{$index}}">
-                                    <div class="col-md-4 pull-right">
-                                        <button ng-click="deleteProjectAssociation($index)"
-                                                id="delete-project-association-button-{{$index}}"
-                                                class="btn btn-block btn-danger">
-                                            ${i18n('profile.projects.deleteProject')}
-                                        </button>
                                     </div>
                                 </div>
                             </div>
