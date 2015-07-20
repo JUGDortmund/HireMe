@@ -208,6 +208,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
       $parse(variableName).assign($scope,'')
       return
     )
+    return
     
   $rootScope.$on '$locationChangeStart',(event) ->
     if($scope.showEditModeButtons == true)
@@ -216,12 +217,24 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     return
 
   $scope.dialog = () ->
-    ngDialog.open(
+    ngDialog.open
       template:'warningDialog'
       preCloseCallback: (value) ->
         if(value == '1')
           return $scope.save()
         if(value == '0')
           return $scope.cancel()  
-      )
-
+    return
+      
+  $scope.downloadPDF = (template) ->
+  	if (template == 'Anonym' && (profile.firstMainFocus== '' || profile.secondMainFocus == ''))
+  	  ngDialog.openConfirm(
+  	    scope: $scope
+  	    template:'anonymDialog').then(() ->
+  	      $scope.save().then(() ->
+  	        window.open('/api/exportProfile/'+ profile.id + '/' + template, '_self' ))
+  	    )
+    else
+      window.open('/api/exportProfile/'+ profile.id + '/' + template, '_self')
+  return 
+     

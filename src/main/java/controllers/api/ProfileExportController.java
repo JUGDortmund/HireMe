@@ -65,7 +65,6 @@ public class ProfileExportController {
     final Map dataModel = exportService.transformModelToTemplateValues(profile);
     String name = "";
     for (String element : pattern) {
-      System.out.println(element);
       if (!element.startsWith("$")) {
         name += element + "_";
       } else {

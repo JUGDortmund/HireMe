@@ -51,7 +51,7 @@
 							${i18n('profile.pdf.download')}</a>
 							<ul class="dropdown-menu dropdown-menu-right " >
 								<li ng-repeat="template in templates">
-									<a target="_self" id="{{template.name}}" ng-href="/api/exportProfile/{{profile.id}}/{{template.name}}">{{template.name}}</a>
+									<a target="_self" id="{{template.name}}" ng-click= "downloadPDF(template.name)">{{template.name}}</a>
 								</li>
 							</ul>
 						</div>
@@ -586,7 +586,23 @@
  			ng-click="closeThisDialog('1')">${i18n('buttonDialog.save')}</button>
 		<button id="reject-button" type="button" ng-click="closeThisDialog('0')" class="btn btn-primary ngdialog-button">${i18n('buttonDialog.reject')}</button>
 	</div>
-</script>   
+</script> 
+ <script type="text/ng-template" id="anonymDialog">
+        <div class="ngdialog-message">
+			<div class="text-yellow">
+            <h3 >${i18n('buttonDialog.mainFocus.input')}</h3>
+			</div>
+            <div>
+               <p>${i18n('profile.personal.firstMainFocus')} <input class="form-control" type="text" ng-model="profile.firstMainFocus"/></p>
+              <p> ${i18n('profile.personal.secondMainFocus')} <input class="form-control" type="text" ng-model="profile.secondMainFocus"/></p>
+            </div>
+        </div>
+            <div class="ngdialog-buttons">
+                <button class="btn btn-default ngdialog-button ngdialog-button-secondary" ng-click= "confirm()">${i18n('buttonDialog.save')}</button>
+                <button class="btn btn-primary ngdialog-button" ng-click="closeThisDialog()">${i18n('buttonDialog.cancel')}</button>
+            </div>
+       
+    </script>   
 </section>
 
 
