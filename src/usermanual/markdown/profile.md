@@ -12,10 +12,9 @@ Es ist eine Eingabe von Freitext, Datum und Tags möglich.
 ###Profile erstellen
 
 Ein Profil kann durch den Profilbutton, oben rechts in der Menüleiste, erstellt werden.
-![](/resources/Profile_Button.png)
+![](http://stash.maredit.net/projects/COM/repos/hireme/browse/src/usermanual/resources/profile/resources/Profile_Button.png)
 In dem Menü *Profile durchsuchen* kann das erstellte Profil ausgewählt werden.
-![](/resources/Initial_Profile.png)
-
+![](http://stash.maredit.net/projects/COM/repos/hireme/browse/src/usermanual/resources/profile/Intitial_Profile.png?raw)
 ###Profile ändern
 Nach der Auswahl des Profiles kann dieser editiert werden.
 Wenn ein Feld verändert wurde, dann ist dieses Feld orange umrandet und es erscheint ein Menü zum Speichern oder Abbrechen.
