@@ -164,8 +164,8 @@ describe('profile page', function () {
     expect(startField.getAttribute('value')).toContain(getTodaysDate());
   });
 
-  // disabled because its currently not possible for the test to click the first deleteProjectAssociationButton. It is blocked by the save/cancel buttons.
-  xit('should be able to delete a project association', function () {
+  fit('should be able to delete a project association', function () {
+	  browser.driver.manage().window().setSize(800, 600);
 	  profilePage.addProjectAssociation();
 	  var startField = element(by.id('start-0'));
 	  startField.click();
