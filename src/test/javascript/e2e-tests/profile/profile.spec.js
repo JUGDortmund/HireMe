@@ -72,7 +72,7 @@ describe('profile page', function () {
     var button = element.all(by.buttonText('akt. Monat')).first();
     button.click();  
     profilePage.save();
-    expect(inputWorkExperience.getAttribute('value')).toBe(parseTodaysDate());
+    expect(inputWorkExperience.getAttribute('value')).toBe(getTodaysDate());
   });
 
   it('should be able to create a new tag', function () {
@@ -161,7 +161,7 @@ describe('profile page', function () {
     var button = element.all(by.buttonText('akt. Monat')).get(1);
     button.click();  
     profilePage.save();
-    expect(startField.getAttribute('value')).toContain(parseTodaysDate());
+    expect(startField.getAttribute('value')).toContain(getTodaysDate());
   });
 
   it('should be able to delete a project association', function () {
@@ -224,8 +224,8 @@ describe('profile page', function () {
 	  buildProjectStructure("TestLocation", "TestTechnologies");
 	  profilePage.addProjectAssociation();
 	  profilePage.selectLastProjectInLastProjectAssociation();
-	  expect(startField.getAttribute('value')).toContain(parseTodaysDate());
-	  expect(endField.getAttribute('value')).toContain(parseTodaysDate());
+	  expect(startField.getAttribute('value')).toContain(getTodaysDate());
+	  expect(endField.getAttribute('value')).toContain(getTodaysDate());
 	  expect(profilePage.getLastLocationText).toBe("TestLocation");
 	  expect(profilePage.getLastTechnologieText).toBe("TestTechnologies");	  
   });
@@ -237,8 +237,8 @@ describe('profile page', function () {
 	  buildProjectStructure("TestLocation", "TestTechnologies");
 	  profilePage.addProjectAssociation();
 	  profilePage.selectLastProjectInLastProjectAssociation();
-	  expect(startField.getAttribute('value')).toContain(parseTodaysDate());
-	  expect(endField.getAttribute('value')).toContain(parseTodaysDate());
+	  expect(startField.getAttribute('value')).toContain(getTodaysDate());
+	  expect(endField.getAttribute('value')).toContain(getTodaysDate());
 	  expect(profilePage.getLastLocationText).toBe("TestLocation");
 	  expect(profilePage.getLastTechnologieText).toBe("TestTechnologies");	  
   });
@@ -252,13 +252,13 @@ describe('profile page', function () {
 	  profilePage.addProjectAssociation();
 	  profilePage.selectLastProjectInLastProjectAssociation();
 	  profilePage.save();
-	  expect(startField.getAttribute('value')).toContain(parseTodaysDate());
-	  expect(endField.getAttribute('value')).toContain(parseTodaysDate());
+	  expect(startField.getAttribute('value')).toContain(getTodaysDate());
+	  expect(endField.getAttribute('value')).toContain(getTodaysDate());
 	  expect(profilePage.getLastLocationText).toBe("TestLocation");
 	  expect(profilePage.getLastTechnologieText).toBe("TestTechnologies");	  
   });
   
-  function parseTodaysDate() {
+  function getTodaysDate() {
 	  var date = new Date();
 	  var month = date.getMonth() + 1 ;
 	  if(month< 10) {

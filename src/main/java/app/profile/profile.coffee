@@ -16,9 +16,8 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   $scope.projects = projects
   $scope.originProfile = angular.copy($scope.profile)
   tagService.loadTags()
-  console.log($scope)
-  $scope.workExperience = false
-  $scope.opened = []
+  $scope.openedWorkExperienceDatepickerPopup = false
+  $scope.openedDatepickerPopup = []
 	    
   showMessage = (targetName, keepChangeIndicators) ->
     target = $parse(targetName)
@@ -193,17 +192,17 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
         showMessage('uploaderror', true)
     return
     
-  $scope.open = ($event, datepicker, index) ->
+  $scope.openDatepickerPopup = ($event, datepicker, index) ->
     if(datepicker=='workExperience')
-    	$scope.workExperience = true;
+    	$scope.workExperienceDatepickerPopup = true;
     else
     	$event.preventDefault();
     	$event.stopPropagation();
-    	$scope.workExperience = false;
-    	$scope.opened[index] =
+    	$scope.workExperienceDatepickerPopup = false;
+    	$scope.openedDatepickerPopup[index] =
     		start: false
     		end: false
-    	$scope.opened[index][datepicker] = true;
+    	$scope.openedDatepickerPopup[index][datepicker] = true;
     return
   
   $scope.removeDuplicate = (variableName, tag, field) ->
@@ -233,5 +232,4 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
 
   convertDate = (target) ->
     date = $filter('date')(target, 'yyyy-MM-dd', 'GMT+0200')
-    console.log(date)
     return date 

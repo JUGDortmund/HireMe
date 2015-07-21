@@ -12,8 +12,7 @@ angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
         
 .controller 'ProjectCtrl', ($scope, $timeout, Restangular, project, $document, $parse, tagService, $rootScope, ngDialog, $filter) ->
   $scope.project = project 
-  $scope.openedWorkexperience = false;
-  $scope.opened = []
+  $scope.openedDatepickerPopup = []
   
   if project.start != undefined
     $scope.project.start = project.start
@@ -94,11 +93,11 @@ angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
     tagService.getTag(name)
 
 
-  $scope.open = ($event, datepicker) ->
+  $scope.openDatepickerPopup = ($event, datepicker) ->
     $event.preventDefault();
     $event.stopPropagation();
-    $scope.opened.start = false
-    $scope.opened.end = false
+    $scope.openedDatepickerPopup.start = false
+    $scope.openedDatepickerPopup.end = false
     $scope.opened[datepicker] = true;
     return
     
