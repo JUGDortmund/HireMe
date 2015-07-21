@@ -164,7 +164,7 @@ describe('profile page', function () {
     expect(startField.getAttribute('value')).toContain(getTodaysDate());
   });
 
-  fit('should be able to delete a project association', function () {
+  it('should be able to delete a project association', function () {
 	  browser.driver.manage().window().setSize(800, 600);
 	  profilePage.addProjectAssociation();
 	  var startField = element(by.id('start-0'));
