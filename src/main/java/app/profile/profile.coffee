@@ -111,7 +111,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   $scope.deleteProjectAssociation = (index) ->
     $scope.profile.projectAssociations.splice(index, 1);
     $scope.projectData.splice(index, 1)
-    $scope.opened.splice(index, 1)
+    $scope.openedDatepickerPopup.splice(index, 1)
     $scope.change()
     return
   
@@ -150,7 +150,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
         data.start = project.project.start if project.project.start?
         data.end = project.project.end if project.project.end?
         return data
-      $scope.opened = $scope.profile.projectAssociations.map (project) ->
+      $scope.openedDatepickerPopup = $scope.profile.projectAssociations.map (project) ->
         return {start: false, end:false}
     else 
       $scope.projectData = []

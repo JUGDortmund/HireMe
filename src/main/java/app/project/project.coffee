@@ -25,7 +25,7 @@ angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
   $scope.originProject = angular.copy($scope.project)       
   tagService.loadTags()
   
-  $scope.opened =
+  $scope.openedDatepickerPopup =
     start: false
     end: false
     
