@@ -171,6 +171,7 @@ describe('profile page', function () {
 	  var button = element.all(by.buttonText('akt. Monat')).get(1);
 	  button.click();  
 	  profilePage.deleteProjectAssociation();
+	  profilePage.save();
 	  expect(profilePage.projectAssociationCount).toEqual(0);
   });
 
