@@ -194,7 +194,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     
   $scope.openDatepickerPopup = ($event, datepicker, index) ->
     if(datepicker=='workExperience')
-    	$scope.workExperienceDatepickerPopup = true;
+    	$scope.openedWorkExperienceDatepickerPopup = true;
     else
     	$event.preventDefault();
     	$event.stopPropagation();
