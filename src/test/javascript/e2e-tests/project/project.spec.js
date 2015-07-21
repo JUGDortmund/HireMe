@@ -54,7 +54,7 @@ describe('project page', function () {
 	    var button = element.all(by.buttonText('akt. Monat')).first();
 		button.click();
 	    projectPage.save();
-	    expect(inputStart.getAttribute('value')).toBe(parseTodaysDate());
+	    expect(inputStart.getAttribute('value')).toBe(getTodaysDate());
 	  });
 
 	  it('should be able to create a new tag', function () {
@@ -83,21 +83,6 @@ describe('project page', function () {
 	    expect(projectPage.locationsTagCount).toBe(1);
 	  });
 	  
-	  // currently its not possible to enter a wrong date.
-	  xit('should set an invalid date and persist it after correcting it', function () {
-	    var incorrectInputDate = '01.0x.01';
-	    var inputStart = projectPage.start;
-	    inputStart.click();
-	    inputStart.clear();
-	    inputStart.sendKeys(incorrectInputDate);
-	    inputStart.sendKeys(protractor.Key.DOWN);
-	    inputStart.sendKeys(protractor.Key.ENTER);
-	    inputStart.click();
-	    var newValue = inputStart.getAttribute('value');
-	    projectPage.save();
-	    expect(inputStart.getAttribute('value')).toBe(newValue);
-	  });
-
 	  it('should be able to remove an existing tag', function () {
 	    var locations = projectPage.locations;
 	    locations.click();
@@ -167,7 +152,7 @@ describe('project page', function () {
 			expect(projectPage.getLastLocationText).toBe(inputLocation);
 	  });
 	  
-	  function parseTodaysDate() {
+	  function getTodaysDate() {
 		  var date = new Date();
 		  var month = date.getMonth() + 1 ;
 		  if(month< 10) {

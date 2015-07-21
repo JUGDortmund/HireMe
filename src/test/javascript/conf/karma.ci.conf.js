@@ -11,7 +11,7 @@ module.exports = function (config) {
             'http://localhost:8080/webjars/angular-scroll/0.7.0/angular-scroll.js',
             'http://localhost:8080/webjars/lodash/3.7.0/lodash.min.js',
             'http://localhost:8080/webjars/ng-file-upload/4.2.0/ng-file-upload.min.js',
-            'http://localhost:8080//webjars/underscorejs/1.8.3/underscore-min.js',
+            'http://localhost:8080/webjars/underscorejs/1.8.3/underscore-min.js',
             'http://localhost:8080/webjars/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.js',
             'http://localhost:8080/webjars/ngDialog/0.4.0/js/ngDialog.min.js',
             'src/main/java/app/**/*.js',

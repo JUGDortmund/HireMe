@@ -91,21 +91,6 @@ describe('profile page', function () {
 	    expect(profilePage.degreeTagCount).toBe(1);
 	  });
 
-  // currently its not possible to enter a wrong date.
-  xit('should set an invalid date and persist it after correcting it', function () {
-    var incorrectInputDate = '01.0x.01';
-    var inputWorkExperience = profilePage.workExperience;
-    inputWorkExperience.click();
-    inputWorkExperience.clear();
-    inputWorkExperience.sendKeys(incorrectInputDate);
-    inputWorkExperience.sendKeys(protractor.Key.DOWN);
-    inputWorkExperience.sendKeys(protractor.Key.ENTER);
-    inputWorkExperience.click();
-    var newValue = inputWorkExperience.getAttribute('value');
-    profilePage.save();
-    expect(inputWorkExperience.getAttribute('value')).toBe(newValue);
-  });
-
   it('should be able to remove an existing tag', function () {
     var degrees = profilePage.degrees;
     degrees.click();

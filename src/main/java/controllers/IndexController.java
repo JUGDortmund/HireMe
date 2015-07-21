@@ -1,17 +1,16 @@
 package controllers;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
-
-import services.LocalizationService;
-import services.PropertyService;
-
 import ninja.Context;
 import ninja.Result;
 import ninja.Results;
 import ninja.jaxy.GET;
 import ninja.jaxy.Path;
 import ninja.params.PathParam;
+import services.LocalizationService;
+import services.PropertyService;
+
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
 @Singleton
 @Path("")
@@ -36,8 +35,7 @@ public class IndexController {
   @Path("{template: .*}\\.tpl\\.html")
   public Result getTemplate(Context context, @PathParam("template") String templateName) {
     Result result = Results.ok().html().template("/app" + templateName + ".tpl.html");
-    addLanguageAndDateFormat(context, result);
-    return result;
+    return addLanguageAndDateFormat(context, result);
   }
 
   @GET
@@ -52,8 +50,9 @@ public class IndexController {
     return Results.ok().html().template("/app" + fileName + ".js");
   }
 
-  private void addLanguageAndDateFormat(Context context, final Result result) {
+  private Result addLanguageAndDateFormat(final Context context, final Result result) {
     result.render("language", localizationService.getLanguage(context).or("en"));
     result.render("dateFormat", localizationService.getPattern(context));
+    return result;
   }
 }

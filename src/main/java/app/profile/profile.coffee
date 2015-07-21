@@ -118,15 +118,19 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   #Loads the Default values from the project if the field is empty.
   $scope.loadProjectDefaultsIfFieldIsEmpty = (index) ->
     currentProjectAssociation = $scope.profile.projectAssociations[index]
-    if typeof currentProjectAssociation.locations == 'undefined' || currentProjectAssociation.locations.length == 0
+    if  testCurrentProjectAssociations(currentProjectAssociation, 'locations')
     	currentProjectAssociation.locations = currentProjectAssociation.project.locations.slice()
-    if typeof currentProjectAssociation.technologies == 'undefined' || currentProjectAssociation.technologies.length == 0
+    if testCurrentProjectAssociations(currentProjectAssociation, 'technologies')
     	currentProjectAssociation.technologies = currentProjectAssociation.project.technologies.slice()
-    if currentProjectAssociation.project.start != 'undefined' && (typeof currentProjectAssociation.start == 'undefined' || currentProjectAssociation.start== "")
+    if testCurrentProjectAssociations(currentProjectAssociation, 'start')
     	currentProjectAssociation.start = currentProjectAssociation.project.start
-    if currentProjectAssociation.project.end != 'undefined' && (typeof currentProjectAssociation.end == 'undefined' || currentProjectAssociation.end== "") 
+    if testCurrentProjectAssociations(currentProjectAssociation, 'end')
     	currentProjectAssociation.end = currentProjectAssociation.project.end
     return
+  
+  testCurrentProjectAssociations = (projectAssocation, type) ->
+    return (projectAssocation.project[type] != 'undefined' && (typeof projectAssocation[type] == 'undefined' || projectAssocation[type].length == 0))
+
   
   #Loads the projectDefaults if the project is changed.
   $scope.loadProjectDefaults = (index) ->
