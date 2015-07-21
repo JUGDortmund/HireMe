@@ -98,7 +98,7 @@ angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
     $event.stopPropagation();
     $scope.openedDatepickerPopup.start = false
     $scope.openedDatepickerPopup.end = false
-    $scope.opened[datepicker] = true;
+    $scope.openedDatepickerPopup[datepicker] = true;
     return
     
   $scope.removeDuplicate = (variableName, tag, field) ->
