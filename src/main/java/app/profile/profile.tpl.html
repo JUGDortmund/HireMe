@@ -338,21 +338,65 @@
                     			 </div>
                             </div>
                         </div>
-                        <div class="form-group" id="form-group-qualifications">
-                            <label for="qualifications" class="control-label col-md-4">${i18n('profile.skills.qualifications')}</label>
+                        <div class="form-group" id="form-group-databases">
+                            <label for="databases" class="control-label col-md-4">${i18n('profile.skills.databases')}</label>
 
                             <div class="col-md-8">
-                                <tags-input type="text" name="qualifications" id="qualifications"
-                                			text="qualificationsText"
+                                <tags-input type="text" name="databases" id="databases"
+                                			text="databasesText"
                                             placeholder="${i18n('form.addTag')}"
-                                            on-invalid-tag="removeDuplicate('qualificationsText', $tag,'qualifications')"
-                                            class="ng-tags-custom" ng-model="profile.qualifications"
-                                            on-tag-added="change('form-group-qualifications')"
-                                            on-tag-removed="change('form-group-qualifications')">
-                                    <auto-complete source="getTags('qualifications')|filter:$query"
+                                            on-invalid-tag="removeDuplicate('databasesText', $tag,'databases')"
+                                            class="ng-tags-custom" ng-model="profile.databases"
+                                            on-tag-added="change('form-group-databases')"
+                                            on-tag-removed="change('form-group-databases')">
+                                    <auto-complete source="getTags('databases')|filter:$query"
                                             ></auto-complete>
                                 </tags-input>
-                                <div class ="form-control alert-dismissible" ng-show = "errorDuplicatequalifications">
+                                <div class ="form-control alert-dismissible" ng-show = "errorDuplicatedatabases">
+								<i class ="glyphicon glyphicon-exclamation-sign"> </i>
+									<strong>${i18n('message.error.duplicate.header')}</strong>
+                    			 	<strong> '{{ textTag }}' </strong> ${i18n('message.error.duplicate.content')}
+                    			
+                    			 </div>
+                            </div>
+                        </div>
+                        <div class="form-group" id="form-group-certificates">
+                            <label for="certificates" class="control-label col-md-4">${i18n('profile.skills.certificates')}</label>
+
+                            <div class="col-md-8">
+                                <tags-input type="text" name="certificates" id="certificates"
+                                			text="certificatesText"
+                                            placeholder="${i18n('form.addTag')}"
+                                            on-invalid-tag="removeDuplicate('certificatesText', $tag,'certificates')"
+                                            class="ng-tags-custom" ng-model="profile.certificates"
+                                            on-tag-added="change('form-group-certificates')"
+                                            on-tag-removed="change('form-group-certificates')">
+                                    <auto-complete source="getTags('certificates')|filter:$query"
+                                            ></auto-complete>
+                                </tags-input>
+                                <div class ="form-control alert-dismissible" ng-show = "errorDuplicatecertificates">
+								<i class ="glyphicon glyphicon-exclamation-sign"> </i>
+									<strong>${i18n('message.error.duplicate.header')}</strong>
+                    			 	<strong> '{{ textTag }}' </strong> ${i18n('message.error.duplicate.content')}
+                    			
+                    			 </div>
+                            </div>
+                        </div>
+                         <div class="form-group" id="form-group-competences">
+                            <label for="competences" class="control-label col-md-4">${i18n('profile.skills.competences')}</label>
+
+                            <div class="col-md-8">
+                                <tags-input type="text" name="competences" id="competences"
+                                			text="competencesText"
+                                            placeholder="${i18n('form.addTag')}"
+                                            on-invalid-tag="removeDuplicate('competencesText', $tag,'competences')"
+                                            class="ng-tags-custom" ng-model="profile.competences"
+                                            on-tag-added="change('form-group-competences')"
+                                            on-tag-removed="change('form-group-competences')">
+                                    <auto-complete source="getTags('competences')|filter:$query"
+                                            ></auto-complete>
+                                </tags-input>
+                                <div class ="form-control alert-dismissible" ng-show = "errorDuplicatecompetences">
 								<i class ="glyphicon glyphicon-exclamation-sign"> </i>
 									<strong>${i18n('message.error.duplicate.header')}</strong>
                     			 	<strong> '{{ textTag }}' </strong> ${i18n('message.error.duplicate.content')}

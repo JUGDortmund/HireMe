@@ -54,7 +54,9 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     workingProfile.progLanguages = profile.progLanguages.map toList
     workingProfile.webTechnologies = profile.webTechnologies.map toList
     workingProfile.devEnvironments = profile.devEnvironments.map toList
-    workingProfile.qualifications = profile.qualifications.map toList
+    workingProfile.certificates = profile.certificates.map toList
+    workingProfile.competences = profile.competences.map toList
+    workingProfile.databases = profile.databases.map toList
     workingProfile.summary = profile.summary
     workingProfile.image = profile.image
     workingProfile.projectAssociations = _.map profile.projectAssociations, (project) ->

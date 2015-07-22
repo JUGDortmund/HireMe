@@ -1,18 +1,21 @@
 package model;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import model.annotations.ExcludeFromStringConcatenation;
-import model.annotations.Tag;
-import org.mongodb.morphia.annotations.Embedded;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Reference;
-import util.serializer.ResourceDeserializer;
-import util.serializer.ResourceSerializer;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import model.annotations.ExcludeFromStringConcatenation;
+import model.annotations.Tag;
+
+import org.mongodb.morphia.annotations.Embedded;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Reference;
+
+import util.serializer.ResourceDeserializer;
+import util.serializer.ResourceSerializer;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @Entity
 public class Profile extends BaseModel {
@@ -20,7 +23,7 @@ public class Profile extends BaseModel {
   private String firstname;
 
   private String lastname;
-  
+
   @Tag
   private List<String> careerLevel = new ArrayList<>();
 
@@ -51,7 +54,13 @@ public class Profile extends BaseModel {
   private List<String> devEnvironments = new ArrayList<>();
 
   @Tag
-  private List<String> qualifications = new ArrayList<>();
+  private List<String> databases = new ArrayList<>();
+
+  @Tag
+  private List<String> certificates = new ArrayList<>();
+
+  @Tag
+  private List<String> competences = new ArrayList<>();
 
   private String summary;
 
@@ -160,12 +169,28 @@ public class Profile extends BaseModel {
     this.devEnvironments = devEnvironments;
   }
 
-  public List<String> getQualifications() {
-    return qualifications;
+  public List<String> getDatabases() {
+    return databases;
   }
 
-  public void setQualifications(List<String> qualifications) {
-    this.qualifications = qualifications;
+  public void setDatabases(List<String> databases) {
+    this.databases = databases;
+  }
+
+  public List<String> getCertificates() {
+    return certificates;
+  }
+
+  public void setCertificates(List<String> certificates) {
+    this.certificates = certificates;
+  }
+
+  public List<String> getCompetences() {
+    return competences;
+  }
+
+  public void setCompetences(List<String> competences) {
+    this.competences = competences;
   }
 
   public String getSummary() {
