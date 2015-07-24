@@ -5,6 +5,6 @@ Suchseite
 
 Im Bereich *Dashboard* und *Profile durchsuchen* kann nach Personen, durch Eingabe von einem Suchbegriff in der Suchleiste, gesucht werden.
 
-![](Dashboard.png)
+![Dashboard](http://stash.maredit.net/projects/COM/repos/hireme/browse/src/usermanual/resources/search/Dashboard.png)
 
-![IntelliJ Screen Reformat Code by Commit](Search-Profile.png)
+![Suchen vom Begriff](http://stash.maredit.net/projects/COM/repos/hireme/browse/src/usermanual/resources/search/Search-Profile.png)
