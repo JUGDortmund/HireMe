@@ -129,7 +129,9 @@ describe('project page', function () {
 		    projectPage.save();
 
 			var newProjectListPage = new ProjectListPage();
-			newProjectListPage.addProject();
+			projectListPage.addProjectAndReturnToProjectList();
+			projectListPage.openLastProject();
+			projectPage = new ProjectPage();
 
 		    locations = projectPage.locations;
 		    locations.click();
