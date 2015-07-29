@@ -25,8 +25,9 @@
     
     <menu name="Anwenderdokumentation">
     	<item href="index.html" name="Überblick" />
-    	<item href="page1.html" name="Erste Unterseite" />
-    	<item href="page2.html" name="Zweite Unterseite" />
+    	<item href="search.html" name="Dashboard" />
+    	<item href="profile.html" name="Profile" />
+    	<item href="project.html" name="Projekte" />
     </menu>
 
   </body>

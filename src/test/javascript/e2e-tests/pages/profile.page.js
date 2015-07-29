@@ -127,6 +127,16 @@ ProfilePage.prototype = Object.create({}, {
 	  value: function () {
 		  element(by.css('button.btn.btn-primary.ngdialog-button')).click();
 	  }
+  },
+  download:{
+	  value:function(){
+		  element(by.id('download-button')).click();
+         }
+  },
+  getTemplate:{
+	value: function(template){
+		return element(by.id(template)).getText();
+	}  
   }
 });
 

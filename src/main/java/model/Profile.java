@@ -1,10 +1,11 @@
 package model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-import conf.Constants;
+import model.annotations.ExcludeFromStringConcatenation;
+import model.annotations.Tag;
 
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
@@ -13,12 +14,11 @@ import org.mongodb.morphia.annotations.Reference;
 import util.serializer.ResourceDeserializer;
 import util.serializer.ResourceSerializer;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
-import model.annotations.ExcludeFromStringConcatenation;
-import model.annotations.Tag;
+import conf.Constants;
 
 @Entity
 public class Profile extends BaseModel {
@@ -35,6 +35,10 @@ public class Profile extends BaseModel {
 
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_FORMAT)
   private Date workExperience;
+
+  private String firstMainFocus;
+
+  private String secondMainFocus;
 
   @Tag
   private List<String> languages = new ArrayList<>();
@@ -101,6 +105,22 @@ public class Profile extends BaseModel {
 
   public void setDegrees(List<String> degrees) {
     this.degrees = degrees;
+  }
+
+  public String getFirstMainFocus() {
+    return firstMainFocus;
+  }
+
+  public void setFirstMainFocus(String firstMainFocus) {
+    this.firstMainFocus = firstMainFocus;
+  }
+
+  public String getSecondMainFocus() {
+    return secondMainFocus;
+  }
+
+  public void setSecondMainFocus(String secondMainFocus) {
+    this.secondMainFocus = secondMainFocus;
   }
 
   public Date getWorkExperience() {

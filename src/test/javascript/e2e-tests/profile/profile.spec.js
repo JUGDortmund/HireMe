@@ -244,6 +244,13 @@ describe('profile page', function () {
 	  expect(profilePage.getLastTechnologieText).toBe("TestTechnologies");	  
   });
   
+  it('should able to download anonym and standrad pdf ', function(){
+		 profilePage.download(); 
+		 expect(profilePage.getTemplate('Anonym')).toBe("Anonym");
+		 expect(profilePage.getTemplate('Standard')).toBe("Standard");
+  });
+	  
+  
   function getTodaysDate() {
 	  var date = new Date();
 	  var month = date.getMonth() + 1 ;
@@ -253,7 +260,7 @@ describe('profile page', function () {
 	  var newdate = month + "." + date.getFullYear();
 	  return newdate;
   }
-  
+
   function buildProjectStructure(location, technologie) {
 	  projectListPage = new ProjectListPage();
 	  projectListPage.addProjectAndReturnToProjectList();
@@ -289,4 +296,5 @@ describe('profile page', function () {
       return pathUtil.resolve(__dirname, defaultImage);
     }
   }
+  
 });

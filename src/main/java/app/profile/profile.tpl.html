@@ -20,10 +20,6 @@
                     <strong>${i18n('message.upload.error.header')}</strong>
                     ${i18n('message.upload.error.content')}
                 </div>
-                <div class="alert alert-warning alert-dismissible" role="alert" ng-show = "errorDuplicateUndefined">
-                    <strong>${i18n('message.error.duplicate.header')}</strong>
-                    <strong> '{{ textTag }}' </strong> ${i18n('message.error.duplicate.content')} <p>${i18n('message.error.duplicate.undefined')} </p>
-                </div>
                 <div class="box border-box">
                     <div class="header-text">
                         <div id="upload"
@@ -49,6 +45,16 @@
                                 ${i18n('profile.image.acceptedFileTypes')}
                              </span>
                         </div>
+                                <div class ="dropdown">
+							<a id="download-button" class="dropdown-toggle btn btn-primary" type="button" data-toggle="dropdown" aria-expanded="false">
+							<i class="fa fa-download"></i>
+							${i18n('profile.pdf.download')}</a>
+							<ul class="dropdown-menu dropdown-menu-right " >
+								<li ng-repeat="template in templates">
+									<a target="_self" id="{{template.name}}" ng-click= "downloadPDF(template.name)">{{template.name}}</a>
+								</li>
+							</ul>
+						</div>
                         <div class="header-info">
                             <h2 class="headline">{{profile.firstname}} {{profile.lastname}}</h2>
 
@@ -56,12 +62,8 @@
                                 {{tagsToList(profile.careerLevel).join(', ')}}
                             </p>
                         </div>
-                        <a id="download-button" class="btn btn-primary"
-                           href="/api/exportProfile/{{profile.id}}" target="_blank">
-                            <i class="fa fa-download"></i>
-                            Download
-                        </a>
-                    </div>
+                 
+					</div>
                 </div>
                 <div ng-show="showEditModeButtons" class="no-print button-dialog">
 
@@ -140,9 +142,26 @@
                                 <div class ="form-control alert-dismissible" ng-show = "errorDuplicatecareerLevel">
 								<i class ="glyphicon glyphicon-exclamation-sign"> </i>
 									<strong>${i18n('message.error.duplicate.header')}</strong>
-                    			 	<strong> '{{ textTag }}' </strong> ${i18n('message.error.duplicate.content')}
-                    			
+                    			 	<strong> '{{ textTag }}' </strong> ${i18n('message.error.duplicate.content')}	
                     			 </div>
+                            </div>
+                        </div>
+                        <div class="form-group" id="form-group-firstMainFocus">
+                            <label for="firstMainLevel" class="control-label col-md-4">${i18n('profile.personal.firstMainFocus')}</label>
+
+                            <div class="col-md-8">
+                                     <input type="text" name="firstMainFocus" id="firstMainFocus"
+                                       class="form-control" ng-model="profile.firstMainFocus"
+                                       ng-change="change('form-group-firstMainFocus')"/>
+                            </div>
+                        </div>
+                        <div class="form-group" id="form-group-secondMainFocus">
+                            <label for="firstMainLevel" class="control-label col-md-4">${i18n('profile.personal.secondMainFocus')}</label>
+
+                            <div class="col-md-8">
+                                     <input type="text" name="secondMainFocus" id="secondMainFocus"
+                                       class="form-control" ng-model="profile.secondMainFocus"
+                                       ng-change="change('form-group-secondMainFocus')"/>
                             </div>
                         </div>
                         <div class="form-group" id="form-group-workExperience">
@@ -577,7 +596,23 @@
  			ng-click="closeThisDialog('1')">${i18n('buttonDialog.save')}</button>
 		<button id="reject-button" type="button" ng-click="closeThisDialog('0')" class="btn btn-primary ngdialog-button">${i18n('buttonDialog.reject')}</button>
 	</div>
-</script>    
+</script> 
+ <script type="text/ng-template" id="anonymDialog">
+        <div class="ngdialog-message">
+			<div class="text-yellow">
+            <h3 >${i18n('buttonDialog.mainFocus.input')}</h3>
+			</div>
+            <div>
+               <p>${i18n('profile.personal.firstMainFocus')} <input class="form-control" type="text" ng-model="profile.firstMainFocus"/></p>
+              <p> ${i18n('profile.personal.secondMainFocus')} <input class="form-control" type="text" ng-model="profile.secondMainFocus"/></p>
+            </div>
+        </div>
+            <div class="ngdialog-buttons">
+                <button class="btn btn-default ngdialog-button ngdialog-button-secondary" ng-click= "confirm()">${i18n('buttonDialog.save')}</button>
+                <button class="btn btn-primary ngdialog-button" ng-click="closeThisDialog()">${i18n('buttonDialog.cancel')}</button>
+            </div>
+       
+    </script>   
 </section>
 
 

@@ -59,6 +59,16 @@ SearchPage.prototype = Object.create({}, {
       this.searchInputField.clear();
       this.searchInputField.sendKeys(searchKeyword);
     }
+  },
+  download:{
+	  value:function(){
+		  element(by.id('download-button')).click();
+         }
+  },
+  getTemplate:{
+	value: function(template){
+		return element(by.id(template)).getText();
+	}  
   }
 });
 

@@ -34,7 +34,9 @@ ProjectListPage.prototype = Object.create({}, {
     value: function () {
       var page = this;
       page.addProjectButton.click();
-      browser.waitForAngular();
+      browser.wait(function () {
+    	  return browser.executeScript('return !!window.angular');
+        }, 1000);
     }
   },
   addProjectAndReturnToProjectList: {

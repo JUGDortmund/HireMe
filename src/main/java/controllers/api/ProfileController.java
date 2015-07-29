@@ -60,6 +60,8 @@ public class ProfileController {
     profile.setFirstname("Max");
     profile.setLastname("Mustermann");
     profile.setCareerLevel(Lists.newArrayList("Manager"));
+    profile.setFirstMainFocus("JavaEE Entwickler");
+    profile.setSecondMainFocus("Hybris Zertifiziert");
     datastore.save(profile);
     return Results.status(Result.SC_201_CREATED).json().render(profile);
   }

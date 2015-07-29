@@ -11,6 +11,8 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
         Restangular.one('profile', $route.current.params.profileId).get()
       projects: (Restangular) ->
         Restangular.all('project').getList()
+      templates: (Restangular) ->
+        Restangular.all('templates').getList()
 .controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, Upload, projects, $document, $parse, tagService, $rootScope, ngDialog, $filter) ->
   $scope.profile = profile
   $scope.projects = projects
@@ -43,6 +45,8 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     workingProfile.degrees = profile.degrees.map toList
     workingProfile.careerLevel = profile.careerLevel.map toList
     workingProfile.workExperience = convertDate(profile.workExperience)
+    workingProfile.firstMainFocus = profile.firstMainFocus
+    workingProfile.secondMainFocus = profile.secondMainFocus
     workingProfile.languages = profile.languages.map toList
     workingProfile.industries = profile.industries.map toList
     workingProfile.platforms = profile.platforms.map toList
@@ -225,15 +229,26 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     return
 
   $scope.dialog = () ->
-    ngDialog.open(
+    ngDialog.open
       template:'warningDialog'
       preCloseCallback: (value) ->
         if(value == '1')
           return $scope.save()
         if(value == '0')
           return $scope.cancel()  
-      )  
 
   convertDate = (target) ->
     date = $filter('date')(target, 'yyyy-MM-dd', 'GMT+0200')
     return date 
+      
+  $scope.downloadPDF = (template) ->
+  	if (template == 'Anonym' && (profile.firstMainFocus== '' || profile.secondMainFocus == ''))
+  	  ngDialog.openConfirm(
+  	    scope: $scope
+  	    template:'anonymDialog').then(() ->
+  	      $scope.save().then(() ->
+  	        window.open('/api/exportProfile/'+ profile.id + '/' + template, '_self' ))
+  	    )
+    else
+      window.open('/api/exportProfile/'+ profile.id + '/' + template, '_self')
+  return 

@@ -104,6 +104,7 @@ describe('project page', function () {
 	  });
 	  
 	  it('should provide suggestions for tag fields from other project', function () {
+
 		    var locations = projectPage.locations;
 		    locations.click();
 		    locations.sendKeys("OtherProjectTag1");
@@ -114,8 +115,8 @@ describe('project page', function () {
 		    projectPage.save();
 
 			var newProjectListPage = new ProjectListPage();
-			newProjectListPage.addProject();
 
+			newProjectListPage.addProject();
 		    locations = projectPage.locations;
 		    locations.click();
 		    locations.sendKeys("OtherProjectTag");
