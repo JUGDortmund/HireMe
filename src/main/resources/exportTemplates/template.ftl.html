@@ -6,16 +6,16 @@
     <title>${firstname} ${lastname}</title>
     <style type="text/css">
         @font-face {
-          font-family: 'brandon';
-          font-style: normal;
-          font-weight: 100;
-          src: url('BrandonText-Bold.otf');
+         font-family: 'HankenBook';
+   		 font-weight: normal;
+         font-style: normal; 
+          src: url('Hanken-Book.ttf');
           -fs-pdf-font-embed: embed;
           -fs-pdf-font-encoding: Identity-H;
         }
         
         * {
-           font-family: 'brandon';
+           font-family: 'HankenBook';
            font-size: 12px;
         }
     
@@ -104,6 +104,9 @@
             margin-bottom: 20px;
             margin-top: 5px;
         }
+        .address{
+        	font-size: 11px;
+        }
 
         hr {
             margin-top: 30px;
@@ -176,7 +179,7 @@
             ${lastname}
             </p>
 
-            <p id="maredit-address">maredit GmbH &middot; Sebrathweg 20 &middot; 44149 Dortmund &middot; www.maredit.de</p>
+            <p class ="address" id="maredit-address">maredit GmbH &middot; Sebrathweg 20 &middot; 44149 Dortmund &middot; www.maredit.de</p>
         </div>
     </div>
     <div id="personal" class="block left blue">
