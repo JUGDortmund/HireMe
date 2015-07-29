@@ -9,23 +9,30 @@ angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
     resolve:
       project: (Restangular, $route) ->
         Restangular.one('project', $route.current.params.projectId).get()
-.controller 'ProjectCtrl', ($scope, $timeout, Restangular, project, $document, $parse, tagService, $rootScope, ngDialog) ->
-  dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
+        
+.controller 'ProjectCtrl', ($scope, $timeout, Restangular, project, $document, $parse, tagService, $rootScope, ngDialog, $filter) ->
   $scope.project = project 
-  if moment(project.start).isValid()
-    $scope.project.start = moment(project.start).format(dateFormat)
+  $scope.openedDatepickerPopup = []
+  
+  if project.start != undefined
+    $scope.project.start = project.start
   else
     $scope.project.start = ""
-  if moment(project.end).isValid()
-    $scope.project.end = moment(project.end).format(dateFormat)
+  if project.end != undefined
+    $scope.project.end = project.end
   else
     $scope.project.end = ""  
   $scope.originProject = angular.copy($scope.project)       
   tagService.loadTags()
   
+  $scope.openedDatepickerPopup =
+    start: false
+    end: false
+    
   showMessage = (targetName, keepChangeIndicators) ->
     target = $parse(targetName)
     target.assign($scope, true)
+
     if (targetName == 'success' || targetName == 'error')
       $document.duScrollTopAnimated(0)
     $('.form-group').removeClass('has-warning') unless keepChangeIndicators?
@@ -48,21 +55,14 @@ angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
     workingProject.locations = project.locations.map toList
     workingProject.industries = project.industries.map toList
     workingProject.technologies = project.technologies.map toList
-    workingProject.start = project.start
-    workingProject.end = project.end
+    workingProject.start = convertDate(project.start)
+    workingProject.end = convertDate(project.end)
     workingProject.summary = project.summary
     Restangular.one('project', project.id).customPUT(workingProject);
 
   $scope.save = ->
-    dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
-    dateString = moment($scope.project.start, dateFormat).toDate();
-    $scope.project.start = dateString
-    dateString = moment($scope.project.end, dateFormat).toDate();
-    $scope.project.end = dateString
     putWithTags(project).then (->
       $scope.showEditModeButtons = false
-      $scope.project.start = moment($scope.project.start).format(dateFormat);
-      $scope.project.end = moment($scope.project.end).format(dateFormat);
       $scope.originProject = angular.copy($scope.project)
       showMessage('success')
       tagService.loadTags()
@@ -92,6 +92,15 @@ angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
   $scope.getTags = (name) ->
     tagService.getTag(name)
 
+
+  $scope.openDatepickerPopup = ($event, datepicker) ->
+    $event.preventDefault();
+    $event.stopPropagation();
+    $scope.openedDatepickerPopup.start = false
+    $scope.openedDatepickerPopup.end = false
+    $scope.openedDatepickerPopup[datepicker] = true;
+    return
+    
   $scope.removeDuplicate = (variableName, tag, field) ->
     showMessage('errorDuplicate'+ field, true) 
     $scope.textTag = tag.text
@@ -116,3 +125,6 @@ angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
         if(value == '0')
           return $scope.cancel()  
       )
+      
+  convertDate = (target) ->
+    return $filter('date')(target, 'yyyy-MM-dd', 'GMT+0200')

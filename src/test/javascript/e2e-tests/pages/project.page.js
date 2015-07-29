@@ -49,6 +49,16 @@ ProjectPage.prototype = Object.create({}, {
       element(by.id('cancel-button')).click();
     }
   },
+  msgSuccess : {
+    get: function () {
+      return element(by.id('project-msg-success'));
+    }
+  },
+  msgError : {
+    get: function () {
+      return element(by.id('project-msg-error'));
+    }
+  },
   reject: {
 	value: function () {
 		  element(by.id('reject-button')).click();
