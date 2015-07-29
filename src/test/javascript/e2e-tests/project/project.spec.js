@@ -146,7 +146,7 @@ describe('project page', function () {
 	  
 	  it('schould provide special character in tag',function(){
 			var locations = projectPage.locations;
-			var inputLocation = '{}[]!#*="&;?';
+			var inputLocation = '#?{]!*);?';
 			locations.click();
 			locations.sendKeys(inputLocation);
 			locations.sendKeys(protractor.Key.ENTER);
