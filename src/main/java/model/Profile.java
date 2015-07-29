@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import conf.Constants;
 
+
 @Entity
 public class Profile extends BaseModel {
 
@@ -62,7 +63,13 @@ public class Profile extends BaseModel {
   private List<String> devEnvironments = new ArrayList<>();
 
   @Tag
-  private List<String> qualifications = new ArrayList<>();
+  private List<String> databases = new ArrayList<>();
+
+  @Tag
+  private List<String> certificates = new ArrayList<>();
+
+  @Tag
+  private List<String> competences = new ArrayList<>();
 
   private String summary;
 
@@ -187,12 +194,28 @@ public class Profile extends BaseModel {
     this.devEnvironments = devEnvironments;
   }
 
-  public List<String> getQualifications() {
-    return qualifications;
+  public List<String> getDatabases() {
+    return databases;
   }
 
-  public void setQualifications(List<String> qualifications) {
-    this.qualifications = qualifications;
+  public void setDatabases(List<String> databases) {
+    this.databases = databases;
+  }
+
+  public List<String> getCertificates() {
+    return certificates;
+  }
+
+  public void setCertificates(List<String> certificates) {
+    this.certificates = certificates;
+  }
+
+  public List<String> getCompetences() {
+    return competences;
+  }
+
+  public void setCompetences(List<String> competences) {
+    this.competences = competences;
   }
 
   public String getSummary() {
