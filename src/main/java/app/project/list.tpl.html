@@ -51,8 +51,8 @@
             <tr class="project"
                 ng-repeat="project in (filteredProjects = (projects | filter:search))">
                 <td><a ng-href="/project/{{project.id}}">{{project.title}}</a></td>
-                <td><a ng-href="/project/{{project.id}}">{{project.start | date : 'dd.MM.yyyy'}}</a></td>
-                <td><a ng-href="/project/{{project.id}}">{{project.end | date : 'dd.MM.yyyy'}}</a></td>
+                <td><a ng-href="/project/{{project.id}}">{{project.start | date : 'MM/yyyy'}}</a></td>
+                <td><a ng-href="/project/{{project.id}}">{{project.end | date : 'MM/yyyy'}}</a></td>
                 <td><a ng-href="/project/{{project.id}}">{{project.summary}}</a></td>
                 <td>
                     <a ng-href="/project/{{project.id}}">

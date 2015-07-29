@@ -49,13 +49,12 @@ describe('project page', function () {
 	  });
 
 	  it('should set a date correctly and persist date to project', function () {
-	    var inputDate = '01.03.01';
 	    var inputStart = projectPage.start;
 	    inputStart.click();
-	    inputStart.clear();
-	    inputStart.sendKeys(inputDate);
+	    var button = element.all(by.buttonText('akt. Monat')).first();
+		button.click();
 	    projectPage.save();
-	    expect(inputStart.getAttribute('value')).toBe(inputDate);
+	    expect(inputStart.getAttribute('value')).toBe(getTodaysDate());
 	  });
 
 	  it('should be able to create a new tag', function () {
@@ -83,21 +82,7 @@ describe('project page', function () {
 	    expect(projectPage.getLastLocationText).toBe(inputLocation);
 	    expect(projectPage.locationsTagCount).toBe(1);
 	  });
-
-	  it('should set an invalid date and persist it after correcting it', function () {
-	    var incorrectInputDate = '01.0x.01';
-	    var inputStart = projectPage.start;
-	    inputStart.click();
-	    inputStart.clear();
-	    inputStart.sendKeys(incorrectInputDate);
-	    inputStart.sendKeys(protractor.Key.DOWN);
-	    inputStart.sendKeys(protractor.Key.ENTER);
-	    inputStart.click();
-	    var newValue = inputStart.getAttribute('value');
-	    projectPage.save();
-	    expect(inputStart.getAttribute('value')).toBe(newValue);
-	  });
-
+	  
 	  it('should be able to remove an existing tag', function () {
 	    var locations = projectPage.locations;
 	    locations.click();
@@ -119,6 +104,7 @@ describe('project page', function () {
 	  });
 	  
 	  it('should provide suggestions for tag fields from other project', function () {
+
 		    var locations = projectPage.locations;
 		    locations.click();
 		    locations.sendKeys("OtherProjectTag1");
@@ -129,8 +115,8 @@ describe('project page', function () {
 		    projectPage.save();
 
 			var newProjectListPage = new ProjectListPage();
-			newProjectListPage.addProject();
 
+			newProjectListPage.addProject();
 		    locations = projectPage.locations;
 		    locations.click();
 		    locations.sendKeys("OtherProjectTag");
@@ -138,7 +124,7 @@ describe('project page', function () {
 		    var suggestionsCount = element.all(by.css('.suggestion-item')).count();
 		    expect(suggestionsCount).toBe(2);
 		  });
-	  
+	    
 	  it('schould provide tag without spaces at the front and the back',function(){
 			var locations = projectPage.locations;
 			var inputLocation = '      Test without spaces         ';
@@ -160,10 +146,20 @@ describe('project page', function () {
 	  
 	  it('schould provide special character in tag',function(){
 			var locations = projectPage.locations;
-			var inputLocation = '{}[]!#*="&;?';
+			var inputLocation = '#?{]!*);?';
 			locations.click();
 			locations.sendKeys(inputLocation);
 			locations.sendKeys(protractor.Key.ENTER);
 			expect(projectPage.getLastLocationText).toBe(inputLocation);
 	  });
+	  
+	  function getTodaysDate() {
+		  var date = new Date();
+		  var month = date.getMonth() + 1 ;
+		  if(month< 10) {
+			  month = "0"+month
+		  }
+		  var newdate = month + "." + date.getFullYear();
+		  return newdate;
+	  }
 });	  

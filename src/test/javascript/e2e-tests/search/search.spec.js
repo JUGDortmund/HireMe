@@ -42,4 +42,10 @@ describe('search page', function() {
     expect(searchPage.searchInputField.getAttribute('value')).toBe('blub');
   });
   
+  it('should able to download anonym and standrad pdf ', function(){
+		 searchPage.download(); 
+		 expect(searchPage.getTemplate('Anonym')).toBe("Anonym");
+		 expect(searchPage.getTemplate('Standard')).toBe("Standard");
+   });
+  
 });

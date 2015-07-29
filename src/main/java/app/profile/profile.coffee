@@ -1,4 +1,4 @@
-angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'ngFileUpload','ngDialog'])
+angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'ngFileUpload', 'ui.bootstrap', 'ngDialog'])
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
 .config ($routeProvider) ->
@@ -11,17 +11,17 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
         Restangular.one('profile', $route.current.params.profileId).get()
       projects: (Restangular) ->
         Restangular.all('project').getList()
-.controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, Upload, projects, $document, $parse, tagService, $rootScope, ngDialog) ->
-  dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
+      templates: (Restangular) ->
+        Restangular.all('templates').getList()
+.controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, Upload, projects, $document, $parse, tagService, $rootScope, ngDialog, $filter, templates) ->
   $scope.profile = profile
   $scope.projects = projects
-  if moment(profile.workExperience).isValid()
-    $scope.profile.workExperience = moment(profile.workExperience).format(dateFormat)
-  else
-    $scope.profile.workExperience = ""
+  $scope.templates = templates 
   $scope.originProfile = angular.copy($scope.profile)
   tagService.loadTags()
-  
+  $scope.openedWorkExperienceDatepickerPopup = false
+  $scope.openedDatepickerPopup = []
+	    
   showMessage = (targetName, keepChangeIndicators) ->
     target = $parse(targetName)
     target.assign($scope, true)
@@ -40,13 +40,14 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
 
   putWithTags = (profile) ->
     workingProfile = {}
-
     workingProfile.id = profile.id
     workingProfile.firstname = profile.firstname
     workingProfile.lastname = profile.lastname
     workingProfile.degrees = profile.degrees.map toList
     workingProfile.careerLevel = profile.careerLevel.map toList
-    workingProfile.workExperience = profile.workExperience
+    workingProfile.workExperience = convertDate(profile.workExperience)
+    workingProfile.firstMainFocus = profile.firstMainFocus
+    workingProfile.secondMainFocus = profile.secondMainFocus
     workingProfile.languages = profile.languages.map toList
     workingProfile.industries = profile.industries.map toList
     workingProfile.platforms = profile.platforms.map toList
@@ -63,8 +64,8 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
       workingProject = {}
       workingProject.id = project.id
       workingProject.project = project.project
-      workingProject.end = project.end if project.end?
-      workingProject.start = project.start if project.start?
+      workingProject.end = convertDate(project.end) if project.end?
+      workingProject.start = convertDate(project.start) if project.start?
       workingProject.locations = project.locations.map toList if project.locations?
       workingProject.positions = project.positions.map toList if project.positions?
       workingProject.technologies = project.technologies.map toList if project.technologies?
@@ -73,12 +74,8 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     Restangular.one('profile', profile.id).customPUT(workingProfile);
 
   $scope.save = ->
-    dateFormat = $('.datepicker').attr("data-date-format").toUpperCase()
-    dateString = moment($scope.profile.workExperience, dateFormat).toDate();
-    $scope.profile.workExperience = dateString
     putWithTags(profile).then (->
       $scope.showEditModeButtons = false
-      $scope.profile.workExperience = moment($scope.profile.workExperience).format(dateFormat);
       $scope.originProfile = angular.copy($scope.profile)
       $scope.files = []
       showMessage('success')
@@ -114,27 +111,33 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     if !$scope.profile.projectAssociations? then $scope.profile.projectAssociations = []
     $scope.profile.projectAssociations.push({});
     $scope.projectData.push({})
+    $scope.projectData.push({start: false, end: false})
     $scope.change()
     return
 
   $scope.deleteProjectAssociation = (index) ->
     $scope.profile.projectAssociations.splice(index, 1);
     $scope.projectData.splice(index, 1)
+    $scope.openedDatepickerPopup.splice(index, 1)
     $scope.change()
     return
   
   #Loads the Default values from the project if the field is empty.
   $scope.loadProjectDefaultsIfFieldIsEmpty = (index) ->
     currentProjectAssociation = $scope.profile.projectAssociations[index]
-    if typeof currentProjectAssociation.locations == 'undefined' || currentProjectAssociation.locations.length == 0
+    if  testCurrentProjectAssociations(currentProjectAssociation, 'locations')
     	currentProjectAssociation.locations = currentProjectAssociation.project.locations.slice()
-    if typeof currentProjectAssociation.technologies == 'undefined' || currentProjectAssociation.technologies.length == 0
+    if testCurrentProjectAssociations(currentProjectAssociation, 'technologies')
     	currentProjectAssociation.technologies = currentProjectAssociation.project.technologies.slice()
-    if moment(currentProjectAssociation.project.start).isValid() && (typeof currentProjectAssociation.start == 'undefined' || currentProjectAssociation.start== "")
-    	currentProjectAssociation.start = moment(currentProjectAssociation.project.start).format(dateFormat)
-    if moment(currentProjectAssociation.project.end).isValid() && (typeof currentProjectAssociation.end == 'undefined' || currentProjectAssociation.end== "") 
-    	currentProjectAssociation.end = moment(currentProjectAssociation.project.end).format(dateFormat)
+    if testCurrentProjectAssociations(currentProjectAssociation, 'start')
+    	currentProjectAssociation.start = currentProjectAssociation.project.start
+    if testCurrentProjectAssociations(currentProjectAssociation, 'end')
+    	currentProjectAssociation.end = currentProjectAssociation.project.end
     return
+  
+  testCurrentProjectAssociations = (projectAssocation, type) ->
+    return (projectAssocation.project[type] != 'undefined' && (typeof projectAssocation[type] == 'undefined' || projectAssocation[type].length == 0))
+
   
   #Loads the projectDefaults if the project is changed.
   $scope.loadProjectDefaults = (index) ->
@@ -142,8 +145,8 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     data = {}
     data.locations = currentProjectAssociation.project.locations.slice() if currentProjectAssociation.project.locations?
     data.technologies = currentProjectAssociation.project.technologies.slice() if currentProjectAssociation.project.technologies?
-    data.start = moment(currentProjectAssociation.project.start).format(dateFormat) if moment(currentProjectAssociation.project.start).isValid()
-    data.end = moment(currentProjectAssociation.project.end).format(dateFormat) if moment(currentProjectAssociation.project.end).isValid()
+    data.start = currentProjectAssociation.project.start if currentProjectAssociation.project.start != 'undefined'
+    data.end = currentProjectAssociation.project.end if currentProjectAssociation.project.end != 'undefined'
     $scope.projectData.splice(index, 1, data) 
     $scope.loadProjectDefaultsIfFieldIsEmpty(index)
     return
@@ -155,9 +158,11 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
         data = {}
         data.locations = project.project.locations.slice() if project.project.locations?
         data.technologies = project.project.technologies.slice() if project.project.technologies?
-        data.start = moment(project.project.start).format(dateFormat) if project.project.start?
-        data.end = moment(project.project.end).format(dateFormat) if project.project.end?
+        data.start = project.project.start if project.project.start?
+        data.end = project.project.end if project.project.end?
         return data
+      $scope.openedDatepickerPopup = $scope.profile.projectAssociations.map (project) ->
+        return {start: false, end:false}
     else 
       $scope.projectData = []
     return
@@ -198,6 +203,19 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
         showMessage('uploaderror', true)
     return
     
+  $scope.openDatepickerPopup = ($event, datepicker, index) ->
+    if(datepicker=='workExperience')
+    	$scope.openedWorkExperienceDatepickerPopup = true;
+    else
+    	$event.preventDefault();
+    	$event.stopPropagation();
+    	$scope.workExperienceDatepickerPopup = false;
+    	$scope.openedDatepickerPopup[index] =
+    		start: false
+    		end: false
+    	$scope.openedDatepickerPopup[index][datepicker] = true;
+    return
+  
   $scope.removeDuplicate = (variableName, tag, field) ->
     showMessage('errorDuplicate'+ field, true) 
     $scope.textTag = tag.text
@@ -206,7 +224,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
       return
     )
     return
-    
+
   $rootScope.$on '$locationChangeStart',(event) ->
     if($scope.showEditModeButtons == true)
       event.preventDefault()
@@ -214,13 +232,27 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     return
 
   $scope.dialog = () ->
-    ngDialog.open(
+    ngDialog.open
       template:'warningDialog'
       preCloseCallback: (value) ->
         if(value == '1')
           return $scope.save()
         if(value == '0')
-          return $scope.cancel()  
-      )
+          return $scope.cancel()
+    return
 
-    
+  convertDate = (target) ->
+    date = $filter('date')(target, 'yyyy-MM-dd', 'GMT+0200')
+    return date 
+      
+  $scope.downloadPDF = (template) ->
+  	if (template == 'Anonym' && (profile.firstMainFocus== '' || profile.secondMainFocus == ''))
+  	  ngDialog.openConfirm(
+  	    scope: $scope
+  	    template:'anonymDialog').then(() ->
+  	      $scope.save().then(() ->
+  	        window.open('/api/exportProfile/'+ profile.id + '/' + template, '_self' ))
+  	    )
+    else
+      window.open('/api/exportProfile/'+ profile.id + '/' + template, '_self')
+  return 

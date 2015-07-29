@@ -1,14 +1,18 @@
 package model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import model.annotations.ExcludeFromStringConcatenation;
-import model.annotations.Tag;
+
+import conf.Constants;
+
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Reference;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import model.annotations.ExcludeFromStringConcatenation;
+import model.annotations.Tag;
 
 @Entity
 public class ProjectAssociation extends BaseModel {
@@ -19,10 +23,10 @@ public class ProjectAssociation extends BaseModel {
   @Reference
   private Profile profile;
 
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.mm.yy")
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_FORMAT)
   private Date start;
 
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.mm.yy")
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_FORMAT)
   private Date end;
 
   @Tag

@@ -31,7 +31,7 @@ ProfilePage.prototype = Object.create({}, {
   },
   projectAssociationCount: {
     get: function () {
-      return element.all(by.css('.project-association')).count();
+      return this.projectAssociations.count();
     }
   },
   save: {
@@ -67,16 +67,35 @@ ProfilePage.prototype = Object.create({}, {
       element(by.id('add-project-association')).click();
     }
   },
+  projectAssociations: {
+    get : function () {
+      return element.all(by.css('.project-association'));
+    }
+  },
+  lastProjectAssociation: {
+    get : function () {
+      return this.projectAssociations.last();
+    }
+  },
   selectLastProjectInLastProjectAssociation: {
     value: function () {
-      var projectAssociation = element.all(by.css('.project-association')).last();
-      var project = projectAssociation.element(by.model('projectAssociation.project'));
+      var project = this.lastProjectAssociation.element(by.model('projectAssociation.project'));
       project.element(by.css('select option:last-child')).click();
     }
   },
   deleteProjectAssociation: {
     value: function () {
       element(by.id('delete-project-association-button-0')).click();
+    }
+  },
+  msgSuccess : {
+    get: function () {
+      return element(by.id('profile-msg-success'));
+    }
+  },
+  msgError : {
+    get: function () {
+      return element(by.id('profile-msg-error'));
     }
   },
   getLastTechnologieText: {
@@ -88,7 +107,37 @@ ProfilePage.prototype = Object.create({}, {
 		get: function () {
 		  return element.all(by.css('#projectAssociations-locations-0 .tag-item span')).last().getText();
 		}
+	  },
+  getStartDateInFirstProject: {
+	  get: function () {
+		  element(by.id('start-0'));
 	  }
+  },
+  clickTodayButtonOnDatepickerPopup: {
+	  value: function (index) {
+		  element.all(by.buttonText('akt. Monat')).get(index).click()
+	  }
+  },
+  clickClearButtonOnDatepickerPopup: {
+	  value: function (index) {
+		  element.all(by.buttonText('leeren')).get(index).click()
+	  }
+  },
+  clickRejectOnWarningPopup: {
+	  value: function () {
+		  element(by.css('button.btn.btn-primary.ngdialog-button')).click();
+	  }
+  },
+  download:{
+	  value:function(){
+		  element(by.id('download-button')).click();
+         }
+  },
+  getTemplate:{
+	value: function(template){
+		return element(by.id(template)).getText();
+	}  
+  }
 });
 
 module.exports = ProfilePage;

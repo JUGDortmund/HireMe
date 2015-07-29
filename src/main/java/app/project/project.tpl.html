@@ -2,18 +2,18 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2" style="padding-bottom: 80px;">
-                <div class="alert alert-danger alert-dismissible" role="alert" ng-show="error">
+                <div class="alert alert-danger alert-dismissible" role="alert" ng-show="error" id="project-msg-error">
                     <strong>${i18n('message.error.header')}</strong>
                     ${i18n('message.error.content')}
                 </div>
-                <div class="alert alert-success alert-dismissible" role="alert" ng-show="success">
+                <div class="alert alert-success alert-dismissible" role="alert" ng-show="success" id="project-msg-success">
                     <strong>${i18n('message.success.header')}</strong>
                     ${i18n('message.success.content')}
                 </div>
                 <div class="box border-box">
                     <div class="header-text">
                         <h2 class="headline">{{project.title}}</h2>
-                        <p class="description" ng-show="project.start && project.end">{{project.start}} - {{project.end}}</p>
+                        <p class="description" ng-show="project.start && project.end">{{project.start | date : 'MM/yyyy' }} - {{project.end | date : 'MM/yyyy'}}</p>
                     </div>
                 </div>
                <div ng-show="showEditModeButtons" class="no-print button-dialog">
@@ -86,15 +86,18 @@
 
                             <div class="col-md-8">
                                 <input type="text"
-                                       class="form-control datepicker"
-                                       data-provide="datepicker"
-                                       data-date-format=${dateFormat}
-                                       data-date-autoclose="true"
-                                       data-date-language=${language}
+                                       class="form-control"
+                                       datepicker-popup="${dateFormat}"
+                                       is-open="openedDatepickerPopup.start"
+                                       current-text="${i18n('form.datepicker.current')}"
+                                       clear-text="${i18n('form.datepicker.clear')}"
+                                       close-text="${i18n('form.datepicker.close')}"
                                        name="start"
                                        id="start"
+                                       ng-click="openDatepickerPopup($event,'start')"
                                        ng-model="project.start"
-                                       ng-change="change('form-group-start')"/>
+                                       ng-change="change('form-group-start')"
+                                       ng-readonly="true"/> 
                             </div>
                         </div>
                         <div class="form-group" id="form-group-end">
@@ -102,16 +105,19 @@
                                    class="control-label col-md-4">${i18n('project.end')}</label>
 
                             <div class="col-md-8">
-                                <input type="text"
-                                       class="form-control datepicker"
-                                       data-provide="datepicker"
-                                       data-date-format=${dateFormat}
-                                       data-date-autoclose="true"
-                                       data-date-language=${language}
+                                 <input type="text"
+                                       class="form-control"
+                                       datepicker-popup="${dateFormat}"
+                                       is-open="openedDatepickerPopup.end"
+                                       current-text="${i18n('form.datepicker.current')}"
+                                       clear-text="${i18n('form.datepicker.clear')}"
+                                       close-text="${i18n('form.datepicker.close')}"
                                        name="end"
                                        id="end"
+                                       ng-click="openDatepickerPopup($event,'end')"
                                        ng-model="project.end"
-                                       ng-change="change('form-group-end')"/>
+                                       ng-change="change('form-group-end')"
+                                       ng-readonly="true"/> 
                             </div>
                         </div>
                         <div class="form-group" id="form-group-locations">

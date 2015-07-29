@@ -2,25 +2,22 @@
 var ProjectListPage = require('../pages/projectlist.page.js');
 var SearchPage = require('../pages/search.page.js');
 var ProfilePage = require('../pages/profile.page.js');
+var ProjectPage = require('../pages/project.page.js');
 
 describe('projectList page', function () {
 
   var projectListPage;
+  var projectPage;
 
   beforeEach(function () {
     projectListPage = new ProjectListPage();
     projectListPage.addProjectAndReturnToProjectList();
   });
-
+  
   it('should redirect to the project edit page after creation of a new project', function () {
-    projectListPage.addProject();
-
-    browser.wait(function () {
-      return browser.getCurrentUrl().then(function (url) {
-        return /\/project\//.test(url)
-      }, 1000);
-    });
-    
+	projectListPage.addProject();
+	projectPage = new ProjectPage();
+	browser.sleep(1000);
     expect(browser.getCurrentUrl()).toContain('/project/');
   });
 
