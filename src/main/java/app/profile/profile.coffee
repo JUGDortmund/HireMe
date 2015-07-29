@@ -13,9 +13,10 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
         Restangular.all('project').getList()
       templates: (Restangular) ->
         Restangular.all('templates').getList()
-.controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, Upload, projects, $document, $parse, tagService, $rootScope, ngDialog, $filter) ->
+.controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, Upload, projects, $document, $parse, tagService, $rootScope, ngDialog, $filter, templates) ->
   $scope.profile = profile
   $scope.projects = projects
+  $scope.templates = templates 
   $scope.originProfile = angular.copy($scope.profile)
   tagService.loadTags()
   $scope.openedWorkExperienceDatepickerPopup = false
@@ -235,7 +236,8 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
         if(value == '1')
           return $scope.save()
         if(value == '0')
-          return $scope.cancel()  
+          return $scope.cancel()
+    return
 
   convertDate = (target) ->
     date = $filter('date')(target, 'yyyy-MM-dd', 'GMT+0200')
