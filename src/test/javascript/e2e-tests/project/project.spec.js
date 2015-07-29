@@ -130,8 +130,8 @@ describe('project page', function () {
 		    projectPage.save();
 
 			var newProjectListPage = new ProjectListPage();
+
 			newProjectListPage.addProject();
-			
 		    locations = projectPage.locations;
 		    locations.click();
 		    locations.sendKeys("OtherProjectTag");
