@@ -15,3 +15,4 @@ src/main/java/assets/dist
 phantomjsdriver.log
 .tern-project
 git.properties
+src/env
