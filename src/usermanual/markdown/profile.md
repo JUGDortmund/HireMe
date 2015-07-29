@@ -42,7 +42,7 @@ Es ist eine Eingabe von Freitext, Datum und Tags möglich.
 
 Ein Profil kann durch den Profilbutton, oben rechts in der Menüleiste, erstellt werden.
 
-![Profil erstellen](http://stash.maredit.net/projects/COM/repos/hireme/browse/src/usermanual/resources/profile/resources/Profile-Button.png?raw)
+![Profil erstellen](http://stash.maredit.net/projects/COM/repos/hireme/browse/src/usermanual/resources/profile/Profile-Button.png?raw)
 
 In dem Menü *Profile durchsuchen* kann das erstellte Profil ausgewählt werden.
 
@@ -68,14 +68,14 @@ Es folgt damit ein Hinweis, dass alle Änderungen verworfen werden, falls *Verwe
 
 Ein Projekt kann in der letzen Kategorie des Profiles hinzugefügt werden, indem das *Projekteinsatz hinzufügen* Button betätigt wird.
 
-![Hinzufügen vom Projekt zum Profile](http://stash.maredit.net/projects/COM/repos/hireme/browse/src/usermanual/resources/profile/Project_Add.png?raw)
+![Hinzufügen vom Projekt zum Profile](http://stash.maredit.net/projects/COM/repos/hireme/browse/src/usermanual/resources/profile/Projekt-Add.png?raw)
 
 Dort kann ein bestehendes Projekt aus der Liste gewählt werden und die dazugehörigen Informationen ausgefüllt werden.
 
-![Projekt referenzieren](http://stash.maredit.net/projects/COM/repos/hireme/browse/src/usermanual/resources/profile/Project_Choose.png?raw)
+![Projekt referenzieren](http://stash.maredit.net/projects/COM/repos/hireme/browse/src/usermanual/resources/profile/Project-Choose.png?raw)
 
 Ein Projekt kann ebenfalls gelöscht werden durch den *Löschen* Button, welcher sich oben neben der Auswahl des Projektes befindet.
 
-![Projectreferenz entfernen](http://stash.maredit.net/projects/COM/repos/hireme/browse/src/usermanual/resources/profile/Project_Remove.png?raw)
+![Projectreferenz entfernen](http://stash.maredit.net/projects/COM/repos/hireme/browse/src/usermanual/resources/profile/Project-Remove.png?raw)
 
 
