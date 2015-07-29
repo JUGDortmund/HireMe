@@ -14,8 +14,11 @@ import org.mongodb.morphia.annotations.Reference;
 import util.serializer.ResourceDeserializer;
 import util.serializer.ResourceSerializer;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+import conf.Constants;
 
 @Entity
 public class Profile extends BaseModel {
@@ -30,11 +33,12 @@ public class Profile extends BaseModel {
   @Tag
   private List<String> degrees = new ArrayList<>();
 
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Constants.DATE_FORMAT)
+  private Date workExperience;
+
   private String firstMainFocus;
 
   private String secondMainFocus;
-
-  private Date workExperience;
 
   @Tag
   private List<String> languages = new ArrayList<>();

@@ -53,7 +53,6 @@ public class ProfileController {
     return Results.json().render(profile);
   }
 
-
   @Path("")
   @POST
   public Result addProfile() {

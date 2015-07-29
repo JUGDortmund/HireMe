@@ -2,11 +2,11 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2" style="padding-bottom: 80px;">
-                <div class="alert alert-danger alert-dismissible" role="alert" ng-show="error">
+                <div class="alert alert-danger alert-dismissible" role="alert" ng-show="error" id="profile-msg-error">
                     <strong>${i18n('message.error.header')}</strong>
                     ${i18n('message.error.content')}
                 </div>
-                <div class="alert alert-success alert-dismissible" role="alert" ng-show="success">
+                <div class="alert alert-success alert-dismissible" role="alert" ng-show="success" id="profile-msg-success">
                     <strong>${i18n('message.success.header')}</strong>
                     ${i18n('message.success.content')}
                 </div>
@@ -169,16 +169,19 @@
 
                             <div class="col-md-8">
                                 <input type="text"
-                                       class="form-control datepicker"
-                                       data-provide="datepicker"
-                                       data-date-format=${dateFormat}
-                                       data-date-autoclose="true"
-                                       data-date-language=${language}
+                                       class="form-control"
+                                       datepicker-popup="${dateFormat}"
+                                       is-open="openedWorkExperienceDatepickerPopup"
+                                       current-text="${i18n('form.datepicker.current')}"
+                                       clear-text="${i18n('form.datepicker.clear')}"
+                                       close-text="${i18n('form.datepicker.close')}"
                                        name="workExperience"
                                        id="workExperience"
+                                       ng-click="openDatepickerPopup($event,'workExperience')"
                                        ng-model="profile.workExperience"
                                        ng-change="change('form-group-workExperience')"
-                                      />                                  
+                                       ng-readonly="true"
+                                      />
                             </div>
                            
                         </div>
@@ -441,16 +444,19 @@
 
                                     <div class="col-md-8">
                                         <input type="text"
-                                               class="form-control datepicker"
-                                               data-provide="datepicker"
-                                               data-date-format=${dateFormat}
-                                               data-date-autoclose="true"
-                                               data-date-language=${language}
+                                               class="form-control"
+                                               datepicker-popup="${dateFormat}"
+                                               is-open="openedDatepickerPopup[$index].start"
+                                       		   current-text="${i18n('form.datepicker.current')}"
+                                               clear-text="${i18n('form.datepicker.clear')}"
+                                               close-text="${i18n('form.datepicker.close')}"
                                                name="start"
                                                id="start-{{$index}}"
+                                               ng-click="openDatepickerPopup($event,'start',$index)"
                                                ng-model="projectAssociation.start"
-                                               ng-change="change('form-group-projectAssociation-start-' + $index)"/>
-                                               <p class=description id="projectData-start-{{$index}}"> ${i18n('project.start')}: {{projectData[$index].start}}
+                                               ng-change="change('form-group-projectAssociation-start-' + $index)"
+                                               ng-readonly="true"/>
+                                               <p class=description id="projectData-start-{{$index}}"> ${i18n('project.start')}: {{projectData[$index].start | date : 'MM/yyyy' }}
                                     </div>
                                 </div>
                                 <div class="form-group"
@@ -459,17 +465,20 @@
                                            class="control-label col-md-4">${i18n('profile.projects.end')}</label>
 
                                     <div class="col-md-8">
-                                        <input type="text"
-                                               class="form-control datepicker"
-                                               data-provide="datepicker"
-                                               data-date-format=${dateFormat}
-                                               data-date-autoclose="true"
-                                               data-date-language=${language}
+                                         <input type="text"
+                                               class="form-control"
+                                               datepicker-popup="${dateFormat}"
+                                               is-open="openedDatepickerPopup[$index].end"
+                                       		   current-text="${i18n('form.datepicker.current')}"
+                                               clear-text="${i18n('form.datepicker.clear')}"
+                                               close-text="${i18n('form.datepicker.close')}"
                                                name="end"
                                                id="end-{{$index}}"
+                                               ng-click="openDatepickerPopup($event,'end',$index)"
                                                ng-model="projectAssociation.end"
-                                               ng-change="change('form-group-projectAssocation-end-' + $index)"/>
-                                               <p class=description id="projectData-end-{{$index}}"> ${i18n('project.end')}: {{projectData[$index].end}}
+                                               ng-change="change('form-group-projectAssociation-end-' + $index)"
+                                               ng-readonly="true"/>
+                                               <p class=description id="projectData-end-{{$index}}"> ${i18n('project.end')}: {{projectData[$index].end | date : 'MM/yyyy' }}
                                     </div>
                                 </div>
                                 <div class="form-group"

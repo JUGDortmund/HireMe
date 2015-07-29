@@ -9,8 +9,11 @@ angular.module('app', [
   'project'
   'projectList'
   'ngTagsInput'
+  'ui.bootstrap'
 ])
-.config ($locationProvider, RestangularProvider, tagsInputConfigProvider) ->
+.config ($locationProvider, RestangularProvider, tagsInputConfigProvider, datepickerConfig, datepickerPopupConfig) ->
+  datepickerConfig.datepickerMode = 'month'
+  datepickerConfig.minMode = 'month'
   $locationProvider.html5Mode
     enabled: true
     requireBase: false
