@@ -10,7 +10,7 @@ angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
       project: (Restangular, $route) ->
         Restangular.one('project', $route.current.params.projectId).get()
         
-.controller 'ProjectCtrl', ($scope, $timeout, Restangular, project, $document, $parse, tagService, $rootScope, ngDialog, $filter) ->
+.controller 'ProjectCtrl', ($scope, $timeout, Restangular, project, $document, $parse, tagService, $rootScope, ngDialog, $filter, $window) ->
   $scope.project = project 
   $scope.openedDatepickerPopup = []
   
@@ -128,3 +128,12 @@ angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
       
   convertDate = (target) ->
     return $filter('date')(target, 'yyyy-MM-dd', 'GMT+0200')
+    
+  $scope.add = ->
+    Restangular.one('project').post().then (createdProject)->
+      $window.location.href = '/project/' + createdProject.id
+      getProjects()
+    return
+    
+  $scope.back = ->
+    $window.history.back()

@@ -1,7 +1,17 @@
 <section id="project-page-section" class="content module project-page">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2" style="padding-bottom: 80px;">
+        <div>
+        	<a ng-click=back() class="btn btn-app">
+				<i class="fa fa-arrow-left"></i>
+				${i18n('button.back')}
+				</a>
+            	<a ng-click ="add()"class="btn btn-app">
+				<i class="glyphicon glyphicon-plus"></i>
+				${i18n('button.new.project')}
+				</a>
+			</div>
+            <div class="col-lg-8 col-lg-offset-2" style="padding-bottom: 80px;">       
                 <div class="alert alert-danger alert-dismissible" role="alert" ng-show="error" id="project-msg-error">
                     <strong>${i18n('message.error.header')}</strong>
                     ${i18n('message.error.content')}
