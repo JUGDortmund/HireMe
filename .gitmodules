@@ -1,0 +1,3 @@
+[submodule "src/env/conf"]
+	path = src/env/conf
+	url = ssh://git@stash.maredit.net:7999/com/hireme-config.git
