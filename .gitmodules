@@ -1,3 +1,9 @@
-[submodule "src/env/conf"]
-	path = src/env/conf
-	url = ssh://git@stash.maredit.net:7999/com/hireme-config.git
+[submodule "src/env/jenkins"]
+	path = src/env/jenkins
+	url = ssh://git@stash.maredit.net:7999/com/hireme-config-jenkins.git
+[submodule "src/env/build"]
+	path = src/env/build
+	url = ssh://git@stash.maredit.net:7999/com/hireme-config-build.git
+[submodule "src/env/prod"]
+	path = src/env/prod
+	url = ssh://git@stash.maredit.net:7999/com/hireme-config-prod.git
