@@ -15,6 +15,11 @@ ProjectListPage.prototype = Object.create({}, {
       return element(by.id('add-project'));
     }
   },
+  addProjectButtonUnder: {
+	    get: function () {
+	      return element(by.id('add-project-under'));
+	    }
+	  },
   lastProject: {
     get: function () {
       return element.all(by.className('project')).last();
@@ -47,6 +52,16 @@ ProjectListPage.prototype = Object.create({}, {
       });
     }
   },
+  
+  addProjectUnderAndReturnToProjectList: {
+	    value: function () {
+	      var page = this;
+	      page.addProjectButtonUnder.click().then(function () {
+	        browser.get('/projectlist');
+	      });
+	    }
+	  },
+  
   projectCount: {
     get: function () {
       return element(by.id('project-count')).getText().then(function (text) {
