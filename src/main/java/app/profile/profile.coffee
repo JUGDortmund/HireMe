@@ -137,8 +137,10 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     return
   
   testCurrentProjectAssociations = (projectAssocation, type) ->
-    return (projectAssocation.project[type] != 'undefined' && (typeof projectAssocation[type] == 'undefined' || projectAssocation[type].length == 0))
-
+    console.log(projectAssocation)
+    console.log(type)
+    if projectAssocation.project[type]? then return (projectAssocation.project[type] != 'undefined' && (typeof projectAssocation[type] == 'undefined' || projectAssocation[type].length == 0))
+    else return false
   
   #Loads the projectDefaults if the project is changed.
   $scope.loadProjectDefaults = (index) ->
