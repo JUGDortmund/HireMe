@@ -63,7 +63,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     workingProfile.projectAssociations = _.map profile.projectAssociations, (project) ->
       workingProject = {}
       workingProject.id = project.id
-      workingProject.project = project.project
+      workingProject.project = project.project if project.project?
       workingProject.end = convertDate(project.end) if project.end?
       workingProject.start = convertDate(project.start) if project.start?
       workingProject.locations = project.locations.map toList if project.locations?
@@ -109,6 +109,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
 
   $scope.addProjectAssociation = ->
     if !$scope.profile.projectAssociations? then $scope.profile.projectAssociations = []
+    if !$scope.projectData? then $scope.projectData = []
     $scope.profile.projectAssociations.push({});
     $scope.projectData.push({})
     $scope.projectData.push({start: false, end: false})
@@ -154,18 +155,19 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   #Loads the projectDefaults initial when the side is called.
   loadInitialProjectDefaults = () ->
     if $scope.profile.projectAssociations?
-      $scope.projectData = $scope.profile.projectAssociations.map (project) ->
-        data = {}
-        data.locations = project.project.locations.slice() if project.project.locations?
-        data.technologies = project.project.technologies.slice() if project.project.technologies?
-        data.start = project.project.start if project.project.start?
-        data.end = project.project.end if project.project.end?
-        return data
-      $scope.openedDatepickerPopup = $scope.profile.projectAssociations.map (project) ->
-        return {start: false, end:false}
-    else 
-      $scope.projectData = []
-    return
+      if($scope.profile.projectAssociations.project?)
+        $scope.projectData = $scope.profile.projectAssociations.map (project) ->
+          data = {}
+          data.locations = project.project.locations.slice() if project.project.locations?
+          data.technologies = project.project.technologies.slice() if project.project.technologies?
+          data.start = project.project.start if project.project.start?
+          data.end = project.project.end if project.project.end?
+          return data
+        $scope.openedDatepickerPopup = $scope.profile.projectAssociations.map (project) ->
+          return {start: false, end:false}
+      else 
+        $scope.projectData = []
+      return
   
   loadInitialProjectDefaults()
   
