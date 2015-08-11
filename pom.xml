@@ -665,6 +665,11 @@
   			<artifactId>ngDialog</artifactId>
   			<version>0.4.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>angular-elastic</artifactId>
+			<version>2.4.2</version>
+		</dependency>
     </dependencies>
     <profiles>
         <!--Environment profile for development -->

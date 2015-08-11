@@ -1,4 +1,5 @@
-angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
+angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog', 'monospaced.elastic'])
+
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
 .config ($routeProvider) ->

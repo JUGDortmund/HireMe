@@ -431,7 +431,7 @@
                                    class="control-label col-md-4">${i18n('profile.skills.summary')}</label>
 
                             <div class="col-md-8">
-                                <textarea type="text" name="summary" id="summary" class="form-control"
+                                <textarea type="text" name="summary" id="summary" class="form-control msd-elastic"
                                           ng-model="profile.summary"
                                           ng-change="change('form-group-summary')"/>
                             </div>
@@ -617,7 +617,7 @@
                                         <textarea
                                                name="projectAssociations-tasks-{{$index}}"
                                                id="projectAssociations-tasks-{{$index}}"
-                                               class="form-control"
+                                               class="form-control msd-elastic"
                                                ng-model="projectAssociation.tasks"
                                                ng-change="change('form-group-projectAssociation-tasks-'+$index)"
                                                 />
