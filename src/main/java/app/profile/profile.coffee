@@ -63,7 +63,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     workingProfile.projectAssociations = _.map profile.projectAssociations, (project) ->
       workingProject = {}
       workingProject.id = project.id
-      workingProject.project = project.project if project.project?
+      workingProject.project = project.project
       workingProject.end = convertDate(project.end) if project.end?
       workingProject.start = convertDate(project.start) if project.start?
       workingProject.locations = project.locations.map toList if project.locations?
@@ -155,7 +155,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   #Loads the projectDefaults initial when the side is called.
   loadInitialProjectDefaults = () ->
     if $scope.profile.projectAssociations?
-      if($scope.profile.projectAssociations.project?)
+      if $scope.profile.projectAssociations.project?
         $scope.projectData = $scope.profile.projectAssociations.map (project) ->
           data = {}
           data.locations = project.project.locations.slice() if project.project.locations?
