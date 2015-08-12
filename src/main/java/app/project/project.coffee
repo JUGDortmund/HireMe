@@ -1,4 +1,4 @@
-angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog', 'monospaced.elastic'])
+angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
 
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
