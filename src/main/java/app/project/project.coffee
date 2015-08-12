@@ -13,6 +13,7 @@ angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
 .controller 'ProjectCtrl', ($scope, $timeout, Restangular, project, $document, $parse, tagService, $rootScope, ngDialog, $filter, $window) ->
   $scope.project = project 
   $scope.openedDatepickerPopup = []
+  console.log $scope.historyCount
   
   if project.start != undefined
     $scope.project.start = project.start
@@ -133,7 +134,13 @@ angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
     Restangular.one('project').post().then (createdProject)->
       $window.location.href = '/project/' + createdProject.id
       getProjects()
+    $rootScope.historyCount = $rootscope.historyCount - 1
     return
     
   $scope.back = ->
+    $window.history.go($scope.historyCount)
+    $rootScope.historyCount = 0
+  
+  $scope.backProject = ->
     $window.history.back()
+    $rootScope.historyCount = $rootScope.historyCount + 1

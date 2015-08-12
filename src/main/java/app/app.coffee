@@ -44,3 +44,4 @@ angular.module('app', [
     baseProfile = Restangular.all('profile')
     baseProfile.post().then ->
       $rootScope.$broadcast('add-profile');
+  $rootScope.historyCount = 0

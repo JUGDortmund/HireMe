@@ -2,10 +2,20 @@
     <div class="container-fluid">
         <div class="row">
         <div>
-        	<a ng-click=back() class="btn btn-app">
-				<i class="fa fa-arrow-left"></i>
+        	<div class ="dropdown">
+        	<a  class="btn btn-app dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+				<i class="fa fa-arrow-left" ></i>
 				${i18n('button.back')}
 				</a>
+				<ul class="dropdown-menu" >
+								<li>
+									<a ng-click=backProject() >letztes Projekt</a>
+								</li>
+								<li> 
+								 <a ng-click=back()>zum Anfang </a>
+								</li>
+							</ul>
+				</div>
             	<a ng-click ="add()"class="btn btn-app">
 				<i class="glyphicon glyphicon-plus"></i>
 				${i18n('button.new.project')}
