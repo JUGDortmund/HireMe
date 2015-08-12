@@ -276,7 +276,7 @@
     <div id="summary" class="block">
         <p class="h3">Zusammenfassung</p>
     <#if summary?has_content>
-    ${summary}
+    <#noescape>${summary}</#noescape>
     </#if>
     </div>
 <#list projectAssociations as projectAssociation>

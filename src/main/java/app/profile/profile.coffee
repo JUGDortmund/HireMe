@@ -1,4 +1,4 @@
-angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'ngFileUpload', 'ui.bootstrap', 'ngDialog', 'monospaced.elastic'])
+angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'ngFileUpload', 'ui.bootstrap', 'ngDialog', 'monospaced.elastic','textAngular'])
 
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
