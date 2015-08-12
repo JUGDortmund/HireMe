@@ -15,6 +15,8 @@ angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog', 'monospaced.e
   $scope.project = project 
   $scope.openedDatepickerPopup = []
   
+  if !$scope.project.summary? then $scope.project.summary = ""
+  
   if project.start != undefined
     $scope.project.start = project.start
   else
