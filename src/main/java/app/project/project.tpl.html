@@ -6,13 +6,14 @@
         	<a  class="btn btn-app dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 				<i class="fa fa-arrow-left" ></i>
 				${i18n('button.back')}
+				{{history}}
 				</a>
 				<ul class="dropdown-menu" >
 								<li>
 									<a ng-click=backProject() >letztes Projekt</a>
 								</li>
 								<li> 
-								 <a ng-click=back()>zum Anfang </a>
+								 <a ng-click=back(history)>zum Anfang </a>
 								</li>
 							</ul>
 				</div>

@@ -10,6 +10,7 @@ angular.module('app', [
   'projectList'
   'ngTagsInput'
   'ui.bootstrap'
+  'route'
 ])
 .config ($locationProvider, RestangularProvider, tagsInputConfigProvider, datepickerConfig, datepickerPopupConfig) ->
   datepickerConfig.datepickerMode = 'month'
@@ -44,4 +45,3 @@ angular.module('app', [
     baseProfile = Restangular.all('profile')
     baseProfile.post().then ->
       $rootScope.$broadcast('add-profile');
-  $rootScope.historyCount = 0
