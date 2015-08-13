@@ -14,6 +14,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
       templates: (Restangular) ->
         Restangular.all('templates').getList()
 .controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, Upload, projects, $document, $parse, tagService, $rootScope, ngDialog, $filter, templates) ->
+  $scope.today = new Date();
   $scope.profile = profile
   $scope.projects = projects
   $scope.templates = templates 
