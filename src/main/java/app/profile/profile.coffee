@@ -109,6 +109,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
 
   $scope.addProjectAssociation = ->
     if !$scope.profile.projectAssociations? then $scope.profile.projectAssociations = []
+    if !$scope.projectData? then $scope.projectData = []
     $scope.profile.projectAssociations.push({});
     $scope.projectData.push({})
     $scope.projectData.push({start: false, end: false})
@@ -125,7 +126,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   #Loads the Default values from the project if the field is empty.
   $scope.loadProjectDefaultsIfFieldIsEmpty = (index) ->
     currentProjectAssociation = $scope.profile.projectAssociations[index]
-    if  testCurrentProjectAssociations(currentProjectAssociation, 'locations')
+    if testCurrentProjectAssociations(currentProjectAssociation, 'locations')
     	currentProjectAssociation.locations = currentProjectAssociation.project.locations.slice()
     if testCurrentProjectAssociations(currentProjectAssociation, 'technologies')
     	currentProjectAssociation.technologies = currentProjectAssociation.project.technologies.slice()
@@ -136,8 +137,8 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     return
   
   testCurrentProjectAssociations = (projectAssocation, type) ->
-    return (projectAssocation.project[type] != 'undefined' && (typeof projectAssocation[type] == 'undefined' || projectAssocation[type].length == 0))
-
+    if projectAssocation.project[type]? then return (!projectAssocation[type]? || projectAssocation[type].length == 0)
+    else return false
   
   #Loads the projectDefaults if the project is changed.
   $scope.loadProjectDefaults = (index) ->
@@ -154,18 +155,19 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   #Loads the projectDefaults initial when the side is called.
   loadInitialProjectDefaults = () ->
     if $scope.profile.projectAssociations?
-      $scope.projectData = $scope.profile.projectAssociations.map (project) ->
-        data = {}
-        data.locations = project.project.locations.slice() if project.project.locations?
-        data.technologies = project.project.technologies.slice() if project.project.technologies?
-        data.start = project.project.start if project.project.start?
-        data.end = project.project.end if project.project.end?
-        return data
-      $scope.openedDatepickerPopup = $scope.profile.projectAssociations.map (project) ->
-        return {start: false, end:false}
-    else 
-      $scope.projectData = []
-    return
+      if $scope.profile.projectAssociations.project?
+        $scope.projectData = $scope.profile.projectAssociations.map (project) ->
+          data = {}
+          data.locations = project.project.locations.slice() if project.project.locations?
+          data.technologies = project.project.technologies.slice() if project.project.technologies?
+          data.start = project.project.start if project.project.start?
+          data.end = project.project.end if project.project.end?
+          return data
+        $scope.openedDatepickerPopup = $scope.profile.projectAssociations.map (project) ->
+          return {start: false, end:false}
+      else 
+        $scope.projectData = []
+      return
   
   loadInitialProjectDefaults()
   
