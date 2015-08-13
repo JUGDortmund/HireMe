@@ -1,4 +1,4 @@
-<section id="project-list-page-section" class="content module project-list-page">
+<section id="project-list-page-section" class="content module projectlist-page">
     <div class="alert alert-danger alert-dismissible" role="alert" ng-show="errorReferenceProfiles">
         <strong>${i18n('message.error.referencedProfiles.header')}</strong>
         ${i18n('message.error.referencedProfiles.content')}
@@ -16,6 +16,7 @@
         <strong>${i18n('message.success.header')}</strong>
         ${i18n('message.success.content')}
     </div>
+    <div class = "box default">
     <div class="box-header">
     	<h3 class="box-title">${i18n("project.list.title")}</h3> (<span id="filter-count">{{filteredProjects.length}}</span>
         	/ <span id="project-count">{{projects.length}}</span>)
@@ -31,10 +32,11 @@
                     </button>
                 </div>            
                 <div class="input-group-btn">
-                    <button class="btn btn-sm btn-default bg-blue" ng-click="add()" id="add-project" >
+                    <a class="btn btn-sm btn-default bg-blue" ng-click="add()" id="add-project" >
                         <i class="glyphicon glyphicon-plus"></i>
-                    </button>
+                    </a>
                 </div>
+
             </div>            
         </div>
     </div>
@@ -45,15 +47,15 @@
                 <th>${i18n("project.title")}</th>
                 <th>${i18n("project.start")}</th>
                 <th>${i18n("project.end")}</th>
-                <th>${i18n("project.summary")}</th>
+                <th>${i18n("project.companies")}</th>
                 <th>${i18n("project.list.editProject")}/${i18n("project.list.deleteProject")}</th>
             </tr>
             <tr class="project"
                 ng-repeat="project in (filteredProjects = (projects | filter:search))">
-                <td><a ng-href="/project/{{project.id}}">{{project.title}}</a></td>
+                <td><a ng-href="/project/{{project.id}}" popover-trigger="mouseenter" popover="{{project.summary}}" >{{project.title}}</a></td>
                 <td><a ng-href="/project/{{project.id}}">{{project.start | date : 'MM/yyyy'}}</a></td>
                 <td><a ng-href="/project/{{project.id}}">{{project.end | date : 'MM/yyyy'}}</a></td>
-                <td><a ng-href="/project/{{project.id}}">{{project.summary}}</a></td>
+                <td ><a ng-href="/project/{{project.id}}" ng-repeat="company in project.companies"> {{company}}{{$last ? '' : ', '}}</a></td>
                 <td>
                     <a ng-href="/project/{{project.id}}">
                         <div class="btn btn-default"><i class="fa fa-edit"></i></div>
@@ -62,8 +64,15 @@
                             class="fa fa-times"></i>
                     </a>
                 </td>
-            </tr>
-            </tbody>
-        </table>
+            </tr> 
+            </tbody>   
+        </table> 
     </div>
+    <div class="pull-right plus-button">                                	
+    	<a ng-click ="add()" class="btn btn-app bg-blue" id ="add-project-under">
+			<i class="glyphicon glyphicon-plus"></i>
+			 ${i18n('button.new.project')}
+		</a>
+	</div>  
+  </div>
 </section>
