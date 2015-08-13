@@ -24,7 +24,9 @@ Ein Profile ist unterteilt in vier Kategorien:
    * Programmiersprachen
    * Web-Technologien
    * Entwicklungswerkzeug
-   * Qualifikation
+   * Datenbanken
+   * Zertifikate
+   * Kompetenzen
    * Zusammenfassung 
    
 *4. Projekteinsätze*
