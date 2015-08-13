@@ -63,5 +63,11 @@ describe('projectList page', function () {
     projectListPage.addProjectAndReturnToProjectList();
     expect(projectListPage.projectCount).toBeGreaterThan(projectCount);
   });
+  
+  it('should add a new project if \"add project button\" is pressed', function () {
+	    var projectCount = projectListPage.projectCount;
+	    projectListPage.addProjectUnderAndReturnToProjectList();
+	    expect(projectListPage.projectCount).toBeGreaterThan(projectCount);
+  });
 
 });

@@ -24,7 +24,9 @@ Ein Profile ist unterteilt in vier Kategorien:
    * Programmiersprachen
    * Web-Technologien
    * Entwicklungswerkzeug
-   * Qualifikation
+   * Datenbanken
+   * Zertifikate
+   * Kompetenzen
    * Zusammenfassung 
    
 *4. Projekteinsätze*
@@ -42,25 +44,25 @@ Es ist eine Eingabe von Freitext, Datum und Tags möglich.
 
 Ein Profil kann durch den Profilbutton, oben rechts in der Menüleiste, erstellt werden.
 
-![Profil erstellen](http://stash.maredit.net/projects/COM/repos/hireme/browse/src/usermanual/resources/profile/Profile-Button.png?raw)
+![Profil erstellen](https://github.com/JUGDortmund/HireMe/blob/develop/src/usermanual/resources/profile/Profile-Button.png?raw)
 
 In dem Menü *Profile durchsuchen* kann das erstellte Profil ausgewählt werden.
 
-![Iniatial Project](http://stash.maredit.net/projects/COM/repos/hireme/browse/src/usermanual/resources/profile/Intitial-Profile.png?raw)
+![Iniatial Project](https://github.com/JUGDortmund/HireMe/blob/develop/src/usermanual/resources/profile/Intitial-Profile.png?raw)
 
 ###Profile ändern
 Nach der Auswahl des Profiles kann dieser editiert werden.
 Wenn ein Feld verändert wurde, dann ist dieses Feld orange umrandet und es erscheint ein Menü zum Speichern oder Abbrechen.
 
-![Profil editieren](http://stash.maredit.net/projects/COM/repos/hireme/browse/src/usermanual/resources/profile/Profile-Edit.png?raw)
+![Profil editieren](https://github.com/JUGDortmund/HireMe/blob/develop/src/usermanual/resources/profile/Profile-Edit.png?raw)
 
 Durch das Betätigen des *Speichern* Buttons, erscheint eine positive Meldung, wenn das speichern erfolgreich war.
 
-![Statusmeldung: Erfolgreich](http://stash.maredit.net/projects/COM/repos/hireme/browse/src/usermanual/resources/profile/Success-Save.png?raw)
+![Statusmeldung: Erfolgreich](https://github.com/JUGDortmund/HireMe/blob/develop/src/usermanual/resources/profile/Success-Save.png?raw)
 
 Nach dem klicken auf den *Abbrechen* Button, erscheint zu nächst ein Dialogfenster. 
 
-![Dialogfenster](http://stash.maredit.net/projects/COM/repos/hireme/browse/src/usermanual/resources/profile/Dialog-Cancel.png?raw)
+![Dialogfenster](https://github.com/JUGDortmund/HireMe/blob/develop/src/usermanual/resources/profile/Dialog-Cancel.png?raw)
 
 Es folgt damit ein Hinweis, dass alle Änderungen verworfen werden, falls *Verwerfen* Button bestätigt wird, sonst besteht die Möglichkeit die Änderung zu Speichern durch den *Speichern* Button.
 
@@ -68,14 +70,14 @@ Es folgt damit ein Hinweis, dass alle Änderungen verworfen werden, falls *Verwe
 
 Ein Projekt kann in der letzen Kategorie des Profiles hinzugefügt werden, indem das *Projekteinsatz hinzufügen* Button betätigt wird.
 
-![Hinzufügen vom Projekt zum Profile](http://stash.maredit.net/projects/COM/repos/hireme/browse/src/usermanual/resources/profile/Projekt-Add.png?raw)
+![Hinzufügen vom Projekt zum Profile](https://github.com/JUGDortmund/HireMe/blob/develop/src/usermanual/resources/profile/Projekt-Add.png?raw)
 
 Dort kann ein bestehendes Projekt aus der Liste gewählt werden und die dazugehörigen Informationen ausgefüllt werden.
 
-![Projekt referenzieren](http://stash.maredit.net/projects/COM/repos/hireme/browse/src/usermanual/resources/profile/Project-Choose.png?raw)
+![Projekt referenzieren](https://github.com/JUGDortmund/HireMe/blob/develop/src/usermanual/resources/profile/Project-Choose.png?raw)
 
 Ein Projekt kann ebenfalls gelöscht werden durch den *Löschen* Button, welcher sich oben neben der Auswahl des Projektes befindet.
 
-![Projectreferenz entfernen](http://stash.maredit.net/projects/COM/repos/hireme/browse/src/usermanual/resources/profile/Project-Remove.png?raw)
+![Projectreferenz entfernen](https://github.com/JUGDortmund/HireMe/blob/develop/src/usermanual/resources/profile/Project-Remove.png?raw)
 
 
