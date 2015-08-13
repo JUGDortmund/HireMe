@@ -135,10 +135,25 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     	currentProjectAssociation.start = currentProjectAssociation.project.start
     if testCurrentProjectAssociations(currentProjectAssociation, 'end')
     	currentProjectAssociation.end = currentProjectAssociation.project.end
+    if validateStart(currentProjectAssociation.start, currentProjectAssociation.project.start)
+    	currentProjectAssociation.start = currentProjectAssociation.project.start
+    if validateEnd(currentProjectAssociation.end, currentProjectAssociation.project.end)
+    	currentProjectAssociation.end = currentProjectAssociation.project.end
     return
   
   testCurrentProjectAssociations = (projectAssocation, type) ->
     if projectAssocation.project[type]? then return (!projectAssocation[type]? || projectAssocation[type].length == 0)
+    else return false
+  
+    
+  validateStart = (profileStart, projectStart) ->
+    if !projectStart? then return false
+    else if profileStart < projectStart then return true
+    else return false
+    
+  validateEnd = (profileEnd, projectEnd) ->
+    if !projectEnd? then return false
+    else if profileEnd > projectEnd then return true
     else return false
   
   #Loads the projectDefaults if the project is changed.
@@ -258,4 +273,4 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   	    )
     else
       window.open('/api/exportProfile/'+ profile.id + '/' + template, '_self')
-  return 
+  return
