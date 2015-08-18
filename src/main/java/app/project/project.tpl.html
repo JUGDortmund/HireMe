@@ -1,7 +1,21 @@
 <section id="project-page-section" class="content module project-page">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2" style="padding-bottom: 80px;">
+        <div>
+			<div>
+				<a ng-click ="back('/projectlist')"class="btn btn-app">
+				<i class="fa fa-arrow-left"></i>
+				${i18n('button.back')}
+				</a>
+			</div>
+			<div>
+            	<a ng-click ="add()"class="btn btn-app">
+				<i class="glyphicon glyphicon-plus"></i>
+				${i18n('button.new.project')}
+				</a>
+			</div>
+			</div>
+            <div class="col-lg-8 col-lg-offset-2" style="padding-bottom: 80px;">       
                 <div class="alert alert-danger alert-dismissible" role="alert" ng-show="error" id="project-msg-error">
                     <strong>${i18n('message.error.header')}</strong>
                     ${i18n('message.error.content')}
@@ -161,12 +175,17 @@
                         </div>
                         <div class="form-group" id="form-group-summary">
                             <label for="summary" class="control-label col-md-4">${i18n('project.summary')}</label>
-
                             <div class="col-md-8">
-                                <textarea type="text" name="summary" id="summary"
-                                       class="form-control" ng-model="project.summary"
-                                       ng-change="change('form-group-summary')"/>
-                            </div>
+                                <div text-angular
+                                 	    ta-toolbar="[
+                                 	    ['h1','h2','h3','h4','h5','h6','p','pre','quote'],
+                                 	  	['bold','italics','underline','ul','ol','redo','undo','clear'],
+                                 	  	['justifyLeft','justifyCenter','justifyRight','indent','outdent']]"
+                                 	  	ng-model="project.summary"
+                                      	name="summary" id="summary"
+                                 	  	ng-change="change('form-group-summary')">
+                               </div>                             
+                         	</div>         
                         </div>
                     </div>
                 </div>
