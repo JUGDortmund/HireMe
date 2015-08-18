@@ -431,10 +431,17 @@
                                    class="control-label col-md-4">${i18n('profile.skills.summary')}</label>
 
                             <div class="col-md-8">
-                                <textarea type="text" name="summary" id="summary" class="form-control"
-                                          ng-model="profile.summary"
-                                          ng-change="change('form-group-summary')"/>
-                            </div>
+                                 <div text-angular
+                                 	  ta-toolbar="[
+                                 	  ['h1','h2','h3','h4','h5','h6','p','pre','quote'],
+                                 	  ['bold','italics','underline','ul','ol','redo','undo','clear'],
+                                 	  ['justifyLeft','justifyCenter','justifyRight','indent','outdent'],
+                                 	  []]"
+                                 	  ng-model="profile.summary"
+                                      name="summary" id="summary"
+                                 	  ng-change="change('form-group-summary')">
+                                </div>                             
+                            </div>                       
                         </div>
                     </div>
                 </div>
@@ -612,16 +619,17 @@
                                 <div class="form-group"
                                      id="form-group-projectAssociation-tasks-{{$index}}">
                                     <label for="projectAssociations-tasks-{{$index}}" class="control-label col-md-4">${i18n('profile.projects.tasks')}</label>
-
                                     <div class="col-md-8">
-                                        <textarea
-                                               name="projectAssociations-tasks-{{$index}}"
-                                               id="projectAssociations-tasks-{{$index}}"
-                                               class="form-control"
-                                               ng-model="projectAssociation.tasks"
-                                               ng-change="change('form-group-projectAssociation-tasks-'+$index)"
-                                                />
-                                    </div>
+                                 		<div text-angular
+                                 	  		ta-toolbar="[
+                                 	  		['h1','h2','h3','h4','h5','h6','p','pre','quote'],
+                                 	  		['bold','italics','underline','ul','ol','redo','undo','clear'],
+                                 	  		['justifyLeft','justifyCenter','justifyRight','indent','outdent']]"
+                                 	  		ng-model="projectAssociation.tasks"
+                                      		name="projectAssociations-tasks-{{$index}}" id="projectAssociations-tasks-{{$index}}"
+                                 	  		ng-change="change('form-group-projectAssociation-tasks-'+$index)">
+                                		</div>                             
+                            		</div>         
                                 </div>
                             </div>
                         </div>

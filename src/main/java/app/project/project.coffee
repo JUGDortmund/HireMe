@@ -1,4 +1,5 @@
 angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
+
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
 .config ($routeProvider) ->
@@ -14,6 +15,8 @@ angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
   $scope.project = project 
   $scope.openedDatepickerPopup = []
   console.log routeService.getData()
+  
+  if !$scope.project.summary? then $scope.project.summary = ""
   
   if project.start != undefined
     $scope.project.start = project.start

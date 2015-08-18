@@ -285,7 +285,7 @@
     <div id="summary" class="block">
         <p class="h3">Zusammenfassung</p>
     <#if summary?has_content>
-    ${summary}
+    <#noescape>${summary}</#noescape>
     </#if>
     </div>
 <#list projectAssociations as projectAssociation>
@@ -335,8 +335,7 @@
     <div class="block">
         <#if (projectAssociation.project)?has_content && projectAssociation.project.summary?has_content>
             <p class="h3">Projektbeschreibung:</p>
-
-            <p>${projectAssociation.project.summary}</p>
+            <p><#noescape>${projectAssociation.project.summary}</#noescape></p>
         </#if>
         <#if projectAssociation.positions?has_content>
             <p class="h3">Position:</p>
@@ -349,7 +348,7 @@
         <#if projectAssociation.tasks?has_content>
             <p class="h3">Aufgaben:</p>
 
-            <p>${projectAssociation.tasks}</p>
+            <p><#noescape>${projectAssociation.tasks}</#noescape></p>
         </#if>
         <#if projectAssociation.technologies?has_content>
             <p class="h3">Technologien:</p>
