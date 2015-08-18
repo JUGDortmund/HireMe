@@ -170,20 +170,19 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   
   #Loads the projectDefaults initial when the side is called.
   loadInitialProjectDefaults = () ->
-    if $scope.profile.projectAssociations?
-      if $scope.profile.projectAssociations.project?
-        $scope.projectData = $scope.profile.projectAssociations.map (project) ->
-          data = {}
-          data.locations = project.project.locations.slice() if project.project.locations?
-          data.technologies = project.project.technologies.slice() if project.project.technologies?
-          data.start = project.project.start if project.project.start?
-          data.end = project.project.end if project.project.end?
-          return data
-        $scope.openedDatepickerPopup = $scope.profile.projectAssociations.map (project) ->
-          return {start: false, end:false}
+    $scope.projectData = $scope.profile.projectAssociations.map (project) ->
+      if project?
+        data = {}
+        data.locations = project.project.locations.slice() if project.project.locations?
+        data.technologies = project.project.technologies.slice() if project.project.technologies?
+        data.start = project.project.start if project.project.start?
+        data.end = project.project.end if project.project.end?
+        return data
       else 
         $scope.projectData = []
-      return
+    $scope.openedDatepickerPopup = $scope.profile.projectAssociations.map (project) ->
+      return {start: false, end: false}
+    return
   
   loadInitialProjectDefaults()
   
