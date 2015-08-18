@@ -159,12 +159,17 @@
                         </div>
                         <div class="form-group" id="form-group-summary">
                             <label for="summary" class="control-label col-md-4">${i18n('project.summary')}</label>
-
                             <div class="col-md-8">
-                                <textarea type="text" name="summary" id="summary"
-                                       class="form-control" ng-model="project.summary"
-                                       ng-change="change('form-group-summary')"/>
-                            </div>
+                                <div text-angular
+                                 	    ta-toolbar="[
+                                 	    ['h1','h2','h3','h4','h5','h6','p','pre','quote'],
+                                 	  	['bold','italics','underline','ul','ol','redo','undo','clear'],
+                                 	  	['justifyLeft','justifyCenter','justifyRight','indent','outdent']]"
+                                 	  	ng-model="project.summary"
+                                      	name="summary" id="summary"
+                                 	  	ng-change="change('form-group-summary')">
+                               </div>                             
+                         	</div>         
                         </div>
                     </div>
                 </div>

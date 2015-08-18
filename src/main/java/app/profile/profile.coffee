@@ -1,4 +1,5 @@
-angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'ngFileUpload', 'ui.bootstrap', 'ngDialog'])
+angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'ngFileUpload', 'ui.bootstrap', 'ngDialog','textAngular'])
+
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
 .config ($routeProvider) ->
@@ -21,6 +22,8 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   tagService.loadTags()
   $scope.openedWorkExperienceDatepickerPopup = false
   $scope.openedDatepickerPopup = []
+  
+  if !$scope.profile.summary? then $scope.profile.summary = ""
 	    
   showMessage = (targetName, keepChangeIndicators) ->
     target = $parse(targetName)
@@ -111,6 +114,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     if !$scope.profile.projectAssociations? then $scope.profile.projectAssociations = []
     if !$scope.projectData? then $scope.projectData = []
     $scope.profile.projectAssociations.push({});
+    $scope.profile.projectAssociations[$scope.profile.projectAssociations.length-1].tasks = "" if !$scope.profile.projectAssociations[$scope.profile.projectAssociations.length-1].tasks?
     $scope.projectData.push({})
     $scope.projectData.push({start: false, end: false})
     $scope.change()

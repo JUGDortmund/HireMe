@@ -1,4 +1,5 @@
 angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
+
 .value('duScrollDuration', 500)
 .value('duScrollOffset', 30)
 .config ($routeProvider) ->
@@ -13,6 +14,8 @@ angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
 .controller 'ProjectCtrl', ($scope, $timeout, Restangular, project, $document, $parse, tagService, $rootScope, ngDialog, $filter) ->
   $scope.project = project 
   $scope.openedDatepickerPopup = []
+  
+  if !$scope.project.summary? then $scope.project.summary = ""
   
   if project.start != undefined
     $scope.project.start = project.start
