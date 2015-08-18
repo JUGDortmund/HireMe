@@ -136,8 +136,8 @@ angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
       getProjects()
     return
     
-  $scope.back = ->
-    $window.location.href = routeService.getData()
+  $scope.back = (location) ->
+    $window.location.href = location
     return
 
   $scope.backProject = ->
