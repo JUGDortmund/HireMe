@@ -10,6 +10,7 @@ angular.module('app', [
   'projectList'
   'ngTagsInput'
   'ui.bootstrap'
+  'route'
 ])
 .config ($locationProvider, RestangularProvider, tagsInputConfigProvider, datepickerConfig, datepickerPopupConfig) ->
   datepickerConfig.datepickerMode = 'month'

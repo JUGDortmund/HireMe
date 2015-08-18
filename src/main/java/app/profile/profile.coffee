@@ -14,7 +14,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
         Restangular.all('project').getList()
       templates: (Restangular) ->
         Restangular.all('templates').getList()
-.controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, Upload, projects, $document, $parse, tagService, $rootScope, ngDialog, $filter, templates) ->
+.controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, Upload, projects, $document, $parse, tagService, $rootScope, ngDialog, $filter, templates, routeService) ->
   $scope.profile = profile
   $scope.projects = projects
   $scope.templates = templates 
@@ -22,7 +22,6 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   tagService.loadTags()
   $scope.openedWorkExperienceDatepickerPopup = false
   $scope.openedDatepickerPopup = []
-  
   if !$scope.profile.summary? then $scope.profile.summary = ""
 	    
   showMessage = (targetName, keepChangeIndicators) ->
@@ -250,6 +249,10 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   convertDate = (target) ->
     date = $filter('date')(target, 'yyyy-MM-dd', 'GMT+0200')
     return date 
+     
+  $rootScope.$on '$locationChangeStart',(event, newUrl, oldUrl) ->
+    routeService.setData(oldUrl)
+    return
       
   $scope.downloadPDF = (template) ->
   	if (template == 'Anonym' && (profile.firstMainFocus== '' || profile.secondMainFocus == ''))

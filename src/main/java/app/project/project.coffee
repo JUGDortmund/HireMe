@@ -11,9 +11,10 @@ angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
       project: (Restangular, $route) ->
         Restangular.one('project', $route.current.params.projectId).get()
         
-.controller 'ProjectCtrl', ($scope, $timeout, Restangular, project, $document, $parse, tagService, $rootScope, ngDialog, $filter) ->
+.controller 'ProjectCtrl', ($scope, $timeout, Restangular, project, $document, $parse, tagService, $rootScope, ngDialog, $filter, $window, routeService) ->
   $scope.project = project 
   $scope.openedDatepickerPopup = []
+  console.log routeService.getData()
   
   if !$scope.project.summary? then $scope.project.summary = ""
   
@@ -131,3 +132,18 @@ angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
       
   convertDate = (target) ->
     return $filter('date')(target, 'yyyy-MM-dd', 'GMT+0200')
+    
+  $scope.add = ->
+    Restangular.one('project').post().then (createdProject)->
+      $window.location.href = '/project/' + createdProject.id
+      getProjects()
+    return
+    
+  $scope.back = (location) ->
+    $window.location.href = location
+    return
+
+  $scope.backProject = ->
+    $window.history.back()
+    return
+ 

@@ -7,10 +7,11 @@ angular.module('projectList', ['utils.autofocus', 'duScroll'])
     controller: 'ProjectListCtrl',
     resolve:
       projects: (Restangular) -> Restangular.all('project').getList()
-.controller 'ProjectListCtrl', ($scope, $timeout, $location, $window, Restangular, projects, $document, $parse) ->
+.controller 'ProjectListCtrl', ($scope, $timeout, $location, $window, Restangular, projects, $document, $parse, $rootScope, routeService) ->
   $scope.projects = projects
   getProjects = -> projects.getList().then (projects) ->
     $scope.projects = projects
+  console.log routeService.getData()
 
   showMessage = (targetName) ->
     target = $parse(targetName)
@@ -41,3 +42,7 @@ angular.module('projectList', ['utils.autofocus', 'duScroll'])
       else
         showMessage('error')
       return
+      
+  $rootScope.$on '$locationChangeSuccess', (event, newUrl, oldUrl)->
+    routeService.setData(oldUrl)
+    return
