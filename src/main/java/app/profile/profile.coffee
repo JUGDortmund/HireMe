@@ -175,18 +175,18 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   loadInitialProjectDefaults = () ->
     if $scope.profile.projectAssociations?
       $scope.projectData = $scope.profile.projectAssociations.map (project) ->
-        if project?
-          data = {}
+        data = {}
+        if project.project?
           data.locations = project.project.locations.slice() if project.project.locations?
           data.technologies = project.project.technologies.slice() if project.project.technologies?
           data.start = project.project.start if project.project.start?
           data.end = project.project.end if project.project.end?
           return data
-        else 
-          $scope.projectData = []
       $scope.openedDatepickerPopup = $scope.profile.projectAssociations.map (project) ->
-        return {start: false, end: false}
-    return
+          return {start: false, end:false}
+     else 
+        $scope.projectData = []
+      return
   
   loadInitialProjectDefaults()
   

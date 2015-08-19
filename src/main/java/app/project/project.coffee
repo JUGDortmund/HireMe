@@ -14,7 +14,6 @@ angular.module( 'project', ['duScroll', 'ngTagsInput', 'ngDialog'])
 .controller 'ProjectCtrl', ($scope, $timeout, Restangular, project, $document, $parse, tagService, $rootScope, ngDialog, $filter, $window, routeService) ->
   $scope.project = project 
   $scope.openedDatepickerPopup = []
-  console.log routeService.getData()
   
   if !$scope.project.summary? then $scope.project.summary = ""
   
