@@ -15,6 +15,7 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
       templates: (Restangular) ->
         Restangular.all('templates').getList()
 .controller 'ProfileCtrl', ($scope, $timeout, Restangular, profile, Upload, projects, $document, $parse, tagService, $rootScope, ngDialog, $filter, templates, routeService) ->
+  $scope.today = new Date();
   $scope.profile = profile
   $scope.projects = projects
   $scope.templates = templates 
@@ -137,10 +138,25 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
     	currentProjectAssociation.start = currentProjectAssociation.project.start
     if testCurrentProjectAssociations(currentProjectAssociation, 'end')
     	currentProjectAssociation.end = currentProjectAssociation.project.end
+    if validateStart(currentProjectAssociation.start, currentProjectAssociation.project.start)
+    	currentProjectAssociation.start = currentProjectAssociation.project.start
+    if validateEnd(currentProjectAssociation.end, currentProjectAssociation.project.end)
+    	currentProjectAssociation.end = currentProjectAssociation.project.end
     return
   
   testCurrentProjectAssociations = (projectAssocation, type) ->
     if projectAssocation.project[type]? then return (!projectAssocation[type]? || projectAssocation[type].length == 0)
+    else return false
+  
+    
+  validateStart = (profileStart, projectStart) ->
+    if !projectStart? then return false
+    else if profileStart < projectStart then return true
+    else return false
+    
+  validateEnd = (profileEnd, projectEnd) ->
+    if !projectEnd? then return false
+    else if profileEnd > projectEnd then return true
     else return false
   
   #Loads the projectDefaults if the project is changed.
@@ -158,17 +174,17 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   #Loads the projectDefaults initial when the side is called.
   loadInitialProjectDefaults = () ->
     if $scope.profile.projectAssociations?
-      if $scope.profile.projectAssociations.project?
-        $scope.projectData = $scope.profile.projectAssociations.map (project) ->
-          data = {}
+      $scope.projectData = $scope.profile.projectAssociations.map (project) ->
+        data = {}
+        if project.project?
           data.locations = project.project.locations.slice() if project.project.locations?
           data.technologies = project.project.technologies.slice() if project.project.technologies?
           data.start = project.project.start if project.project.start?
           data.end = project.project.end if project.project.end?
           return data
-        $scope.openedDatepickerPopup = $scope.profile.projectAssociations.map (project) ->
+      $scope.openedDatepickerPopup = $scope.profile.projectAssociations.map (project) ->
           return {start: false, end:false}
-      else 
+     else 
         $scope.projectData = []
       return
   
@@ -264,4 +280,4 @@ angular.module('profile', ['duScroll', 'ngTagsInput', 'utils.customResource', 'n
   	    )
     else
       window.open('/api/exportProfile/'+ profile.id + '/' + template, '_self')
-  return 
+  return
